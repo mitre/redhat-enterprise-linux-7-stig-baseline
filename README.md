@@ -1,67 +1,146 @@
-# RHEL7 STIG Automated Compliance Validation Profile
+# EL7 DISA STIG InSpec Profile Maintained by the SIMP Project
 
-<b>RHEL 7.X</b> STIG Automated Compliance Validation Profile works with Chef InSpec to perform automated compliance checks of <b>RHEL7</b>.
+This [InSpec](https://github.com/chef/inspec) profile is being developed and
+maintained as part of the SIMP project.
 
-This automated Security Technical Implementation Guide (STIG) validator was developed to reduce the time it takes to perform a security check based upon STIG Guidance from DISA. These check results should provide information needed to receive a secure authority to operate (ATO) certification for the applicable technology.
-<b>RHEL7</b> uses [Chef InSpec](https://github.com/chef/inspec), which provides an open source compliance, security and policy testing framework that dynamically extracts system configuration information.
+That said, it is our goal to make them valid for general purpose usage and
+hopefully hand them off to a more structured body as time progresses.
 
-## RHEL7 STIG Overview
+# Testing
 
-The <b>RHEL7</b> STIG (https://public.cyber.mil/stigs/) by the United States Defense Information Systems Agency (DISA) offers a comprehensive compliance guide for the configuration and operation of various technologies.
-DISA has created and maintains a set of security guidelines for applications, computer systems or networks connected to the DoD. These guidelines are the primary security standards used by many DoD agencies. In addition to defining security guidelines, the STIG also stipulates how security training should proceed and when security checks should occur. Organizations must stay compliant with these guidelines or they risk having their access to the DoD terminated.
+This repository uses either [Beaker](https://github.com/puppetlabs/beaker) to
+run tests or the [KitchenCI](http://kitchen.ci) framework to run tests on the
+various profiles. Please see the documentation below on how to use each of the
+frameworks.
 
-[STIG](https://en.wikipedia.org/wiki/Security_Technical_Implementation_Guide)s are the configuration standards for United States Department of Defense (DoD) Information Assurance (IA) and IA-enabled devices/systems published by the United States Defense Information Systems Agency (DISA). Since 1998, DISA has played a critical role enhancing the security posture of DoD's security systems by providing the STIGs. The STIGs contain technical guidance to "lock down" information systems/software that might otherwise be vulnerable to a malicious computer attack.
+# Testing with Beaker
 
-The requirements associated with the <b>RHEL8</b> STIG are derived from the [National Institute of Standards and Technology](https://en.wikipedia.org/wiki/National_Institute_of_Standards_and_Technology) (NIST) [Special Publication (SP) 800-53, Revision 4](https://en.wikipedia.org/wiki/NIST_Special_Publication_800-53) and related documents.
+To run the tests, perform the following actions:
 
-While the RHEL8 STIG automation profile check was developed to provide technical guidance to validate information with security systems such as applications, the guidance applies to all organizations that need to meet internal security as well as compliance standards.
+1. Have Ruby 2.3.0 or later installed
+2. Run ``bundle install``
+3. Run ``rake beaker:suites``
 
-### This STIG Automated Compliance Validation Profile was developed based upon:
+### Debugging
 
-- RHEL8 Security Technical Implementation Guide
+If you need to debug your systems, you can run Beaker with a couple of options:
 
-### Update History
+1. Preserve the VM unconditionally
+   * ``BEAKER_destroy=no rake beaker:suites``
 
-| Guidance Name                             | Guidance Version | Guidance Location                         | Profile Version | Profile Release Date | STIG EOL | Profile EOL |
-| ----------------------------------------- | ---------------- | ----------------------------------------- | --------------- | -------------------- | -------- | ----------- |
-| Red Hat Enterprise Linux 7 STIG Benchmark | v3r5             | https://public.cyber.mil/stigs/downloads/ | 1.0.0           | NA                   | NA       | NA          |
+2. Preserve the VM unless the tests pass
+   * ``BEAKER_destroy=onpass rake beaker:suites``
 
-## Getting Started
+You can then access the VM by going to the root level of the repository and
+navigating to `.vagrant/beaker_vagrant_files/<automatic directory>`.
 
-### Requirements
+You should find a `Vagrantfile` at that location and can use any standard
+[Vagrant CLI Commands](https://www.vagrantup.com/docs/cli/).
 
-#### RHEL7
+The most useful of these will be ``vagrant status`` and ``vagrant ssh <vm name>``.
 
-- Local or remote access to the RHEL7 Operating System
-- Account providing appropriate permissions to perform audit scan
+## Test Layout
 
-#### Required software on RHEL7 OS
+The tests are housed under the ``spec/acceptance`` directory and use the
+profiles in ``spec/fixtures/inspec_profiles`` during testing.
 
-- git
-- [InSpec](https://www.chef.io/products/chef-inspec/)
+# Testing with Kitchen
 
-### Setup Environment on RHEL7 OS
+## Dependencies
 
-#### Install InSpec
+* Ruby 2.3.0 or later
+* [Virtualbox](https://www.virtualbox.org)
+* [Vagrant](https://www.vagrantup.com)
 
-Goto https://www.inspec.io/downloads/ and consult the documentation for your Operating System to download and install InSpec.
+#### _Notes to Windows Users_
 
-#### Ensure InSpec version is at least 4.23.10
+1. An installation of ChefDK may generate conflicts when combined with the
+   installed kitchen gems. **Recommend NOT installing ChefDK before testing
+   with this repo.**
 
-```sh
-inspec --version
-```
+2. If you run into errors when running ``bundle install``, use the following
+   commands to install gems:
+  * ``gem install kitchen-puppet``
+  * ``gem install librarian-puppet``
+  * ``gem install kitchen-vagrant``
 
-### Update Profile Input Values
+3. If the tests are not found when running ``kitchen verify``, open
+   ``.kitchen.yml`` and consult ``inspec_tests`` under the ``suites`` section.
 
-Check the `Inputs` in `inspec.yml` to determine if the default values differ in your platform.
+4. You may also experience an error when running ``kitchen converge`` where a
+   folder is unable to be created due to the length of the path. In this case,
+   you may need to edit a registry key as explained
+   [here](https://www.howtogeek.com/266621/how-to-make-windows-10-accept-file-paths-over-260-characters/).
 
-## Authors
+## Setting up your box
 
-Defense Information Systems Agency (DISA) https://www.disa.mil/
+1. Clone the repo via `git clone -b dev https://github.com/simp/inspec_profiles.git`
+2. cd to `inspec_profiles`
+3. Run ``bundle install``
+4. Run `kitchen list` - you should see the following choice:
+   * `default-centos-7`
+5. Run `kitchen converge default-centos-7`
+6. Run `kitchen list` - your should see your host with status "converged"
 
-STIG support by DISA Risk Management Team and Cyber Exchange https://public.cyber.mil/
+## Validating your box
 
-## Legal Notices
+**Note:** Once the open issues are resolved in InSpec and kitchen-inspec these
+steps will not really be needed but for now we have to do a few things a bit
+more manually. Once resolved fully, you will only need to run `kitchen verify
+(machine name)` and everything will be taken care of.
 
-Copyright © 2020 Defense Information Systems Agency (DISA)
+### In the 'inspec_profiles' dir ( manually )
+
+1. cd `.kitchen/`
+2. vi default-centos-7.yml
+3. copy the `ssh_key:` value for later
+4. note the mapped port value ( usually `2222`) and use in the next steps
+
+### In the 'inspec_profiles' dir
+
+1. On the terminal: `export SSH_KEY=(value from before)`
+2. cd to `inspec_profiles`
+   * (optional) run an `inspec check`, and
+   ensure there are no errors in the baseline.
+
+3. run: `inspec exec -i $SSH_KEY -t
+   ssh://vagrant@127.0.0.1:2222 ( or the port mapped from step '4' above )`
+   * (optional) `inspec exec controls/V-#####
+   * -i $SSH_KEY -t
+   ssh://vagrant@127.0.0.1:2222` to just test a single control
+   * (optional) `inspec exec -i $SSH_KEY
+   --controls=V-#####,V-##### -t ssh://vagrant@127.0.0.1:2222` to just test a
+   small set of controls
+
+# Hardening Development
+
+If you are going to be working on the ansible scripts you can continue to run
+`kitchen converge` and it will rerun your ansible scripts without going through
+the entire machine creations process etc.
+
+  * Making Changes and Testing
+    - run `kitchen converge (machine name)` - runs any changes to your hardening scripts
+    - run `kitchen verify (machine name)` - runs the inspec tests
+
+  * Starting Clean:
+    - run `kitchen destroy (machine name)` kitchen will drop your box and you can start clean
+  * Going through the entire process ( create, build, configure, verify, destroy )
+    - run `kitchen test (machine name)` or to test all defined machines `kitchen test`
+  * Just running the validation scripts
+    - run `kitchen verify (machine name)`
+  * just run one or more controls in the validation
+    - edit the .kitchen.yml file in the `controls:` section add the `control id(s)` to the list
+
+## Saving your output
+
+### Regular Text File
+  * To save your output just use `> output.txt`
+
+### Save as HTML
+
+In the `tools` directory there are a few useful scripts for getting a little
+better output for general display and demo, to use them see the `README.md`
+file in the `tools` directory or as an example:
+
+  * `kitchen converge (machine name) | ./tools/ansi2html.sh --bg=dark > kitchen-run.html`
+  * `inspec exec . -i $SSH_KEY -t ssh://vagrant@127.0.0.1:2222 | ./tools/ansi2html.sh --bg=dark > inspec-validation-run.html`
