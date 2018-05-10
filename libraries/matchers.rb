@@ -1,42 +1,24 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 
-# TODO explain somewhere that :all_with_args, :all_without_args, :all_with_integer_arg
-# will cause match_pam_rule to return true when there are no potential matches
 RSpec::Matchers.define :match_pam_rule do |expected|
-  def matching_integer_arg? (line)
-    line.module_arguments.any? do |arg|
-      key, value = arg.split('=')
-
-      value && (@args[:key] == key) && value.match?(/^-?\d+$/) &&
-        value.to_i.send(@args[:operator].to_sym, @args[:value])
-    end
-  end
-
   match do |actual|
-    case @args_type
-    when :all_with_args, :all_without_args, :all_with_integer_arg
+    if @negate_args_match
       retval = true
-    when :any_with_args, :any_with_integer_arg
+    else
       retval = false
-    end
-
-    if [:all_with_integer_arg, :any_with_integer_arg].include? @args_type
-      unless Numeric.method_defined?(@args[:operator])
-        fail("Error: Operator '#{@args[:operator]}' is an invalid numeric comparison operator.")
-      end
     end
 
     actual_munge = {}
 
     @expected = expected.to_s
 
-    if @args_type
+    if @args
       catch :stop_searching do
         actual.services.each do |service|
           expected_line = Pam::Rule.new(expected, {:service_name => service})
 
           potentials = actual.find_all do |line|
-            line.match?(expected_line)
+            !line.module_arguments.empty? && (line == expected_line)
           end
 
           if potentials && !potentials.empty?
@@ -44,22 +26,14 @@ RSpec::Matchers.define :match_pam_rule do |expected|
             actual_munge[service] += potentials.map(&:to_s)
 
             potentials.each do |potential|
-              case @args_type
-              when :all_without_args
-                retval = !potential.module_arguments.join(' ').match?(@args)
-                throw :stop_searching unless retval
-              when :all_with_args
-                retval = potential.module_arguments.join(' ').match?(@args)
-                throw :stop_searching unless retval
-              when :all_with_integer_arg
-                retval = matching_integer_arg? potential
-                throw :stop_searching unless retval
-              when :any_with_integer_arg
-                retval = matching_integer_arg? potential
-                throw :stop_searching if retval
-              when :any_with_args
-                retval = potential.module_arguments.join(' ').match?(@args)
-                throw :stop_searching if retval
+              Array(@args).each do |args|
+                if @negate_args_match
+                  retval = !potential.module_arguments.join(' ').match(args)
+                  throw :stop_searching unless retval
+                else
+                  retval = !potential.module_arguments.join(' ').match(args).nil?
+                  throw :stop_searching if retval
+                end
               end
             end
           end
@@ -86,45 +60,21 @@ RSpec::Matchers.define :match_pam_rule do |expected|
 
   diffable
 
-  # TODO make these an array of args so that we can actually chain them together
-  chain :any_with_args do |args|
-    @args_type = :any_with_args
+  chain :with_args do |args|
     @args = args
   end
 
-  chain :all_with_args do |args|
-    @args_type = :all_with_args
+  chain :without_args do |args|
     @args = args
-  end
-
-  chain :all_without_args do |args|
-    @args_type = :all_without_args
-    @args = args
-  end
-
-  chain :all_with_integer_arg do |key, op, value|
-    @args_type = :all_with_integer_arg
-    @args = {:key => key, :operator => op, :value => value}
-  end
-
-  chain :any_with_integer_arg do |key, op, value|
-    @args_type = :any_with_integer_arg
-    @args = {:key => key, :operator => op, :value => value}
+    @negate_args_match = true
   end
 
   description do
     res = "include #{expected}"
-    case @args_type
-    when :all_with_args
-      res += ", all with args #{@args}"
-    when :all_without_args
-      res += ", all without args #{@args}"
-    when :all_with_integer_arg
-      res += ", all with arg #{@args[:key]} #{@args[:operator]} #{@args[:value]}"
-    when :any_with_integer_arg
-      res += ", any with arg #{@args[:key]} #{@args[:operator]} #{@args[:value]}"
-    when :any_with_args
-      res += ", any with args #{@args}"
+    if @negate_args_match
+      res += " without #{@args}" unless @args.nil?
+    else
+      res += " with #{@args}" unless @args.nil?
     end
     res
   end
