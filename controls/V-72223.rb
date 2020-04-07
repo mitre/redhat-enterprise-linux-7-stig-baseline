@@ -64,8 +64,9 @@ period of inactivity.
   system_activity_timeout = input('system_activity_timeout')
 
   # Get current TMOUT environment variable (active test)
-  describe os_env('TMOUT') do
-    its('content') { should be <= system_activity_timeout }
+  describe 'Environment variable TMOUT' do
+    subject { os_env('TMOUT').content.to_i }
+    it { should be <= system_activity_timeout }
   end
 
   # Check if TMOUT is set in files (passive test)
