@@ -57,15 +57,17 @@ following values:
   tag cci: ["CCI-001851"]
   tag nist: ["AU-4 (1)", "Rev_4"]
 
-  if file('/etc/audisp/audispd.conf').exist?
-    describe parse_config_file('/etc/audisp/audispd.conf') do
+  test_file = '/etc/audisp/plugins.d/au-remote.conf'
+
+  if file(test_file).exist?
+    describe parse_config_file(test_file) do
       its('direction') { should match %r{out$} }
       its('path') { should match %r{/sbin/audisp-remote$} }
       its('type') { should match %r{always$} }
     end
   else
-    describe "File '/etc/audisp/audispd.conf' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do
-      skip "File '/etc/audisp/audispd.conf' cannot be found. This check must be performed manually"
+    describe "File '#{test_file}' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do
+      skip "File '#{test_file}' cannot be found. This check must be performed manually"
     end
   end
 end
