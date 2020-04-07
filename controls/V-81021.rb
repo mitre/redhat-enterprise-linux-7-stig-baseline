@@ -47,7 +47,7 @@ or the line is commented out, this is a finding.
 
   if file('/etc/audisp/audispd.conf').exist?
     describe parse_config_file('/etc/audisp/audispd.conf') do
-      its('name_format') { should match %r{hostname$|fqd$|\d+} }
+      its('name_format') { should match %r{^hostname$|^fqd$|^numeric$}i }
     end
   else
     describe "File '/etc/audisp/audispd.conf' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do
