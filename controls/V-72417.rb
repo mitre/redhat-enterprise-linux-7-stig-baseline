@@ -54,11 +54,6 @@ following command:
 
     # yum install esc pam_pkcs11
   "
-  if smart_card_status.eql?('enabled')
-    impact 0.5
-  else
-    impact 0.0
-  end
   tag severity: nil
   tag gtitle: "SRG-OS-000375-GPOS-00160"
   tag satisfies: ["SRG-OS-000375-GPOS-00160", "SRG-OS-000375-GPOS-00161",
@@ -73,14 +68,18 @@ following command:
   mfa_pkg_list = input('mfa_pkg_list')
   smart_card_status = input('smart_card_status')
 
-  mfa_pkg_list.each do |pkg|
-    describe package("#{pkg}") do
-      it { should be_installed }
+  if smart_card_status.eql?('enabled')
+    impact 0.5
+    mfa_pkg_list.each do |pkg|
+      describe package("#{pkg}") do
+        it { should be_installed }
+      end
     end
-  end if smart_card_status.eql?('enabled')
-
-  describe "The system is not smartcard enabled" do
-    skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
-  end if !smart_card_status.eql?('enabled')
+  else
+    impact 0.0
+    describe "The system is not smartcard enabled" do
+      skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
+    end
+  end
 end
 
