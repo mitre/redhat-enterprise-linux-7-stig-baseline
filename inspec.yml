@@ -380,3 +380,97 @@ inputs:
   #type: Boolean
   value: false
 
+# V-73159
+- name: max_retry
+  description: maximum number of password retries
+  type: Numeric
+  value: 3
+
+# V-72315
+- name: firewalld_services
+  description: "Services that firewalld should be configured to allow."
+  type: Array
+  # Examples
+  # 'dhcpv6-client',
+  # 'ssh'
+  value: []
+
+- name: firewalld_hosts_allow
+  description: "Hosts that firewalld should be configured to allow."
+  type: Array
+  value: []
+
+- name: firewalld_hosts_deny
+  description: "Hosts that firewalld should be configured to deny."
+  type: Array
+  value: []
+
+- name: firewalld_ports_allow
+  description: "Ports that firewalld should be configured to allow."
+  type: Array
+  # Examples
+  # '22/tcp',
+  # '4722/tcp'
+  value: []
+
+- name: firewalld_ports_deny
+  description: "Ports that firewalld should be configured to deny."
+  type: Array
+  # Examples
+  # '22/tcp',
+  # '4722/tcp'
+  value: []
+
+- name: tcpwrappers_allow
+  description: "Allow rules from etc/hosts.allow."
+  # Example
+  # 'daemon': 'ALL'
+  # 'client_list':
+  #   - 'ALL'
+  # 'options': []
+  type: Hash
+  value: {}
+
+- name: tcpwrappers_deny
+  description: "Deny rules from etc/hosts.deny."
+  type: Hash
+  # Example
+  # 'daemon': 'ALL'
+  # 'client_list':
+  #   - 'ALL'
+  # 'options': []
+  value: {}
+
+- name: iptables_rules
+  description: "Iptable rules that should exist."
+  type: Array
+  # Example
+  # '-P INPUT ACCEPT',
+  value: []
+
+# V-72219
+- name: firewalld_services_deny
+  description: "Services that firewalld should be configured to deny."
+  type: Hash
+  # Examples (zone:[services])
+  # public:
+  #   - 'ssh'
+  #   - 'icmp'
+  # dmz:
+  #   - 'http'
+  value: {}
+
+- name: firewalld_zones
+  description: "Zones that should be present on the system."
+  type: Array
+  # Examples
+  # - 'drop'
+  # - 'block'
+  # - 'public'
+  # - 'external'
+  # - 'dmz'
+  # - 'work'
+  # - 'home'
+  # - 'internal'
+  # - 'trusted'
+  value: []
