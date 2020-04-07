@@ -60,11 +60,6 @@ following line:
     Modify the \"/etc/pam_pkcs11/pam_pkcs11.conf\" file to use the cackey
 module if required.
   "
-  if smart_card_status.eql?('enabled')
-    impact 0.5
-  else
-    impact 0.0
-  end
   tag severity: nil
   tag gtitle: "SRG-OS-000104-GPOS-00051"
   tag satisfies: ["SRG-OS-000104-GPOS-00051", "SRG-OS-000106-GPOS-00053",
@@ -79,15 +74,18 @@ module if required.
   tag nist: ["IA-2 (2)", "Rev_4"]
 
   smart_card_status = input('smart_card_status')
-
-  describe command("authconfig --test | grep -i smartcard") do
-    its('stdout') { should match %r{use\sonly\ssmartcard\sfor\slogin\sis\s#{smart_card_status}} }
-    its('stdout') { should match %r{smartcard\smodule\s=\s".+"} }
-    its('stdout') { should match %r{smartcard\sremoval\saction\s=\s".+"} }
-  end if smart_card_status.eql?('enabled')
-
-  describe "The system is not smartcard enabled" do
-    skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
-  end if !smart_card_status.eql?('enabled')
+  if smart_card_status.eql?('enabled')
+    impact 0.5
+    describe command("authconfig --test | grep -i smartcard") do
+      its('stdout') { should match %r{use\sonly\ssmartcard\sfor\slogin\sis\s#{smart_card_status}} }
+      its('stdout') { should match %r{smartcard\smodule\s=\s".+"} }
+      its('stdout') { should match %r{smartcard\sremoval\saction\s=\s".+"} }
+    end
+  else
+    impact 0.0
+    describe "The system is not smartcard enabled" do
+      skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
+    end
+  end
 end
 
