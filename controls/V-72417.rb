@@ -77,8 +77,8 @@ control "V-72417" do
   else
     mfa_pkg_list.each do |pkg|
       describe "The package" do
-        subject { package("#{pkg}" ) }
-        expect(subject).to be_installed
+        subject { package("#{pkg}") }
+        it { should be_installed }
       end
     end
   end
