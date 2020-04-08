@@ -65,13 +65,15 @@ effect.
   tag cci: ["CCI-000057"]
   tag nist: ["AC-11 a", "Rev_4"]
 
-  describe command("gsettings get org.gnome.desktop.session idle-delay | cut -d ' ' -f2") do
-    its('stdout.strip') { should cmp <= 900 }
-  end if package('gnome-desktop3').installed?
-
-  describe "The system does not have GNOME installed" do
-    skip "The system does not have GNOME installed, this requirement is Not
-    Applicable."
-  end if !package('gnome-desktop3').installed?
+  unless package('gnome-desktop3').installed?
+    impact 0.0
+    describe "The system does not have GNOME installed" do
+      skip "The system does not have GNOME installed, this requirement is Not
+      Applicable."
+    end
+  else 
+    describe command("gsettings get org.gnome.desktop.session idle-delay | cut -d ' ' -f2") do
+      its('stdout.strip') { should cmp <= 900 }
+    end 
+  end
 end
-

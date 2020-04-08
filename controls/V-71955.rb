@@ -60,6 +60,7 @@ section of the \"/etc/gdm/custom.conf\" file to \"false\":
       end
     end
   else
+    impact 0.0
     describe "The system does not have GDM installed" do
       skip "The system does not have GDM installed, this requirement is Not Applicable."
     end

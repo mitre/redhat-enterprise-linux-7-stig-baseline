@@ -47,7 +47,7 @@ the internal queue is full:
 
   if file('/etc/audisp/audispd.conf').exist?
     describe parse_config_file('/etc/audisp/audispd.conf') do
-      its('overflow_action') { should match %r{syslog$|single$|halt$} }
+      its('overflow_action') { should match %r{syslog$|single$|halt$}i }
     end
   else
     describe "File '/etc/audisp/audispd.conf' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do

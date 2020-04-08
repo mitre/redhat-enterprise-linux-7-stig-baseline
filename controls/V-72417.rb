@@ -39,7 +39,6 @@ control "V-72417" do
         # yum list installed pam_pkcs11
         pam_pkcs11-0.6.2-14.el7.noarch.rpm
 
-
         If the \"esc\" and \"pam_pkcs11\" packages are not installed, this is a
         finding."
 
@@ -71,8 +70,8 @@ control "V-72417" do
       skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
     end 
   elsif mfa_pkg_list.empty?
-    describe "The required Smartcard packages have not been defined, plese define them in your `inputs`." do
-      subject { mfa_pkg_list }
+    describe "The required Smartcard packages have not beed defined, plese define them in your `inputs`." do
+      subjec { mfa_pkg_list }
       it { should_not be_empty }
     end
   else

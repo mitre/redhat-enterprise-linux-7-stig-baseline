@@ -53,11 +53,6 @@ authentication.
     Modify all of the \"cert_policy\" lines in
 \"/etc/pam_pkcs11/pam_pkcs11.conf\" to include \"ocsp_on\".
   "
-  if smart_card_status.eql?('enabled')
-    impact 0.5
-  else
-    impact 0.0
-  end
   tag severity: nil
   tag gtitle: "SRG-OS-000375-GPOS-00160"
   tag satisfies: ["SRG-OS-000375-GPOS-00160", "SRG-OS-000375-GPOS-00161",
@@ -72,6 +67,7 @@ authentication.
   smart_card_status = input('smart_card_status')
 
   if smart_card_status.eql?('enabled')
+    impact 0.5
     if ((pam_file = file('/etc/pam_pkcs11/pam_pkcs11.conf')).exist?)
       cert_policy_lines = (pam_file.content.nil?)?[]:
         pam_file.content.lines.grep(%r{^(?!.+#).*cert_policy}i)
@@ -94,6 +90,7 @@ authentication.
       end
     end
   else
+    impact 0.0
     describe "The system is not smartcard enabled" do
       skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
     end
