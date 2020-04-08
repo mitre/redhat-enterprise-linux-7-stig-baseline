@@ -62,11 +62,7 @@ file should be created under the appropriate subdirectory.
     /org/gnome/desktop/screensaver/lock-enabled
 
   "
-  if package('gnome-desktop3').installed?
-    impact 0.5
-  else
-    impact 0.0
-  end
+  impact 0.5
   tag severity: nil
   tag gtitle: "SRG-OS-000029-GPOS-00010"
   tag gid: "V-78995"
@@ -76,20 +72,15 @@ file should be created under the appropriate subdirectory.
   tag cci: ["CCI-000057"]
   tag nist: ["AC-11 a", "Rev_4"]
 
-  skip_deprecated_test = input('skip_deprecated_test')
-
-  if skip_deprecated_test
-    describe "This control has been deprecated out of the RHEL7 STIG. It will not be run because 'skip_deprecated_test' is set to True" do
-      skip "This control has been deprecated out of the RHEL7 STIG. It will not be run because 'skip_deprecated_test' is set to True"
-    end
-  else
+  if package('gnome-desktop3').installed?
     describe command("gsettings writable org.gnome.desktop.screensaver lock-enabled") do
       its('stdout.strip') { should cmp 'false' }
-    end if package('gnome-desktop3').installed?
-
+    end
+  else
+    impact 0.0
     describe "The GNOME desktop is not installed" do
       skip "The GNOME desktop is not installed, this control is Not Applicable."
-    end if !package('gnome-desktop3').installed?
+    end
   end  
 end
 
