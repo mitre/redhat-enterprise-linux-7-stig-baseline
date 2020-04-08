@@ -474,3 +474,9 @@ inputs:
   # - 'internal'
   # - 'trusted'
   value: []
+
+# V-72217
+- name: maxlogins_limit
+  description: "The maxium value that can be used for maxlogins."
+  type: Numeric
+  value: 10

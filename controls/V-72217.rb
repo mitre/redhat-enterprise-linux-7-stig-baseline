@@ -46,8 +46,44 @@ to \"10\" for all accounts and/or account types.
   tag cci: ["CCI-000054"]
   tag nist: ["AC-10", "Rev_4"]
 
-  describe limits_conf do
-    its('*') { should include ["hard", "maxlogins", "10"] }
+  maxlogins_limit = input('maxlogins_limit')
+
+  # Collect any files under limits.d if they exist
+  limits_files = directory('/etc/security/limits.d').exist? ? command('ls /etc/security/limits.d/*.conf').stdout.strip.lines : []
+  # Add limits.conf to the list
+  limits_files.push('/etc/security/limits.conf')
+  compliant_files = []
+  noncompliant_files = []
+
+  limits_files.each do |limits_file|
+    # Get any universal limits from each file
+    local_limits = limits_conf(limits_file).*
+    # If we got an array (results) check further
+    if local_limits.is_a?(Array)
+      local_limits.each do |temp_limit|
+        # For each result check if it is a 'hard' limit for 'maxlogins'
+        if temp_limit.include?('hard') && temp_limit.include?('maxlogins')
+          # If the limit is in range, push to compliant files
+          if temp_limit[-1].to_i <= maxlogins_limit
+            compliant_files.push(limits_file)
+          # Otherwise add to noncompliant files
+          else
+            noncompliant_files.push(limits_file)
+          end
+        end
+      end
+    end
+  end
+
+  # It is required that at least 1 file contain compliant configuration
+  describe "Files configuring maxlogins less than or equal to #{maxlogins_limit}" do
+    subject { compliant_files.length }
+    it { should be > 0 }
+  end
+
+  # No files should set 'hard' 'maxlogins' to any noncompliant value
+  describe "Files configuring maxlogins greater than #{maxlogins_limit}" do
+    subject { noncompliant_files }
+    it { should cmp [] }
   end
 end
-
