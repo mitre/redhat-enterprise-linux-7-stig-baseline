@@ -97,19 +97,56 @@ restarted:
   tag cci: ["CCI-001891", "CCI-002046"]
   tag nist: ["AU-8 (1) (a)", "AU-8 (1) (b)", "Rev_4"]
 
-  describe service('ntpd') do
-    it { should be_running }
+  # Either ntpd or chronyd should be running
+  describe.one do
+    [service('ntpd'), service('chronyd')].each do |time_service|
+      describe time_service do
+        it { should be_running }
+        it { should be_enabled }
+        it { should be_installed }
+      end
+    end
   end
 
-  describe.one do
-    describe command('ntpd --saveconfigquit=/dev/stdout | grep -E "^server\s"') do
-      its('stdout.strip') { should_not be_empty }
-      its('stdout.strip.lines') { should all(match %r{\smaxpoll\s+([1-9]|1[0-6])\b}) }
+  if service('ntpd').installed?
+    time_service = service('ntpd')
+    time_sources = ntp_conf('/etc/ntp.conf').server
+    max_poll_values = time_sources.map { |val| val.match?(/.*maxpoll.*/) ? val.gsub(/.*maxpoll\s+(\d+)(\s+.*|$)/,'\1').to_i : 99 }
+    ntpdate_crons = command('grep -l "ntpd -q" /etc/cron.daily/*').stdout.strip.lines
+
+    describe "ntpd time sources list" do
+      subject { time_sources }
+      it { should_not be_empty }
     end
-    # Case where maxpoll empty
-    describe file('/etc/cron.daily/ntpdate') do
-      it { should exist }
+
+    describe.one do
+      # Case where maxpoll empty
+      describe "Daily cron jobs for 'ntpd -q'" do
+        subject { ntpdate_crons }
+        it { should_not be_empty }
+      end
+      # All time sources must contain valid maxpoll entries
+      describe "ntpd maxpoll values (99=maxpoll absent)" do
+        subject { max_poll_values }
+        it { should all be < 17 }
+      end
+    end
+  end
+
+  if service('chronyd').installed?
+    time_service = service('chronyd')
+    time_sources = ntp_conf('/etc/chrony.conf').server
+    max_poll_values = time_sources.map { |val| val.match?(/.*maxpoll.*/) ? val.gsub(/.*maxpoll\s+(\d+)(\s+.*|$)/,'\1').to_i : 99 }
+
+    describe "chronyd time sources list" do
+      subject { time_sources }
+      it { should_not be_empty }
+    end
+      
+    # All time sources must contain valid maxpoll entries
+    describe "chronyd maxpoll values (99=maxpoll absent)" do
+      subject { max_poll_values }
+      it { should all be < 17 }
     end
   end
 end
-
