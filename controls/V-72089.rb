@@ -69,15 +69,16 @@ to 25 percent of the partition size.
   tag cci: ["CCI-001855"]
   tag nist: ["AU-5 (1)", "Rev_4"]
 
-  if((f = file(audit_log_dir= File.dirname(auditd_conf.log_file))).directory?)
-    partition_info = command("df -h #{@audit_log_dir}").stdout.split("\n")
+  if((f = file(audit_log_dir = command("dirname #{auditd_conf.log_file}").stdout.strip)).directory?)
+    # Fetch partition sizes in 1K blocks for consistency
+    partition_info = command("df -B 1K #{audit_log_dir}").stdout.split("\n")
     partition_sz_arr = partition_info.last.gsub(/\s+/m, ' ').strip.split(" ")
 
-    # Get partition size in GB
-    partition_sz = partition_sz_arr[1].gsub(/G/, '')
+    # Get partition size
+    partition_sz = partition_sz_arr[1]
 
     # Convert to MB and get 25%
-    exp_space_left = partition_sz.to_i * 1024 / 4
+    exp_space_left = partition_sz.to_i / 1024 / 4
 
     describe auditd_conf do
       its('space_left.to_i') { should be >= exp_space_left }
