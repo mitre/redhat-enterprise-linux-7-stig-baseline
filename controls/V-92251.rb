@@ -44,5 +44,9 @@ directory (or modify the line to have the required value):
   tag fix_id: "F-98473r1_fix"
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
+
+  describe kernel_parameter('net.ipv4.conf.all.rp_filter') do
+    its('value') { should eq 1 }
+  end
 end
 
