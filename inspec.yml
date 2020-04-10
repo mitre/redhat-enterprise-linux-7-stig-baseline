@@ -480,3 +480,15 @@ inputs:
   description: "The maxium value that can be used for maxlogins."
   type: Numeric
   value: 10
+
+# V-72213
+- name: custom_antivirus
+  description: "Whether an antivirus solution, other than nails, is in use."
+  type: Boolean
+  value: False
+
+- name: custom_antivirus_description
+  description: "Description of custom antivirus solution, when in use."
+  type: String
+  # Default of 'None' is used by control code -- DO NOT CHANGE DEFAULT
+  value: 'None'

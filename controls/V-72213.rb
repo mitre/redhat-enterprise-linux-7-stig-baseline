@@ -32,13 +32,25 @@ finding.
   tag cci: ["CCI-001668"]
   tag nist: ["SI-3 a", "Rev_4"]
 
-  describe.one do
-	  describe service('nails') do
-	    it { should be_running }
+  custom_antivirus = input('custom_antivirus')
+
+  if ! custom_antivirus
+    describe.one do
+      describe service('nails') do
+      it { should be_running }
     end
     describe service('clamav-daemon.socket') do
-	    it { should be_running }
-	  end
+      it { should be_running }
+      end
+    end
+  else
+    # Allow user to provide a description of their AV solution
+    # for documentation.
+    custom_antivirus_description = input('custom_antivirus_description')
+    describe "Antivirus: #{custom_antivirus_description}" do
+      subject { custom_antivirus_description }
+      it { should_not cmp 'None' }
+    end
   end
 end
 
