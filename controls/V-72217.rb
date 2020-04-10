@@ -78,7 +78,7 @@ to \"10\" for all accounts and/or account types.
   # It is required that at least 1 file contain compliant configuration
   describe "Files configuring maxlogins less than or equal to #{maxlogins_limit}" do
     subject { compliant_files.length }
-    it { should be > 0 }
+    it { should be_positive }
   end
 
   # No files should set 'hard' 'maxlogins' to any noncompliant value
