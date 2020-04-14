@@ -42,5 +42,17 @@ with the following command:
   tag fix_id: "F-100967r1_fix"
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
+
+  unless package('gnome-settings-daemon').installed?
+    impact 0.0
+    describe "The system does not have GNOME installed" do
+      skip "The system does not have GNOME installed, this requirement is Not
+      Applicable."
+    end
+  else 
+    describe command("gsettings get org.gnome.settings-daemon.media-keys logout") do
+      its('stdout.strip') { should cmp "''" }
+    end 
+  end
 end
 
