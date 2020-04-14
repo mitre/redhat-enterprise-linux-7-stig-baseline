@@ -65,28 +65,17 @@ privileged-mount
     its('action.uniq') { should eq ['always'] }
     its('list.uniq') { should eq ['exit'] }
   end
-  describe auditd.path("/bin/mount").where {arch == "b32"} do
-    its('action.uniq') { should eq ['always'] }
-    its('list.uniq') { should eq ['exit'] }
-  end
-  describe auditd.path("/usr/bin/mount").where {arch == "b32"} do
-    its('action.uniq') { should eq ['always'] }
-    its('list.uniq') { should eq ['exit'] }
-  end
 
   if os.arch == 'x86_64'
     describe auditd.syscall("mount").where {arch == "b64"} do
       its('action.uniq') { should eq ['always'] }
       its('list.uniq') { should eq ['exit'] }
     end
-    describe auditd.path("/bin/mount").where {arch == "b64"} do
-      its('action.uniq') { should eq ['always'] }
-      its('list.uniq') { should eq ['exit'] }
-    end
-    describe auditd.path("/usr/bin/mount").where {arch == "b64"} do
-      its('action.uniq') { should eq ['always'] }
-      its('list.uniq') { should eq ['exit'] }
-    end
+  end
+
+  describe auditd.path("/usr/bin/mount") do
+    its('action.uniq') { should eq ['always'] }
+    its('list.uniq') { should eq ['exit'] }
   end
 end
 
