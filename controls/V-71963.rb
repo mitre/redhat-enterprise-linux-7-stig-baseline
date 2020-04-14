@@ -63,21 +63,28 @@ commands:
   tag cci: ["CCI-000213"]
   tag nist: ["AC-3", "Rev_4"]
 
-  efi_superusers = input('efi_superusers')
-  efi_user_boot_files = input('efi_user_boot_files')
-  efi_main_cfg = input('efi_main_cfg')
+  os_minor_version = os().release.split('.')[1].to_i
 
-  describe file(efi_main_cfg) do
-    its('content') { should match %r{^\s*password_pbkdf2\s+root } }
-  end
+  # If OS version is 7.2 or later ONLY root is allowed
+  efi_superusers = os_minor_version < 2 ? input('efi_superusers') : ['root']
+  # Also ensure that 'root' is in the list always
+  efi_superusers.push('root') if !efi_superusers.include?('root')
+  # Define the main cfg with the os name in the path to allow
+  # for this to work with RHEL variants (e.g. CentOS)
+  efi_main_cfg = "/boot/efi/EFI/#{os().name}/grub.cfg"
 
-  efi_user_boot_files.each do |user_cfg_file|
-    next if !file(user_cfg_file).exist?
-    describe.one do
-      efi_superusers.each do |user|
-        describe file(user_cfg_file) do
+  # If the main EFI config file does not exist this system is
+  # not using EFI and the control is NA
+  if !file(efi_main_cfg).exist?
+    impact 0.0
+    describe 'EFI is not in use' do
+      skip 'EFI is not in use so this control is NA'
+    end
+  # Ensure any superusers are configured with PBDKF2 passwords
+  else
+    efi_superusers.each do |user|
+      describe file(efi_main_cfg) do
           its('content') { should match %r{^\s*password_pbkdf2\s+#{user} } }
-        end
       end
     end
   end
