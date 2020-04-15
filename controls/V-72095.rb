@@ -49,23 +49,22 @@ functions.
   tag cci: ["CCI-002234"]
   tag nist: ["AC-6 (9)", "Rev_4"]
 
-  # Tried to make this as safe as possible
-  target_files = command(%(find / -xautofs -noleaf -wholename '/proc' -prune -o -wholename '/sys' -prune -o -wholename '/dev' -prune -o -type f \\( -perm -4000 -o -perm -2000 \\) -print 2>/dev/null)).stdout.strip.lines
+  # All execve calls should use 'always,exit'
+  describe auditd.syscall('execve') do
+    its('action.uniq') { should eq ['always'] }
+    its('list.uniq') { should eq ['exit'] }
+  end
 
-  target_files.each do |target_file|
-    # target_file still contains \n, need to chomp it
-    describe auditd.file(target_file.chomp) do
-      its('permissions') { should_not cmp [] }
-      its('action') { should_not include 'never' }
-    end
-    # Resource creates data structure including all usages of file
-    @perms = auditd.file(target_file).permissions
+  # Work with the SUID rules
+  describe auditd.syscall('execve').where { fields.include?('euid=0') } do
+    its ('arch.uniq') { should include 'b32' }
+    its ('arch.uniq') { should include 'b64' }
+  end
 
-    @perms.each do |perm|
-      describe perm do
-        it { should include 'x' }
-      end
-    end
+  # Work with the SGID rules
+  describe auditd.syscall('execve').where { fields.include?('egid=0') } do
+    its ('arch.uniq') { should include 'b32' }
+    its ('arch.uniq') { should include 'b64' }
   end
 end
 
