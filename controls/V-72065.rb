@@ -43,8 +43,16 @@ in the fstab with a device and mount point.
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  describe systemd_service('tmp.mount') do
-    it { should be_enabled }
+  describe.one do
+    describe systemd_service('tmp.mount') do
+      it { should be_enabled }
+    end
+    describe etc_fstab.where { mount_point == '/tmp' } do
+      its('count') { should cmp 1 }
+      it 'Should have a device name specified' do
+        expect(subject.device_name[0]).to_not(be_empty)
+      end
+    end
   end
 end
 
