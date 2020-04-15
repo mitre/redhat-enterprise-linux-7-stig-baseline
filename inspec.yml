@@ -503,4 +503,10 @@ inputs:
     similarly named processes."
   type: Numeric
   value: 1
+
+# V-72073
+- name: aide_exclude_patterns
+  description: 'It is reasonable and advisable to skip checksum on frequently changing files'
+  type: Array
+  value: []
   
