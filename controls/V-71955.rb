@@ -33,11 +33,6 @@ section of the \"/etc/gdm/custom.conf\" file to \"false\":
     [daemon]
     TimedLoginEnable=false
   "
-  if package('gdm').installed?
-    impact 0.7
-  else
-    impact 0.0
-  end
   tag severity: nil
   tag gtitle: "SRG-OS-000480-GPOS-00229"
   tag gid: "V-71955"
@@ -50,6 +45,7 @@ section of the \"/etc/gdm/custom.conf\" file to \"false\":
   custom_conf = '/etc/gdm/custom.conf'
 
   if package('gdm').installed?
+    impact 0.7
     if ((f = file(custom_conf)).exist?)
       describe ini(custom_conf) do
         its('daemon.TimedLoginEnable') { cmp false }

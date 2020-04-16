@@ -75,13 +75,6 @@ staff.
 
     The audit daemon must be restarted for the changes to take effect.
   "
-  if auditd.status['failure'].nil?
-    impact 0.7
-  elsif auditd.status['failure'].match?(%r{^1$}) && !monitor_kernel_log
-    impact 0.3
-  else
-    impact 0.5
-  end
   tag severity: nil
   tag gtitle: "SRG-OS-000046-GPOS-00022"
   tag satisfies: ["SRG-OS-000046-GPOS-00022", "SRG-OS-000047-GPOS-00023"]
@@ -93,6 +86,14 @@ staff.
   tag nist: ["AU-5 a", "Rev_4"]
 
   monitor_kernel_log = input('monitor_kernel_log')
+
+  if auditd.status['failure'].nil?
+    impact 0.7
+  elsif auditd.status['failure'].match?(%r{^1$}) && !monitor_kernel_log
+    impact 0.3
+  else
+    impact 0.5
+  end
 
   if !monitor_kernel_log
     describe auditd.status['failure'] do

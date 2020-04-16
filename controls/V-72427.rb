@@ -50,11 +50,6 @@ remote access to privileged accounts via pluggable authentication modules (PAM).
     Modify all of the services lines in \"/etc/sssd/sssd.conf\" or in
 configuration files found under \"/etc/sssd/conf.d\" to include pam.
   "
-  if package('sssd').installed?
-    impact 0.5
-  else
-    impact 0.0
-  end
   tag severity: nil
   tag gtitle: "SRG-OS-000375-GPOS-00160"
   tag satisfies: ["SRG-OS-000375-GPOS-00160", "SRG-OS-000375-GPOS-00161",
@@ -65,6 +60,12 @@ configuration files found under \"/etc/sssd/conf.d\" to include pam.
   tag fix_id: "F-78779r3_fix"
   tag cci: ["CCI-001948", "CCI-001953", "CCI-001954"]
   tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)", "Rev_4"]
+
+  if package('sssd').installed?
+    impact 0.5
+  else
+    impact 0.0
+  end
 
   # its('services") doesn't appear to be working properly
   # added a test with grep to make sure one will pass if pam exists.

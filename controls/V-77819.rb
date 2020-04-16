@@ -62,11 +62,6 @@ should be created under the appropriate subdirectory.
     Update the system databases:
     # dconf update
   "
-  if package('gnome-desktop3').installed? and (package('pcsc-lite').installed? or package('esc').installed?)
-    impact 0.5
-  else
-    impact 0.0
-  end
   tag severity: nil
   tag gtitle: "SRG-OS-000375-GPOS-00160"
   tag satisfies: ["SRG-OS-000375-GPOS-00161", "SRG-OS-000375-GPOS-00162"]
@@ -81,6 +76,7 @@ should be created under the appropriate subdirectory.
   dconf_user = input('dconf_user')
 
   if package('gnome-desktop3').installed? and (package('pcsc-lite').installed? or package('esc').installed?)
+    impact 0.5
     if !dconf_user.nil? and command('whoami').stdout.strip == 'root'
       describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
         its('stdout.strip') { should eq multifactor_enabled.to_s }
@@ -91,7 +87,8 @@ should be created under the appropriate subdirectory.
       end
     end
   else
-   if !package('gnome-desktop3').installed?
+    impact 0.0
+    if !package('gnome-desktop3').installed?
       describe "The GNOME desktop is not installed" do
         skip "The GNOME desktop is not installed, this control is Not Applicable."
       end

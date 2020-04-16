@@ -35,11 +35,6 @@ tunnel is active, this is a finding.
   "
   desc  "fix", "Remove all unapproved tunnels from the system, or document them
 with the ISSO."
-  if !package('libreswan').installed? || !service('ipsec.service').running?
-    impact 0.0
-  else
-    impact 0.5
-  end
   tag severity: nil
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72317"
@@ -52,6 +47,7 @@ with the ISSO."
   approved_tunnels = input('approved_tunnels')
 
   if package('libreswan').installed? && service('ipsec.service').running?
+    impact 0.5
     processed = []
     to_process = ['/etc/ipsec.conf']
 
@@ -82,6 +78,7 @@ with the ISSO."
       it { should all(be_in approved_tunnels) }
     end
   else
+    impact 0.0
     describe "The system does not have libreswan installed or the ipsec.service isn't running" do
       skip "The system does not have libreswan installed or the ipsec.service isn't running, this requirement is Not Applicable."
     end

@@ -59,11 +59,6 @@ file should be created under the appropriate subdirectory.
 
     /org/gnome/desktop/screensaver/idle-activation-enabled
   "
-  if package('gnome-desktop3').installed?
-    impact 0.5
-  else
-    impact 0.0
-  end
   tag severity: nil
   tag gtitle: "SRG-OS-000029-GPOS-00010"
   tag gid: "V-78997"
@@ -72,6 +67,12 @@ file should be created under the appropriate subdirectory.
   tag fix_id: "F-85747r1_fix"
   tag cci: ["CCI-000057"]
   tag nist: ["AC-11 a", "Rev_4"]
+
+  if package('gnome-desktop3').installed?
+    impact 0.5
+  else
+    impact 0.0
+  end
 
   describe command("gsettings writable org.gnome.desktop.screensaver idle-activation-enabled") do
     its('stdout.strip') { should cmp 'false' }

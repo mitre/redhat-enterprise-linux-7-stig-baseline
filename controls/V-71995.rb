@@ -32,11 +32,6 @@ file to \"077\":
 
     UMASK  077
   "
-  if login_defs.read_params["UMASK"].eql?('000')
-    impact 0.7
-  else
-    impact 0.5
-  end
   tag severity: nil
   tag gtitle: "SRG-OS-000480-GPOS-00228"
   tag gid: "V-71995"
@@ -46,6 +41,12 @@ file to \"077\":
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
+
+  if login_defs.read_params["UMASK"].eql?('000')
+    impact 0.7
+  else
+    impact 0.5
+  end
   describe login_defs do
     its('UMASK') { should eq '077' }
   end

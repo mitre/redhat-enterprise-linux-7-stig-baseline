@@ -31,11 +31,7 @@ following commands:
   desc  "fix", "If the \"/etc/snmp/snmpd.conf\" file exists, modify any lines
 that contain a community string value of \"public\" or \"private\" to another
 string value."
-  if file('/etc/snmp/snmpd.conf').exist?
-    impact 0.7
-  else
-    impact 0.0
-  end
+
   tag severity: nil
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72313"
@@ -46,6 +42,7 @@ string value."
   tag nist: ["CM-6 b", "Rev_4"]
 
   if file('/etc/snmp/snmpd.conf').exist?
+    impact 0.7
     processed = []
     to_process = ['/etc/snmp/snmpd.conf']
 
@@ -84,6 +81,7 @@ string value."
       end
     end
   else
+    impact 0.0
     describe "The `snmpd.conf` does not exist" do
       skip "The snmpd.conf file does not exist, this control is Not Applicable"
     end
