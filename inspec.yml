@@ -509,4 +509,12 @@ inputs:
   description: 'It is reasonable and advisable to skip checksum on frequently changing files'
   type: Array
   value: []
+
+# V-71897
+- name: terminal_mux_pkgs
+  description: 'A list of acceptable terminal multiplexers'
+  type: Array
+  value:
+    - tmux
+    - screen
   
