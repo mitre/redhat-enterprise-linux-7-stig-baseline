@@ -37,8 +37,14 @@ the configurations listed in this requirement.
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  describe pam('/etc/pam.d') do
-    its('lines') { should match_pam_rule('.* .* pam_unix.so').all_without_args('nullok') }
+  # Fetch all files under /etc/pam.d excluding '*-ac' files
+  # but including symlinks
+  pam_file_list = command('find /etc/pam.d ! -name \'*-ac\' -a \( -type f -o -type l \)').stdout.strip.split
+
+  pam_file_list.each do |pam_file|
+    describe pam(pam_file) do
+      its('lines') { should match_pam_rule('.* .* pam_unix.so').all_without_args('nullok') }
+    end
   end
 end
 
