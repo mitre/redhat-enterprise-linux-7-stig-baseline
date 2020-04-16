@@ -52,17 +52,15 @@ allow for a normal user to perform administrative-level actions.
   tag nist: ["CM-6 b", "Rev_4"]
 
   known_system_accounts = input('known_system_accounts')
-  disallowed_accounts = input('disallowed_accounts')
   user_accounts = input('user_accounts')
 
   allowed_accounts = (known_system_accounts + user_accounts).uniq
-
-  describe passwd do
-    its('users') { should be_in allowed_accounts }
-  end
-
-  describe passwd do
-    its('users') { should_not be_in disallowed_accounts }
+  passwd.users.each do |user|
+    describe user do
+      it "is listed in allowed users." do
+        expect(subject).to(be_in allowed_accounts)
+      end
+    end
   end
 end
 

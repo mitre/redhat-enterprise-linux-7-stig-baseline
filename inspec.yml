@@ -60,15 +60,6 @@ inputs:
   #type: Boolean
   value: false
 
-- name: disallowed_accounts
-  description: Accounts that are not allowed on the system
-  type: Array
-  value: [
-  'games',
-  'gopher',
-  'ftp'
-  ]
-
 - name: user_accounts
   description: Accounts of known managed users
   type: Array
@@ -77,21 +68,27 @@ inputs:
 - name: known_system_accounts
   description: System accounts that support approved system activities.
   type: Array
-  value: [
-    'root',
-    'bin',
-    'daemon',
-    'adm',
-    'lp',
-    'sync',
-    'shutdown',
-    'halt',
-    'mail',
-    'operator',
-    'nobody',
-    'systemd-bus-proxy'
-    ]
-
+  value: 
+    - 'root'
+    - 'bin'
+    - 'daemon'
+    - 'adm'
+    - 'lp'
+    - 'sync'
+    - 'shutdown'
+    - 'halt'
+    - 'mail'
+    - 'operator'
+    - 'nobody'
+    - 'systemd-bus-proxy'
+    - 'dbus'
+    - 'polkitd'
+    - 'postfix'
+    - 'sssd'
+    - 'chrony'
+    - 'systemd-network'
+    - 'sshd'
+    - 'ntp'
 
 # V-71859/V-77819
 - name: dconf_user
