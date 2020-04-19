@@ -55,6 +55,7 @@ should be created under the appropriate subdirectory.
 
     /org/gnome/desktop/session/idle-delay
   "
+  impact 0.5
   tag severity: nil
   tag gtitle: "SRG-OS-000029-GPOS-00010"
   tag gid: "V-73157"
@@ -64,18 +65,14 @@ should be created under the appropriate subdirectory.
   tag cci: ["CCI-000057"]
   tag nist: ["AC-11 a", "Rev_4"]
 
-  if package('gnome-desktop3').installed?
-    impact 0.5
-  else
+  unless package('gnome-desktop3').installed?
     impact 0.0
+    describe "The GNOME desktop is not installed" do
+      skip "The GNOME desktop is not installed, this control is Not Applicable."
+    end
+  else
+    describe command("gsettings writable org.gnome.desktop.session idle-delay") do
+      its('stdout.strip') { should cmp 'false' }
+    end
   end
-
-  describe command("gsettings writable org.gnome.desktop.session idle-delay") do
-    its('stdout.strip') { should cmp 'false' }
-  end if package('gnome-desktop3').installed?
-
-  describe "The GNOME desktop is not installed" do
-    skip "The GNOME desktop is not installed, this control is Not Applicable."
-  end if !package('gnome-desktop3').installed?
 end
-

@@ -70,14 +70,14 @@ should be created under the appropriate subdirectory.
   tag stig_id: "RHEL-07-010061"
   tag fix_id: "F-84519r4_fix"
   tag cci: ["CCI-001948", "CCI-001953", "CCI-001954"]
-  tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)", "Rev_4"]
+  tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)"]
 
   multifactor_enabled = input('multifactor_enabled')
   dconf_user = input('dconf_user')
 
-  if package('gnome-desktop3').installed? and (package('pcsc-lite').installed? or package('esc').installed?)
+  if package('gnome-desktop3').installed? && package('pcsc-lite').installed? || package('esc').installed?
     impact 0.5
-    if !dconf_user.nil? and command('whoami').stdout.strip == 'root'
+    if !dconf_user.nil? && command('whoami').stdout.strip == 'root'
       describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
         its('stdout.strip') { should eq multifactor_enabled.to_s }
       end
@@ -93,6 +93,7 @@ should be created under the appropriate subdirectory.
         skip "The GNOME desktop is not installed, this control is Not Applicable."
       end
     end
+
     if !package('pcsc-lite').installed?
       describe "The pcsc-lite package is not installed" do
         skip "The pcsc-lite package is not installed, this control is Not Applicable."
