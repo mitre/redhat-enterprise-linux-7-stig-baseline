@@ -57,5 +57,30 @@ lines in the \"### BEGIN /etc/grub.d/01_users ###\" section:
   tag fix_id: "F-87841r2_fix"
   tag cci: ["CCI-000213"]
   tag nist: ["AC-3", "Rev_4"]
+
+  unless file('/sys/firmware/efi').exist?
+    impact 0.0
+    describe "System running BIOS" do
+      skip "The System is running BIOS, this control is Not Applicable."
+    end
+  else
+    unless os[:release] >= "7.2"
+      impact 0.0
+      describe "System running version of RHEL prior to 7.2" do
+        skip "The System is running an outdated version of RHEL, this control is Not Applicable."
+      end
+    else
+      impact 0.7
+      input('grub_uefi_user_boot_files').each do |grub_user_file|
+        describe parse_config_file(grub_user_file) do
+          its('GRUB2_PASSWORD') { should include "grub.pbkdf2.sha512"}
+        end
+      end
+
+      describe parse_config_file(input('grub_uefi_main_cfg')) do
+        its('set superusers') { should cmp '"root"' }  
+      end
+    end
+  end
 end
 

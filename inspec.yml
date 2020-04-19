@@ -60,15 +60,6 @@ inputs:
   #type: Boolean
   value: false
 
-- name: disallowed_accounts
-  description: Accounts that are not allowed on the system
-  type: Array
-  value: [
-  'games',
-  'gopher',
-  'ftp'
-  ]
-
 - name: user_accounts
   description: Accounts of known managed users
   type: Array
@@ -77,21 +68,27 @@ inputs:
 - name: known_system_accounts
   description: System accounts that support approved system activities.
   type: Array
-  value: [
-    'root',
-    'bin',
-    'daemon',
-    'adm',
-    'lp',
-    'sync',
-    'shutdown',
-    'halt',
-    'mail',
-    'operator',
-    'nobody',
-    'systemd-bus-proxy'
-    ]
-
+  value: 
+    - 'root'
+    - 'bin'
+    - 'daemon'
+    - 'adm'
+    - 'lp'
+    - 'sync'
+    - 'shutdown'
+    - 'halt'
+    - 'mail'
+    - 'operator'
+    - 'nobody'
+    - 'systemd-bus-proxy'
+    - 'dbus'
+    - 'polkitd'
+    - 'postfix'
+    - 'sssd'
+    - 'chrony'
+    - 'systemd-network'
+    - 'sshd'
+    - 'ntp'
 
 # V-71859/V-77819
 - name: dconf_user
@@ -284,6 +281,11 @@ inputs:
   type: String
   value: '/boot/grub2/grub.cfg'
 
+- name: grub_uefi_main_cfg
+  description: Main grub boot config file
+  type: String
+  value: '/boot/efi/EFI/redhat/grub.cfg'
+
 - name: grub_superuser
   description: superusers for grub boot
   type: String
@@ -293,6 +295,11 @@ inputs:
   description: Grub boot config files
   type: Array
   value: ['/boot/grub2/user.cfg']
+
+- name: grub_uefi_user_boot_files
+  description: Grub boot config files
+  type: Array
+  value: ['/boot/efi/EFI/redhat/user.cfg']
 
 # V-71963
 - name: efi_superusers
@@ -509,4 +516,12 @@ inputs:
   description: 'It is reasonable and advisable to skip checksum on frequently changing files'
   type: Array
   value: []
+
+# V-71897
+- name: terminal_mux_pkgs
+  description: 'A list of acceptable terminal multiplexers'
+  type: Array
+  value:
+    - tmux
+    - screen
   
