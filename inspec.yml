@@ -289,13 +289,15 @@ inputs:
 - name: grub_user_boot_files
   description: Grub boot config files
   type: Array
-  value: ['/boot/grub2/user.cfg']
+  value: 
+    - '/boot/grub2/user.cfg'
 
 # V-71963
 - name: efi_superusers
   description: Superusers for efi boot
   type: Array
-  value: ['root']
+  value: 
+    - 'root'
 
 # V-71971
 - name: admin_logins
@@ -313,23 +315,22 @@ inputs:
 - name: mfa_pkg_list
   description: The list of packages needed for MFA on RHEL
   type: Array
-  value: [
-    'nss-tools',
-    'nss-pam-ldapd',
-    'esc',
-    'pam_pkcs11',
-    'pam_krb5',
-    'opensc',
-    'pcsc-lite-ccid',
-    'gdm',
-    'authconfig',
-    'authconfig-gtk',
-    'krb5-libs',
-    'krb5-workstation',
-    'krb5-pkinit',
-    'pcsc-lite',
-    'pcsc-lite-libs'
-    ]
+  value: 
+    - 'nss-tools'
+    - 'nss-pam-ldapd'
+    - 'esc'
+    - 'pam_pkcs11'
+    - 'pam_krb5'
+    - 'opensc'
+    - 'pcsc-lite-ccid'
+    - 'gdm'
+    - 'authconfig'
+    - 'authconfig-gtk'
+    - 'krb5-libs'
+    - 'krb5-workstation'
+    - 'krb5-pkinit'
+    - 'pcsc-lite'
+    - 'pcsc-lite-libs'
 
 # V-77819
 - name: multifactor_enabled
@@ -340,7 +341,13 @@ inputs:
 - name: non_interactive_shells
   description: These shells do not allow a user to login
   type: Array
-  value: ["/sbin/nologin", "/sbin/halt", "/sbin/shutdown", "/bin/false", "/bin/sync", "/bin/true"]
+  value: 
+    - "/sbin/nologin"
+    - "/sbin/halt"
+    - "/sbin/shutdown"
+    - "/bin/false"
+    - "/bin/sync"
+    - "/bin/true"
 
 # V-72059
 - name: randomize_va_space
@@ -352,7 +359,11 @@ inputs:
 - name: non_removable_media_fs
   description: File systems that don't correspond to removable media
   type: Array
-  value: ['xfs', 'ext4', 'swap', 'tmpfs']
+  value: 
+    - 'xfs'
+    - 'ext4'
+    - 'swap'
+    - 'tmpfs'
 
 # V-72317
 - name: approved_tunnels
