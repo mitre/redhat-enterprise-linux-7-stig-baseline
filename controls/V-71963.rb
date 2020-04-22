@@ -65,26 +65,27 @@ commands:
 
   os_minor_version = os().release.split('.')[1].to_i
 
-  # If OS version is 7.2 or later ONLY root is allowed
   efi_superusers = os_minor_version < 2 ? input('efi_superusers') : ['root']
-  # Also ensure that 'root' is in the list always
   efi_superusers.push('root') if !efi_superusers.include?('root')
-  # Define the main cfg with the os name in the path to allow
-  # for this to work with RHEL variants (e.g. CentOS)
   efi_main_cfg = "/boot/efi/EFI/#{os().name}/grub.cfg"
 
-  # If the main EFI config file does not exist this system is
-  # not using EFI and the control is NA
-  if !file(efi_main_cfg).exist?
+  unless file('/sys/firmware/efi').exist?
     impact 0.0
-    describe 'EFI is not in use' do
-      skip 'EFI is not in use so this control is NA'
+    describe "System running BIOS" do
+      skip "The System is running BIOS, this control is Not Applicable."
     end
-  # Ensure any superusers are configured with PBDKF2 passwords
   else
-    efi_superusers.each do |user|
-      describe file(efi_main_cfg) do
-          its('content') { should match %r{^\s*password_pbkdf2\s+#{user} } }
+    unless os[:release] >= "7.2"
+      impact 0.0
+      describe "System running version of RHEL prior to 7.2" do
+        skip "The System is running an outdated version of RHEL, this control is Not Applicable."
+      end
+    else
+      impact 0.7
+      efi_superusers.each do |user|
+        describe file(efi_main_cfg) do
+            its('content') { should match %r{^\s*password_pbkdf2\s+#{user} } }
+        end
       end
     end
   end
