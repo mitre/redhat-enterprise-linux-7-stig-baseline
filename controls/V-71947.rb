@@ -84,8 +84,11 @@ command:
   sudoers = processed.select { |f| file(f).file? }
 
   sudoers.each do |sudoer|
-    describe command("grep -i nopasswd #{sudoer}") do
-      its('stdout') { should_not match %r{^[^#]*NOPASSWD} }
+    sudo_content = file(sudoer).content.strip.split("\n")
+    nopasswd_lines = sudo_content.select { |l| l.match?(/^[^#].*NOPASSWD/) }
+    describe "#{sudoer} rules containing NOPASSWD" do
+      subject { nopasswd_lines }
+      it { should be_empty }
     end
   end
 end
