@@ -412,11 +412,12 @@ inputs:
 
 - name: firewalld_ports_deny
   description: "Ports that firewalld should be configured to deny."
-  type: Array
+  type: Hash
   # Examples
-  # '22/tcp',
-  # '4722/tcp'
-  value: []
+  # 'public':
+  #   - '22/tcp'
+  #   - '4722/tcp'
+  value: {}
 
 - name: tcpwrappers_allow
   description: "Allow rules from etc/hosts.allow."

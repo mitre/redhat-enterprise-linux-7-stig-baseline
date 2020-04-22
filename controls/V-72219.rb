@@ -89,8 +89,8 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
     # ports specified in 'firewalld_ports_deny' are not enabled
     firewalld_zones.each do |zone|
       if firewalld.has_zone?(zone)
-        zone_services = firewalld_services_deny["public"]
-        zone_ports = firewalld_ports_deny[zone]
+        zone_services = firewalld_services_deny[zone.to_sym]
+        zone_ports = firewalld_ports_deny[zone.to_sym]
 
         if !zone_services.nil?
           describe firewalld do
