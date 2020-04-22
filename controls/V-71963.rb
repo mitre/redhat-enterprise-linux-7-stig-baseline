@@ -75,7 +75,7 @@ commands:
       skip "The System is running BIOS, this control is Not Applicable."
     end
   else
-    unless os[:release] >= "7.2"
+    if os[:release] < "7.2"
       impact 0.0
       describe "System running version of RHEL prior to 7.2" do
         skip "The System is running an outdated version of RHEL, this control is Not Applicable."
