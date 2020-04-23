@@ -35,17 +35,11 @@ list their modes:
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  key_files = command("find /etc/ssh -xdev -name '*ssh_host*key' -perm /177").stdout.split("\n")
+  key_files = command("find /etc/ssh -xdev -name '*ssh_host*key'").stdout.split("\n")
   if !key_files.nil? and !key_files.empty?
     key_files.each do |keyfile|
       describe file(keyfile) do
-        it { should_not be_executable.by('owner') }
-        it { should_not be_readable.by('group') }
-        it { should_not be_writable.by('group') }
-        it { should_not be_executable.by('group') }
-        it { should_not be_readable.by('others') }
-        it { should_not be_writable.by('others') }
-        it { should_not be_executable.by('others') }
+        it { should_not be_more_permissive_than('0640') }
       end
     end
   else
