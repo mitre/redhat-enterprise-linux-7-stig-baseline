@@ -82,56 +82,61 @@ implemented security safeguards/countermeasures.
 
   admin_logins = input('admin_logins')
 
-  describe command('selinuxenabled') do
-    its('exist?') { should be true }
-    its('exit_status') { should eq 0 }
-  end
+  if package('MFEhiplsm').installed? && processes(/hipclient/).exist?
+    impact 0.0
+    describe "HIPS is active on the system" do
+      skip "A HIPS process is active on the system, this control is Not Applicable."
+    end
+  elsif service('cma').installed? && service('cma').enabled?
+    impact 0.0
+    describe "HBSS is active on the system" do
+      skip "A HBSS service is active on the system, this control is Not Applicable."
+    end
+  else
+    impact 0.5
+    describe command('selinuxenabled') do
+      its('exist?') { should be true }
+      its('exit_status') { should eq 0 }
+    end
 
-  # Get the currently enabled selinux mode
-  selinux_mode = file('/etc/selinux/config').content.lines.
-    grep(/\A\s*SELINUXTYPE=/).last.split('=').last.strip
+    selinux_mode = file('/etc/selinux/config').content.lines.
+      grep(/\A\s*SELINUXTYPE=/).last.split('=').last.strip
 
-  # Get the current seusers configuration
-  #
-  # Avoid use of semanage in case it has been uninstalled
-  #
-  # Remove all comments and empty lines
-  seusers = file("/etc/selinux/#{selinux_mode}/seusers").content.lines.
-    grep_v(/(#|\A\s+\Z)/).map(&:strip)
+    seusers = file("/etc/selinux/#{selinux_mode}/seusers").content.lines.
+      grep_v(/(#|\A\s+\Z)/).map(&:strip)
 
-  # Create collect the remaining results in user/context pairs
-  seusers = seusers.map{|x| x.split(':')[0..1]}
+    seusers = seusers.map{|x| x.split(':')[0..1]}
 
-  describe 'seusers' do
-    it { expect(seusers).to_not be_empty }
-  end
+    describe 'seusers' do
+      it { expect(seusers).to_not be_empty }
+    end
 
-  users_to_ignore = [
-    'root',
-    'system_u' # This is a default user mapping
-  ]
+    users_to_ignore = [
+      'root',
+      'system_u'
+    ]
 
-  seusers.each do |user, context|
-    next if users_to_ignore.include?(user)
+    seusers.each do |user, context|
+      next if users_to_ignore.include?(user)
 
-    describe "SELinux login #{user}" do
-      # This is required by the STIG
-      if user == '__default__'
-        let(:valid_users){[ 'user_u' ]}
-      elsif admin_logins.include?(user)
-        let(:valid_users){[
-          'sysadm_u',
-          'staff_u'
-        ]}
-      else
-        let(:valid_users){[
-          'user_u',
-          'guest_u',
-          'xguest_u'
-        ]}
+      describe "SELinux login #{user}" do
+        if user == '__default__'
+          let(:valid_users){[ 'user_u' ]}
+        elsif admin_logins.include?(user)
+          let(:valid_users){[
+            'sysadm_u',
+            'staff_u'
+          ]}
+        else
+          let(:valid_users){[
+            'user_u',
+            'guest_u',
+            'xguest_u'
+          ]}
+        end
+
+        it { expect(context).to be_in(valid_users) }
       end
-
-      it { expect(context).to be_in(valid_users) }
     end
   end
 end
