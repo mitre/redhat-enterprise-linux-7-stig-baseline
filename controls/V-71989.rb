@@ -50,8 +50,22 @@ functions.
   tag cci: ["CCI-002165", "CCI-002696"]
   tag nist: ["AC-3 (4)", "SI-6 a", "Rev_4"]
 
-  describe command('getenforce') do
-    its('stdout.strip') { should eq 'Enforcing' }
+
+  if package('MFEhiplsm').installed? && processes(/hipclient/).exist?
+    impact 0.0
+    describe "HIPS is active on the system" do
+      skip "A HIPS process is active on the system, this control is Not Applicable."
+    end
+  elsif service('cma').installed? && service('cma').enabled?
+    impact 0.0
+    describe "HBSS is active on the system" do
+      skip "A HBSS service is active on the system, this control is Not Applicable."
+    end
+  else
+    impact 0.7
+    describe command('getenforce') do
+      its('stdout.strip') { should eq 'Enforcing' }
+    end
   end
 end
 
