@@ -50,6 +50,8 @@ command:
   tag cci: ["CCI-001749"]
   tag nist: ["CM-5 (3)", "Rev_4"]
 
+rpm_verify_integrity_except = input('rpm_verify_integrity_except')
+
 if input('disable_slow_controls')
     describe "This control consistently takes a long to run and has been disabled
     using the disable_slow_controls attribute." do
