@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 control "V-71941" do
   title "The Red Hat Enterprise Linux operating system must disable account
 identifiers (individuals, groups, roles, and devices) if the password expires."
@@ -45,9 +44,16 @@ have the required value):
 
   days_of_inactivity = input('days_of_inactivity')
 
-  describe parse_config_file("/etc/default/useradd") do
-    its('INACTIVE') { should cmp >= 0 }
-    its('INACTIVE') { should cmp <= days_of_inactivity }
+  unless command("grep -ie '^[^#]*NOPASSWD' /etc/sudoers /etc/sudoers.d/*").stdout.empty? do
+    impact 0.0
+    describe "The system is not using password for authentication" do
+      skip "The system is not using password for authentication, this control is Not Applicable."
+    end
+  else
+    describe parse_config_file("/etc/default/useradd") do
+      its('INACTIVE') { should cmp >= 0 }
+      its('INACTIVE') { should cmp <= days_of_inactivity }
+    end
   end
 
 end
