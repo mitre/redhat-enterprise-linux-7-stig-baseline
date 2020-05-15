@@ -71,7 +71,7 @@ storage devices.
   tag cci: ["CCI-000366", "CCI-000778", "CCI-001958"]
   tag nist: ["CM-6 b", "IA-3", "IA-3", "Rev_4"]
 
-  unless input('data_loss_prevention_installed') do
+  unless input('data_loss_prevention_installed')
     impact 0.0
     describe "The system is not using an HBSS with a Device Control Module and a Data Loss Prevention mechanism" do
       skip "The system is not using an HBSS with a Device Control Module and a Data Loss Prevention mechanism, this control is Not Applicable."
