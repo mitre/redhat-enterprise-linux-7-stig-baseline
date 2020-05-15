@@ -42,7 +42,7 @@ the required value):
   tag cci: ["CCI-000199"]
   tag nist: ["IA-5 (1) (d)", "Rev_4"]
 
-  unless command("grep -ie '^[^#]*NOPASSWD' /etc/sudoers /etc/sudoers.d/*").stdout.empty? do
+  unless command("grep -ie '^[^#]*NOPASSWD' /etc/sudoers /etc/sudoers.d/*").stdout.empty?
     impact 0.0
     describe "The system is not using password for authentication" do
       skip "The system is not using password for authentication, this control is Not Applicable."
