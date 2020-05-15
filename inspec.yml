@@ -13,7 +13,7 @@ inputs:
   description: Controls that are known to consistently have long run times can be disabled with this attribute
   # muted until https://github.com/inspec/inspec/issues/4799 is resolved
   #type: Boolean
-  value: true
+  value: false
 
 # V-72081
 - name: monitor_kernel_log
