@@ -536,4 +536,9 @@ inputs:
   value:
     - tmux
     - screen
+
+- name: data_loss_prevention_installed
+  description: 'is an HBSS with a Device Control Module and a Data Loss Prevention mechanism'
+  type: Boolean
+  value: true
   

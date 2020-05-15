@@ -71,9 +71,16 @@ storage devices.
   tag cci: ["CCI-000366", "CCI-000778", "CCI-001958"]
   tag nist: ["CM-6 b", "IA-3", "IA-3", "Rev_4"]
 
-  describe kernel_module('usb_storage') do
-    it { should_not be_loaded }
-    it { should be_blacklisted }
+  unless input('data_loss_prevention_installed') do
+    impact 0.0
+    describe "The system is not using an HBSS with a Device Control Module and a Data Loss Prevention mechanism" do
+      skip "The system is not using an HBSS with a Device Control Module and a Data Loss Prevention mechanism, this control is Not Applicable."
+    end
+  else
+    describe kernel_module('usb_storage') do
+      it { should_not be_loaded }
+      it { should be_blacklisted }
+    end
   end
 end
 
