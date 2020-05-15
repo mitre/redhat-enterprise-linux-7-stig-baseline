@@ -105,6 +105,8 @@ the configurations listed in this requirement.
   unsuccessful_attempts = input('unsuccessful_attempts')
   fail_interval = input('fail_interval')
   lockout_time = input('lockout_time')
+  required_rules = input('required_rules')
+  alternate_rules = input('alternate_rules')
 
   describe pam('/etc/pam.d/password-auth') do
     its('lines') {

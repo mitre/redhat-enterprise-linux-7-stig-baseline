@@ -537,3 +537,19 @@ inputs:
     - tmux
     - screen
   
+- name: required_rules
+  description: 'Required PAM rules'
+  type: Array
+  value: 
+    - 'auth required pam_faillock.so unlock_time=.*'
+    - 'auth sufficient pam_unix.so try_first_pass'
+    - 'auth [default=die] pam_faillock.so unlock_time=.*'
+
+- name: alternate_rules
+  description: 'Alternate PAM rules'
+  type: Array
+  value:
+    - 'auth required pam_faillock.so unlock_time=.*'
+    - 'auth sufficient pam_sss.so forward_pass'
+    - 'auth sufficient pam_unix.so try_first_pass'
+    - 'auth [default=die] pam_faillock.so unlock_time=.*'
