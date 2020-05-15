@@ -42,8 +42,15 @@ the required value):
   tag cci: ["CCI-000199"]
   tag nist: ["IA-5 (1) (d)", "Rev_4"]
 
-  describe login_defs do
-    its('PASS_MAX_DAYS.to_i') { should cmp <= 60 }
+  unless command("grep -ie '^[^#]*NOPASSWD' /etc/sudoers /etc/sudoers.d/*").stdout.empty? do
+    impact 0.0
+    describe "The system is not using password for authentication" do
+      skip "The system is not using password for authentication, this control is Not Applicable."
+    end
+  else
+    describe login_defs do
+      its('PASS_MAX_DAYS.to_i') { should cmp <= 60 }
+    end
   end
 end
 
