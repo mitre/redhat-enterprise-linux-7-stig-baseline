@@ -1,0 +1,79 @@
+name: Test the Baseline
+
+on: [push, pull_request]
+
+jobs:
+  my-job:
+    defaults:
+      run:
+        shell: bash -l {0}
+    name: Validate my profile
+    runs-on: ubuntu-latest
+    env:
+      CHEF_LICENSE: accept-silent
+    steps:
+      - name: add needed packages
+        run: sudo apt-get install -y jq
+      - name: Install Chef
+        uses: actionshub/chef-install@master
+      - name: configure the chef env
+        run: echo 'eval "$(chef shell-init bash)"' >> ~/.bash_profile
+      - name: Configure AWS credentials
+        env:
+          AWS_SG_ID: ${{ secrets.AWS_SG_ID }}
+          AWS_SUBNET_ID: ${{ secrets.AWS_SUBNET_ID }}
+          AWS_SSH_KEY_ID: ${{ secrets.AWS_SSH_KEY_ID }}
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Setup our ssh-key
+        run: |
+          mkdir ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/${{ secrets.AWS_SSH_KEY_ID }}.pem
+          chmod 400 ~/.ssh/${{ secrets.AWS_SSH_KEY_ID }}.pem
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Clone full repository so we can push
+        run: git fetch --prune --unshallow
+      - name: Setup caching
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Bundle install
+        run: |
+          chef gem install bundler
+          chef exec bundle config path vendor/bundle
+          chef exec bundle install
+      - name: Check the profile
+        run: inspec check .
+      - name: Setup Git to push to the repo
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+      - name: Regenerate current `profile.json`
+        run: |
+          inspec json . | jq . > profile.json
+      - name: Update profile.json in the repository
+        uses: stefanzweifel/git-auto-commit-action@v4.1.0
+        with:
+          commit_message: 'Updating profile.json in the repository'
+          branch: ${{ github.branch }}
+      - name: Run kitchen verify
+        run: chef exec bundle exec kitchen test --destroy=always || true
+        env:
+          KITCHEN_YAML: kitchen.ec2.yml
+      - name: Display our results summary
+        run: inspec_tools summary -j test-result.json --json-counts | jq .
+      - name: Ensure the scan meets our threshold
+        run: bundle exec inspec_tools compliance -j test-result.json -f threshold.yml
+      - name: Save Test Result JSON
+        uses: actions/upload-artifact@v2
+        with:
+          path: |
+            test-result.json
+            profile.json
