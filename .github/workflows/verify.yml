@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CHEF_LICENSE: accept-silent
+      KITCHEN_LOCAL_YAML: kitchen.ec2.yml
     steps:
       - name: add needed packages
         run: sudo apt-get install -y jq
@@ -28,11 +29,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - name: Setup our ssh-key
-        run: |
-          mkdir ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/${{ secrets.AWS_SSH_KEY_ID }}.pem
-          chmod 400 ~/.ssh/${{ secrets.AWS_SSH_KEY_ID }}.pem
       - name: Check out repository
         uses: actions/checkout@v2
       - name: Clone full repository so we can push
@@ -67,16 +63,19 @@ jobs:
         with:
           commit_message: 'Updating profile.json in the repository'
           branch: ${{ github.branch }}
-      - name: Run kitchen verify
+      - name: Run kitchen test
         run: bundle exec kitchen test --destroy=always || true
-        env:
-          KITCHEN_YAML: kitchen.ec2.yml
-      - name: Display our results summary
-        run: bundle exec inspec_tools summary -j test-result.json --json-counts | jq .
-      - name: Ensure the scan meets our threshold
-        run: bundle exec inspec_tools compliance -j test-result.json -f threshold.yml
+      - name: Run kitchen Destroy
+        run: bundle exec kitchen destroy
+      - name: Display our Vanilla results summary
+        run: bundle exec inspec_tools summary -j spec/results/rhel-7_vanilla.json --json-counts | jq .
+      - name: Display our Hardened results summary
+        run: bundle exec inspec_tools summary -j spec/results/rhel-7_hardened.json --json-counts | jq .
+      - name: Ensure the scan meets our vanilla results threshold
+        run: bundle exec inspec_tools compliance -j spec/results/rhel-7_vanilla.json -f vanilla.threshold.yml
+      - name: Ensure the scan meets our hardened results threshold
+        run: bundle exec inspec_tools compliance -j spec/results/rhel-7_hardened.json -f hardened.threshold.yml
       - name: Save Test Result JSON
         uses: actions/upload-artifact@v2
         with:
-          path: |
-            test-result.json
+          path: spec/results/

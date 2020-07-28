@@ -1,16 +1,3 @@
-# NOTE: To use this file you must export or set the following:
-# AWS_SG_ID : your aws security group id
-# AWS_SSH_KEY_ID : your aws ssh key id
-# AWS_SUBNET_ID : your aws subnet id for your vpc
-# USE_JSON : set to true if you want inspec to output JSON
-# NOTE: This file assumes your aws ssh private key is in your home dir .ssh dir
-# USE_EBS : implements a beefier amazon instance to support ebs-optimized storage
-<%
-require 'time';
-platforms = %w(rhel-7)
-use_json = ENV['USE_JSON']
-use_ebs = ENV['USE_EBS']
-%>
 ---
 driver:
   name: ec2
@@ -27,54 +14,15 @@ driver:
   require_chef_for_busser: false
   privileged: true
 
-  # image_id: ami-06e9e5a68a55a62da
-
-provisioner:
-  name: puppet_apply
-  sudo: true
-  require_chef_for_busser: false
-  manifests_path: ./spec/puppet/manifests
-  modules_path: ./spec/puppet/modules
-  hiera_config_path: ./spec/puppet/hiera.yaml
-  hiera_data_path: ./spec/puppet/hiera
-  resolve_with_librarian_puppet: true
-  ignore_spec_fixtures: true
-  puppet_version: "5.5.19"
+lifecycle:
+  pre_converge:
+    - remote: |
+        echo "NOTICE - Installing needed packages"
+        sudo yum install -y bc bind-utils redhat-lsb-core vim
+        echo "NOTICE - Updating the ec2-user to keep sudo working"
+        sudo chage -d $(( $( date +%s ) / 86400 )) ec2-user
+        echo "NOTICE - updating ec2-user sudo config"
+        sudo chmod 600 /etc/sudoers && sudo sed -i'' "/ec2-user/d" /etc/sudoers && sudo chmod 400 /etc/sudoers
 
 transport:
   name: ssh
-  # username: ec2-user
-  ssh_key: ~/.ssh/<%= ENV[('AWS_SSH_KEY_ID')] %>.pem
-
-verifier:
-  name: inspec
-  sudo: true
-  inspec_tests:
-    - name: disa_stig-el7
-      path: .
-  input_files:
-    - inputs.example.yml
-  reporter:
-    - cli
-    - json:test-result.json
-
-platforms:
-  - name: rhel-7
-
-suites:
-  - name: default
-    lifecycle:
-      post_create:
-        - remote: echo "NOTICE - Installing needed packages"
-        - remote: sudo yum install -y bc bind-utils redhat-lsb-core vim
-        - remote: echo "NOTICE - Updating the ec2-user to keep sudo working"
-        - remote: sudo chage -d $(( $( date +%s ) / 86400 )) ec2-user
-        - remote: echo "NOTICE - updating ec2-user sudo config"
-        - remote: sudo chmod 600 /etc/sudoers && sudo sed -i'' "/ec2-user/d" /etc/sudoers && sudo chmod 400 /etc/sudoers
-
-    provisioner:
-      manifest: stig.pp
-    verifier:
-      name: inspec
-      inputs:
-        disable_slow_controls: true
