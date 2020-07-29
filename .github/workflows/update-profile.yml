@@ -1,28 +1,18 @@
-name: Verify the Baseline using Vagrant
+name: Update Profile
 
 on:
-  push:
-    branches: [ master, v2.6 ]
   pull_request:
     branches: [ master, v2.6 ]
-  release:
-    types:
-      - published
 
 jobs:
   my-job:
-    name: Validate my profile
-    runs-on: macos-latest
+    name: Update profile.json in the repository
+    runs-on: ubuntu-latest
     env:
       CHEF_LICENSE: accept-silent
-      KITCHEN_LOCAL_YAML: kitchen.vagrant.yml
-    strategy:
-      matrix:
-        suite: ['vanilla', 'hardened']
-      fail-fast: false
     steps:
-      - name: Add jq for output formatting
-        run: brew install jq
+      - name: add needed packages
+        run: sudo apt-get install -y jq
       - name: Check out repository
         uses: actions/checkout@v2
       - name: Clone full repository so we can push
@@ -31,8 +21,6 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.7'
-      - name: Disable ri and rdoc
-        run: 'echo "gem: --no-ri --no-rdoc" >> ~/.gemrc'
       - name: Setup caching
         uses: actions/cache@v2
         with:
@@ -45,8 +33,6 @@ jobs:
           gem install bundler
           bundle config path vendor/bundle
           bundle install
-      - name: Check the profile
-        run: bundle exec inspec check .
       - name: Setup Git to push to the repo
         run: |
           git config --local user.email "action@github.com"
@@ -57,15 +43,7 @@ jobs:
       - name: Update profile.json in the repository
         uses: stefanzweifel/git-auto-commit-action@v4.1.0
         with:
+          commit_user_name: GitHub Actions
+          commit_user_email: my-github-actions-bot@example.org
           commit_message: 'Updating profile.json in the repository'
           branch: ${{ github.branch }}
-      - name: Run kitchen test
-        run: bundle exec kitchen test --destroy=always ${{ matrix.suite }}-rhel-7 || true
-      - name: Display our {{ matrix.suite }} results summary
-        run: bundle exec inspec_tools summary -j spec/results/rhel-7_${{ matrix.suite }}.json --json-counts | jq .
-      - name: Ensure the scan meets our ${{ matrix.suite }} results threshold
-        run: bundle exec inspec_tools compliance -j spec/results/rhel-7_${{ matrix.suite }}.json -f ${{ matrix.suite }}.threshold.yml
-      - name: Save Test Result JSON
-        uses: actions/upload-artifact@v2
-        with:
-          path: spec/results/
