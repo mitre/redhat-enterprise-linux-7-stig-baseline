@@ -15,8 +15,8 @@ jobs:
         run: sudo apt-get install -y jq
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Clone full repository so we can push
-        run: git fetch --prune --unshallow
+        with:
+          ref: ${{ github.head_ref }}
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
         with:
@@ -46,4 +46,3 @@ jobs:
           commit_user_name: GitHub Actions
           commit_user_email: my-github-actions-bot@example.org
           commit_message: 'Updating profile.json in the repository'
-          branch: ${{ github.branch }}
