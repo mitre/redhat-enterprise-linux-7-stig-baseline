@@ -10,7 +10,7 @@ verifier:
     - name: RedHat Enterprise Linux 7 STIG
       path: .
   input_files:
-    - inputs.example.yml
+    - kitchen.inputs.yml
   load_plugins: true
 
 provisioner:
