@@ -45,12 +45,6 @@ jobs:
           gem install bundler
           bundle config path vendor/bundle
           bundle install
-      - name: Check the profile
-        run: bundle exec inspec check .
-      - name: Setup Git to push to the repo
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
       - name: Regenerate current `profile.json`
         run: |
           bundle exec inspec json . | jq . > profile.json
