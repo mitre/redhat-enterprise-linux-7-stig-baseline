@@ -76,7 +76,7 @@ should be created under the appropriate subdirectory.
   multifactor_enabled = input('multifactor_enabled')
   dconf_user = input('dconf_user')
 
-  if package('gnome-desktop3').installed? && package('pcsc-lite').installed? || package('esc').installed?
+  if package('gnome-desktop3').installed? && (package('pcsc-lite').installed? || package('esc').installed?)
     impact 0.5
     if !dconf_user.nil? && command('whoami').stdout.strip == 'root'
       describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
