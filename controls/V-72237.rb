@@ -63,15 +63,13 @@ third-party vendor):
   tag cci: ["CCI-001133", "CCI-002361"]
   tag nist: ["SC-10", "AC-12", "Rev_4"]
 
-  client_alive_interval = input('client_alive_interval')
-
   #This may show slightly confusing results when a ClientAliveInterValue is not
   #specified. Specifically, because the value will be nil and when you try to
   #convert it to an integer using to_i it will convert it to 0 and pass the
   #<= client_alive_interval check. However, the control as a whole will still fail.
   describe sshd_config do
     its("ClientAliveInterval.to_i"){should cmp >= 1}
-    its("ClientAliveInterval.to_i"){should cmp <= client_alive_interval}
+    its("ClientAliveInterval.to_i"){should cmp <= input('client_alive_interval')}
     its("ClientAliveInterval"){should_not eq nil}
   end
 end

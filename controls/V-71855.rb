@@ -51,8 +51,6 @@ command:
   tag cci: ["CCI-001749"]
   tag nist: ["CM-5 (3)", "Rev_4"]
 
-rpm_verify_integrity_except = input('rpm_verify_integrity_except')
-
 if input('disable_slow_controls')
     describe "This control consistently takes a long to run and has been disabled
     using the disable_slow_controls attribute." do
@@ -64,7 +62,7 @@ if input('disable_slow_controls')
     # grep excludes files that are marked with 'c' attribute (config files)
     describe command("rpm -Va | grep '^..5' | grep -E -v '[a-z]*c[a-z]*\\s+\\S+$' | awk 'NF>1{print $NF}'").
       stdout.strip.split("\n") do
-        it { should all(be_in rpm_verify_integrity_except) }
+        it { should all(be_in input('rpm_verify_integrity_except')) }
       end
   end
 end

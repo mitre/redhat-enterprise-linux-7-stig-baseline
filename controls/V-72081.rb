@@ -86,17 +86,15 @@ staff.
   tag cci: ["CCI-000139"]
   tag nist: ["AU-5 a", "Rev_4"]
 
-  monitor_kernel_log = input('monitor_kernel_log')
-
   if auditd.status['failure'].nil?
     impact 0.7
-  elsif auditd.status['failure'].match?(%r{^1$}) && !monitor_kernel_log
+  elsif auditd.status['failure'].match?(%r{^1$}) && !input('monitor_kernel_log')
     impact 0.3
   else
     impact 0.5
   end
 
-  if !monitor_kernel_log
+  if !input('monitor_kernel_log')
     describe auditd.status['failure'] do
       it { should match %r{^2$} }
     end

@@ -36,18 +36,16 @@ file systems that are associated with removable media."
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  non_removable_media_fs = input('non_removable_media_fs')
-
   file_systems = etc_fstab.params
   if !file_systems.nil? and !file_systems.empty?
     file_systems.each do |file_sys_line|
-      if !"#{non_removable_media_fs}".include?(file_sys_line['file_system_type']) then
+      if !"#{input('non_removable_media_fs')}".include?(file_sys_line['file_system_type']) then
         describe file_sys_line['mount_options'] do
           it { should include 'nosuid' }
         end
       else
         describe "File system \"#{file_sys_line['file_system_type']}\" does not correspond to removable media." do
-          subject { "#{non_removable_media_fs}".include?(file_sys_line['file_system_type']) }
+          subject { "#{input('non_removable_media_fs')}".include?(file_sys_line['file_system_type']) }
           it { should eq true }
         end
       end

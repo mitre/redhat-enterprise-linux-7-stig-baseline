@@ -47,10 +47,8 @@ the configurations listed in this requirement.
   tag cci: ["CCI-000200"]
   tag nist: ["IA-5 (1) (e)", "Rev_4"]
 
-  min_reuse_generations = input('min_reuse_generations')
-
   describe pam("/etc/pam.d/system-auth") do
-    its('lines') { should match_pam_rule('password (required|requisite|sufficient) pam_(unix|pwhistory).so').any_with_integer_arg('remember', '>=', min_reuse_generations) }
+    its('lines') { should match_pam_rule('password (required|requisite|sufficient) pam_(unix|pwhistory).so').any_with_integer_arg('remember', '>=', input('min_reuse_generations')) }
   end
 end
 

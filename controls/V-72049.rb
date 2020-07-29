@@ -49,10 +49,8 @@ environment variables.
 "CCI-001814"]
   tag nist: ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
 
-  non_interactive_shells = input('non_interactive_shells')
-
   # Get all interactive users
-  ignore_shells = non_interactive_shells.join('|')
+  ignore_shells = input('non_interactive_shells').join('|')
 
   # Get home directory for users with UID >= 1000 or UID == 0 and support interactive logins.
   findings = Set[]

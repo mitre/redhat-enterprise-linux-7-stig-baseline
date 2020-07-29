@@ -46,12 +46,10 @@ have the required value):
   tag cci: ["CCI-000192"]
   tag nist: ["IA-5 (1) (a)", "Rev_4"]
 
-  max_retry = input('max_retry')
-
   describe pam('/etc/pam.d/passwd') do
     its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so') }
     its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '>=', 1) }
-    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '<=', max_retry) }
+    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '<=', input('max_retry')) }
   end
 end
 

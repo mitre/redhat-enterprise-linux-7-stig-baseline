@@ -47,9 +47,7 @@ document the system as being used for log aggregation."
 "CCI-001814"]
   tag nist: ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
 
-  log_aggregation_server = input('log_aggregation_server')
-
-  if log_aggregation_server
+  if input('log_aggregation_server')
     describe file('/etc/rsyslog.conf') do
       its('content') { should match %r{^\$ModLoad\s+imtcp.*\n?$} }
     end

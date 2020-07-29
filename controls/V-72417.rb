@@ -62,21 +62,18 @@ control "V-72417" do
   tag cci: ["CCI-001948", "CCI-001953", "CCI-001954"]
   tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)", "Rev_4"]
 
-  mfa_pkg_list = input('mfa_pkg_list')
-  smart_card_status = input('smart_card_status')
-
-  if smart_card_status.eql?('disabled')
+  if input('smart_card_status').eql?('disabled')
     impact 0.0
     describe "The system is not smartcard enabled thus this control is Not Applicable" do
       skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
     end 
-  elsif mfa_pkg_list.empty?
+  elsif input('mfa_pkg_list').empty?
     describe "The required Smartcard packages have not beed defined, plese define them in your `inputs`." do
-      subjec { mfa_pkg_list }
+      subjec { input('mfa_pkg_list') }
       it { should_not be_empty }
     end
   else
-    mfa_pkg_list.each do |pkg|
+    input('mfa_pkg_list').each do |pkg|
       describe "The package" do
         subject { package("#{pkg}") }
         it { should be_installed }

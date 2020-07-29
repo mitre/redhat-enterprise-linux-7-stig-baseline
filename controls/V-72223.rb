@@ -62,12 +62,10 @@ period of inactivity.
   tag cci: ["CCI-001133", "CCI-002361"]
   tag nist: ["SC-10", "AC-12", "Rev_4"]
 
-  system_activity_timeout = input('system_activity_timeout')
-
   # Get current TMOUT environment variable (active test)
   describe 'Environment variable TMOUT' do
     subject { os_env('TMOUT').content.to_i }
-    it { should be <= system_activity_timeout }
+    it { should be <= input('system_activity_timeout') }
   end
 
   # Check if TMOUT is set in files (passive test)
@@ -117,7 +115,7 @@ period of inactivity.
   else
     describe"The TMOUT setting is configured properly" do
       subject { latest_val }
-      it { should be <= system_activity_timeout }
+      it { should be <= input('system_activity_timeout') }
     end
   end
 end

@@ -153,9 +153,6 @@ Agreement for details.\"
   tag nist: ["AC-8 a", "AC-8 b", "AC-8 c 1", "AC-8 c 2", "AC-8 c 2", "AC-8 c
 2", "AC-8 c 3", "Rev_4"]
 
-  banner_message_text_ral = input('banner_message_text_ral')
-  banner_message_text_ral_limited = input('banner_message_text_ral_limited')
-
   #When Banner is commented, not found, disabled, or the specified file does not exist, this is a finding.
   banner_files = [sshd_config.banner].flatten
 
@@ -182,8 +179,8 @@ Agreement for details.\"
     #Banner property provides a path to a file and it exists.
     describe.one do
       banner = file(banner_file).content.gsub(%r{[\r\n\s]}, '')
-      clean_banner = banner_message_text_ral.gsub(%r{[\r\n\s]}, '')
-      clean_banner_limited = banner_message_text_ral_limited.gsub(%r{[\r\n\s]}, '')
+      clean_banner = input('banner_message_text_ral').gsub(%r{[\r\n\s]}, '')
+      clean_banner_limited = input('banner_message_text_ral_limited').gsub(%r{[\r\n\s]}, '')
 
       describe "The SSHD Banner is set to the standard banner and has the correct text" do
         subject { banner }

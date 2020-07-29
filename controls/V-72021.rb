@@ -48,17 +48,14 @@ of \"/home/smithj\", and has a primary group of users.
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  exempt_home_users = input('exempt_home_users')
-  non_interactive_shells = input('non_interactive_shells')
-
-  ignore_shells = non_interactive_shells.join('|')
+  ignore_shells = input('non_interactive_shells').join('|')
 
   uid_min = login_defs.read_params['UID_MIN'].to_i
   uid_min = 1000 if uid_min.nil?
 
   findings = Set[]
   users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries.each do |user_info|
-    next if exempt_home_users.include?("#{user_info.username}")
+    next if input('exempt_home_users').include?("#{user_info.username}")
     findings = findings + command("find #{user_info.home} -maxdepth 0 -not -gid #{user_info.gid}").stdout.split("\n")
   end
   describe "Home directories that are not group-owned by the user's primary GID" do

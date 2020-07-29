@@ -69,9 +69,7 @@ uncommented file and directory selection lists.
     it { should be_installed }
   end
 
-  exclude_patterns = input('aide_exclude_patterns')
-
-  findings = aide_conf.where { !selection_line.start_with?('!') && !exclude_patterns.include?(selection_line) && !rules.include?('sha512')}
+  findings = aide_conf.where { !selection_line.start_with?('!') && !input('aide_exclude_patterns').include?(selection_line) && !rules.include?('sha512')}
 
   describe "List of monitored files/directories without 'sha512' rule" do
     subject { findings.selection_lines }

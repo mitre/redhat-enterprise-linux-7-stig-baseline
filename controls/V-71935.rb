@@ -46,10 +46,8 @@ line to have the required value):
   tag cci: ["CCI-000205"]
   tag nist: ["IA-5 (1) (a)", "Rev_4"]
 
-  min_len = input('min_len')
-
   describe parse_config_file("/etc/security/pwquality.conf") do
-    its('minlen.to_i') { should cmp >= min_len }
+    its('minlen.to_i') { should cmp >= input('min_len') }
   end
 end
 

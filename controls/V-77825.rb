@@ -54,10 +54,8 @@ line to \"/etc/sysctl.conf\" or a config file in the /etc/sysctl.d/ directory
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  randomize_va_space = input('randomize_va_space')
-
   describe kernel_parameter('kernel.randomize_va_space') do
-    its('value') { should eq randomize_va_space }
+    its('value') { should eq input('randomize_va_space') }
   end
 end
 

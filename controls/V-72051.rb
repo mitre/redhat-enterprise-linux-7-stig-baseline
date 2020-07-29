@@ -47,13 +47,11 @@ following line to \"/etc/rsyslog.conf\" or a configuration file in the
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  log_pkg_path = input('log_pkg_path')
-
   describe.one do
-    describe command("grep cron #{log_pkg_path}") do
+    describe command("grep cron #{input('log_pkg_path')}") do
       its('stdout.strip') { should match %r{^cron} }
     end
-    describe file("#{log_pkg_path}") do
+    describe file("#{input('log_pkg_path')}") do
       its('content') { should match %r{^\*\.\* \/var\/log\/messages\n?$} }
       its('content') { should_not match %r{^*.*\s+~$.*^*\.\* \/var\/log\/messages\n?$}m }
     end

@@ -45,8 +45,6 @@ with the ISSO."
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  approved_tunnels = input('approved_tunnels')
-
   if package('libreswan').installed? && service('ipsec.service').running?
     impact 0.5
     processed = []
@@ -76,7 +74,7 @@ with the ISSO."
     end.flatten
 
     describe conn_grep do
-      it { should all(be_in approved_tunnels) }
+      it { should all(be_in input('approved_tunnels')) }
     end
   else
     impact 0.0

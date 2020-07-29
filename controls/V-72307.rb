@@ -36,14 +36,12 @@ the related packages with the following commands:
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  x11_enabled = input('x11_enabled')
-
   describe package('xorg-x11-server-common') do
     it { should_not be_installed }
-  end if !x11_enabled
+  end if !input('x11_enabled')
 
   describe package('xorg-x11-server-common') do
     it { should be_installed }
-  end if x11_enabled
+  end if input('x11_enabled')
 end
 

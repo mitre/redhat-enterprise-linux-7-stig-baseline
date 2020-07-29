@@ -47,8 +47,6 @@ following command:
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  application_groups = input('application_groups')
-
   ww_dirs = Set[]
   partitions = etc_fstab.params.map{|partition| partition['file_system_type']}.uniq
   partitions.each do |part|
@@ -59,7 +57,7 @@ following command:
   ww_dirs.to_a.each do |curr_dir|
     dir_arr = curr_dir.split(' ')
     describe file(dir_arr.last) do
-      its('group') { should be_in ["root","sys","bin"] + application_groups }
+      its('group') { should be_in ["root","sys","bin"] + input('application_groups') }
     end
   end
 end

@@ -58,15 +58,13 @@ command:
 "CCI-001814"]
   tag nist: ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
 
-  virtual_machine = input('virtual_machine')
-
   findings = Set[]
   findings = findings + command('find / -context *:device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
   findings = findings + command('find / -context *:unlabeled_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
   findings = findings + command('find / -context *:vmci_device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
 
   describe findings do
-    if virtual_machine
+    if input('virtual_machine')
       its ('length') { should cmp 1 }
       its ('first') { should include '/dev/vmci' }
     else

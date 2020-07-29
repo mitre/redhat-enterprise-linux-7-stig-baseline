@@ -82,23 +82,21 @@ check run\" root@sysname.mil
   tag cci: ["CCI-001744"]
   tag nist: ["CM-3 (5)", "Rev_4"]
 
-  file_integrity_tool = input('file_integrity_tool')
-
-  describe package(file_integrity_tool) do
+  describe package(input('file_integrity_tool')) do
     it { should be_installed }
   end
   describe.one do
-    describe file("/etc/cron.daily/#{file_integrity_tool}") do
+    describe file("/etc/cron.daily/#{input('file_integrity_tool')}") do
       its('content') { should match %r{/bin/mail} }
     end
-    describe file("/etc/cron.weekly/#{file_integrity_tool}") do
+    describe file("/etc/cron.weekly/#{input('file_integrity_tool')}") do
       its('content') { should match %r{/bin/mail} }
     end
-    describe crontab('root').where { command =~ %r{#{file_integrity_tool}} } do
+    describe crontab('root').where { command =~ %r{#{input('file_integrity_tool')}} } do
       its('commands.flatten') { should include(match %r{/bin/mail}) }
     end
-    if file("/etc/cron.d/#{file_integrity_tool}").exist?
-      describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+    if file("/etc/cron.d/#{input('file_integrity_tool')}").exist?
+      describe crontab(path: "/etc/cron.d/#{input('file_integrity_tool')}") do
         its('commands') { should include(match %r{/bin/mail}) }
       end
     end

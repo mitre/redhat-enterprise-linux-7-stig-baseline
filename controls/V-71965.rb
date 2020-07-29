@@ -74,11 +74,10 @@ module if required.
   tag cci: ["CCI-000766"]
   tag nist: ["IA-2 (2)", "Rev_4"]
 
-  smart_card_status = input('smart_card_status')
-  if smart_card_status.eql?('enabled')
+  if input('smart_card_status').eql?('enabled')
     impact 0.5
     describe command("authconfig --test | grep -i smartcard") do
-      its('stdout') { should match %r{use\sonly\ssmartcard\sfor\slogin\sis\s#{smart_card_status}} }
+      its('stdout') { should match %r{use\sonly\ssmartcard\sfor\slogin\sis\s#{input('smart_card_status')}} }
       its('stdout') { should match %r{smartcard\smodule\s=\s".+"} }
       its('stdout') { should match %r{smartcard\sremoval\saction\s=\s".+"} }
     end

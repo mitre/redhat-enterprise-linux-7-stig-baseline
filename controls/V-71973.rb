@@ -71,75 +71,72 @@ check run\" root@sysname.mil
   tag cci: ["CCI-001744"]
   tag nist: ["CM-3 (5)", "Rev_4"]
 
-  file_integrity_tool = input('file_integrity_tool')
-  file_integrity_interval = input('file_integrity_interval')
-
-  describe package(file_integrity_tool) do
+  describe package(input('file_integrity_tool')) do
     it { should be_installed }
   end
 
-  if file_integrity_interval == 'monthly'
+  if input('file_integrity_interval') == 'monthly'
     describe.one do
-      describe file("/etc/cron.daily/#{file_integrity_tool}") do
+      describe file("/etc/cron.daily/#{input('file_integrity_tool')}") do
         it { should exist }
       end
-      describe file("/etc/cron.weekly/#{file_integrity_tool}") do
+      describe file("/etc/cron.weekly/#{input('file_integrity_tool')}") do
         it { should exist }
       end
-      describe file("/etc/cron.monthly/#{file_integrity_tool}") do
+      describe file("/etc/cron.monthly/#{input('file_integrity_tool')}") do
         it { should exist }
       end
-      if file("/etc/cron.d/#{file_integrity_tool}").exist?
-        describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+      if file("/etc/cron.d/#{input('file_integrity_tool')}").exist?
+        describe crontab(path: "/etc/cron.d/#{input('file_integrity_tool')}") do
           its('months') { should cmp '*' }
           its('weekdays') { should cmp '*' }
         end
-        describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+        describe crontab(path: "/etc/cron.d/#{input('file_integrity_tool')}") do
           its('days') { should cmp '*' }
           its('months') { should cmp '*' }
         end
       end
-      describe crontab('root').where { command =~ %r{#{file_integrity_tool}} } do
+      describe crontab('root').where { command =~ %r{#{input('file_integrity_tool')}} } do
         its('months') { should cmp '*' }
         its('weekdays') { should cmp '*' }
       end
-      describe crontab('root').where { command =~ %r{#{file_integrity_tool}} } do
+      describe crontab('root').where { command =~ %r{#{input('file_integrity_tool')}} } do
         its('days') { should cmp '*' }
         its('months') { should cmp '*' }
       end
     end
-  elsif file_integrity_interval == 'weekly'
+  elsif input('file_integrity_interval') == 'weekly'
     describe.one do
-      describe file("/etc/cron.daily/#{file_integrity_tool}") do
+      describe file("/etc/cron.daily/#{input('file_integrity_tool')}") do
         it { should exist }
       end
-      describe file("/etc/cron.weekly/#{file_integrity_tool}") do
+      describe file("/etc/cron.weekly/#{input('file_integrity_tool')}") do
         it { should exist }
       end
-      if file("/etc/cron.d/#{file_integrity_tool}").exist?
-        describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+      if file("/etc/cron.d/#{input('file_integrity_tool')}").exist?
+        describe crontab(path: "/etc/cron.d/#{input('file_integrity_tool')}") do
           its('days') { should cmp '*' }
           its('months') { should cmp '*' }
         end
       end
-      describe crontab('root').where { command =~ %r{#{file_integrity_tool}} } do
+      describe crontab('root').where { command =~ %r{#{input('file_integrity_tool')}} } do
         its('days') { should cmp '*' }
         its('months') { should cmp '*' }
       end
     end
-  elsif file_integrity_interval == 'daily'
+  elsif input('file_integrity_interval') == 'daily'
     describe.one do
-      describe file("/etc/cron.daily/#{file_integrity_tool}") do
+      describe file("/etc/cron.daily/#{input('file_integrity_tool')}") do
         it { should exist }
       end
-      if file("/etc/cron.d/#{file_integrity_tool}").exist?
-        describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+      if file("/etc/cron.d/#{input('file_integrity_tool')}").exist?
+        describe crontab(path: "/etc/cron.d/#{input('file_integrity_tool')}") do
           its('days') { should cmp '*' }
           its('months') { should cmp '*' }
           its('weekdays') { should cmp '*' }
         end
       end
-      describe crontab('root').where { command =~ %r{#{file_integrity_tool}} } do
+      describe crontab('root').where { command =~ %r{#{input('file_integrity_tool')}} } do
         its('days') { should cmp '*' }
         its('months') { should cmp '*' }
         its('weekdays') { should cmp '*' }

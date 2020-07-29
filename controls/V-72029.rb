@@ -58,14 +58,11 @@ either the directory owner or root with the following command:
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  exempt_home_users = input('exempt_home_users')
-  non_interactive_shells = input('non_interactive_shells')
-
-  ignore_shells = non_interactive_shells.join('|')
+  ignore_shells = input('non_interactive_shells').join('|')
 
   findings = Set[]
   users.where{ !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
-    next if exempt_home_users.include?("#{user_info.username}")
+    next if input('exempt_home_users').include?("#{user_info.username}")
     findings = findings + command("find #{user_info.home} -name '.*' -not -user #{user_info.username} -a -not -user root").stdout.split("\n")
   end
   describe "Files and Directories not owned by the user or root of the parent home directory" do

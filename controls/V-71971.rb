@@ -81,8 +81,6 @@ implemented security safeguards/countermeasures.
   tag cci: ["CCI-002165", "CCI-002235"]
   tag nist: ["AC-3 (4)", "AC-6 (10)", "Rev_4"]
 
-  admin_logins = input('admin_logins')
-
   if package('MFEhiplsm').installed? && processes(/hipclient/).exist?
     impact 0.0
     describe "HIPS is active on the system" do
@@ -123,7 +121,7 @@ implemented security safeguards/countermeasures.
       describe "SELinux login #{user}" do
         if user == '__default__'
           let(:valid_users){[ 'user_u' ]}
-        elsif admin_logins.include?(user)
+        elsif input('admin_logins').include?(user)
           let(:valid_users){[
             'sysadm_u',
             'staff_u'

@@ -73,18 +73,15 @@ should be created under the appropriate subdirectory.
   tag cci: ["CCI-001948", "CCI-001953", "CCI-001954"]
   tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)"]
 
-  multifactor_enabled = input('multifactor_enabled')
-  dconf_user = input('dconf_user')
-
   if package('gnome-desktop3').installed? && package('pcsc-lite').installed? || package('esc').installed?
     impact 0.5
-    if !dconf_user.nil? && command('whoami').stdout.strip == 'root'
-      describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
-        its('stdout.strip') { should eq multifactor_enabled.to_s }
+    if !input('dconf_user').nil? && command('whoami').stdout.strip == 'root'
+      describe command("sudo -u #{input('dconf_user')} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
+        its('stdout.strip') { should eq input('multifactor_enabled').to_s }
       end
     else
       describe command("dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
-        its('stdout.strip') { should eq multifactor_enabled.to_s }
+        its('stdout.strip') { should eq input('multifactor_enabled').to_s }
       end
     end
   else

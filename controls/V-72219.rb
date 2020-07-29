@@ -63,35 +63,29 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
   tag cci: ["CCI-000382", "CCI-002314"]
   tag nist: ["CM-7 b", "AC-17 (1)", "Rev_4"]
 
-  firewalld_services_deny = input('firewalld_services_deny')
-  firewalld_hosts_deny = input('firewalld_hosts_deny')
-  firewalld_ports_deny = input('firewalld_ports_deny')
-  firewalld_zones = input('firewalld_zones')
-  iptables_rules = input('iptables_rules')
-
   if service('firewalld').running?
 
     # Check that the rules specified in 'firewalld_host_deny' are not enabled
     describe firewalld do
-      firewalld_hosts_deny.each do |rule|
+      input('firewalld_hosts_deny').each do |rule|
         it { should_not have_rule_enabled(rule) }
       end
     end
 
     # Check to make sure zones are specified
-    if firewalld_zones.empty?
+    if input('firewalld_zones').empty?
       describe "Firewalld zones are not specified. Check 'firewalld_zones' input." do
-        subject { firewalld_zones.empty? }
+        subject { input('firewalld_zones').empty? }
         it { should be false }
       end
     end
 
     # Check that the services specified in 'firewalld_services_deny' and
     # ports specified in 'firewalld_ports_deny' are not enabled
-    firewalld_zones.each do |zone|
+    input('firewalld_zones').each do |zone|
       if firewalld.has_zone?(zone)
-        zone_services = firewalld_services_deny[zone.to_sym]
-        zone_ports = firewalld_ports_deny[zone.to_sym]
+        zone_services = input('firewalld_services_deny')[zone.to_sym]
+        zone_ports = input('firewalld_ports_deny')[zone.to_sym]
 
         if !zone_services.nil?
           describe firewalld do
@@ -127,7 +121,7 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
     end
   elsif service('iptables').running?
     describe iptables do
-      iptables_rules.each do |rule|
+      input('iptables_rules').each do |rule|
         it { should have_rule(rule) }
       end
     end

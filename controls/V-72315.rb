@@ -78,39 +78,30 @@ specific hosts.
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  firewalld_services = input('firewalld_services')
-  firewalld_hosts_allow = input('firewalld_hosts_allow')
-  firewalld_hosts_deny = input('firewalld_hosts_deny')
-  firewalld_ports_allow = input('firewalld_ports_allow')
-  firewalld_ports_deny = input('firewalld_ports_deny')
-  tcpwrappers_allow = input('tcpwrappers_allow')
-  tcpwrappers_deny = input('tcpwrappers_deny')
-  iptable_rules = input('iptables_rules')
-
   if service('firewalld').running?
     @default_zone = firewalld.default_zone
 
     describe firewalld.where{ zone = @default_zone } do
-      its('services') { should be_in firewalld_services }
+      its('services') { should be_in input('firewalld_services') }
     end
 
     describe firewalld do
-      firewalld_hosts_allow.each do |rule|
+      input('firewalld_hosts_allow').each do |rule|
         it { should have_rule_enabled(rule) }
       end
-      firewalld_hosts_deny.each do |rule|
+      input('firewalld_hosts_deny').each do |rule|
         it { should_not have_rule_enabled(rule) }
       end
-      firewalld_ports_allow.each do |port|
+      input('firewalld_ports_allow').each do |port|
         it { should have_port_enabled_in_zone(port) }
       end
-      firewalld_ports_deny.each do |port|
+      input('firewalld_ports_deny').each do |port|
         it { should_not have_port_enabled_in_zone(port) }
       end
     end
   elsif service('iptables').running?
     describe iptables do
-      iptable_rules.each do |rule|
+      input('iptables_rules').each do |rule|
         it { should have_rule(rule) }
       end
     end
@@ -118,13 +109,13 @@ specific hosts.
     describe package('tcp_wrappers') do
       it { should be_installed }
     end
-    tcpwrappers_allow.each do |rule|
+    input('tcpwrappers_allow').each do |rule|
       describe etc_hosts_allow.where { daemon == rule['daemon'] } do
         its('client_list') { should be rule['client_list'] }
         its('options') { should be rule['options'] }
       end
     end
-    tcpwrappers_deny.each do |rule|
+    input('tcpwrappers_deny').each do |rule|
       describe etc_hosts_deny.where { daemon == rule['daemon'] } do
         its('client_list') { should be rule['client_list'] }
         its('options') { should be rule['options'] }

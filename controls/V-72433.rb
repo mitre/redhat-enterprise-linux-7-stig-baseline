@@ -65,9 +65,7 @@ authentication.
   tag cci: ["CCI-001948", "CCI-001953", "CCI-001954"]
   tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)", "Rev_4"]
 
-  smart_card_status = input('smart_card_status')
-
-  if smart_card_status.eql?('enabled')
+  if input('smart_card_status').eql?('enabled')
     impact 0.5
     if ((pam_file = file('/etc/pam_pkcs11/pam_pkcs11.conf')).exist?)
       cert_policy_lines = (pam_file.content.nil?)?[]:

@@ -52,10 +52,7 @@ allow for a normal user to perform administrative-level actions.
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  known_system_accounts = input('known_system_accounts')
-  user_accounts = input('user_accounts')
-
-  allowed_accounts = (known_system_accounts + user_accounts).uniq
+  allowed_accounts = (input('known_system_accounts') + input('user_accounts')).uniq
   passwd.users.each do |user|
     describe user do
       it "is listed in allowed users." do

@@ -43,9 +43,7 @@ aggregation system:
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  log_pkg_path = input('log_pkg_path')
-
-  describe command("grep @ #{log_pkg_path} | grep -v \"^#\"") do
+  describe command("grep @ #{input('log_pkg_path')} | grep -v \"^#\"") do
     its('stdout.strip') { should_not be_empty }
   end
 end
