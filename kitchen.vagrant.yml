@@ -1,9 +1,6 @@
 ---
 driver:
   name: vagrant
-  customize:
-    natdnsproxy1: "on"
-    natdnshostresolver1: "on"
 
 platforms:
   - name: rhel-7
