@@ -13,7 +13,7 @@ inputs:
   description: Controls that are known to consistently have long run times can be disabled with this attribute
   # muted until https://github.com/inspec/inspec/issues/4799 is resolved
   #type: Boolean
-  value: true
+  value: false
 
 # V-72081
 - name: monitor_kernel_log
@@ -536,9 +536,25 @@ inputs:
   value:
     - tmux
     - screen
+  
+- name: required_rules
+  description: 'Required PAM rules'
+  type: Array
+  value: 
+    - 'auth required pam_faillock.so unlock_time=.*'
+    - 'auth sufficient pam_unix.so try_first_pass'
+    - 'auth [default=die] pam_faillock.so unlock_time=.*'
+
+- name: alternate_rules
+  description: 'Alternate PAM rules'
+  type: Array
+  value:
+    - 'auth required pam_faillock.so unlock_time=.*'
+    - 'auth sufficient pam_sss.so forward_pass'
+    - 'auth sufficient pam_unix.so try_first_pass'
+    - 'auth [default=die] pam_faillock.so unlock_time=.*'
 
 - name: data_loss_prevention_installed
   description: 'is an HBSS with a Device Control Module and a Data Loss Prevention mechanism'
   type: Boolean
   value: true
-  

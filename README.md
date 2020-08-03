@@ -124,17 +124,19 @@ more manually. Once resolved fully, you will only need to run `kitchen verify (m
 
 # Hardening Development
 
+Included in this repository are testing scripts which allow you to run the profile using Vagrant or EC2 VMs. You can choose which environment your VMs are run in by passing the appropriate test-kitchen `yml` file to your `KITCHEN_LOCAL_YAML` environment variable. All of the commands below use the `kitchen.vagrant.yml` file as an example, however a `kitchen.ec2.yaml` is also available in the repository and can be substituted below to run the tests in EC2.
+
 - Making Changes and Testing
 
-  - run `CHEF_LICENSE=accept KITCHEN_YAML=kitchen.vagrant.yml kitchen converge (machine name)` - runs any changes to your hardening scripts
+  - run `CHEF_LICENSE=accept KITCHEN_LOCAL_YAML=kitchen.vagrant.yml kitchen converge (machine name)` - runs any changes to your hardening scripts
   - run `kitchen verify (machine name)` - runs the inspec tests
 
 - Starting Clean:
-  - run `CHEF_LICENSE=accept KITCHEN_YAML=kitchen.vagrant.yml kitchen destroy (machine name)` kitchen will drop your box and you can start clean
+  - run `CHEF_LICENSE=accept KITCHEN_LOCAL_YAML=kitchen.vagrant.yml kitchen destroy (machine name)` kitchen will drop your box and you can start clean
 - Going through the entire process ( create, build, configure, verify, destroy )
-  - run `CHEF_LICENSE=accept KITCHEN_YAML=kitchen.vagrant.yml kitchen test (machine name)` or to test all defined machines `kitchen test`
+  - run `CHEF_LICENSE=accept KITCHEN_LOCAL_YAML=kitchen.vagrant.yml kitchen test (machine name)` or to test all defined machines `kitchen test`
 - Just running the validation scripts
-  - run `CHEF_LICENSE=accept KITCHEN_YAML=kitchen.vagrant.yml kitchen verify (machine name)`
+  - run `CHEF_LICENSE=accept KITCHEN_LOCAL_YAML=kitchen.vagrant.yml kitchen verify (machine name)`
 - just run one or more controls in the validation
   - edit the .kitchen.yml file in the `controls:` section add the `control id(s)` to the list
 

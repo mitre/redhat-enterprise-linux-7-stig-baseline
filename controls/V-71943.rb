@@ -102,35 +102,31 @@ the configurations listed in this requirement.
   tag cci: ["CCI-000044", "CCI-002236", "CCI-002237", "CCI-002238"]
   tag nist: ["AC-7 a", "AC-7 b", "AC-7 b", "AC-7 b", "Rev_4"]
 
-  unsuccessful_attempts = input('unsuccessful_attempts')
-  fail_interval = input('fail_interval')
-  lockout_time = input('lockout_time')
-
   describe pam('/etc/pam.d/password-auth') do
     its('lines') {
-      should match_pam_rules(required_rules).exactly.or \
-             match_pam_rules(alternate_rules).exactly
+      should match_pam_rules(input('required_rules')).exactly.or \
+             match_pam_rules(input('alternate_rules')).exactly
     }
-    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', '<=', unsuccessful_attempts) }
-    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', '<=', fail_interval) }
+    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', '<=', input('unsuccessful_attempts')) }
+    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', '<=', input('fail_interval')) }
     its('lines') {
       should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(0|never)').or \
             (match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '<=', 604800).and \
-             match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '>=', lockout_time))
+             match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '>=', input('lockout_time')))
     }
   end
 
   describe pam('/etc/pam.d/system-auth') do
     its('lines') {
-      should match_pam_rules(required_rules).exactly.or \
-             match_pam_rules(alternate_rules).exactly
+      should match_pam_rules(input('required_rules')).exactly.or \
+             match_pam_rules(input('alternate_rules')).exactly
     }
-    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', '<=', unsuccessful_attempts) }
-    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', '<=', fail_interval) }
+    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', '<=', input('unsuccessful_attempts')) }
+    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', '<=', input('fail_interval')) }
     its('lines') {
       should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(0|never)').or \
             (match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '<=', 604800).and \
-             match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '>=', lockout_time))
+             match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '>=', input('lockout_time')))
     }
   end
 end

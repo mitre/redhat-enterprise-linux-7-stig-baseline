@@ -73,7 +73,7 @@ should be created under the appropriate subdirectory.
   tag cci: ["CCI-001948", "CCI-001953", "CCI-001954"]
   tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)"]
 
-  if package('gnome-desktop3').installed? && package('pcsc-lite').installed? || package('esc').installed?
+  if package('gnome-desktop3').installed? && (package('pcsc-lite').installed? || package('esc').installed?)
     impact 0.5
     if !input('dconf_user').nil? && command('whoami').stdout.strip == 'root'
       describe command("sudo -u #{input('dconf_user')} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
