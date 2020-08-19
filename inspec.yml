@@ -558,3 +558,8 @@ inputs:
   description: 'is an HBSS with a Device Control Module and a Data Loss Prevention mechanism'
   type: Boolean
   value: true
+
+- name: alternate_logs
+  description: 'An alternate method is used for logs than rsyslog'
+  type: Boolean
+  value: false
