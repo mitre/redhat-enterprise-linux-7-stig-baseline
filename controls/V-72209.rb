@@ -43,10 +43,15 @@ aggregation system:
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  log_pkg_path = input('log_pkg_path')
 
-  describe command("grep @ #{log_pkg_path} | grep -v \"^#\"") do
-    its('stdout.strip') { should_not be_empty }
+  if input('alternate_logs')
+    describe "An alternate logging system is used. This test cannot be checked in a automated fashion and you must check it manually" do
+      skip "An alternate logging system is used. This check must be performed manually"
+    end
+  else
+    describe command("grep @ #{input('log_pkg_path')} | grep -v \"^#\"") do
+      its('stdout.strip') { should_not be_empty }
+    end
   end
 end
 
