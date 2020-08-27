@@ -8,30 +8,24 @@ Service Assessment (PPSM CLSA) and vulnerability assessments."
 transfer of information, or unauthorized tunneling (i.e., embedding of data
 types within data types), organizations must disable or restrict unused or
 unnecessary physical and logical ports/protocols on information systems.
-
     Operating systems are capable of providing a wide variety of functions and
 services. Some of the functions and services provided by default may not be
 necessary to support essential organizational operations. Additionally, it is
 sometimes convenient to provide multiple services from a single component
 (e.g., VPN and IPS); however, doing so increases risk over limiting the
 services provided by any one component.
-
     To support the requirements and principles of least functionality, the
 operating system must support the organizational requirements, providing only
 essential capabilities and limiting the use of ports, protocols, and/or
 services to only those required, authorized, and approved to conduct official
 business or to address authorized quality of life issues.
-
-
   "
   desc  "rationale", ""
   desc  "check", "
     Inspect the firewall configuration and running services to verify that it
 is configured to prohibit or restrict the use of functions, ports, protocols,
 and/or services that are unnecessary or prohibited.
-
     Check which services are currently active with the following command:
-
     # firewall-cmd --list-all
     public (default, active)
       interfaces: enp0s3
@@ -42,10 +36,8 @@ and/or services that are unnecessary or prohibited.
       forward-ports:
       icmp-blocks:
       rich rules:
-
     Ask the System Administrator for the site or program PPSM CLSA. Verify the
 services allowed by the firewall match the PPSM CLSA.
-
     If there are additional ports, protocols, or services that are not in the
 PPSM CLSA, or there are ports, protocols, or services that are prohibited by
 the PPSM Category Assurance List (CAL), this is a finding.
@@ -63,29 +55,35 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
   tag cci: ["CCI-000382", "CCI-002314"]
   tag nist: ["CM-7 b", "AC-17 (1)", "Rev_4"]
 
+  firewalld_services_deny = input('firewalld_services_deny')
+  firewalld_hosts_deny = input('firewalld_hosts_deny')
+  firewalld_ports_deny = input('firewalld_ports_deny')
+  firewalld_zones = input('firewalld_zones')
+  iptables_rules = input('iptables_rules')
+
   if service('firewalld').running?
 
     # Check that the rules specified in 'firewalld_host_deny' are not enabled
     describe firewalld do
-      input('firewalld_hosts_deny').each do |rule|
+      firewalld_hosts_deny.each do |rule|
         it { should_not have_rule_enabled(rule) }
       end
     end
 
     # Check to make sure zones are specified
-    if input('firewalld_zones').empty?
+    if firewalld_zones.empty?
       describe "Firewalld zones are not specified. Check 'firewalld_zones' input." do
-        subject { input('firewalld_zones').empty? }
+        subject { firewalld_zones.empty? }
         it { should be false }
       end
     end
 
     # Check that the services specified in 'firewalld_services_deny' and
     # ports specified in 'firewalld_ports_deny' are not enabled
-    input('firewalld_zones').each do |zone|
+    firewalld_zones.each do |zone|
       if firewalld.has_zone?(zone)
-        zone_services = input('firewalld_services_deny')[zone.to_sym]
-        zone_ports = input('firewalld_ports_deny')[zone.to_sym]
+        zone_services = firewalld_services_deny[zone.to_sym]
+        zone_ports = firewalld_ports_deny[zone.to_sym]
 
         if !zone_services.nil?
           describe firewalld do
@@ -121,7 +119,7 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
     end
   elsif service('iptables').running?
     describe iptables do
-      input('iptables_rules').each do |rule|
+      iptables_rules.each do |rule|
         it { should have_rule(rule) }
       end
     end
@@ -132,4 +130,3 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
     end
   end
 end
-
