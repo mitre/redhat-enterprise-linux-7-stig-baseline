@@ -558,3 +558,8 @@ inputs:
   description: 'is an HBSS with a Device Control Module and a Data Loss Prevention mechanism'
   type: Boolean
   value: true
+
+- name: gssapi_approved
+  description: 'is GSSAPI authentication approved'
+  type: Boolean
+  value: true
