@@ -54,5 +54,6 @@ location of the configuration file, with the ISSO.
     describe "GSSAPI authentication is not approved" do
       skip "GSSAPI authentication is not approved, this control is Not Applicable."
     end
+  end
 end
 
