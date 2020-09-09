@@ -45,8 +45,14 @@ location of the configuration file, with the ISSO.
 "CCI-001814"]
   tag nist: ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
 
-  describe sshd_config do
-    its('GSSAPIAuthentication') { should cmp 'no' }
-  end
+  if input('gssapi_approved')
+    describe sshd_config do
+      its('GSSAPIAuthentication') { should cmp 'no' }
+    end
+  else
+    impact 0.0
+    describe "GSSAPI authentication is not approved" do
+      skip "GSSAPI authentication is not approved, this control is Not Applicable."
+    end
 end
 
