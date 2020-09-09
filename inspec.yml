@@ -563,3 +563,8 @@ inputs:
   description: 'An alternate method is used for logs than rsyslog'
   type: Boolean
   value: false
+
+- name: gssapi_approved
+  description: 'is GSSAPI authentication approved'
+  type: Boolean
+  value: true
