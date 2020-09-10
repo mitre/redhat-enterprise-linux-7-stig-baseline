@@ -19,7 +19,7 @@
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"fsetxattr\" syscall occur.\n\n    Check the file system rules in \"/etc/audit/audit.rules\" with the\nfollowing commands:\n\n    # grep -iw fsetxattr /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S fsetxattr -F auid>=1000 -F auid!=4294967295\n-k perm_mod\n\n    -a always,exit -F arch=b64 -S fsetxattr -F auid>=1000 -F auid!=4294967295\n-k perm_mod\n\n    If both the \"b32\" and \"b64\" audit rules are not defined for the\n\"fsetxattr\" syscall, this is a finding.",
         "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"fsetxattr\" syscall occur.\n\n    Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F arch=b32 -S fsetxattr -F auid>=1000 -F auid!=4294967295\n-k perm_mod\n\n    -a always,exit -F arch=b64 -S fsetxattr -F auid>=1000 -F auid!=4294967295\n-k perm_mod\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -175,10 +175,12 @@
         "stig_id": "RHEL-07-040420",
         "fix_id": "F-78611r5_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000172",
+          "CCI-002884"
         ],
         "nist": [
-          "CM-6 b",
+          "AU-12 c",
+          "MA-4 (1) (a)",
           "Rev_4"
         ]
       },
@@ -255,10 +257,12 @@
         "stig_id": "RHEL-07-010460",
         "fix_id": "F-78309r2_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000172",
+          "CCI-002884"
         ],
         "nist": [
-          "CM-6 b",
+          "AU-12 c",
+          "MA-4 (1) (a)",
           "Rev_4"
         ]
       },
@@ -317,7 +321,7 @@
         "check": "Inspect the firewall configuration and running services to verify that it\nis configured to prohibit or restrict the use of functions, ports, protocols,\nand/or services that are unnecessary or prohibited.\n\n    Check which services are currently active with the following command:\n\n    # firewall-cmd --list-all\n    public (default, active)\n      interfaces: enp0s3\n      sources:\n      services: dhcpv6-client dns http https ldaps rpc-bind ssh\n      ports:\n      masquerade: no\n      forward-ports:\n      icmp-blocks:\n      rich rules:\n\n    Ask the System Administrator for the site or program PPSM CLSA. Verify the\nservices allowed by the firewall match the PPSM CLSA.\n\n    If there are additional ports, protocols, or services that are not in the\nPPSM CLSA, or there are ports, protocols, or services that are prohibited by\nthe PPSM Category Assurance List (CAL), this is a finding.",
         "fix": "Update the host's firewall settings and/or running services to\ncomply with the PPSM CLSA for the site or program and the PPSM CAL."
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -587,7 +591,7 @@
         "check": "Verify the system does not accept IPv4 source-routed packets by default.\n\n    # grep net.ipv4.conf.default.accept_source_route /etc/sysctl.conf\n/etc/sysctl.d/*\n    net.ipv4.conf.default.accept_source_route = 0\n\n    If \" net.ipv4.conf.default.accept_source_route \" is not configured in the\n/etc/sysctl.conf file or in the /etc/sysctl.d/ directory, is commented out, or\ndoes not have a value of \"0\", this is a finding.\n\n    Check that the operating system implements the accept source route variable\nwith the following command:\n\n    # /sbin/sysctl -a | grep net.ipv4.conf.default.accept_source_route\n    net.ipv4.conf.default.accept_source_route = 0\n\n    If the returned line does not have a value of \"0\", this is a finding.",
         "fix": "Set the system to the required kernel parameter by adding the following\nline to \"/etc/sysctl.conf\" or a configuration file in the /etc/sysctl.d/\ndirectory (or modify the line to have the required value):\n\n    net.ipv4.conf.default.accept_source_route = 0\n\n    Issue the following command to make the changes take effect:\n\n    # sysctl --system"
       },
-      "impact": 0.5,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
@@ -744,39 +748,37 @@
       "id": "V-72071"
     },
     {
-      "title": "The Red Hat Enterprise Linux operating system must enable the SELinux\ntargeted policy.",
-      "desc": "Without verification of the security functions, security functions may\nnot operate correctly and the failure may go unnoticed. Security function is\ndefined as the hardware, software, and/or firmware of the information system\nresponsible for enforcing the system security policy and supporting the\nisolation of code and data on which the protection is based. Security\nfunctionality includes, but is not limited to, establishing system accounts,\nconfiguring access authorizations (i.e., permissions, privileges), setting\nevents to be audited, and setting intrusion detection parameters.\n\n    This requirement applies to operating systems performing security function\nverification/testing and/or systems and environments that require this\nfunctionality.",
+      "title": "The Red Hat Enterprise Linux operating system must not be performing\npacket forwarding unless the system is a router.",
+      "desc": "Routing protocol daemons are typically used on routers to exchange\nnetwork topology information with other routers. If this software is used when\nnot required, system network information may be unnecessarily transmitted\nacross the network.",
       "descriptions": {
-        "default": "Without verification of the security functions, security functions may\nnot operate correctly and the failure may go unnoticed. Security function is\ndefined as the hardware, software, and/or firmware of the information system\nresponsible for enforcing the system security policy and supporting the\nisolation of code and data on which the protection is based. Security\nfunctionality includes, but is not limited to, establishing system accounts,\nconfiguring access authorizations (i.e., permissions, privileges), setting\nevents to be audited, and setting intrusion detection parameters.\n\n    This requirement applies to operating systems performing security function\nverification/testing and/or systems and environments that require this\nfunctionality.",
+        "default": "Routing protocol daemons are typically used on routers to exchange\nnetwork topology information with other routers. If this software is used when\nnot required, system network information may be unnecessarily transmitted\nacross the network.",
         "rationale": "",
-        "check": "If an HBSS or HIPS is active on the system, this is Not Applicable.\n\n    Verify the operating system verifies correct operation of all security\nfunctions.\n\n    Check if \"SELinux\" is active and is enforcing the targeted policy with\nthe following command:\n\n    # sestatus\n\n    SELinux status: enabled\n\n    SELinuxfs mount: /selinux\n\n    SELinux root directory: /etc/selinux\n\n    Loaded policy name: targeted\n\n    Current mode: enforcing\n\n    Mode from config file: enforcing\n\n    Policy MLS status: enabled\n\n    Policy deny_unknown status: allowed\n\n    Max kernel policy version: 28\n\n    If the \"Loaded policy name\" is not set to \"targeted\", this is a finding.\n\n    Verify that the /etc/selinux/config file is configured to the\n\"SELINUXTYPE\" to \"targeted\":\n\n    # grep -i \"selinuxtype\" /etc/selinux/config | grep -v '^#'\n\n    SELINUXTYPE = targeted\n\n    If no results are returned or \"SELINUXTYPE\" is not set to \"targeted\",\nthis is a finding.",
-        "fix": "Configure the operating system to verify correct operation of all security\nfunctions.\n\n    Set the \"SELinuxtype\" to the \"targeted\" policy by modifying the\n\"/etc/selinux/config\" file to have the following line:\n\n    SELINUXTYPE=targeted\n\n    A reboot is required for the changes to take effect."
+        "check": "Verify the system is not performing packet forwarding, unless the system is\na router.\n\n    # grep net.ipv4.ip_forward /etc/sysctl.conf /etc/sysctl.d/*\n\n    net.ipv4.ip_forward = 0\n\n    If \"net.ipv4.ip_forward\" is not configured in the /etc/sysctl.conf file\nor in the /etc/sysctl.d/ directory, is commented out, or does not have a value\nof \"0\", this is a finding.\n\n    Check that the operating system does not implement IP forwarding using the\nfollowing command:\n\n    # /sbin/sysctl -a | grep net.ipv4.ip_forward\n    net.ipv4.ip_forward = 0\n\n    If IP forwarding value is \"1\" and the system is hosting any application,\ndatabase, or web servers, this is a finding.",
+        "fix": "Set the system to the required kernel parameter by adding the following\nline to \"/etc/sysctl.conf\" or a configuration file in the /etc/sysctl.d/\ndirectory (or modify the line to have the required value):\n\n    net.ipv4.ip_forward = 0\n\n    Issue the following command to make the changes take effect:\n\n    # sysctl --system"
       },
-      "impact": 0.7,
+      "impact": 0.5,
       "refs": [],
       "tags": {
         "severity": null,
-        "gtitle": "SRG-OS-000445-GPOS-00199",
-        "gid": "V-71991",
-        "rid": "SV-86615r5_rule",
-        "stig_id": "RHEL-07-020220",
-        "fix_id": "F-78343r2_fix",
+        "gtitle": "SRG-OS-000480-GPOS-00227",
+        "gid": "V-72309",
+        "rid": "SV-86933r2_rule",
+        "stig_id": "RHEL-07-040740",
+        "fix_id": "F-78663r2_fix",
         "cci": [
-          "CCI-002165",
-          "CCI-002696"
+          "CCI-000366"
         ],
         "nist": [
-          "AC-3 (4)",
-          "SI-6 a",
+          "CM-6 b",
           "Rev_4"
         ]
       },
-      "code": "control \"V-71991\" do\n  title \"The Red Hat Enterprise Linux operating system must enable the SELinux\ntargeted policy.\"\n  desc  \"Without verification of the security functions, security functions may\nnot operate correctly and the failure may go unnoticed. Security function is\ndefined as the hardware, software, and/or firmware of the information system\nresponsible for enforcing the system security policy and supporting the\nisolation of code and data on which the protection is based. Security\nfunctionality includes, but is not limited to, establishing system accounts,\nconfiguring access authorizations (i.e., permissions, privileges), setting\nevents to be audited, and setting intrusion detection parameters.\n\n    This requirement applies to operating systems performing security function\nverification/testing and/or systems and environments that require this\nfunctionality.\n  \"\n  desc  \"rationale\", \"\"\n  desc  \"check\", \"\n    If an HBSS or HIPS is active on the system, this is Not Applicable.\n\n    Verify the operating system verifies correct operation of all security\nfunctions.\n\n    Check if \\\"SELinux\\\" is active and is enforcing the targeted policy with\nthe following command:\n\n    # sestatus\n\n    SELinux status: enabled\n\n    SELinuxfs mount: /selinux\n\n    SELinux root directory: /etc/selinux\n\n    Loaded policy name: targeted\n\n    Current mode: enforcing\n\n    Mode from config file: enforcing\n\n    Policy MLS status: enabled\n\n    Policy deny_unknown status: allowed\n\n    Max kernel policy version: 28\n\n    If the \\\"Loaded policy name\\\" is not set to \\\"targeted\\\", this is a finding.\n\n    Verify that the /etc/selinux/config file is configured to the\n\\\"SELINUXTYPE\\\" to \\\"targeted\\\":\n\n    # grep -i \\\"selinuxtype\\\" /etc/selinux/config | grep -v '^#'\n\n    SELINUXTYPE = targeted\n\n    If no results are returned or \\\"SELINUXTYPE\\\" is not set to \\\"targeted\\\",\nthis is a finding.\n  \"\n  desc  \"fix\", \"\n    Configure the operating system to verify correct operation of all security\nfunctions.\n\n    Set the \\\"SELinuxtype\\\" to the \\\"targeted\\\" policy by modifying the\n\\\"/etc/selinux/config\\\" file to have the following line:\n\n    SELINUXTYPE=targeted\n\n    A reboot is required for the changes to take effect.\n  \"\n  impact 0.7\n  tag severity: nil\n  tag gtitle: \"SRG-OS-000445-GPOS-00199\"\n  tag gid: \"V-71991\"\n  tag rid: \"SV-86615r5_rule\"\n  tag stig_id: \"RHEL-07-020220\"\n  tag fix_id: \"F-78343r2_fix\"\n  tag cci: [\"CCI-002165\", \"CCI-002696\"]\n  tag nist: [\"AC-3 (4)\", \"SI-6 a\", \"Rev_4\"]\n\n  describe.one do\n    describe command('sestatus') do\n      its('stdout') { should match %r{^Policy\\sfrom\\sconfigs\\sfile:\\s+targeted\\n?$} }\n    end\n    describe command('sestatus') do\n      its('stdout') { should match %r{^Loaded\\spolicy\\sname:\\s+targeted\\n?$} }\n    end\n  end\nend\n",
+      "code": "control \"V-72309\" do\n  title \"The Red Hat Enterprise Linux operating system must not be performing\npacket forwarding unless the system is a router.\"\n  desc  \"Routing protocol daemons are typically used on routers to exchange\nnetwork topology information with other routers. If this software is used when\nnot required, system network information may be unnecessarily transmitted\nacross the network.\"\n  desc  \"rationale\", \"\"\n  desc  \"check\", \"\n    Verify the system is not performing packet forwarding, unless the system is\na router.\n\n    # grep net.ipv4.ip_forward /etc/sysctl.conf /etc/sysctl.d/*\n\n    net.ipv4.ip_forward = 0\n\n    If \\\"net.ipv4.ip_forward\\\" is not configured in the /etc/sysctl.conf file\nor in the /etc/sysctl.d/ directory, is commented out, or does not have a value\nof \\\"0\\\", this is a finding.\n\n    Check that the operating system does not implement IP forwarding using the\nfollowing command:\n\n    # /sbin/sysctl -a | grep net.ipv4.ip_forward\n    net.ipv4.ip_forward = 0\n\n    If IP forwarding value is \\\"1\\\" and the system is hosting any application,\ndatabase, or web servers, this is a finding.\n  \"\n  desc  \"fix\", \"\n    Set the system to the required kernel parameter by adding the following\nline to \\\"/etc/sysctl.conf\\\" or a configuration file in the /etc/sysctl.d/\ndirectory (or modify the line to have the required value):\n\n    net.ipv4.ip_forward = 0\n\n    Issue the following command to make the changes take effect:\n\n    # sysctl --system\n  \"\n  impact 0.5\n  tag severity: nil\n  tag gtitle: \"SRG-OS-000480-GPOS-00227\"\n  tag gid: \"V-72309\"\n  tag rid: \"SV-86933r2_rule\"\n  tag stig_id: \"RHEL-07-040740\"\n  tag fix_id: \"F-78663r2_fix\"\n  tag cci: [\"CCI-000366\"]\n  tag nist: [\"CM-6 b\", \"Rev_4\"]\n\n  describe kernel_parameter('net.ipv4.ip_forward') do\n    its('value') { should eq 0 }\n  end\nend\n",
       "source_location": {
-        "ref": "./controls/V-71991.rb",
+        "ref": "./controls/V-72309.rb",
         "line": 2
       },
-      "id": "V-71991"
+      "id": "V-72309"
     },
     {
       "title": "The Red Hat Enterprise Linux operating system must remove all software\ncomponents after updated versions have been installed.",
@@ -820,7 +822,7 @@
         "check": "If passwords are not being used for authentication, this is Not Applicable.\n\n    Verify the operating system disables account identifiers (individuals,\ngroups, roles, and devices) after the password expires with the following\ncommand:\n\n    # grep -i inactive /etc/default/useradd\n    INACTIVE=0\n\n    If the value is not set to \"0\", is commented out, or is not defined, this\nis a finding.",
         "fix": "Configure the operating system to disable account identifiers (individuals,\ngroups, roles, and devices) after the password expires.\n\n    Add the following line to \"/etc/default/useradd\" (or modify the line to\nhave the required value):\n\n    INACTIVE=0"
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -853,7 +855,7 @@
         "check": "Verify the operating system displays the Standard Mandatory DoD Notice and\nConsent Banner before granting access to the operating system via a graphical\nuser logon.\n\n    Note: If the system does not have GNOME installed, this requirement is Not\nApplicable.\n\n    Check to see if the operating system displays a banner at the logon screen\nwith the following command:\n\n    # grep banner-message-enable /etc/dconf/db/local.d/*\n    banner-message-enable=true\n\n    If \"banner-message-enable\" is set to \"false\" or is missing, this is a\nfinding.",
         "fix": "Configure the operating system to display the Standard Mandatory DoD Notice\nand Consent Banner before granting access to the system.\n\n    Note: If the system does not have GNOME installed, this requirement is Not\nApplicable.\n\n    Create a database to contain the system-wide graphical user logon settings\n(if it does not already exist) with the following command:\n\n    # touch /etc/dconf/db/local.d/01-banner-message\n\n    Add the following line to the [org/gnome/login-screen] section of the\n\"/etc/dconf/db/local.d/01-banner-message\":\n\n    [org/gnome/login-screen]\n    banner-message-enable=true\n\n    Update the system databases:\n\n    # dconf update\n\n    Users must log out and back in again before the system-wide settings take\neffect."
       },
-      "impact": 0,
+      "impact": 0.5,
       "refs": [],
       "tags": {
         "severity": null,
@@ -1050,7 +1052,7 @@
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"open_by_handle_at\" syscall occur.\n\n    Check the file system rules in \"/etc/audit/audit.rules\" with the\nfollowing commands:\n\n    # grep -iw open_by_handle_at /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S open_by_handle_at -F exit=-EPERM -F\nauid>=1000 -F auid!=4294967295 -k access\n\n    -a always,exit -F arch=b32 -S open_by_handle_at -F exit=-EACCES -F\nauid>=1000 -F auid!=4294967295 -k access\n\n    -a always,exit -F arch=b64 -S open_by_handle_at -F exit=-EPERM -F\nauid>=1000 -F auid!=4294967295 -k access\n\n    -a always,exit -F arch=b64 -S open_by_handle_at -F exit=-EACCES -F\nauid>=1000 -F auid!=4294967295 -k access\n\n    If both the \"b32\" and \"b64\" audit rules are not defined for the\n\"open_by_handle_at\" syscall, this is a finding.\n\n    If the output does not produce rules containing \"-F exit=-EPERM\", this is\na finding.\n\n    If the output does not produce rules containing \"-F exit=-EACCES\", this\nis a finding.",
         "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"open_by_handle_at\" syscall occur.\n\n    Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F arch=b32 -S open_by_handle_at -F exit=-EPERM -F\nauid>=1000 -F auid!=4294967295 -k access\n\n    -a always,exit -F arch=b32 -S open_by_handle_at -F exit=-EACCES -F\nauid>=1000 -F auid!=4294967295 -k access\n\n    -a always,exit -F arch=b64 -S open_by_handle_at -F exit=-EPERM -F\nauid>=1000 -F auid!=4294967295 -k access\n\n    -a always,exit -F arch=b64 -S open_by_handle_at -F exit=-EACCES -F\nauid>=1000 -F auid!=4294967295 -k access\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -1066,12 +1068,10 @@
         "stig_id": "RHEL-07-030530",
         "fix_id": "F-78481r8_fix",
         "cci": [
-          "CCI-000172",
-          "CCI-002884"
+          "CCI-000057"
         ],
         "nist": [
-          "AU-12 c",
-          "MA-4 (1) (a)",
+          "AC-11 a",
           "Rev_4"
         ]
       },
@@ -1124,7 +1124,7 @@
         "check": "Verify the assigned home directory of all local interactive users has a\nmode of \"0750\" or less permissive.\n\n    Check the home directory assignment for all non-privileged users on the\nsystem with the following command:\n\n    Note: This may miss interactive users that have been assigned a privileged\nUser Identifier (UID). Evidence of interactive use may be obtained from a\nnumber of log files containing system logon information.\n\n    # ls -ld $(egrep ':[0-9]{4}' /etc/passwd | cut -d: -f6)\n    -rwxr-x--- 1 smithj users  18 Mar  5 17:06 /home/smithj\n\n    If home directories referenced in \"/etc/passwd\" do not have a mode of\n\"0750\" or less permissive, this is a finding.",
         "fix": "Change the mode of interactive user's home directories to \"0750\". To\nchange the mode of a local interactive user's home directory, use the following\ncommand:\n\n    Note: The example will be for the user \"smithj\".\n\n    # chmod 0750 /home/smithj"
       },
-      "impact": 0.5,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
@@ -1152,12 +1152,12 @@
       "title": "The Red Hat Enterprise Linux operating system must audit all uses of\nthe fchown syscall.",
       "desc": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
       "descriptions": {
-        "default": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
+        "default": "The .shosts files are used to configure host-based authentication for\nindividual users or the system via SSH. Host-based authentication is not\nsufficient for preventing unauthorized access to the system, as it does not\nrequire interactive identification and authentication of a connection request,\nor for the use of two-factor authentication.",
         "rationale": "",
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"fchown\" syscall occur.\n\n    Check the file system rules in \"/etc/audit/audit.rules\" with the\nfollowing commands:\n\n    # grep -iw fchown /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S fchown -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    -a always,exit -F arch=b64 -S fchown -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    If both the \"b32\" and \"b64\" audit rules are not defined for the\n\"fchown\" syscall, this is a finding.",
         "fix": "Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F arch=b32 -S fchown -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    -a always,exit -F arch=b64 -S fchown -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0.5,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
@@ -1311,7 +1311,7 @@
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"setxattr\" syscall occur.\n\n    Check the file system rules in \"/etc/audit/audit.rules\" with the\nfollowing commands:\n\n    # grep -iw setxattr /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S setxattr -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    -a always,exit -F arch=b64 -S setxattr -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    If both the \"b32\" and \"b64\" audit rules are not defined for the\n\"setxattr\" syscall, this is a finding.",
         "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"setxattr\" syscall occur.\n\n    Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F arch=b32 -S setxattr -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    -a always,exit -F arch=b64 -S setxattr -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0.5,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
@@ -1349,7 +1349,7 @@
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"fchmod\" syscall occur.\n\n    Check the file system rules in \"/etc/audit/audit.rules\" with the\nfollowing command:\n\n    # grep -iw fchmod /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S fchmod -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    -a always,exit -F arch=b64 -S fchmod -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    If both the \"b32\" and \"b64\" audit rules are not defined for the\n\"fchmod\" syscall, this is a finding.",
         "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"fchmod\" syscall occur.\n\n    Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F arch=b32 -S fchmod -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    -a always,exit -F arch=b64 -S fchmod -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -1448,12 +1448,12 @@
       "title": "The Red Hat Enterprise Linux operating system must use a separate file\nsystem for the system audit data path.",
       "desc": "The use of separate file systems for different paths can protect the\nsystem from failures resulting from a file system becoming full or failing.",
       "descriptions": {
-        "default": "The use of separate file systems for different paths can protect the\nsystem from failures resulting from a file system becoming full or failing.",
+        "default": "Inactive identifiers pose a risk to systems and applications because\nattackers may exploit an inactive identifier and potentially obtain undetected\naccess to the system. Owners of inactive accounts will not notice if\nunauthorized access to their user account has been obtained.\n\n    Operating systems need to track periods of inactivity and disable\napplication identifiers after zero days of inactivity.",
         "rationale": "",
         "check": "Determine if the operating system is configured to have the\n\"/var/log/audit\" path is on a separate file system.\n\n    # grep /var/log/audit /etc/fstab\n\n    If no result is returned, or the operating system is not configured to have\n\"/var/log/audit\" on a separate file system, this is a finding.\n\n    Verify that \"/var/log/audit\" is mounted on a separate file system:\n\n    # mount | grep \"/var/log/audit\"\n\n    If no result is returned, or \"/var/log/audit\" is not on a separate file\nsystem, this is a finding.",
         "fix": "Migrate the system audit data path onto a separate file system."
       },
-      "impact": 0.3,
+      "impact": 0.5,
       "refs": [],
       "tags": {
         "severity": null,
@@ -1463,10 +1463,10 @@
         "stig_id": "RHEL-07-021330",
         "fix_id": "F-78415r1_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000795"
         ],
         "nist": [
-          "CM-6 b",
+          "IA-4 e",
           "Rev_4"
         ]
       },
@@ -1486,7 +1486,7 @@
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"setsebool\" command occur.\n\n    Check the file system rule in \"/etc/audit/audit.rules\" with the following\ncommand:\n\n    # grep -i /usr/sbin/setsebool /etc/audit/audit.rules\n\n    -a always,exit -F path=/usr/sbin/setsebool -F auid>=1000 -F\nauid!=4294967295 -k privileged-priv_change\n\n    If the command does not return any output, this is a finding.",
         "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"setsebool\" command occur.\n\n    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F path=/usr/sbin/setsebool -F auid>=1000 -F\nauid!=4294967295 -k privileged-priv_change\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0,
+      "impact": 0.5,
       "refs": [],
       "tags": {
         "severity": null,
@@ -1526,7 +1526,7 @@
         "check": "Verify file systems that are used for removable media are mounted with the\n\"nosuid\" option.\n\n    Check the file systems that are mounted at boot time with the following\ncommand:\n\n    # more /etc/fstab\n\n    UUID=2bc871e4-e2a3-4f29-9ece-3be60c835222 /mnt/usbflash vfat\nnoauto,owner,ro,nosuid 0 0\n\n    If a file system found in \"/etc/fstab\" refers to removable media and it\ndoes not have the \"nosuid\" option set, this is a finding.",
         "fix": "Configure the \"/etc/fstab\" to use the \"nosuid\" option on\nfile systems that are associated with removable media."
       },
-      "impact": 0.5,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
@@ -1592,50 +1592,48 @@
       "id": "V-72301"
     },
     {
-      "title": "The Red Hat Enterprise Linux operating system must prevent\nnon-privileged users from executing privileged functions to include disabling,\ncircumventing, or altering implemented security safeguards/countermeasures.",
-      "desc": "Preventing non-privileged users from executing privileged functions\nmitigates the risk that unauthorized individuals or processes may gain\nunnecessary access to information or privileges.\n\n    Privileged functions include, for example, establishing accounts,\nperforming system integrity checks, or administering cryptographic key\nmanagement activities. Non-privileged users are individuals who do not possess\nappropriate authorizations. Circumventing intrusion detection and prevention\nmechanisms or malicious code protection mechanisms are examples of privileged\nfunctions that require protection from non-privileged users.",
+      "title": "The Red Hat Enterprise Linux operating system must have cron logging\nimplemented.",
+      "desc": "Cron logging can be used to trace the successful or unsuccessful\nexecution of cron jobs. It can also be used to spot intrusions into the use of\nthe cron facility by unauthorized and malicious users.",
       "descriptions": {
-        "default": "Preventing non-privileged users from executing privileged functions\nmitigates the risk that unauthorized individuals or processes may gain\nunnecessary access to information or privileges.\n\n    Privileged functions include, for example, establishing accounts,\nperforming system integrity checks, or administering cryptographic key\nmanagement activities. Non-privileged users are individuals who do not possess\nappropriate authorizations. Circumventing intrusion detection and prevention\nmechanisms or malicious code protection mechanisms are examples of privileged\nfunctions that require protection from non-privileged users.",
+        "default": "Cron logging can be used to trace the successful or unsuccessful\nexecution of cron jobs. It can also be used to spot intrusions into the use of\nthe cron facility by unauthorized and malicious users.",
         "rationale": "",
-        "check": "If an HBSS or HIPS is active on the system, this is Not Applicable.\n\n    Verify the operating system prevents non-privileged users from executing\nprivileged functions to include disabling, circumventing, or altering\nimplemented security safeguards/countermeasures.\n\n    Get a list of authorized users (other than System Administrator and guest\naccounts) for the system.\n\n    Check the list against the system by using the following command:\n\n    # semanage login -l | more\n    Login Name SELinux User MLS/MCS Range Service\n    __default__ user_u s0-s0:c0.c1023 *\n    root unconfined_u s0-s0:c0.c1023 *\n    system_u system_u s0-s0:c0.c1023 *\n    joe staff_u s0-s0:c0.c1023 *\n\n    All administrators must be mapped to the \"sysadm_u\" or \"staff_u\" users\nrole.\n\n    All authorized non-administrative users must be mapped to the \"user_u\"\nrole.\n\n    If they are not mapped in this way, this is a finding.",
-        "fix": "Configure the operating system to prevent non-privileged users from\nexecuting privileged functions to include disabling, circumventing, or altering\nimplemented security safeguards/countermeasures.\n\n    Use the following command to map a new user to the \"sysdam_u\" role:\n\n    #semanage login -a -s sysadm_u <username>\n\n    Use the following command to map an existing user to the \"sysdam_u\" role:\n\n    #semanage login -m -s sysadm_u <username>\n\n    Use the following command to map a new user to the \"staff_u\" role:\n\n    #semanage login -a -s staff_u <username>\n\n    Use the following command to map an existing user to the \"staff_u\" role:\n\n    #semanage login -m -s staff_u <username>\n\n    Use the following command to map a new user to the \"user_u\" role:\n\n    # semanage login -a -s user_u <username>\n\n    Use the following command to map an existing user to the \"user_u\" role:\n\n    # semanage login -m -s user_u <username>"
+        "check": "Verify that \"rsyslog\" is configured to log cron events.\n\n    Check the configuration of \"/etc/rsyslog.conf\" or\n\"/etc/rsyslog.d/*.conf\" files for the cron facility with the following\ncommand:\n\n    Note: If another logging package is used, substitute the utility\nconfiguration file for \"/etc/rsyslog.conf\" or \"/etc/rsyslog.d/*.conf\" files.\n\n    # grep cron /etc/rsyslog.conf  /etc/rsyslog.d/*.conf\n    cron.* /var/log/cron.log\n\n    If the command does not return a response, check for cron logging all\nfacilities by inspecting the \"/etc/rsyslog.conf\" or \"/etc/rsyslog.d/*.conf\"\nfiles.\n\n    Look for the following entry:\n\n    *.* /var/log/messages\n\n    If \"rsyslog\" is not logging messages for the cron facility or all\nfacilities, this is a finding.",
+        "fix": "Configure \"rsyslog\" to log all cron messages by adding or updating the\nfollowing line to \"/etc/rsyslog.conf\" or a configuration file in the\n/etc/rsyslog.d/ directory:\n\n    cron.* /var/log/cron.log"
       },
       "impact": 0.5,
       "refs": [],
       "tags": {
         "severity": null,
-        "gtitle": "SRG-OS-000324-GPOS-00125",
-        "gid": "V-71971",
-        "rid": "SV-86595r2_rule",
-        "stig_id": "RHEL-07-020020",
-        "fix_id": "F-78323r1_fix",
+        "gtitle": "SRG-OS-000480-GPOS-00227",
+        "gid": "V-72051",
+        "rid": "SV-86675r2_rule",
+        "stig_id": "RHEL-07-021100",
+        "fix_id": "F-78403r2_fix",
         "cci": [
-          "CCI-002165",
-          "CCI-002235"
+          "CCI-000366"
         ],
         "nist": [
-          "AC-3 (4)",
-          "AC-6 (10)",
+          "CM-6 b",
           "Rev_4"
         ]
       },
       "code": "control \"V-71971\" do\n  title \"The Red Hat Enterprise Linux operating system must prevent\nnon-privileged users from executing privileged functions to include disabling,\ncircumventing, or altering implemented security safeguards/countermeasures.\"\n  desc  \"Preventing non-privileged users from executing privileged functions\nmitigates the risk that unauthorized individuals or processes may gain\nunnecessary access to information or privileges.\n\n    Privileged functions include, for example, establishing accounts,\nperforming system integrity checks, or administering cryptographic key\nmanagement activities. Non-privileged users are individuals who do not possess\nappropriate authorizations. Circumventing intrusion detection and prevention\nmechanisms or malicious code protection mechanisms are examples of privileged\nfunctions that require protection from non-privileged users.\n  \"\n  desc  \"rationale\", \"\"\n  desc  \"check\", \"\n    If an HBSS or HIPS is active on the system, this is Not Applicable.\n\n    Verify the operating system prevents non-privileged users from executing\nprivileged functions to include disabling, circumventing, or altering\nimplemented security safeguards/countermeasures.\n\n    Get a list of authorized users (other than System Administrator and guest\naccounts) for the system.\n\n    Check the list against the system by using the following command:\n\n    # semanage login -l | more\n    Login Name SELinux User MLS/MCS Range Service\n    __default__ user_u s0-s0:c0.c1023 *\n    root unconfined_u s0-s0:c0.c1023 *\n    system_u system_u s0-s0:c0.c1023 *\n    joe staff_u s0-s0:c0.c1023 *\n\n    All administrators must be mapped to the \\\"sysadm_u\\\" or \\\"staff_u\\\" users\nrole.\n\n    All authorized non-administrative users must be mapped to the \\\"user_u\\\"\nrole.\n\n    If they are not mapped in this way, this is a finding.\n  \"\n  desc  \"fix\", \"\n    Configure the operating system to prevent non-privileged users from\nexecuting privileged functions to include disabling, circumventing, or altering\nimplemented security safeguards/countermeasures.\n\n    Use the following command to map a new user to the \\\"sysdam_u\\\" role:\n\n    #semanage login -a -s sysadm_u <username>\n\n    Use the following command to map an existing user to the \\\"sysdam_u\\\" role:\n\n    #semanage login -m -s sysadm_u <username>\n\n    Use the following command to map a new user to the \\\"staff_u\\\" role:\n\n    #semanage login -a -s staff_u <username>\n\n    Use the following command to map an existing user to the \\\"staff_u\\\" role:\n\n    #semanage login -m -s staff_u <username>\n\n    Use the following command to map a new user to the \\\"user_u\\\" role:\n\n    # semanage login -a -s user_u <username>\n\n    Use the following command to map an existing user to the \\\"user_u\\\" role:\n\n    # semanage login -m -s user_u <username>\n  \"\n  impact 0.5\n  tag severity: nil\n  tag gtitle: \"SRG-OS-000324-GPOS-00125\"\n  tag gid: \"V-71971\"\n  tag rid: \"SV-86595r2_rule\"\n  tag stig_id: \"RHEL-07-020020\"\n  tag fix_id: \"F-78323r1_fix\"\n  tag cci: [\"CCI-002165\", \"CCI-002235\"]\n  tag nist: [\"AC-3 (4)\", \"AC-6 (10)\", \"Rev_4\"]\n\n  admin_logins = input('admin_logins')\n\n  if package('MFEhiplsm').installed? && processes(/hipclient/).exist?\n    impact 0.0\n    describe \"HIPS is active on the system\" do\n      skip \"A HIPS process is active on the system, this control is Not Applicable.\"\n    end\n  elsif service('cma').installed? && service('cma').enabled?\n    impact 0.0\n    describe \"HBSS is active on the system\" do\n      skip \"A HBSS service is active on the system, this control is Not Applicable.\"\n    end\n  else\n    impact 0.5\n    describe command('selinuxenabled') do\n      its('exist?') { should be true }\n      its('exit_status') { should eq 0 }\n    end\n\n    selinux_mode = file('/etc/selinux/config').content.lines.\n      grep(/\\A\\s*SELINUXTYPE=/).last.split('=').last.strip\n\n    seusers = file(\"/etc/selinux/#{selinux_mode}/seusers\").content.lines.\n      grep_v(/(#|\\A\\s+\\Z)/).map(&:strip)\n\n    seusers = seusers.map{|x| x.split(':')[0..1]}\n\n    describe 'seusers' do\n      it { expect(seusers).to_not be_empty }\n    end\n\n    users_to_ignore = [\n      'root',\n      'system_u'\n    ]\n\n    seusers.each do |user, context|\n      next if users_to_ignore.include?(user)\n\n      describe \"SELinux login #{user}\" do\n        if user == '__default__'\n          let(:valid_users){[ 'user_u' ]}\n        elsif admin_logins.include?(user)\n          let(:valid_users){[\n            'sysadm_u',\n            'staff_u'\n          ]}\n        else\n          let(:valid_users){[\n            'user_u',\n            'guest_u',\n            'xguest_u'\n          ]}\n        end\n\n        it { expect(context).to be_in(valid_users) }\n      end\n    end\n  end\nend\n",
       "source_location": {
-        "ref": "./controls/V-71971.rb",
+        "ref": "./controls/V-72051.rb",
         "line": 2
       },
-      "id": "V-71971"
+      "id": "V-72051"
     },
     {
       "title": "The Red Hat Enterprise Linux operating system must audit all uses of\nthe chmod syscall.",
       "desc": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
       "descriptions": {
-        "default": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
+        "default": "It is critical for the appropriate personnel to be aware if a system\nis at risk of failing to process audit logs as required. Without this\nnotification, the security personnel may be unaware of an impending failure of\nthe audit capability, and system operation may be adversely affected.\n\n    Audit processing failures include software/hardware errors, failures in the\naudit capturing mechanisms, and audit storage capacity being reached or\nexceeded.\n\n    This requirement applies to each audit data storage repository (i.e.,\ndistinct information system component where audit records are stored), the\ncentralized audit storage capacity of organizations (i.e., all audit data\nstorage repositories combined), or both.",
         "rationale": "",
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"chmod\" syscall occur.\n\n    Check the file system rules in \"/etc/audit/audit.rules\" with the\nfollowing command:\n\n    # grep -iw chmod /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S chmod -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    -a always,exit -F arch=b64 -S chmod -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    If both the \"b32\" and \"b64\" audit rules are not defined for the\n\"chmod\" syscall, this is a finding.",
         "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"chmod\" syscall occur.\n\n    Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F arch=b32 -S chmod -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    -a always,exit -F arch=b64 -S chmod -F auid>=1000 -F auid!=4294967295 -k\nperm_mod\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0.5,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
@@ -1752,20 +1750,23 @@
       "refs": [],
       "tags": {
         "severity": null,
-        "gtitle": "SRG-OS-000342-GPOS-00133",
-        "satisfies": [
-          "SRG-OS-000342-GPOS-00133",
-          "SRG-OS-000479-GPOS-00224"
+        "gtitle": "SRG-OS-000480-GPOS-00227",
+        "gid": "V-72013",
+        "rid": "SV-86637r2_rule",
+        "stig_id": "RHEL-07-020610",
+        "fix_id": "F-78365r1_fix",
+        "cci": [
+          "CCI-000366"
         ],
         "gid": "V-81019",
         "rid": "SV-95731r1_rule",
         "stig_id": "RHEL-07-030210",
         "fix_id": "F-87853r3_fix",
         "cci": [
-          "CCI-001851"
+          "CCI-000366"
         ],
         "nist": [
-          "AU-4 (1)",
+          "CM-6 b",
           "Rev_4"
         ]
       },
@@ -1868,10 +1869,10 @@
         "stig_id": "RHEL-07-021120",
         "fix_id": "F-78407r1_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000193"
         ],
         "nist": [
-          "CM-6 b",
+          "IA-5 (1) (a)",
           "Rev_4"
         ]
       },
@@ -2245,7 +2246,7 @@
         "check": "Verify \"AUTH_GSS\" is being used to authenticate NFS mounts.\n\n    To check if the system is importing an NFS file system, look for any\nentries in the \"/etc/fstab\" file that have a file system type of \"nfs\" with\nthe following command:\n\n    # cat /etc/fstab | grep nfs\n    192.168.21.5:/mnt/export /data1 nfs4 rw,sync ,soft,sec=krb5:krb5i:krb5p\n\n    If the system is mounting file systems via NFS and has the sec option\nwithout the \"krb5:krb5i:krb5p\" settings, the \"sec\" option has the \"sys\"\nsetting, or the \"sec\" option is missing, this is a finding.",
         "fix": "Update the \"/etc/fstab\" file so the option \"sec\" is defined for each\nNFS mounted file system and the \"sec\" option does not have the \"sys\"\nsetting.\n\n    Ensure the \"sec\" option is defined as \"krb5:krb5i:krb5p\"."
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -2255,10 +2256,10 @@
         "stig_id": "RHEL-07-040750",
         "fix_id": "F-78665r2_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000057"
         ],
         "nist": [
-          "CM-6 b",
+          "AC-11 a",
           "Rev_4"
         ]
       },
@@ -2506,10 +2507,14 @@
         "stig_id": "RHEL-07-040670",
         "fix_id": "F-78649r1_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000135",
+          "CCI-000172",
+          "CCI-002884"
         ],
         "nist": [
-          "CM-6 b",
+          "AU-3 (1)",
+          "AU-12 c",
+          "MA-4 (1) (a)",
           "Rev_4"
         ]
       },
@@ -2562,7 +2567,7 @@
         "check": "The \"difok\" option sets the number of characters in a password that must\nnot be present in the old password.\n\n    Check for the value of the \"difok\" option in\n\"/etc/security/pwquality.conf\" with the following command:\n\n    # grep difok /etc/security/pwquality.conf\n    difok = 8\n\n    If the value of \"difok\" is set to less than \"8\", this is a finding.",
         "fix": "Configure the operating system to require the change of at least eight of\nthe total number of characters when passwords are changed by setting the\n\"difok\" option.\n\n    Add the following line to \"/etc/security/pwquality.conf\" (or modify the\nline to have the required value):\n\n    difok = 8"
       },
-      "impact": 0.5,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
@@ -2753,7 +2758,7 @@
         "check": "Verify the operating system displays the Standard Mandatory DoD Notice and\nConsent Banner before granting access to the operating system via a command\nline user logon.\n\n    Check to see if the operating system displays a banner at the command line\nlogon screen with the following command:\n\n    # more /etc/issue\n\n    The command should return the following text:\n    \"You are accessing a U.S. Government (USG) Information System (IS) that is\nprovided for USG-authorized use only.\n\n    By using this IS (which includes any device attached to this IS), you\nconsent to the following conditions:\n\n    -The USG routinely intercepts and monitors communications on this IS for\npurposes including, but not limited to, penetration testing, COMSEC monitoring,\nnetwork operations and defense, personnel misconduct (PM), law enforcement\n(LE), and counterintelligence (CI) investigations.\n\n    -At any time, the USG may inspect and seize data stored on this IS.\n\n    -Communications using, or data stored on, this IS are not private, are\nsubject to routine monitoring, interception, and search, and may be disclosed\nor used for any USG-authorized purpose.\n\n    -This IS includes security measures (e.g., authentication and access\ncontrols) to protect USG interests--not for your personal benefit or privacy.\n\n    -Notwithstanding the above, using this IS does not constitute consent to\nPM, LE or CI investigative searching or monitoring of the content of privileged\ncommunications, or work product, related to personal representation or services\nby attorneys, psychotherapists, or clergy, and their assistants. Such\ncommunications and work product are private and confidential. See User\nAgreement for details.\"\n\n    If the operating system does not display a graphical logon banner or the\nbanner does not match the Standard Mandatory DoD Notice and Consent Banner,\nthis is a finding.\n\n    If the text in the \"/etc/issue\" file does not match the Standard\nMandatory DoD Notice and Consent Banner, this is a finding.",
         "fix": "Configure the operating system to display the Standard Mandatory DoD Notice\nand Consent Banner before granting access to the system via the command line by\nediting the \"/etc/issue\" file.\n\n    Replace the default text with the Standard Mandatory DoD Notice and Consent\nBanner. The DoD required text is:\n    \"You are accessing a U.S. Government (USG) Information System (IS) that is\nprovided for USG-authorized use only.\n\n    By using this IS (which includes any device attached to this IS), you\nconsent to the following conditions:\n\n    -The USG routinely intercepts and monitors communications on this IS for\npurposes including, but not limited to, penetration testing, COMSEC monitoring,\nnetwork operations and defense, personnel misconduct (PM), law enforcement\n(LE), and counterintelligence (CI) investigations.\n\n    -At any time, the USG may inspect and seize data stored on this IS.\n\n    -Communications using, or data stored on, this IS are not private, are\nsubject to routine monitoring, interception, and search, and may be disclosed\nor used for any USG-authorized purpose.\n\n    -This IS includes security measures (e.g., authentication and access\ncontrols) to protect USG interests--not for your personal benefit or privacy.\n\n    -Notwithstanding the above, using this IS does not constitute consent to\nPM, LE or CI investigative searching or monitoring of the content of privileged\ncommunications, or work product, related to personal representation or services\nby attorneys, psychotherapists, or clergy, and their assistants.  Such\ncommunications and work product are private and confidential.  See User\nAgreement for details.\""
       },
-      "impact": 0.5,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
@@ -2910,7 +2915,7 @@
         "check": "Verify all accounts on the system are assigned to an active system,\napplication, or user account.\n\n    Obtain the list of authorized system accounts from the Information System\nSecurity Officer (ISSO).\n\n    Check the system accounts on the system with the following command:\n\n    # more /etc/passwd\n    root:x:0:0:root:/root:/bin/bash\n    bin:x:1:1:bin:/bin:/sbin/nologin\n    daemon:x:2:2:daemon:/sbin:/sbin/nologin\n    sync:x:5:0:sync:/sbin:/bin/sync\n    shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown\n    halt:x:7:0:halt:/sbin:/sbin/halt\n    games:x:12:100:games:/usr/games:/sbin/nologin\n    gopher:x:13:30:gopher:/var/gopher:/sbin/nologin\n\n    Accounts such as \"games\" and \"gopher\" are not authorized accounts as\nthey do not support authorized system functions.\n\n    If the accounts on the system do not match the provided documentation, or\naccounts that do not support an authorized system function are present, this is\na finding.",
         "fix": "Configure the system so all accounts on the system are assigned to an\nactive system, application, or user account.\n\n    Remove accounts that do not support approved system activities or that\nallow for a normal user to perform administrative-level actions.\n\n    Document all authorized accounts on the system."
       },
-      "impact": 0.5,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
@@ -2920,10 +2925,16 @@
         "stig_id": "RHEL-07-020270",
         "fix_id": "F-78353r1_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-001494",
+          "CCI-001496",
+          "CCI-002165",
+          "CCI-002235"
         ],
         "nist": [
-          "CM-6 b",
+          "AU-9",
+          "AU-9 (3)",
+          "AC-3 (4)",
+          "AC-6 (10)",
           "Rev_4"
         ]
       },
@@ -3106,7 +3117,7 @@
         "check": "Verify the operating system displays the approved Standard Mandatory DoD\nNotice and Consent Banner before granting access to the operating system via a\ngraphical user logon.\n\n    Note: If the system does not have GNOME installed, this requirement is Not\nApplicable.\n\n    Check that the operating system displays the exact approved Standard\nMandatory DoD Notice and Consent Banner text with the command:\n\n    # grep banner-message-text /etc/dconf/db/local.d/*\n    banner-message-text=\n    'You are accessing a U.S. Government (USG) Information System (IS) that is\nprovided for USG-authorized use only.    By using this IS (which includes any device attached to this IS), you\nconsent to the following conditions:    -The USG routinely intercepts and monitors communications on this IS for\npurposes including, but not limited to, penetration testing, COMSEC monitoring,\nnetwork operations and defense, personnel misconduct (PM), law enforcement\n(LE), and counterintelligence (CI) investigations.    -At any time, the USG may inspect and seize data stored on this IS.    -Communications using, or data stored on, this IS are not private, are\nsubject to routine monitoring, interception, and search, and may be disclosed\nor used for any USG-authorized purpose.    -This IS includes security measures (e.g., authentication and access\ncontrols) to protect USG interests--not for your personal benefit or privacy.    -Notwithstanding the above, using this IS does not constitute consent to\nPM, LE or CI investigative searching or monitoring of the content of privileged\ncommunications, or work product, related to personal representation or services\nby attorneys, psychotherapists, or clergy, and their assistants. Such\ncommunications and work product are private and confidential. See User\nAgreement for details. '\n\n    Note: The \"     \" characters are for formatting only. They will not be displayed on the\nGUI.\n\n    If the banner does not match the approved Standard Mandatory DoD Notice and\nConsent Banner, this is a finding.",
         "fix": "Configure the operating system to display the approved Standard Mandatory\nDoD Notice and Consent Banner before granting access to the system.\n\n    Note: If the system does not have GNOME installed, this requirement is Not\nApplicable.\n\n    Create a database to contain the system-wide graphical user logon settings\n(if it does not already exist) with the following command:\n\n    # touch /etc/dconf/db/local.d/01-banner-message\n\n    Add the following line to the [org/gnome/login-screen] section of the\n\"/etc/dconf/db/local.d/01-banner-message\":\n\n    [org/gnome/login-screen]\n\n    banner-message-enable=true\n\n    banner-message-text='You are accessing a U.S. Government (USG) Information\nSystem (IS) that is provided for USG-authorized use only.    By using this IS (which includes any device attached to this IS), you\nconsent to the following conditions:    -The USG routinely intercepts and monitors communications on this IS for\npurposes including, but not limited to, penetration testing, COMSEC monitoring,\nnetwork operations and defense, personnel misconduct (PM), law enforcement\n(LE), and counterintelligence (CI) investigations.    -At any time, the USG may inspect and seize data stored on this IS.    -Communications using, or data stored on, this IS are not private, are\nsubject to routine monitoring, interception, and search, and may be disclosed\nor used for any USG-authorized purpose.    -This IS includes security measures (e.g., authentication and access\ncontrols) to protect USG interests--not for your personal benefit or privacy.    -Notwithstanding the above, using this IS does not constitute consent to\nPM, LE or CI investigative searching or monitoring of the content of privileged\ncommunications, or work product, related to personal representation or services\nby attorneys, psychotherapists, or clergy, and their assistants. Such\ncommunications and work product are private and confidential. See User\nAgreement for details. '\n\n    Note: The \"     \" characters are for formatting only. They will not be displayed on the\nGUI.\n\n    Run the following command to update the database:\n    # dconf update"
       },
-      "impact": 0,
+      "impact": 0.5,
       "refs": [],
       "tags": {
         "severity": null,
@@ -3294,10 +3305,16 @@
         "stig_id": "RHEL-07-021000",
         "fix_id": "F-78393r2_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000018",
+          "CCI-000172",
+          "CCI-001403",
+          "CCI-002130"
         ],
         "nist": [
-          "CM-6 b",
+          "AC-2 (4)",
+          "AU-12 c",
+          "AC-2 (4)",
+          "AC-2 (4)",
           "Rev_4"
         ]
       },
@@ -3426,10 +3443,12 @@
         "stig_id": "RHEL-07-040350",
         "fix_id": "F-78597r2_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000172",
+          "CCI-002884"
         ],
         "nist": [
-          "CM-6 b",
+          "AU-12 c",
+          "MA-4 (1) (a)",
           "Rev_4"
         ]
       },
@@ -3525,10 +3544,18 @@
         "stig_id": "RHEL-07-040630",
         "fix_id": "F-78641r2_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000318",
+          "CCI-000368",
+          "CCI-001812",
+          "CCI-001813",
+          "CCI-001814"
         ],
         "nist": [
-          "CM-6 b",
+          "CM-3 f",
+          "CM-6 c",
+          "CM-11 (2)",
+          "CM-5 (1)",
+          "CM-5 (1)",
           "Rev_4"
         ]
       },
@@ -3769,7 +3796,7 @@
         "check": "Verify the operating system prohibits password reuse for a minimum of five\ngenerations.\n\n    Check for the value of the \"remember\" argument in\n\"/etc/pam.d/system-auth\" and \"/etc/pam.d/password-auth\" with the following\ncommand:\n\n    # grep -i remember /etc/pam.d/system-auth /etc/pam.d/password-auth\n\n    password    requisite     pam_pwhistory.so use_authtok remember=5 retry=3\n\n    If the line containing the \"pam_pwhistory.so\" line does not have the\n\"remember\" module argument set, is commented out, or the value of the\n\"remember\" module argument is set to less than \"5\", this is a finding.",
         "fix": "Configure the operating system to prohibit password reuse for a minimum of\nfive generations.\n\n    Add the following line in \"/etc/pam.d/system-auth\" and\n\"/etc/pam.d/password-auth\" (or modify the line to have the required value):\n\n    password    requisite     pam_pwhistory.so use_authtok remember=5 retry=3\n\n    Note: Manual changes to the listed files may be overwritten by the\n\"authconfig\" program. The \"authconfig\" program should not be used to update\nthe configurations listed in this requirement."
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -4110,7 +4137,7 @@
         "check": "Verify the operating system automatically locks the root account until it\nis released by an administrator when three unsuccessful logon attempts in 15\nminutes are made.\n\n    # grep pam_faillock.so /etc/pam.d/password-auth\n    auth required pam_faillock.so preauth silent audit deny=3 even_deny_root\nfail_interval=900 unlock_time=900\n    auth [default=die] pam_faillock.so authfail audit deny=3 even_deny_root\nfail_interval=900 unlock_time=900\n    account required pam_faillock.so\n\n    If the \"even_deny_root\" setting is not defined on both lines with the\n\"pam_faillock.so\" module, is commented out, or is missing from a line, this\nis a finding.\n\n    # grep pam_faillock.so /etc/pam.d/system-auth\n    auth required pam_faillock.so preauth silent audit deny=3 even_deny_root\nfail_interval=900 unlock_time=900\n    auth [default=die] pam_faillock.so authfail audit deny=3 even_deny_root\nfail_interval=900 unlock_time=900\n    account required pam_faillock.so\n\n    If the \"even_deny_root\" setting is not defined on both lines with the\n\"pam_faillock.so\" module, is commented out, or is missing from a line, this\nis a finding.",
         "fix": "Configure the operating system to lock automatically the root account until\nthe locked account is released by an administrator when three unsuccessful\nlogon attempts in 15 minutes are made.\n\n    Modify the first three lines of the auth section and the first line of the\naccount section of the \"/etc/pam.d/system-auth\" and\n\"/etc/pam.d/password-auth\" files to match the following lines:\n\n    auth required pam_faillock.so preauth silent audit deny=3 even_deny_root\nfail_interval=900 unlock_time=900\n    auth sufficient pam_unix.so try_first_pass\n    auth [default=die] pam_faillock.so authfail audit deny=3 even_deny_root\nfail_interval=900 unlock_time=900\n    account required pam_faillock.so\n\n    Note: Manual changes to the listed files may be overwritten by the\n\"authconfig\" program. The \"authconfig\" program should not be used to update\nthe configurations listed in this requirement."
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -4279,7 +4306,7 @@
         "check": "Check the version of the operating system with the following command:\n\n    # cat /etc/redhat-release\n\n    If the release is 7.4 or newer this requirement is Not Applicable.\n\n    Verify the SSH daemon does not allow authentication using RSA rhosts\nauthentication.\n\n    To determine how the SSH daemon's \"RhostsRSAAuthentication\" option is\nset, run the following command:\n\n    # grep RhostsRSAAuthentication /etc/ssh/sshd_config\n    RhostsRSAAuthentication no\n\n    If the value is returned as \"yes\", the returned line is commented out, or\nno output is returned, this is a finding.",
         "fix": "Configure the SSH daemon to not allow authentication using RSA rhosts\nauthentication.\n\n    Add the following line in \"/etc/ssh/sshd_config\", or uncomment the line\nand set the value to \"no\":\n\n    RhostsRSAAuthentication no\n\n    The SSH service must be restarted for changes to take effect."
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -4289,10 +4316,16 @@
         "stig_id": "RHEL-07-040330",
         "fix_id": "F-78593r4_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000018",
+          "CCI-000172",
+          "CCI-001403",
+          "CCI-002130"
         ],
         "nist": [
-          "CM-6 b",
+          "AC-2 (4)",
+          "AU-12 c",
+          "AC-2 (4)",
+          "AC-2 (4)",
           "Rev_4"
         ]
       },
@@ -4322,10 +4355,14 @@
         "stig_id": "RHEL-07-040611",
         "fix_id": "F-98473r1_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-001948",
+          "CCI-001953",
+          "CCI-001954"
         ],
         "nist": [
-          "CM-6 b",
+          "IA-2 (11)",
+          "IA-2 (12)",
+          "IA-2 (12)",
           "Rev_4"
         ]
       },
@@ -4494,7 +4531,7 @@
         "check": "Verify all files and directories in a local interactive user home directory\nare group-owned by a group the user is a member of.\n\n    Check the group owner of all files and directories in a local interactive\nuser's home directory with the following command:\n\n    Note: The example will be for the user \"smithj\", who has a home directory\nof \"/home/smithj\".\n\n    # ls -lLR /<home directory>/<users home directory>/\n    -rw-r--r-- 1 smithj smithj  18 Mar  5 17:06 file1\n    -rw-r--r-- 1 smithj smithj 193 Mar  5 17:06 file2\n    -rw-r--r-- 1 smithj sa        231 Mar  5 17:06 file3\n\n    If any files are found with an owner different than the group home\ndirectory user, check to see if the user is a member of that group with the\nfollowing command:\n\n    # grep smithj /etc/group\n    sa:x:100:juan,shelley,bob,smithj\n    smithj:x:521:smithj\n\n    If the user is not a member of a group that group owns file(s) in a local\ninteractive user's home directory, this is a finding.",
         "fix": "Change the group of a local interactive user's files and directories to a\ngroup that the interactive user is a member of. To change the group owner of a\nlocal interactive user's files and directories, use the following command:\n\n    Note: The example will be for the user smithj, who has a home directory of\n\"/home/smithj\" and is a member of the users group.\n\n    # chgrp users /home/smithj/<file>"
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -4663,7 +4700,7 @@
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"delete_module\" syscall occur.\n\n    Check the auditing rules in \"/etc/audit/audit.rules\" with the following\ncommand:\n\n    # grep -iw delete_module /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S delete_module -k module-change\n\n    -a always,exit -F arch=b64 -S delete_module -k module-change\n\n    If both the \"b32\" and \"b64\" audit rules are not defined for the\n\"delete_module\" syscall, this is a finding.",
         "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"delete_module\" syscall occur.\n\n    Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F arch=b32 -S delete_module -k module-change\n\n    -a always,exit -F arch=b64 -S delete_module -k module-change\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0.5,
+      "impact": 0.3,
       "refs": [],
       "tags": {
         "severity": null,
@@ -4808,7 +4845,7 @@
         "check": "Verify the operating system implements multifactor authentication for\nremote access to privileged accounts via pluggable authentication modules (PAM).\n\n    Check the \"/etc/sssd/sssd.conf\" file for the authentication services that\nare being used with the following command:\n\n    # grep services /etc/sssd/sssd.conf /etc/sssd/conf.d/*.conf\n\n    services = nss, pam\n\n    If the \"pam\" service is not present on all \"services\" lines, this is a\nfinding.",
         "fix": "Configure the operating system to implement multifactor authentication for\nremote access to privileged accounts via pluggable authentication modules (PAM).\n\n    Modify all of the services lines in \"/etc/sssd/sssd.conf\" or in\nconfiguration files found under \"/etc/sssd/conf.d\" to include pam."
       },
-      "impact": 0,
+      "impact": 0.5,
       "refs": [],
       "tags": {
         "severity": null,
@@ -4898,10 +4935,10 @@
         "stig_id": "RHEL-07-021021",
         "fix_id": "F-79607r2_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000199"
         ],
         "nist": [
-          "CM-6 b",
+          "IA-5 (1) (d)",
           "Rev_4"
         ]
       },
@@ -4931,10 +4968,10 @@
         "stig_id": "RHEL-07-040600",
         "fix_id": "F-78635r1_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000213"
         ],
         "nist": [
-          "CM-6 b",
+          "AC-3",
           "Rev_4"
         ]
       },
@@ -4949,7 +4986,7 @@
       "title": "The Red Hat Enterprise Linux operating system must generate audit\nrecords for all account creations, modifications, disabling, and termination\nevents that affect /etc/gshadow.",
       "desc": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
       "descriptions": {
-        "default": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
+        "default": "Reconstruction of harmful events or forensic analysis is not possible\nif audit records do not contain enough information.\n\n    At a minimum, the organization must audit the full-text recording of\nprivileged password commands. The organization must maintain audit trails in\nsufficient detail to reconstruct events to determine the cause and impact of\ncompromise.",
         "rationale": "",
         "check": "Verify the operating system must generate audit records for all account\ncreations, modifications, disabling, and termination events that affect\n\"/etc/gshadow\".\n\n    Check the auditing rules in \"/etc/audit/audit.rules\" with the following\ncommand:\n\n    # grep /etc/gshadow /etc/audit/audit.rules\n\n    -w /etc/gshadow -p wa -k identity\n\n    If the command does not return a line, or the line is commented out, this\nis a finding.",
         "fix": "Configure the operating system to generate audit records for all account\ncreations, modifications, disabling, and termination events that affect\n\"/etc/gshadow\".\n\n    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":\n\n    -w /etc/gshadow -p wa -k identity\n\n    The audit daemon must be restarted for the changes to take effect."
@@ -5026,7 +5063,7 @@
         "check": "Verify the operating system uses \"pwquality\" to enforce the password\ncomplexity rules.\n\n    Check for the use of \"pwquality\" with the following command:\n\n    # cat /etc/pam.d/system-auth | grep pam_pwquality\n\n    password required pam_pwquality.so retry=3\n\n    If the command does not return an uncommented line containing the value\n\"pam_pwquality.so\", this is a finding.\n\n    If the value of \"retry\" is set to \"0\" or greater than \"3\", this is a\nfinding.",
         "fix": "Configure the operating system to use \"pwquality\" to enforce password\ncomplexity rules.\n\n    Add the following line to \"/etc/pam.d/system-auth\" (or modify the line to\nhave the required value):\n\n    password required pam_pwquality.so retry=3\n\n    Note: The value of \"retry\" should be between \"1\" and \"3\"."
       },
-      "impact": 0.5,
+      "impact": 0.3,
       "refs": [],
       "tags": {
         "severity": null,
@@ -5059,7 +5096,7 @@
         "check": "Verify the operating system routinely checks the baseline configuration for\nunauthorized changes.\n\n    Note: A file integrity tool other than Advanced Intrusion Detection\nEnvironment (AIDE) may be used, but the tool must be executed at least once per\nweek.\n\n    Check to see if AIDE is installed on the system with the following command:\n\n    # yum list installed aide\n\n    If AIDE is not installed, ask the SA how file integrity checks are\nperformed on the system.\n\n    Check for the presence of a cron job running daily or weekly on the system\nthat executes AIDE daily to scan for changes to the system baseline. The\ncommand used in the example will use a daily occurrence.\n\n    Check the cron directories for a script file controlling the execution of\nthe file integrity application. For example, if AIDE is installed on the\nsystem, use the following command:\n\n    # ls -al /etc/cron.* | grep aide\n    -rwxr-xr-x 1 root root 29 Nov 22 2015 aide\n\n    # grep aide /etc/crontab /var/spool/cron/root\n    /etc/crontab: 30 04 * * * /root/aide\n    /var/spool/cron/root: 30 04 * * * /root/aide\n\n    If the file integrity application does not exist, or a script file\ncontrolling the execution of the file integrity application does not exist,\nthis is a finding.",
         "fix": "Configure the file integrity tool to run automatically on the system at\nleast weekly. The following example output is generic. It will set cron to run\nAIDE daily, but other file integrity tools may be used:\n\n    # more /etc/cron.daily/aide\n    #!/bin/bash\n\n    /usr/sbin/aide --check | /bin/mail -s \"$HOSTNAME - Daily aide integrity\ncheck run\" root@sysname.mil"
       },
-      "impact": 0.5,
+      "impact": 0.3,
       "refs": [],
       "tags": {
         "severity": null,
@@ -5162,7 +5199,7 @@
         "check": "Verify local interactive users on the system have a home directory assigned.\n\n    Check for missing local interactive user home directories with the\nfollowing command:\n\n    # pwck -r\n    user 'lp': directory '/var/spool/lpd' does not exist\n    user 'news': directory '/var/spool/news' does not exist\n    user 'uucp': directory '/var/spool/uucp' does not exist\n    user 'smithj': directory '/home/smithj' does not exist\n\n    Ask the System Administrator (SA) if any users found without home\ndirectories are local interactive users. If the SA is unable to provide a\nresponse, check for users with a User Identifier (UID) of 1000 or greater with\nthe following command:\n\n    # cut -d: -f 1,3 /etc/passwd | egrep \":[1-4][0-9]{2}$|:[0-9]{1,2}$\"\n\n    If any interactive users do not have a home directory assigned, this is a\nfinding.",
         "fix": "Assign home directories to all local interactive users that\ncurrently do not have a home directory assigned."
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -5195,7 +5232,7 @@
         "check": "Verify that kernel core dumps are disabled unless needed.\n\n    Check the status of the \"kdump\" service with the following command:\n\n    # systemctl status kdump.service\n    kdump.service - Crash recovery kernel arming\n       Loaded: loaded (/usr/lib/systemd/system/kdump.service; enabled)\n       Active: active (exited) since Wed 2015-08-26 13:08:09 EDT; 43min ago\n     Main PID: 1130 (code=exited, status=0/SUCCESS)\n    kernel arming.\n\n    If the \"kdump\" service is active, ask the System Administrator if the use\nof the service is required and documented with the Information System Security\nOfficer (ISSO).\n\n    If the service is active and is not documented, this is a finding.",
         "fix": "If kernel core dumps are not required, disable the \"kdump\" service with\nthe following command:\n\n    # systemctl disable kdump.service\n\n    If kernel core dumps are required, document the need with the ISSO."
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -5205,10 +5242,10 @@
         "stig_id": "RHEL-07-021300",
         "fix_id": "F-78409r1_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000057"
         ],
         "nist": [
-          "CM-6 b",
+          "AC-11 a",
           "Rev_4"
         ]
       },
@@ -5294,7 +5331,7 @@
         "check": "Verify that the system is not accepting \"rsyslog\" messages from other\nsystems unless it is documented as a log aggregation server.\n\n    Check the configuration of \"rsyslog\" with the following command:\n\n    # grep imtcp /etc/rsyslog.conf\n    $ModLoad imtcp\n    # grep imudp /etc/rsyslog.conf\n    $ModLoad imudp\n    # grep imrelp /etc/rsyslog.conf\n    $ModLoad imrelp\n\n    If any of the above modules are being loaded in the \"/etc/rsyslog.conf\"\nfile, ask to see the documentation for the system being used for log\naggregation.\n\n    If the documentation does not exist, or does not specify the server as a\nlog aggregation system, this is a finding.",
         "fix": "Modify the \"/etc/rsyslog.conf\" file to remove the \"ModLoad\nimtcp\", \"ModLoad imudp\", and \"ModLoad imrelp\" configuration lines, or\ndocument the system as being used for log aggregation."
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -5399,27 +5436,31 @@
       "id": "V-72237"
     },
     {
-      "title": "The Red Hat Enterprise Linux operating system must be configured so\nthat all wireless network adapters are disabled.",
-      "desc": "The use of wireless networking can introduce many different attack\nvectors into the organization's network. Common attack vectors such as\nmalicious association and ad hoc networks will allow an attacker to spoof a\nwireless access point (AP), allowing validated systems to connect to the\nmalicious AP and enabling the attacker to monitor and record network traffic.\nThese malicious APs can also serve to create a man-in-the-middle attack or be\nused to create a denial of service to valid network resources.",
+      "title": "The Red Hat Enterprise Linux operating system must audit all uses of\nthe semanage command.",
+      "desc": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
       "descriptions": {
-        "default": "The use of wireless networking can introduce many different attack\nvectors into the organization's network. Common attack vectors such as\nmalicious association and ad hoc networks will allow an attacker to spoof a\nwireless access point (AP), allowing validated systems to connect to the\nmalicious AP and enabling the attacker to monitor and record network traffic.\nThese malicious APs can also serve to create a man-in-the-middle attack or be\nused to create a denial of service to valid network resources.",
+        "default": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
         "rationale": "",
-        "check": "Verify that there are no wireless interfaces configured on the system.\n\n    This is N/A for systems that do not have wireless network adapters.\n\n    Check for the presence of active wireless interfaces with the following\ncommand:\n\n    # nmcli device\n    DEVICE TYPE STATE\n    eth0 ethernet connected\n    wlp3s0 wifi disconnected\n    lo loopback unmanaged\n\n    If a wireless interface is configured and its use on the system is not\ndocumented with the Information System Security Officer (ISSO), this is a\nfinding.",
-        "fix": "Configure the system to disable all wireless network interfaces with the\nfollowing command:\n\n    #nmcli radio wifi off"
+        "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"semanage\" command occur.\n\n    Check the file system rule in \"/etc/audit/audit.rules\" with the following\ncommand:\n\n    # grep -i /usr/sbin/semanage /etc/audit/audit.rules\n\n    -a always,exit -F path=/usr/sbin/semanage -F auid>=1000 -F auid!=4294967295\n-k privileged-priv_change\n\n    If the command does not return any output, this is a finding.",
+        "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"semanage\" command occur.\n\n    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F path=/usr/sbin/semanage -F auid>=1000 -F auid!=4294967295\n-k privileged-priv_change\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
-        "gtitle": "SRG-OS-000424-GPOS-00188",
-        "gid": "V-73177",
-        "rid": "SV-87829r2_rule",
-        "stig_id": "RHEL-07-041010",
-        "fix_id": "F-79623r1_fix",
+        "gtitle": "SRG-OS-000392-GPOS-00172",
+        "satisfies": [
+          "SRG-OS-000392-GPOS-00172",
+          "SRG-OS-000463-GPOS-00207",
+          "SRG-OS-000465-GPOS-00209"
+        ],
+        "gid": "V-72135",
+        "rid": "SV-86759r4_rule",
+        "stig_id": "RHEL-07-030560",
+        "fix_id": "F-78487r5_fix",
         "cci": [
-          "CCI-001443",
-          "CCI-001444",
-          "CCI-002418"
+          "CCI-000172",
+          "CCI-002884"
         ],
         "nist": [
           "AC-18 (1)",
@@ -5568,37 +5609,41 @@
       "id": "V-71917"
     },
     {
-      "title": "The Red Hat Enterprise Linux operating system must implement\ncryptography to protect the integrity of Lightweight Directory Access Protocol\n(LDAP) communications.",
-      "desc": "Without cryptographic integrity protections, information can be\naltered by unauthorized users without detection.\n\n    Cryptographic mechanisms used for protecting the integrity of information\ninclude, for example, signed hash functions using asymmetric cryptography\nenabling distribution of the public key to verify the hash information while\nmaintaining the confidentiality of the key used to generate the hash.",
+      "title": "The Red Hat Enterprise Linux operating system must display the\nStandard Mandatory DoD Notice and Consent Banner before granting local or\nremote access to the system via a command line user logon.",
+      "desc": "Display of a standardized and approved use notification before\ngranting access to the operating system ensures privacy and security\nnotification verbiage used is consistent with applicable federal laws,\nExecutive Orders, directives, policies, regulations, standards, and guidance.\n\n    System use notifications are required only for access via logon interfaces\nwith human users and are not required when such human interfaces do not exist.\n\n    The banner must be formatted in accordance with applicable DoD policy. Use\nthe following verbiage for operating systems that can accommodate banners of\n1300 characters:\n\n    \"You are accessing a U.S. Government (USG) Information System (IS) that is\nprovided for USG-authorized use only.\n\n    By using this IS (which includes any device attached to this IS), you\nconsent to the following conditions:\n\n    -The USG routinely intercepts and monitors communications on this IS for\npurposes including, but not limited to, penetration testing, COMSEC monitoring,\nnetwork operations and defense, personnel misconduct (PM), law enforcement\n(LE), and counterintelligence (CI) investigations.\n\n    -At any time, the USG may inspect and seize data stored on this IS.\n\n    -Communications using, or data stored on, this IS are not private, are\nsubject to routine monitoring, interception, and search, and may be disclosed\nor used for any USG-authorized purpose.\n\n    -This IS includes security measures (e.g., authentication and access\ncontrols) to protect USG interests--not for your personal benefit or privacy.\n\n    -Notwithstanding the above, using this IS does not constitute consent to\nPM, LE or CI investigative searching or monitoring of the content of privileged\ncommunications, or work product, related to personal representation or services\nby attorneys, psychotherapists, or clergy, and their assistants. Such\ncommunications and work product are private and confidential. See User\nAgreement for details.\"",
       "descriptions": {
-        "default": "Without cryptographic integrity protections, information can be\naltered by unauthorized users without detection.\n\n    Cryptographic mechanisms used for protecting the integrity of information\ninclude, for example, signed hash functions using asymmetric cryptography\nenabling distribution of the public key to verify the hash information while\nmaintaining the confidentiality of the key used to generate the hash.",
+        "default": "Display of a standardized and approved use notification before\ngranting access to the operating system ensures privacy and security\nnotification verbiage used is consistent with applicable federal laws,\nExecutive Orders, directives, policies, regulations, standards, and guidance.\n\n    System use notifications are required only for access via logon interfaces\nwith human users and are not required when such human interfaces do not exist.\n\n    The banner must be formatted in accordance with applicable DoD policy. Use\nthe following verbiage for operating systems that can accommodate banners of\n1300 characters:\n\n    \"You are accessing a U.S. Government (USG) Information System (IS) that is\nprovided for USG-authorized use only.\n\n    By using this IS (which includes any device attached to this IS), you\nconsent to the following conditions:\n\n    -The USG routinely intercepts and monitors communications on this IS for\npurposes including, but not limited to, penetration testing, COMSEC monitoring,\nnetwork operations and defense, personnel misconduct (PM), law enforcement\n(LE), and counterintelligence (CI) investigations.\n\n    -At any time, the USG may inspect and seize data stored on this IS.\n\n    -Communications using, or data stored on, this IS are not private, are\nsubject to routine monitoring, interception, and search, and may be disclosed\nor used for any USG-authorized purpose.\n\n    -This IS includes security measures (e.g., authentication and access\ncontrols) to protect USG interests--not for your personal benefit or privacy.\n\n    -Notwithstanding the above, using this IS does not constitute consent to\nPM, LE or CI investigative searching or monitoring of the content of privileged\ncommunications, or work product, related to personal representation or services\nby attorneys, psychotherapists, or clergy, and their assistants. Such\ncommunications and work product are private and confidential. See User\nAgreement for details.\"",
         "rationale": "",
-        "check": "If LDAP is not being utilized, this requirement is Not Applicable.\n\n    Verify the operating system implements cryptography to protect the\nintegrity of remote LDAP access sessions.\n\n    To determine if LDAP is being used for authentication, use the following\ncommand:\n\n    # systemctl status sssd.service\n    sssd.service - System Security Services Daemon\n    Loaded: loaded (/usr/lib/systemd/system/sssd.service; enabled; vendor\npreset: disabled)\n    Active: active (running) since Wed 2018-06-27 10:58:11 EST; 1h 50min ago\n\n    If the \"sssd.service\" is \"active\", then LDAP is being used.\n\n    Determine the \"id_provider\" the LDAP is currently using:\n\n    # grep -i \"id_provider\" /etc/sssd/sssd.conf\n\n    id_provider = ad\n\n    If \"id_provider\" is set to \"ad\", this is Not Applicable.\n\n    Verify the sssd service is configured to require the use of certificates:\n\n    # grep -i tls_reqcert /etc/sssd/sssd.conf\n    ldap_tls_reqcert = demand\n\n    If the \"ldap_tls_reqcert\" setting is missing, commented out, or does not\nexist, this is a finding.\n\n    If the \"ldap_tls_reqcert\" setting is not set to \"demand\" or \"hard\",\nthis is a finding.",
-        "fix": "Configure the operating system to implement cryptography to protect the\nintegrity of LDAP remote access sessions.\n\n    Add or modify the following line in \"/etc/sssd/sssd.conf\":\n\n    ldap_tls_reqcert = demand"
+        "check": "Verify the operating system displays the Standard Mandatory DoD Notice and\nConsent Banner before granting access to the operating system via a command\nline user logon.\n\n    Check to see if the operating system displays a banner at the command line\nlogon screen with the following command:\n\n    # more /etc/issue\n\n    The command should return the following text:\n    \"You are accessing a U.S. Government (USG) Information System (IS) that is\nprovided for USG-authorized use only.\n\n    By using this IS (which includes any device attached to this IS), you\nconsent to the following conditions:\n\n    -The USG routinely intercepts and monitors communications on this IS for\npurposes including, but not limited to, penetration testing, COMSEC monitoring,\nnetwork operations and defense, personnel misconduct (PM), law enforcement\n(LE), and counterintelligence (CI) investigations.\n\n    -At any time, the USG may inspect and seize data stored on this IS.\n\n    -Communications using, or data stored on, this IS are not private, are\nsubject to routine monitoring, interception, and search, and may be disclosed\nor used for any USG-authorized purpose.\n\n    -This IS includes security measures (e.g., authentication and access\ncontrols) to protect USG interests--not for your personal benefit or privacy.\n\n    -Notwithstanding the above, using this IS does not constitute consent to\nPM, LE or CI investigative searching or monitoring of the content of privileged\ncommunications, or work product, related to personal representation or services\nby attorneys, psychotherapists, or clergy, and their assistants. Such\ncommunications and work product are private and confidential. See User\nAgreement for details.\"\n\n    If the operating system does not display a graphical logon banner or the\nbanner does not match the Standard Mandatory DoD Notice and Consent Banner,\nthis is a finding.\n\n    If the text in the \"/etc/issue\" file does not match the Standard\nMandatory DoD Notice and Consent Banner, this is a finding.",
+        "fix": "Configure the operating system to display the Standard Mandatory DoD Notice\nand Consent Banner before granting access to the system via the command line by\nediting the \"/etc/issue\" file.\n\n    Replace the default text with the Standard Mandatory DoD Notice and Consent\nBanner. The DoD required text is:\n    \"You are accessing a U.S. Government (USG) Information System (IS) that is\nprovided for USG-authorized use only.\n\n    By using this IS (which includes any device attached to this IS), you\nconsent to the following conditions:\n\n    -The USG routinely intercepts and monitors communications on this IS for\npurposes including, but not limited to, penetration testing, COMSEC monitoring,\nnetwork operations and defense, personnel misconduct (PM), law enforcement\n(LE), and counterintelligence (CI) investigations.\n\n    -At any time, the USG may inspect and seize data stored on this IS.\n\n    -Communications using, or data stored on, this IS are not private, are\nsubject to routine monitoring, interception, and search, and may be disclosed\nor used for any USG-authorized purpose.\n\n    -This IS includes security measures (e.g., authentication and access\ncontrols) to protect USG interests--not for your personal benefit or privacy.\n\n    -Notwithstanding the above, using this IS does not constitute consent to\nPM, LE or CI investigative searching or monitoring of the content of privileged\ncommunications, or work product, related to personal representation or services\nby attorneys, psychotherapists, or clergy, and their assistants.  Such\ncommunications and work product are private and confidential.  See User\nAgreement for details.\""
       },
-      "impact": 0,
+      "impact": 0.5,
       "refs": [],
       "tags": {
         "severity": null,
-        "gtitle": "SRG-OS-000250-GPOS-00093",
-        "gid": "V-72229",
-        "rid": "SV-86853r4_rule",
-        "stig_id": "RHEL-07-040190",
-        "fix_id": "F-78583r4_fix",
+        "gtitle": "SRG-OS-000023-GPOS-00006",
+        "satisfies": [
+          "SRG-OS-000023-GPOS-00006",
+          "SRG-OS-000024-GPOS-00007"
+        ],
+        "gid": "V-71863",
+        "rid": "SV-86487r3_rule",
+        "stig_id": "RHEL-07-010050",
+        "fix_id": "F-78217r2_fix",
         "cci": [
-          "CCI-001453"
+          "CCI-000048"
         ],
         "nist": [
-          "AC-17 (2)",
+          "AC-8 a",
           "Rev_4"
         ]
       },
-      "code": "control \"V-72229\" do\n  title \"The Red Hat Enterprise Linux operating system must implement\ncryptography to protect the integrity of Lightweight Directory Access Protocol\n(LDAP) communications.\"\n  desc  \"Without cryptographic integrity protections, information can be\naltered by unauthorized users without detection.\n\n    Cryptographic mechanisms used for protecting the integrity of information\ninclude, for example, signed hash functions using asymmetric cryptography\nenabling distribution of the public key to verify the hash information while\nmaintaining the confidentiality of the key used to generate the hash.\n  \"\n  desc  \"rationale\", \"\"\n  desc  \"check\", \"\n    If LDAP is not being utilized, this requirement is Not Applicable.\n\n    Verify the operating system implements cryptography to protect the\nintegrity of remote LDAP access sessions.\n\n    To determine if LDAP is being used for authentication, use the following\ncommand:\n\n    # systemctl status sssd.service\n    sssd.service - System Security Services Daemon\n    Loaded: loaded (/usr/lib/systemd/system/sssd.service; enabled; vendor\npreset: disabled)\n    Active: active (running) since Wed 2018-06-27 10:58:11 EST; 1h 50min ago\n\n    If the \\\"sssd.service\\\" is \\\"active\\\", then LDAP is being used.\n\n    Determine the \\\"id_provider\\\" the LDAP is currently using:\n\n    # grep -i \\\"id_provider\\\" /etc/sssd/sssd.conf\n\n    id_provider = ad\n\n    If \\\"id_provider\\\" is set to \\\"ad\\\", this is Not Applicable.\n\n    Verify the sssd service is configured to require the use of certificates:\n\n    # grep -i tls_reqcert /etc/sssd/sssd.conf\n    ldap_tls_reqcert = demand\n\n    If the \\\"ldap_tls_reqcert\\\" setting is missing, commented out, or does not\nexist, this is a finding.\n\n    If the \\\"ldap_tls_reqcert\\\" setting is not set to \\\"demand\\\" or \\\"hard\\\",\nthis is a finding.\n  \"\n  desc  \"fix\", \"\n    Configure the operating system to implement cryptography to protect the\nintegrity of LDAP remote access sessions.\n\n    Add or modify the following line in \\\"/etc/sssd/sssd.conf\\\":\n\n    ldap_tls_reqcert = demand\n  \"\n  impact 0.5\n  tag severity: nil\n  tag gtitle: \"SRG-OS-000250-GPOS-00093\"\n  tag gid: \"V-72229\"\n  tag rid: \"SV-86853r4_rule\"\n  tag stig_id: \"RHEL-07-040190\"\n  tag fix_id: \"F-78583r4_fix\"\n  tag cci: [\"CCI-001453\"]\n  tag nist: [\"AC-17 (2)\", \"Rev_4\"]\n\n  sssd_id_ldap_enabled = (package('sssd').installed? and\n    !command('grep \"^\\s*id_provider\\s*=\\s*ldap\" /etc/sssd/sssd.conf').stdout.strip.empty?)\n\n  sssd_ldap_enabled = (package('sssd').installed? and\n    !command('grep \"^\\s*[a-z]*_provider\\s*=\\s*ldap\" /etc/sssd/sssd.conf').stdout.strip.empty?)\n\n  pam_ldap_enabled = (!command('grep \"^[^#]*pam_ldap\\.so\" /etc/pam.d/*').stdout.strip.empty?)\n\n  if !(sssd_id_ldap_enabled or sssd_ldap_enabled or pam_ldap_enabled)\n    impact 0.0\n    describe \"LDAP not enabled\" do\n      skip \"LDAP not enabled using any known mechanisms, this control is Not Applicable.\"\n    end\n  end\n\n  if sssd_id_ldap_enabled\n    ldap_id_use_start_tls = command('grep ldap_id_use_start_tls /etc/sssd/sssd.conf')\n    describe ldap_id_use_start_tls do\n      its('stdout.strip') { should match %r{^ldap_id_use_start_tls\\s*=\\s*true$}}\n    end\n\n    ldap_id_use_start_tls.stdout.strip.each_line do |line|\n      describe line do\n        it { should match %r{^ldap_id_use_start_tls\\s*=\\s*true$}}\n      end\n    end\n  end\n\n  if sssd_ldap_enabled\n    ldap_tls_cacertdir = command('grep -i ldap_tls_cacertdir /etc/sssd/sssd.conf').\n      stdout.strip.scan(%r{^ldap_tls_cacertdir\\s*=\\s*(.*)}).last\n\n    describe \"ldap_tls_cacertdir\" do\n      subject { ldap_tls_cacertdir }\n      it { should_not eq nil }\n    end\n\n    describe file(ldap_tls_cacertdir.last) do\n      it { should exist }\n      it { should be_directory }\n    end if !ldap_tls_cacertdir.nil?\n  end\n\n  if pam_ldap_enabled\n    tls_cacertdir = command('grep -i tls_cacertdir /etc/pam_ldap.conf').\n      stdout.strip.scan(%r{^tls_cacertdir\\s+(.*)}).last\n\n    describe \"tls_cacertdir\" do\n      subject { tls_cacertdir }\n      it { should_not eq nil }\n    end\n\n    describe file(tls_cacertdir.last) do\n      it { should exist }\n      it { should be_directory }\n    end if !tls_cacertdir.nil?\n  end\nend\n",
+      "code": "control \"V-71863\" do\n  title \"The Red Hat Enterprise Linux operating system must display the\nStandard Mandatory DoD Notice and Consent Banner before granting local or\nremote access to the system via a command line user logon.\"\n  desc  \"Display of a standardized and approved use notification before\ngranting access to the operating system ensures privacy and security\nnotification verbiage used is consistent with applicable federal laws,\nExecutive Orders, directives, policies, regulations, standards, and guidance.\n\n    System use notifications are required only for access via logon interfaces\nwith human users and are not required when such human interfaces do not exist.\n\n    The banner must be formatted in accordance with applicable DoD policy. Use\nthe following verbiage for operating systems that can accommodate banners of\n1300 characters:\n\n    \\\"You are accessing a U.S. Government (USG) Information System (IS) that is\nprovided for USG-authorized use only.\n\n    By using this IS (which includes any device attached to this IS), you\nconsent to the following conditions:\n\n    -The USG routinely intercepts and monitors communications on this IS for\npurposes including, but not limited to, penetration testing, COMSEC monitoring,\nnetwork operations and defense, personnel misconduct (PM), law enforcement\n(LE), and counterintelligence (CI) investigations.\n\n    -At any time, the USG may inspect and seize data stored on this IS.\n\n    -Communications using, or data stored on, this IS are not private, are\nsubject to routine monitoring, interception, and search, and may be disclosed\nor used for any USG-authorized purpose.\n\n    -This IS includes security measures (e.g., authentication and access\ncontrols) to protect USG interests--not for your personal benefit or privacy.\n\n    -Notwithstanding the above, using this IS does not constitute consent to\nPM, LE or CI investigative searching or monitoring of the content of privileged\ncommunications, or work product, related to personal representation or services\nby attorneys, psychotherapists, or clergy, and their assistants. Such\ncommunications and work product are private and confidential. See User\nAgreement for details.\\\"\n\n\n  \"\n  desc  \"rationale\", \"\"\n  desc  \"check\", \"\n    Verify the operating system displays the Standard Mandatory DoD Notice and\nConsent Banner before granting access to the operating system via a command\nline user logon.\n\n    Check to see if the operating system displays a banner at the command line\nlogon screen with the following command:\n\n    # more /etc/issue\n\n    The command should return the following text:\n    \\\"You are accessing a U.S. Government (USG) Information System (IS) that is\nprovided for USG-authorized use only.\n\n    By using this IS (which includes any device attached to this IS), you\nconsent to the following conditions:\n\n    -The USG routinely intercepts and monitors communications on this IS for\npurposes including, but not limited to, penetration testing, COMSEC monitoring,\nnetwork operations and defense, personnel misconduct (PM), law enforcement\n(LE), and counterintelligence (CI) investigations.\n\n    -At any time, the USG may inspect and seize data stored on this IS.\n\n    -Communications using, or data stored on, this IS are not private, are\nsubject to routine monitoring, interception, and search, and may be disclosed\nor used for any USG-authorized purpose.\n\n    -This IS includes security measures (e.g., authentication and access\ncontrols) to protect USG interests--not for your personal benefit or privacy.\n\n    -Notwithstanding the above, using this IS does not constitute consent to\nPM, LE or CI investigative searching or monitoring of the content of privileged\ncommunications, or work product, related to personal representation or services\nby attorneys, psychotherapists, or clergy, and their assistants. Such\ncommunications and work product are private and confidential. See User\nAgreement for details.\\\"\n\n    If the operating system does not display a graphical logon banner or the\nbanner does not match the Standard Mandatory DoD Notice and Consent Banner,\nthis is a finding.\n\n    If the text in the \\\"/etc/issue\\\" file does not match the Standard\nMandatory DoD Notice and Consent Banner, this is a finding.\n  \"\n  desc  \"fix\", \"\n    Configure the operating system to display the Standard Mandatory DoD Notice\nand Consent Banner before granting access to the system via the command line by\nediting the \\\"/etc/issue\\\" file.\n\n    Replace the default text with the Standard Mandatory DoD Notice and Consent\nBanner. The DoD required text is:\n    \\\"You are accessing a U.S. Government (USG) Information System (IS) that is\nprovided for USG-authorized use only.\n\n    By using this IS (which includes any device attached to this IS), you\nconsent to the following conditions:\n\n    -The USG routinely intercepts and monitors communications on this IS for\npurposes including, but not limited to, penetration testing, COMSEC monitoring,\nnetwork operations and defense, personnel misconduct (PM), law enforcement\n(LE), and counterintelligence (CI) investigations.\n\n    -At any time, the USG may inspect and seize data stored on this IS.\n\n    -Communications using, or data stored on, this IS are not private, are\nsubject to routine monitoring, interception, and search, and may be disclosed\nor used for any USG-authorized purpose.\n\n    -This IS includes security measures (e.g., authentication and access\ncontrols) to protect USG interests--not for your personal benefit or privacy.\n\n    -Notwithstanding the above, using this IS does not constitute consent to\nPM, LE or CI investigative searching or monitoring of the content of privileged\ncommunications, or work product, related to personal representation or services\nby attorneys, psychotherapists, or clergy, and their assistants.  Such\ncommunications and work product are private and confidential.  See User\nAgreement for details.\\\"\n  \"\n  impact 0.5\n  tag severity: nil\n  tag gtitle: \"SRG-OS-000023-GPOS-00006\"\n  tag satisfies: [\"SRG-OS-000023-GPOS-00006\", \"SRG-OS-000024-GPOS-00007\"]\n  tag gid: \"V-71863\"\n  tag rid: \"SV-86487r3_rule\"\n  tag stig_id: \"RHEL-07-010050\"\n  tag fix_id: \"F-78217r2_fix\"\n  tag cci: [\"CCI-000048\"]\n  tag nist: [\"AC-8 a\", \"Rev_4\"]\n\n  clean_banner = input('banner_message_text_cli').gsub(%r{[\\r\\n\\s]}, '')\n  clean_banner_limited = input('banner_message_text_cli_limited').gsub(%r{[\\r\\n\\s]}, '')\n  banner_file = file(\"/etc/issue\")\n  banner_missing = !banner_file.exist?\n\n  describe \"The banner text is not set because /etc/issue does not exist\" do\n    subject { banner_missing }\n    it { should be false }\n  end if banner_missing\n\n  banner_message = banner_file.content.gsub(%r{[\\r\\n\\s]}, '')\n  describe.one do\n    describe \"The banner text should match the standard banner\" do\n      subject { banner_message }\n      it { should cmp clean_banner }\n    end\n    describe \"The banner text should match the limited banner\" do\n      subject { banner_message }\n      it{should cmp clean_banner_limited }\n    end\n  end if !banner_missing\nend\n",
       "source_location": {
-        "ref": "./controls/V-72229.rb",
+        "ref": "./controls/V-71863.rb",
         "line": 2
       },
-      "id": "V-72229"
+      "id": "V-71863"
     },
     {
       "title": "The Red Hat Enterprise Linux operating system must limit the number of\nconcurrent sessions to 10 for all accounts and/or account types.",
@@ -5658,12 +5703,10 @@
         "stig_id": "RHEL-07-030540",
         "fix_id": "F-78483r7_fix",
         "cci": [
-          "CCI-000172",
-          "CCI-002884"
+          "CCI-000172"
         ],
         "nist": [
           "AU-12 c",
-          "MA-4 (1) (a)",
           "Rev_4"
         ]
       },
@@ -5739,10 +5782,12 @@
         "stig_id": "RHEL-07-040360",
         "fix_id": "F-78599r3_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000172",
+          "CCI-002884"
         ],
         "nist": [
-          "CM-6 b",
+          "AU-12 c",
+          "MA-4 (1) (a)",
           "Rev_4"
         ]
       },
@@ -5791,41 +5836,37 @@
       "id": "V-72083"
     },
     {
-      "title": "The Red Hat Enterprise Linux operating system must audit all uses of\nthe create_module syscall.",
-      "desc": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
+      "title": "The Red Hat Enterprise Linux operating system must immediately notify\nthe System Administrator (SA) and Information System Security Officer (ISSO)\n(at a minimum) via email when the threshold for the repository maximum audit\nrecord storage capacity is reached.",
+      "desc": "If security personnel are not notified immediately when the threshold\nfor the repository maximum audit record storage capacity is reached, they are\nunable to expand the audit record storage capacity before records are lost.",
       "descriptions": {
-        "default": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
+        "default": "If security personnel are not notified immediately when the threshold\nfor the repository maximum audit record storage capacity is reached, they are\nunable to expand the audit record storage capacity before records are lost.",
         "rationale": "",
-        "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"create_module\" syscall occur.\n\n    Check the auditing rules in \"/etc/audit/audit.rules\" with the following\ncommand:\n\n    # grep -iw create_module /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S create_module -k module-change\n\n    -a always,exit -F arch=b64 -S create_module -k module-change\n\n    If both the \"b32\" and \"b64\" audit rules are not defined for the\n\"create_module\" syscall, this is a finding.",
-        "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"create_module\" syscall occur.\n\n    Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F arch=b32 -S create_module -k module-change\n\n    -a always,exit -F arch=b64 -S create_module -k module-change\n\n    The audit daemon must be restarted for the changes to take effect."
+        "check": "Verify the operating system immediately notifies the SA and ISSO (at a\nminimum) via email when the allocated audit record storage volume reaches 75\npercent of the repository maximum audit record storage capacity.\n\n    Check what action the operating system takes when the threshold for the\nrepository maximum audit record storage capacity is reached with the following\ncommand:\n\n    # grep -i space_left_action  /etc/audit/auditd.conf\n    space_left_action = email\n\n    If the value of the \"space_left_action\" keyword is not set to \"email\",\nthis is a finding.",
+        "fix": "Configure the operating system to immediately notify the SA and ISSO (at a\nminimum) when the threshold for the repository maximum audit record storage\ncapacity is reached.\n\n    Uncomment or edit the \"space_left_action\" keyword in\n\"/etc/audit/auditd.conf\" and set it to \"email\".\n\n    space_left_action = email"
       },
       "impact": 0.5,
       "refs": [],
       "tags": {
         "severity": null,
-        "gtitle": "SRG-OS-000471-GPOS-00216",
-        "satisfies": [
-          "SRG-OS-000471-GPOS-00216",
-          "SRG-OS-000477-GPOS-00222"
-        ],
-        "gid": "V-78999",
-        "rid": "SV-93705r3_rule",
-        "stig_id": "RHEL-07-030819",
-        "fix_id": "F-85749r4_fix",
+        "gtitle": "SRG-OS-000343-GPOS-00134",
+        "gid": "V-72091",
+        "rid": "SV-86715r2_rule",
+        "stig_id": "RHEL-07-030340",
+        "fix_id": "F-78443r1_fix",
         "cci": [
-          "CCI-000172"
+          "CCI-001855"
         ],
         "nist": [
-          "AU-12 c",
+          "AU-5 (1)",
           "Rev_4"
         ]
       },
-      "code": "control \"V-78999\" do\n  title \"The Red Hat Enterprise Linux operating system must audit all uses of\nthe create_module syscall.\"\n  desc  \"Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).\n\n\n  \"\n  desc  \"rationale\", \"\"\n  desc  \"check\", \"\n    Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \\\"create_module\\\" syscall occur.\n\n    Check the auditing rules in \\\"/etc/audit/audit.rules\\\" with the following\ncommand:\n\n    # grep -iw create_module /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S create_module -k module-change\n\n    -a always,exit -F arch=b64 -S create_module -k module-change\n\n    If both the \\\"b32\\\" and \\\"b64\\\" audit rules are not defined for the\n\\\"create_module\\\" syscall, this is a finding.\n  \"\n  desc  \"fix\", \"\n    Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \\\"create_module\\\" syscall occur.\n\n    Add or update the following rules in \\\"/etc/audit/rules.d/audit.rules\\\":\n\n    -a always,exit -F arch=b32 -S create_module -k module-change\n\n    -a always,exit -F arch=b64 -S create_module -k module-change\n\n    The audit daemon must be restarted for the changes to take effect.\n  \"\n  impact 0.5\n  tag severity: nil\n  tag gtitle: \"SRG-OS-000471-GPOS-00216\"\n  tag satisfies: [\"SRG-OS-000471-GPOS-00216\", \"SRG-OS-000477-GPOS-00222\"]\n  tag gid: \"V-78999\"\n  tag rid: \"SV-93705r3_rule\"\n  tag stig_id: \"RHEL-07-030819\"\n  tag fix_id: \"F-85749r4_fix\"\n  tag cci: [\"CCI-000172\"]\n  tag nist: [\"AU-12 c\", \"Rev_4\"]\n\n  describe auditd.syscall(\"create_module\").where {arch == \"b32\"} do\n    its('action.uniq') { should eq ['always'] }\n    its('list.uniq') { should eq ['exit'] }\n  end\n  if os.arch == 'x86_64'\n    describe auditd.syscall(\"create_module\").where {arch == \"b64\"} do\n      its('action.uniq') { should eq ['always'] }\n      its('list.uniq') { should eq ['exit'] }\n    end\n  end\nend\n",
+      "code": "control \"V-72091\" do\n  title \"The Red Hat Enterprise Linux operating system must immediately notify\nthe System Administrator (SA) and Information System Security Officer (ISSO)\n(at a minimum) via email when the threshold for the repository maximum audit\nrecord storage capacity is reached.\"\n  desc  \"If security personnel are not notified immediately when the threshold\nfor the repository maximum audit record storage capacity is reached, they are\nunable to expand the audit record storage capacity before records are lost.\"\n  desc  \"rationale\", \"\"\n  desc  \"check\", \"\n    Verify the operating system immediately notifies the SA and ISSO (at a\nminimum) via email when the allocated audit record storage volume reaches 75\npercent of the repository maximum audit record storage capacity.\n\n    Check what action the operating system takes when the threshold for the\nrepository maximum audit record storage capacity is reached with the following\ncommand:\n\n    # grep -i space_left_action  /etc/audit/auditd.conf\n    space_left_action = email\n\n    If the value of the \\\"space_left_action\\\" keyword is not set to \\\"email\\\",\nthis is a finding.\n  \"\n  desc  \"fix\", \"\n    Configure the operating system to immediately notify the SA and ISSO (at a\nminimum) when the threshold for the repository maximum audit record storage\ncapacity is reached.\n\n    Uncomment or edit the \\\"space_left_action\\\" keyword in\n\\\"/etc/audit/auditd.conf\\\" and set it to \\\"email\\\".\n\n    space_left_action = email\n  \"\n  impact 0.5\n  tag severity: nil\n  tag gtitle: \"SRG-OS-000343-GPOS-00134\"\n  tag gid: \"V-72091\"\n  tag rid: \"SV-86715r2_rule\"\n  tag stig_id: \"RHEL-07-030340\"\n  tag fix_id: \"F-78443r1_fix\"\n  tag cci: [\"CCI-001855\"]\n  tag nist: [\"AU-5 (1)\", \"Rev_4\"]\n\n  describe auditd_conf do\n    its('space_left_action.downcase') { should cmp 'email' }\n  end\nend\n",
       "source_location": {
-        "ref": "./controls/V-78999.rb",
+        "ref": "./controls/V-72091.rb",
         "line": 2
       },
-      "id": "V-78999"
+      "id": "V-72091"
     },
     {
       "title": "The Red Hat Enterprise Linux operating system must be configured so\nthat all network connections associated with a communication session are\nterminated at the end of the session or after 10 minutes of inactivity from the\nuser at a command prompt, except to fulfill documented and validated mission\nrequirements.",
@@ -5881,10 +5922,10 @@
         "stig_id": "RHEL-07-040530",
         "fix_id": "F-78629r4_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000172"
         ],
         "nist": [
-          "CM-6 b",
+          "AU-12 c",
           "Rev_4"
         ]
       },
@@ -5904,7 +5945,7 @@
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"rmdir\" syscall occur.\n\n    Check the file system rules in \"/etc/audit/audit.rules\" with the\nfollowing commands:\n\n    # grep -iw rmdir /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S rmdir -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    -a always,exit -F arch=b64 -S rmdir -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    If both the \"b32\" and \"b64\" audit rules are not defined for the\n\"rmdir\" syscall, this is a finding.",
         "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"rmdir\" syscall occur.\n\n    Add the following rules in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F arch=b32 -S rmdir -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    -a always,exit -F arch=b64 -S rmdir -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0.5,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
@@ -6060,7 +6101,7 @@
         "check": "Verify the TFTP daemon is configured to operate in secure mode.\n\n    Check to see if a TFTP server has been installed with the following\ncommands:\n\n    # yum list installed tftp-server\n    tftp-server.x86_64 x.x-x.el7 rhel-7-server-rpms\n\n    If a TFTP server is not installed, this is Not Applicable.\n\n    If a TFTP server is installed, check for the server arguments with the\nfollowing command:\n\n    # grep server_args /etc/xinetd.d/tftp\n    server_args = -s /var/lib/tftpboot\n\n    If the \"server_args\" line does not have a \"-s\" option and a\nsubdirectory is not assigned, this is a finding.",
         "fix": "Configure the TFTP daemon to operate in secure mode by adding the following\nline to \"/etc/xinetd.d/tftp\" (or modify the line to have the required value):\n\n    server_args = -s /var/lib/tftpboot"
       },
-      "impact": 0,
+      "impact": 0.5,
       "refs": [],
       "tags": {
         "severity": null,
@@ -6085,45 +6126,37 @@
       "id": "V-72305"
     },
     {
-      "title": "The Red Hat Enterprise Linux operating system must audit all uses of\nthe unlink syscall.",
-      "desc": "If the system is not configured to audit certain activities and write\nthem to an audit log, it is more difficult to detect and track system\ncompromises and damages incurred during a system compromise.",
+      "title": "The Red Hat Enterprise Linux operating system must be configured so\nthat all files and directories contained in local interactive user home\ndirectories are group-owned by a group of which the home directory owner is a\nmember.",
+      "desc": "If a local interactive user's files are group-owned by a group of\nwhich the user is not a member, unintended users may be able to access them.",
       "descriptions": {
-        "default": "If the system is not configured to audit certain activities and write\nthem to an audit log, it is more difficult to detect and track system\ncompromises and damages incurred during a system compromise.",
+        "default": "If a local interactive user's files are group-owned by a group of\nwhich the user is not a member, unintended users may be able to access them.",
         "rationale": "",
-        "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"unlink\" syscall occur.\n\n    Check the file system rules in \"/etc/audit/audit.rules\" with the\nfollowing commands:\n\n    # grep -iw unlink /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S unlink -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    -a always,exit -F arch=b64 -S unlink -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    If both the \"b32\" and \"b64\" audit rules are not defined for the\n\"unlink\" syscall, this is a finding.",
-        "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"unlink\" syscall occur.\n\n    Add the following rules in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F arch=b32 -S unlink -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    -a always,exit -F arch=b64 -S unlink -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    The audit daemon must be restarted for the changes to take effect."
+        "check": "Verify all files and directories in a local interactive user home directory\nare group-owned by a group the user is a member of.\n\n    Check the group owner of all files and directories in a local interactive\nuser's home directory with the following command:\n\n    Note: The example will be for the user \"smithj\", who has a home directory\nof \"/home/smithj\".\n\n    # ls -lLR /<home directory>/<users home directory>/\n    -rw-r--r-- 1 smithj smithj  18 Mar  5 17:06 file1\n    -rw-r--r-- 1 smithj smithj 193 Mar  5 17:06 file2\n    -rw-r--r-- 1 smithj sa        231 Mar  5 17:06 file3\n\n    If any files are found with an owner different than the group home\ndirectory user, check to see if the user is a member of that group with the\nfollowing command:\n\n    # grep smithj /etc/group\n    sa:x:100:juan,shelley,bob,smithj\n    smithj:x:521:smithj\n\n    If the user is not a member of a group that group owns file(s) in a local\ninteractive user's home directory, this is a finding.",
+        "fix": "Change the group of a local interactive user's files and directories to a\ngroup that the interactive user is a member of. To change the group owner of a\nlocal interactive user's files and directories, use the following command:\n\n    Note: The example will be for the user smithj, who has a home directory of\n\"/home/smithj\" and is a member of the users group.\n\n    # chgrp users /home/smithj/<file>"
       },
       "impact": 0.5,
       "refs": [],
       "tags": {
         "severity": null,
-        "gtitle": "SRG-OS-000466-GPOS-00210",
-        "satisfies": [
-          "SRG-OS-000466-GPOS-00210",
-          "SRG-OS-000467-GPOS-00210",
-          "SRG-OS-000468-GPOS-00212",
-          "SRG-OS-000392-GPOS-00172"
-        ],
-        "gid": "V-72205",
-        "rid": "SV-86829r5_rule",
-        "stig_id": "RHEL-07-030910",
-        "fix_id": "F-78559r7_fix",
+        "gtitle": "SRG-OS-000480-GPOS-00227",
+        "gid": "V-72025",
+        "rid": "SV-86649r2_rule",
+        "stig_id": "RHEL-07-020670",
+        "fix_id": "F-78377r2_fix",
         "cci": [
-          "CCI-000172",
-          "CCI-002884"
+          "CCI-000366"
         ],
         "nist": [
-          "AU-12 c",
-          "MA-4 (1) (a)",
+          "CM-6 b",
           "Rev_4"
         ]
       },
-      "code": "control \"V-72205\" do\n  title \"The Red Hat Enterprise Linux operating system must audit all uses of\nthe unlink syscall.\"\n  desc  \"If the system is not configured to audit certain activities and write\nthem to an audit log, it is more difficult to detect and track system\ncompromises and damages incurred during a system compromise.\n\n\n  \"\n  desc  \"rationale\", \"\"\n  desc  \"check\", \"\n    Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \\\"unlink\\\" syscall occur.\n\n    Check the file system rules in \\\"/etc/audit/audit.rules\\\" with the\nfollowing commands:\n\n    # grep -iw unlink /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S unlink -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    -a always,exit -F arch=b64 -S unlink -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    If both the \\\"b32\\\" and \\\"b64\\\" audit rules are not defined for the\n\\\"unlink\\\" syscall, this is a finding.\n  \"\n  desc  \"fix\", \"\n    Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \\\"unlink\\\" syscall occur.\n\n    Add the following rules in \\\"/etc/audit/rules.d/audit.rules\\\":\n\n    -a always,exit -F arch=b32 -S unlink -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    -a always,exit -F arch=b64 -S unlink -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    The audit daemon must be restarted for the changes to take effect.\n  \"\n  impact 0.5\n  tag severity: nil\n  tag gtitle: \"SRG-OS-000466-GPOS-00210\"\n  tag satisfies: [\"SRG-OS-000466-GPOS-00210\", \"SRG-OS-000467-GPOS-00210\",\n\"SRG-OS-000468-GPOS-00212\", \"SRG-OS-000392-GPOS-00172\"]\n  tag gid: \"V-72205\"\n  tag rid: \"SV-86829r5_rule\"\n  tag stig_id: \"RHEL-07-030910\"\n  tag fix_id: \"F-78559r7_fix\"\n  tag cci: [\"CCI-000172\", \"CCI-002884\"]\n  tag nist: [\"AU-12 c\", \"MA-4 (1) (a)\", \"Rev_4\"]\n\n  describe auditd.syscall(\"unlink\").where {arch == \"b32\"} do\n    its('action.uniq') { should eq ['always'] }\n    its('list.uniq') { should eq ['exit'] }\n  end\n  if os.arch == 'x86_64'\n    describe auditd.syscall(\"unlink\").where {arch == \"b64\"} do\n      its('action.uniq') { should eq ['always'] }\n      its('list.uniq') { should eq ['exit'] }\n    end\n  end\nend\n",
+      "code": "control \"V-72025\" do\n  title \"The Red Hat Enterprise Linux operating system must be configured so\nthat all files and directories contained in local interactive user home\ndirectories are group-owned by a group of which the home directory owner is a\nmember.\"\n  desc  \"If a local interactive user's files are group-owned by a group of\nwhich the user is not a member, unintended users may be able to access them.\"\n  desc  \"rationale\", \"\"\n  desc  \"check\", \"\n    Verify all files and directories in a local interactive user home directory\nare group-owned by a group the user is a member of.\n\n    Check the group owner of all files and directories in a local interactive\nuser's home directory with the following command:\n\n    Note: The example will be for the user \\\"smithj\\\", who has a home directory\nof \\\"/home/smithj\\\".\n\n    # ls -lLR /<home directory>/<users home directory>/\n    -rw-r--r-- 1 smithj smithj  18 Mar  5 17:06 file1\n    -rw-r--r-- 1 smithj smithj 193 Mar  5 17:06 file2\n    -rw-r--r-- 1 smithj sa        231 Mar  5 17:06 file3\n\n    If any files are found with an owner different than the group home\ndirectory user, check to see if the user is a member of that group with the\nfollowing command:\n\n    # grep smithj /etc/group\n    sa:x:100:juan,shelley,bob,smithj\n    smithj:x:521:smithj\n\n    If the user is not a member of a group that group owns file(s) in a local\ninteractive user's home directory, this is a finding.\n  \"\n  desc  \"fix\", \"\n    Change the group of a local interactive user's files and directories to a\ngroup that the interactive user is a member of. To change the group owner of a\nlocal interactive user's files and directories, use the following command:\n\n    Note: The example will be for the user smithj, who has a home directory of\n\\\"/home/smithj\\\" and is a member of the users group.\n\n    # chgrp users /home/smithj/<file>\n  \"\n  impact 0.5\n  tag severity: nil\n  tag gtitle: \"SRG-OS-000480-GPOS-00227\"\n  tag gid: \"V-72025\"\n  tag rid: \"SV-86649r2_rule\"\n  tag stig_id: \"RHEL-07-020670\"\n  tag fix_id: \"F-78377r2_fix\"\n  tag cci: [\"CCI-000366\"]\n  tag nist: [\"CM-6 b\", \"Rev_4\"]\n\n  ignore_shells = input('non_interactive_shells').join('|')\n\n  uid_min = login_defs.read_params['UID_MIN'].to_i\n  uid_min = 1000 if uid_min.nil?\n\n  findings = Set[]\n  users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries.each do |user_info|\n    next if input('exempt_home_users').include?(\"#{user_info.username}\")\n    find_args = \"\"\n    user_info.groups.each { |curr_group|\n      # some key files and secure dirs (like .ssh) are group owned 'root'\n      find_args = find_args + \"-not -group #{curr_group} -o root\"\n    }\n    findings = findings + command(\"find #{user_info.home} -xdev -xautofs #{find_args}\").stdout.split(\"\\n\")\n  end\n  describe \"Home directory files with incorrect group ownership or not 'root' owned\" do\n    subject { findings.to_a }\n    it { should be_empty }\n  end\nend\n",
       "source_location": {
-        "ref": "./controls/V-72205.rb",
+        "ref": "./controls/V-72025.rb",
         "line": 2
       },
-      "id": "V-72205"
+      "id": "V-72025"
     },
     {
       "title": "The Red Hat Enterprise Linux operating system must prevent a user from\noverriding the screensaver lock-enabled setting for the graphical user\ninterface.",
@@ -6200,7 +6233,7 @@
         "check": "If IPv6 is not enabled, the key will not exist, and this is Not Applicable.\n\n    Verify the system does not accept IPv6 source-routed packets.\n\n    # grep net.ipv6.conf.all.accept_source_route /etc/sysctl.conf\n/etc/sysctl.d/*\n\n    net.ipv6.conf.all.accept_source_route = 0\n\n    If \"net.ipv6.conf.all.accept_source_route\" is not configured in the\n/etc/sysctl.conf file or in the /etc/sysctl.d/ directory, is commented out or\ndoes not have a value of \"0\", this is a finding.\n\n    Check that the operating system implements the accept source route variable\nwith the following command:\n\n    # /sbin/sysctl -a | grep net.ipv6.conf.all.accept_source_route\n    net.ipv6.conf.all.accept_source_route = 0\n\n    If the returned lines do not have a value of \"0\", this is a finding.",
         "fix": "Set the system to the required kernel parameter, if IPv6 is enabled, by\nadding the following line to \"/etc/sysctl.conf\" or a configuration file in\nthe /etc/sysctl.d/ directory (or modify the line to have the required value):\n\n    net.ipv6.conf.all.accept_source_route = 0\n\n    Issue the following command to make the changes take effect:\n\n    # sysctl --system"
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -6210,10 +6243,10 @@
         "stig_id": "RHEL-07-040830",
         "fix_id": "F-78673r2_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000057"
         ],
         "nist": [
-          "CM-6 b",
+          "AC-11 a",
           "Rev_4"
         ]
       },
@@ -6546,7 +6579,7 @@
         "check": "Verify that /etc/pam.d/passwd is configured to use /etc/pam.d/system-auth\nwhen changing passwords:\n\n    # cat /etc/pam.d/passwd | grep -i substack | grep -i system-auth\n    password     substack     system-auth\n\n    If no results are returned, the line is commented out, this is a finding.",
         "fix": "Configure PAM to utilize /etc/pam.d/system-auth when changing passwords.\n\n    Add the following line to \"/etc/pam.d/passwd\" (or modify the line to have\nthe required value):\n\n    password     substack    system-auth"
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -6760,7 +6793,7 @@
         "check": "Verify the operating system does not allow an unrestricted logon to the\nsystem via a graphical user interface.\n\n    Note: If the system does not have GNOME installed, this requirement is Not\nApplicable.\n\n    Check for the value of the \"TimedLoginEnable\" parameter in\n\"/etc/gdm/custom.conf\" file with the following command:\n\n    # grep -i timedloginenable /etc/gdm/custom.conf\n    TimedLoginEnable=false\n\n    If the value of \"TimedLoginEnable\" is not set to \"false\", this is a\nfinding.",
         "fix": "Configure the operating system to not allow an unrestricted account to log\non to the system via a graphical user interface.\n\n    Note: If the system does not have GNOME installed, this requirement is Not\nApplicable.\n\n    Add or edit the line for the \"TimedLoginEnable\" parameter in the [daemon]\nsection of the \"/etc/gdm/custom.conf\" file to \"false\":\n\n    [daemon]\n    TimedLoginEnable=false"
       },
-      "impact": 0,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
@@ -6869,7 +6902,7 @@
       "title": "The Red Hat Enterprise Linux operating system must audit all uses of\nthe creat syscall.",
       "desc": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
       "descriptions": {
-        "default": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
+        "default": "Taking appropriate action when there is an error sending audit records\nto a remote system will minimize the possibility of losing audit records.",
         "rationale": "",
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"creat\" syscall occur.\n\n    Check the file system rules in \"/etc/audit/audit.rules\" with the\nfollowing commands:\n\n    # grep -iw creat /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S creat F exit=-EPERM -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    -a always,exit -F arch=b32 -S creat -F exit=-EACCES -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    -a always,exit -F arch=b64 -S creat -F exit=-EPERM -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    -a always,exit -F arch=b64 -S creat -F exit=-EACCES -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    If both the \"b32\" and \"b64\" audit rules are not defined for the\n\"creat\" syscall, this is a finding.\n\n    If the output does not produce rules containing \"-F exit=-EPERM\", this is\na finding.\n\n    If the output does not produce rules containing \"-F exit=-EACCES\", this\nis a finding.",
         "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"creat\" syscall occur.\n\n    Add or update the following rules in \"/etc/audit/rules.d/audit.rules:\n\n    -a always,exit -F arch=b32 -S creat -F exit=-EPERM -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    -a always,exit -F arch=b32 -S creat -F exit=-EACCES -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    -a always,exit -F arch=b64 -S creat -F exit=-EPERM -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    -a always,exit -F arch=b64 -S creat -F exit=-EACCES -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    The audit daemon must be restarted for the changes to take effect."
@@ -6951,16 +6984,16 @@
       "title": "The Red Hat Enterprise Linux operating system must audit all uses of\nthe sudoers file and all files in the /etc/sudoers.d/ directory.",
       "desc": "Reconstruction of harmful events or forensic analysis is not possible\nif audit records do not contain enough information.\n\n    At a minimum, the organization must audit the full-text recording of\nprivileged access commands. The organization must maintain audit trails in\nsufficient detail to reconstruct events to determine the cause and impact of\ncompromise.",
       "descriptions": {
-        "default": "Reconstruction of harmful events or forensic analysis is not possible\nif audit records do not contain enough information.\n\n    At a minimum, the organization must audit the full-text recording of\nprivileged access commands. The organization must maintain audit trails in\nsufficient detail to reconstruct events to determine the cause and impact of\ncompromise.",
+        "default": "Without establishing what type of events occurred, it would be\ndifficult to establish, correlate, and investigate the events leading up to an\noutage or attack.\n\n    Audit record content that may be necessary to satisfy this requirement\nincludes, for example, time stamps, source and destination addresses,\nuser/process identifiers, event descriptions, success/fail indications,\nfilenames involved, and access control or flow control rules invoked.\n\n    Associating event types with detected events in the operating system audit\nlogs provides a means of investigating an attack; recognizing resource\nutilization or capacity thresholds; or identifying an improperly configured\noperating system.",
         "rationale": "",
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to access the \"/etc/sudoers\" file and files\nin the \"/etc/sudoers.d/\" directory.\n\n    Check for modification of the following files being audited by performing\nthe following commands to check the file system rules in\n\"/etc/audit/audit.rules\":\n\n    # grep -i \"/etc/sudoers\" /etc/audit/audit.rules\n\n    -w /etc/sudoers -p wa -k privileged-actions\n\n    # grep -i \"/etc/sudoers.d/\" /etc/audit/audit.rules\n\n    -w /etc/sudoers.d/ -p wa -k privileged-actions\n\n    If the commands do not return output that match the examples, this is a\nfinding.",
         "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to access the \"/etc/sudoers\" file and files\nin the \"/etc/sudoers.d/\" directory.\n\n    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":\n\n    -w /etc/sudoers -p wa -k privileged-actions\n\n    -w /etc/sudoers.d/ -p wa -k privileged-actions\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
-        "gtitle": "SRG-OS-000037-GPOS-00015",
+        "gtitle": "SRG-OS-000038-GPOS-00016",
         "satisfies": [
           "SRG-OS-000037-GPOS-00015",
           "SRG-OS-000042-GPOS-00020",
@@ -7002,7 +7035,7 @@
         "check": "Verify the operating system security patches and updates are installed and\nup to date. Updates are required to be applied with a frequency determined by\nthe site or Program Management Office (PMO).\n\n    Obtain the list of available package security updates from Red Hat. The URL\nfor updates is https://rhn.redhat.com/errata/. It is important to note that\nupdates provided by Red Hat may not be present on the system if the underlying\npackages are not installed.\n\n    Check that the available package security updates have been installed on\nthe system with the following command:\n\n    # yum history list | more\n    Loaded plugins: langpacks, product-id, subscription-manager\n    ID     | Command line             | Date and time    | Action(s)      |\nAltered\n\n-------------------------------------------------------------------------------\n        70 | install aide             | 2016-05-05 10:58 | Install       |\n1\n        69 | update -y                | 2016-05-04 14:34 | Update     |   18 EE\n        68 | install vlc                | 2016-04-21 17:12 | Install        |\n21\n        67 | update -y                | 2016-04-21 17:04 | Update     |     7 EE\n        66 | update -y                | 2016-04-15 16:47 | E, I, U         |\n84 EE\n\n    If package updates have not been performed on the system within the\ntimeframe that the site/program documentation requires, this is a finding.\n\n    Typical update frequency may be overridden by Information Assurance\nVulnerability Alert (IAVA) notifications from CYBERCOM.\n\n    If the operating system is in non-compliance with the Information Assurance\nVulnerability Management (IAVM) process, this is a finding.",
         "fix": "Install the operating system patches or updated packages\navailable from Red Hat within 30 days or sooner as local policy dictates."
       },
-      "impact": 0.5,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
@@ -7035,7 +7068,7 @@
         "check": "Verify the assigned home directory of all local interactive users on the\nsystem exists.\n\n    Check the home directory assignment for all local interactive\nnon-privileged users on the system with the following command:\n\n    # cut -d: -f 1,3,6 /etc/passwd | egrep \":[1-4][0-9]{3}\"\n\n    smithj:1001:/home/smithj\n\n    Note: This may miss interactive users that have been assigned a privileged\nUID. Evidence of interactive use may be obtained from a number of log files\ncontaining system logon information.\n\n    Check that all referenced home directories exist with the following command:\n\n    # pwck -r\n    user 'smithj': directory '/home/smithj' does not exist\n\n    If any home directories referenced in \"/etc/passwd\" are returned as not\ndefined, this is a finding.",
         "fix": "Create home directories to all local interactive users that currently do\nnot have a home directory assigned. Use the following commands to create the\nuser home directory assigned in \"/etc/ passwd\":\n\n    Note: The example will be for the user smithj, who has a home directory of\n\"/home/smithj\", a UID of \"smithj\", and a Group Identifier (GID) of\n\"users\" assigned in \"/etc/passwd\".\n\n    # mkdir /home/smithj\n    # chown smithj /home/smithj\n    # chgrp users /home/smithj\n    # chmod 0750 /home/smithj"
       },
-      "impact": 0.5,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
@@ -7255,10 +7288,10 @@
         "stig_id": "RHEL-07-020720",
         "fix_id": "F-78387r4_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-001744"
         ],
         "nist": [
-          "CM-6 b",
+          "CM-3 (5)",
           "Rev_4"
         ]
       },
@@ -7518,7 +7551,7 @@
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"umount\" command occur.\n\n    Check that the following system call is being audited by performing the\nfollowing series of commands to check the file system rules in\n\"/etc/audit/audit.rules\":\n\n    # grep -iw \"/usr/bin/umount\" /etc/audit/audit.rules\n\n    -a always,exit -F path=/usr/bin/umount -F auid>=1000 -F auid!=4294967295 -k\nprivileged-mount\n\n    If the command does not return any output, this is a finding.",
         "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"umount\" command occur.\n\n    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F path=/usr/bin/umount -F auid>=1000 -F auid!=4294967295 -k\nprivileged-mount\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0,
+      "impact": 0.5,
       "refs": [],
       "tags": {
         "severity": null,
@@ -7567,10 +7600,18 @@
         "stig_id": "RHEL-07-040460",
         "fix_id": "F-78619r2_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000318",
+          "CCI-000368",
+          "CCI-001812",
+          "CCI-001813",
+          "CCI-001814"
         ],
         "nist": [
-          "CM-6 b",
+          "CM-3 f",
+          "CM-6 c",
+          "CM-11 (2)",
+          "CM-5 (1)",
+          "CM-5 (1)",
           "Rev_4"
         ]
       },
@@ -7661,7 +7702,7 @@
         "check": "Verify the operating system requires multifactor authentication to uniquely\nidentify organizational users using multifactor authentication.\n\n    Check to see if smartcard authentication is enforced on the system:\n\n    # authconfig --test | grep \"pam_pkcs11 is enabled\"\n\n    If no results are returned, this is a finding.\n\n    # authconfig --test | grep \"smartcard removal action\"\n\n    If \"smartcard removal action\" is blank, this is a finding.\n\n    # authconfig --test | grep \"smartcard module\"\n\n    If \"smartcard module\" is blank, this is a finding.",
         "fix": "Configure the operating system to require individuals to be authenticated\nwith a multifactor authenticator.\n\n    Enable smartcard logons with the following commands:\n\n    # authconfig --enablesmartcard --smartcardaction=0 --update\n    # authconfig --enablerequiresmartcard -update\n\n    Modify the \"/etc/pam_pkcs11/pkcs11_eventmgr.conf\" file to uncomment the\nfollowing line:\n\n    #/usr/X11R6/bin/xscreensaver-command -lock\n\n    Modify the \"/etc/pam_pkcs11/pam_pkcs11.conf\" file to use the cackey\nmodule if required."
       },
-      "impact": 0.5,
+      "impact": 0.7,
       "refs": [],
       "tags": {
         "severity": null,
@@ -7703,7 +7744,7 @@
         "check": "The \"maxrepeat\" option sets the maximum number of allowed same\nconsecutive characters in a new password.\n\n    Check for the value of the \"maxrepeat\" option in\n\"/etc/security/pwquality.conf\" with the following command:\n\n    # grep maxrepeat /etc/security/pwquality.conf\n    maxrepeat = 3\n\n    If the value of \"maxrepeat\" is set to more than \"3\", this is a finding.",
         "fix": "Configure the operating system to require the change of the number of\nrepeating consecutive characters when passwords are changed by setting the\n\"maxrepeat\" option.\n\n    Add the following line to \"/etc/security/pwquality.conf conf\" (or modify\nthe line to have the required value):\n\n    maxrepeat = 3"
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -7769,37 +7810,41 @@
       "id": "V-72417"
     },
     {
-      "title": "The Red Hat Enterprise Linux operating system must not have the\ntelnet-server package installed.",
-      "desc": "It is detrimental for operating systems to provide, or install by\ndefault, functionality exceeding requirements or mission objectives. These\nunnecessary capabilities or services are often overlooked and therefore may\nremain unsecured. They increase the risk to the platform by providing\nadditional attack vectors.\n\n    Operating systems are capable of providing a wide variety of functions and\nservices. Some of the functions and services, provided by default, may not be\nnecessary to support essential organizational operations (e.g., key missions,\nfunctions).\n\n    Examples of non-essential capabilities include, but are not limited to,\ngames, software packages, tools, and demonstration software not related to\nrequirements or providing a wide array of functionality not required for every\nmission, but which cannot be disabled.",
+      "title": "The Red Hat Enterprise Linux operating system must audit all uses of\nthe kmod command.",
+      "desc": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
       "descriptions": {
-        "default": "It is detrimental for operating systems to provide, or install by\ndefault, functionality exceeding requirements or mission objectives. These\nunnecessary capabilities or services are often overlooked and therefore may\nremain unsecured. They increase the risk to the platform by providing\nadditional attack vectors.\n\n    Operating systems are capable of providing a wide variety of functions and\nservices. Some of the functions and services, provided by default, may not be\nnecessary to support essential organizational operations (e.g., key missions,\nfunctions).\n\n    Examples of non-essential capabilities include, but are not limited to,\ngames, software packages, tools, and demonstration software not related to\nrequirements or providing a wide array of functionality not required for every\nmission, but which cannot be disabled.",
+        "default": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
         "rationale": "",
-        "check": "Verify the operating system is configured to disable non-essential\ncapabilities. The most secure way of ensuring a non-essential capability is\ndisabled is to not have the capability installed.\n\n    The telnet service provides an unencrypted remote access service that does\nnot provide for the confidentiality and integrity of user passwords or the\nremote session.\n\n    If a privileged user were to log on using this service, the privileged user\npassword could be compromised.\n\n    Check to see if the telnet-server package is installed with the following\ncommand:\n\n    # yum list installed telnet-server\n\n    If the telnet-server package is installed, this is a finding.",
-        "fix": "Configure the operating system to disable non-essential capabilities by\nremoving the telnet-server package from the system with the following command:\n\n    # yum remove telnet-server"
+        "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"kmod\" command occur.\n\n    Check the auditing rules in \"/etc/audit/audit.rules\" with the following\ncommand:\n\n    # grep -iw kmod /etc/audit/audit.rules\n\n    -w /usr/bin/kmod -p x -F auid!=4294967295 -k module-change\n\n    If the command does not return any output, this is a finding.",
+        "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"kmod\" command occur.\n\n    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":\n\n    -w /usr/bin/kmod -p x -F auid!=4294967295 -k module-change\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0.7,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
-        "gtitle": "SRG-OS-000095-GPOS-00049",
-        "gid": "V-72077",
-        "rid": "SV-86701r2_rule",
-        "stig_id": "RHEL-07-021710",
-        "fix_id": "F-78429r1_fix",
+        "gtitle": "SRG-OS-000471-GPOS-00216",
+        "satisfies": [
+          "SRG-OS-000471-GPOS-00216",
+          "SRG-OS-000477-GPOS-00222"
+        ],
+        "gid": "V-72191",
+        "rid": "SV-86815r5_rule",
+        "stig_id": "RHEL-07-030840",
+        "fix_id": "F-78545r10_fix",
         "cci": [
-          "CCI-000381"
+          "CCI-000172"
         ],
         "nist": [
-          "CM-7 a",
+          "AU-12 c",
           "Rev_4"
         ]
       },
-      "code": "control \"V-72077\" do\n  title \"The Red Hat Enterprise Linux operating system must not have the\ntelnet-server package installed.\"\n  desc  \"It is detrimental for operating systems to provide, or install by\ndefault, functionality exceeding requirements or mission objectives. These\nunnecessary capabilities or services are often overlooked and therefore may\nremain unsecured. They increase the risk to the platform by providing\nadditional attack vectors.\n\n    Operating systems are capable of providing a wide variety of functions and\nservices. Some of the functions and services, provided by default, may not be\nnecessary to support essential organizational operations (e.g., key missions,\nfunctions).\n\n    Examples of non-essential capabilities include, but are not limited to,\ngames, software packages, tools, and demonstration software not related to\nrequirements or providing a wide array of functionality not required for every\nmission, but which cannot be disabled.\n  \"\n  desc  \"rationale\", \"\"\n  desc  \"check\", \"\n    Verify the operating system is configured to disable non-essential\ncapabilities. The most secure way of ensuring a non-essential capability is\ndisabled is to not have the capability installed.\n\n    The telnet service provides an unencrypted remote access service that does\nnot provide for the confidentiality and integrity of user passwords or the\nremote session.\n\n    If a privileged user were to log on using this service, the privileged user\npassword could be compromised.\n\n    Check to see if the telnet-server package is installed with the following\ncommand:\n\n    # yum list installed telnet-server\n\n    If the telnet-server package is installed, this is a finding.\n  \"\n  desc  \"fix\", \"\n    Configure the operating system to disable non-essential capabilities by\nremoving the telnet-server package from the system with the following command:\n\n    # yum remove telnet-server\n  \"\n  impact 0.7\n  tag severity: nil\n  tag gtitle: \"SRG-OS-000095-GPOS-00049\"\n  tag gid: \"V-72077\"\n  tag rid: \"SV-86701r2_rule\"\n  tag stig_id: \"RHEL-07-021710\"\n  tag fix_id: \"F-78429r1_fix\"\n  tag cci: [\"CCI-000381\"]\n  tag nist: [\"CM-7 a\", \"Rev_4\"]\n\n  describe package('telnet-server') do\n    it { should_not be_installed }\n  end\nend\n",
+      "code": "control \"V-72191\" do\n  title \"The Red Hat Enterprise Linux operating system must audit all uses of\nthe kmod command.\"\n  desc  \"Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).\n\n\n  \"\n  desc  \"rationale\", \"\"\n  desc  \"check\", \"\n    Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \\\"kmod\\\" command occur.\n\n    Check the auditing rules in \\\"/etc/audit/audit.rules\\\" with the following\ncommand:\n\n    # grep -iw kmod /etc/audit/audit.rules\n\n    -w /usr/bin/kmod -p x -F auid!=4294967295 -k module-change\n\n    If the command does not return any output, this is a finding.\n  \"\n  desc  \"fix\", \"\n    Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \\\"kmod\\\" command occur.\n\n    Add or update the following rule in \\\"/etc/audit/rules.d/audit.rules\\\":\n\n    -w /usr/bin/kmod -p x -F auid!=4294967295 -k module-change\n\n    The audit daemon must be restarted for the changes to take effect.\n  \"\n  tag severity: nil\n  tag gtitle: \"SRG-OS-000471-GPOS-00216\"\n  tag satisfies: [\"SRG-OS-000471-GPOS-00216\", \"SRG-OS-000477-GPOS-00222\"]\n  tag gid: \"V-72191\"\n  tag rid: \"SV-86815r5_rule\"\n  tag stig_id: \"RHEL-07-030840\"\n  tag fix_id: \"F-78545r10_fix\"\n  tag cci: [\"CCI-000172\"]\n  tag nist: [\"AU-12 c\", \"Rev_4\"]\n\n  audit_file = '/usr/bin/kmod'\n\n  if file(audit_file).exist?\n    impact 0.5\n  else\n    impact 0.0\n  end\n\n  describe auditd.file(audit_file) do\n    its('permissions') { should_not cmp [] }\n    its('action') { should_not include 'never' }\n  end if file(audit_file).exist?\n\n  # Resource creates data structure including all usages of file\n  perms = auditd.file(audit_file).permissions\n\n  perms.each do |perm|\n    describe perm do\n      it { should include 'x' }\n    end\n  end if file(audit_file).exist?\n\n  describe \"The #{audit_file} file does not exist\" do\n    skip \"The #{audit_file} file does not exist, this requirement is Not Applicable.\"\n  end if !file(audit_file).exist?\nend\n",
       "source_location": {
-        "ref": "./controls/V-72077.rb",
+        "ref": "./controls/V-72191.rb",
         "line": 2
       },
-      "id": "V-72077"
+      "id": "V-72191"
     },
     {
       "title": "The Red Hat Enterprise Linux operating system must audit all uses of\nthe semanage command.",
@@ -7850,7 +7895,7 @@
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"renameat\" syscall occur.\n\n    Check the file system rules in \"/etc/audit/audit.rules\" with the\nfollowing commands:\n\n    # grep -iw renameat /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S renameat -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    -a always,exit -F arch=b64 -S renameat -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    If both the \"b32\" and \"b64\" audit rules are not defined for the\n\"renameat\" syscall, this is a finding.",
         "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"renameat\" syscall occur.\n\n    Add the following rules in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F arch=b32 -S renameat -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    -a always,exit -F arch=b64 -S renameat -F auid>=1000 -F auid!=4294967295 -k\ndelete\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0.5,
+      "impact": 0.3,
       "refs": [],
       "tags": {
         "severity": null,
@@ -7886,7 +7931,7 @@
       "title": "The Red Hat Enterprise Linux operating system must audit all uses of\nthe openat syscall.",
       "desc": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
       "descriptions": {
-        "default": "Without generating audit records that are specific to the security and\nmission needs of the organization, it would be difficult to establish,\ncorrelate, and investigate the events relating to an incident or identify those\nresponsible for one.\n\n    Audit records can be generated from various components within the\ninformation system (e.g., module or policy filter).",
+        "default": "Password complexity, or strength, is a measure of the effectiveness of\na password in resisting attempts at guessing and brute-force attacks. If the\ninformation system or application allows the user to consecutively reuse their\npassword when that password has exceeded its defined lifetime, the end result\nis a password that is not changed per policy requirements.",
         "rationale": "",
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"openat\" syscall occur.\n\n    Check the file system rules in \"/etc/audit/audit.rules\" with the\nfollowing commands:\n\n    # grep -iw openat /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S openat -F exit=-EPERM -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    -a always,exit -F arch=b32 -S openat -F exit=-EACCES -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    -a always,exit -F arch=b64 -S openat -F exit=-EPERM -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    -a always,exit -F arch=b64 -S openat -F exit=-EACCES -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    If both the \"b32\" and \"b64\" audit rules are not defined for the\n\"openat\" syscall, this is a finding.\n\n    If the output does not produce rules containing \"-F exit=-EPERM\", this is\na finding.\n\n    If the output does not produce rules containing \"-F exit=-EACCES\", this\nis a finding.",
         "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"openat\" syscall occur.\n\n    Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F arch=b32 -S openat -F exit=-EPERM -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    -a always,exit -F arch=b32 -S openat -F exit=-EACCES -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    -a always,exit -F arch=b64 -S openat -F exit=-EPERM -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    -a always,exit -F arch=b64 -S openat -F exit=-EACCES -F auid>=1000 -F\nauid!=4294967295 -k access\n\n    The audit daemon must be restarted for the changes to take effect."
@@ -7932,7 +7977,7 @@
         "check": "Verify the operating system enforces a delay of at least four seconds\nbetween console logon prompts following a failed logon attempt.\n\n    Check the value of the \"fail_delay\" parameter in the \"/etc/login.defs\"\nfile with the following command:\n\n    # grep -i fail_delay /etc/login.defs\n    FAIL_DELAY 4\n\n    If the value of \"FAIL_DELAY\" is not set to \"4\" or greater, or the line\nis commented out, this is a finding.",
         "fix": "Configure the operating system to enforce a delay of at least four seconds\nbetween logon prompts following a failed console logon attempt.\n\n    Modify the \"/etc/login.defs\" file to set the \"FAIL_DELAY\" parameter to\n\"4\" or greater:\n\n    FAIL_DELAY 4"
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -7942,10 +7987,10 @@
         "stig_id": "RHEL-07-010430",
         "fix_id": "F-78303r1_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-001453"
         ],
         "nist": [
-          "CM-6 b",
+          "AC-17 (2)",
           "Rev_4"
         ]
       },
@@ -8077,7 +8122,7 @@
         "check": "Verify the system's shadow file is configured to store only encrypted\nrepresentations of passwords. The strength of encryption that must be used to\nhash passwords for all accounts is SHA512.\n\n    Check that the system is configured to create SHA512 hashed passwords with\nthe following command:\n\n    # grep -i encrypt /etc/login.defs\n    ENCRYPT_METHOD SHA512\n\n    If the \"/etc/login.defs\" configuration file does not exist or allows for\npassword hashes other than SHA512 to be used, this is a finding.",
         "fix": "Configure the operating system to store only SHA512 encrypted\nrepresentations of passwords.\n\n    Add or update the following line in \"/etc/login.defs\":\n\n    ENCRYPT_METHOD SHA512"
       },
-      "impact": 0.5,
+      "impact": 0.3,
       "refs": [],
       "tags": {
         "severity": null,
@@ -8392,7 +8437,7 @@
         "check": "Verify the operating system implements virtual address space randomization.\n\n    # grep kernel.randomize_va_space /etc/sysctl.conf /etc/sysctl.d/*\n\n    kernel.randomize_va_space = 2\n\n    If \"kernel.randomize_va_space\" is not configured in the /etc/sysctl.conf\nfile or in the /etc/sysctl.d/ directory, is commented out or does not have a\nvalue of \"2\", this is a finding.\n\n    Check that the operating system implements virtual address space\nrandomization with the following command:\n\n    # /sbin/sysctl -a | grep kernel.randomize_va_space\n\n    kernel.randomize_va_space = 2\n\n    If \"kernel.randomize_va_space\" does not have a value of \"2\", this is a\nfinding.",
         "fix": "Configure the operating system implement virtual address space\nrandomization.\n\n    Set the system to the required kernel parameter by adding the following\nline to \"/etc/sysctl.conf\" or a config file in the /etc/sysctl.d/ directory\n(or modify the line to have the required value):\n\n    kernel.randomize_va_space = 2\n\n    Issue the following command to make the changes take effect:\n\n    # sysctl --system"
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -8617,7 +8662,7 @@
         "check": "Verify the operating system generates audit records when\nsuccessful/unsuccessful attempts to use the \"mount\" command and syscall occur.\n\n    Check that the following system call is being audited by performing the\nfollowing series of commands to check the file system rules in\n\"/etc/audit/audit.rules\":\n\n    # grep -iw \"mount\" /etc/audit/audit.rules\n\n    -a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k\nprivileged-mount\n    -a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k\nprivileged-mount\n    -a always,exit -F path=/usr/bin/mount -F auid>=1000 -F auid!=4294967295 -k\nprivileged-mount\n\n    If both the \"b32\" and \"b64\" audit rules are not defined for the\n\"mount\" syscall, this is a finding.\n\n    If all uses of the \"mount\" command are not being audited, this is a\nfinding.",
         "fix": "Configure the operating system to generate audit records when\nsuccessful/unsuccessful attempts to use the \"mount\" command and syscall occur.\n\n    Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":\n\n    -a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k\nprivileged-mount\n    -a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k\nprivileged-mount\n    -a always,exit -F path=/usr/bin/mount -F auid>=1000 -F auid!=4294967295 -k\nprivileged-mount\n\n    The audit daemon must be restarted for the changes to take effect."
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -8846,10 +8891,14 @@
         "stig_id": "RHEL-07-020730",
         "fix_id": "F-78389r2_fix",
         "cci": [
-          "CCI-000366"
+          "CCI-000135",
+          "CCI-000172",
+          "CCI-002884"
         ],
         "nist": [
-          "CM-6 b",
+          "AU-3 (1)",
+          "AU-12 c",
+          "MA-4 (1) (a)",
           "Rev_4"
         ]
       },
@@ -8869,7 +8918,7 @@
         "check": "Check to see if NTP is running in continuous mode:\n\n    # ps -ef | grep ntp\n\n    If NTP is not running, check to see if \"chronyd\" is running in continuous\nmode:\n\n    # ps -ef | grep chronyd\n\n    If NTP or \"chronyd\" is not running, this is a finding.\n\n    If the NTP process is found, then check the \"ntp.conf\" file for the\n\"maxpoll\" option setting:\n\n    # grep maxpoll /etc/ntp.conf\n\n    server 0.rhel.pool.ntp.org iburst maxpoll 10\n\n    If the option is set to \"17\" or is not set, this is a finding.\n\n    If the file does not exist, check the \"/etc/cron.daily\" subdirectory for\na crontab file controlling the execution of the \"ntpd -q\" command.\n\n    # grep -i \"ntpd -q\" /etc/cron.daily/*\n    # ls -al /etc/cron.* | grep ntp\n\n    ntp\n\n    If a crontab file does not exist in the \"/etc/cron.daily\" that executes\nthe \"ntpd -q\" command, this is a finding.\n\n    If the \"chronyd\" process is found, then check the \"chrony.conf\" file\nfor the \"maxpoll\" option setting:\n\n    # grep maxpoll /etc/chrony.conf\n\n    server 0.rhel.pool.ntp.org iburst maxpoll 10\n\n    If the option is not set or the line is commented out, this is a finding.",
         "fix": "Edit the \"/etc/ntp.conf\" or \"/etc/chrony.conf\" file and add or update\nan entry to define \"maxpoll\" to \"10\" as follows:\n\n    server 0.rhel.pool.ntp.org iburst maxpoll 10\n\n    If NTP was running and \"maxpoll\" was updated, the NTP service must be\nrestarted:\n\n    # systemctl restart ntpd\n\n    If NTP was not running, it must be started:\n\n    # systemctl start ntpd\n\n    If \"chronyd\" was running and \"maxpoll\" was updated, the service must be\nrestarted:\n\n    # systemctl restart chronyd.service\n\n    If \"chronyd\" was not running, it must be started:\n\n    # systemctl start chronyd.service"
       },
-      "impact": 0.5,
+      "impact": 0,
       "refs": [],
       "tags": {
         "severity": null,
@@ -9562,9 +9611,9 @@
     {
       "title": null,
       "controls": [
-        "V-72243"
+        "V-72253"
       ],
-      "id": "controls/V-72243.rb"
+      "id": "controls/V-72253.rb"
     },
     {
       "title": null,
@@ -9723,9 +9772,9 @@
     {
       "title": null,
       "controls": [
-        "V-92253"
+        "V-72153"
       ],
-      "id": "controls/V-92253.rb"
+      "id": "controls/V-72153.rb"
     },
     {
       "title": null,
