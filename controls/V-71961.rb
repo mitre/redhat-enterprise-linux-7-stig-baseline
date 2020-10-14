@@ -76,10 +76,10 @@ commands:
       skip "The System is running UEFI, this control is Not Applicable."
     end
   else
-    if os[:release] < "7.2"
+    if os[:release] >= "7.2"
       impact 0.0
-      describe "System running version of RHEL prior to 7.2" do
-        skip "The System is running an outdated version of RHEL, this control is Not Applicable."
+      describe "System running version of RHEL that is equal to or newer than 7.2" do
+        skip "The System is running version #{os[:release]} of RHEL, this control is Not Applicable."
       end
     else
       impact 0.7
