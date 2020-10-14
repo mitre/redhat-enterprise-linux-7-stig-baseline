@@ -18,7 +18,7 @@ rpm_verify_perms_except: []
 rpm_verify_integrity_except: []
 
 # V-71859 (already set to true)
-banner_message_enabled: true
+banner_message_enabled: "true"
 
 # V-72211 (default: false)
 log_aggregation_server: false
@@ -249,7 +249,7 @@ mfa_pkg_list:
 
 # V-77819
 # should dconf have smart card authentication
-multifactor_enabled: true
+multifactor_enabled: "true"
 
 # these shells do not allow a user to login
 non_interactive_shells:
