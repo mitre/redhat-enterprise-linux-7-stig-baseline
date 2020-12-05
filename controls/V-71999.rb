@@ -60,7 +60,7 @@ available from Red Hat within 30 days or sooner as local policy dictates."
   tag stig_id: "RHEL-07-020260"
   tag fix_id: "F-78351r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   updates = linux_update.updates
   package_names = updates.map { |h| h['name'] }
