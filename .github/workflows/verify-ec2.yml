@@ -8,7 +8,7 @@ on:
 jobs:
   my-job:
     name: Validate my profile
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       CHEF_LICENSE: accept-silent
       KITCHEN_LOCAL_YAML: kitchen.ec2.yml
