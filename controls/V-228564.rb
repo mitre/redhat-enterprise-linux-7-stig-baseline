@@ -45,7 +45,7 @@ control 'V-228564' do
     Change the owner and group owner of the audit log files with the following command:
     # chown root:root [audit_file]'
 
-  directory('/var/log/audit') do |filename|
+  describe directory('/var/log/audit') do |filename|
     its('owner') { should eq 'root' }
     its('group') { should eq 'root' }
     it { should_not be_more_permissive_than('0600') }
