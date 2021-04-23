@@ -34,6 +34,7 @@ updated versions have been installed.
   tag severity: nil
   tag gtitle: 'SRG-OS-000437-GPOS-00194'
   tag gid: 'V-204452'
+  tag 'legacy_id': 'V-71987'
   tag rid: 'SV-86611r2_rule'
   tag stig_id: 'RHEL-07-020200'
   tag fix_id: 'F-78339r1_fix'

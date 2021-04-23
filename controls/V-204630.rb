@@ -46,6 +46,7 @@ the /etc/sysctl.d/ directory (or modify the line to have the required value):
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204630'
+  tag 'legacy_id': 'V-72319'
   tag rid: 'SV-86943r2_rule'
   tag stig_id: 'RHEL-07-040830'
   tag fix_id: 'F-78673r2_fix'

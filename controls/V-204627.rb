@@ -37,6 +37,7 @@ string value."
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204627'
+  tag 'legacy_id': 'V-72313'
   tag rid: 'SV-86937r2_rule'
   tag stig_id: 'RHEL-07-040800'
   tag fix_id: 'F-78667r1_fix'

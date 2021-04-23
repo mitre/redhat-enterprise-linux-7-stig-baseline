@@ -51,6 +51,7 @@ perm_mod
                     SRG-OS-000458-GPOS-00203
                     SRG-OS-000474-GPOS-00219)
   tag gid: 'V-204518'
+  tag 'legacy_id': 'V-72099'
   tag rid: 'SV-86723r5_rule'
   tag stig_id: 'RHEL-07-030380'
   tag fix_id: 'F-78451r8_fix'

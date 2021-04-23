@@ -63,6 +63,7 @@ configuration must be documented with the Information System Security Officer
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204608'
+  tag 'legacy_id': 'V-72281'
   tag rid: 'SV-86905r2_rule'
   tag stig_id: 'RHEL-07-040600'
   tag fix_id: 'F-78635r1_fix'

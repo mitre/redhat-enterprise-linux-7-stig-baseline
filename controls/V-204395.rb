@@ -130,6 +130,7 @@ Agreement for details.\"
   tag gtitle: 'SRG-OS-000023-GPOS-00006'
   tag satisfies: %w(SRG-OS-000023-GPOS-00006 SRG-OS-000024-GPOS-00007)
   tag gid: 'V-204395'
+  tag 'legacy_id': 'V-71863'
   tag rid: 'SV-86487r3_rule'
   tag stig_id: 'RHEL-07-010050'
   tag fix_id: 'F-78217r2_fix'

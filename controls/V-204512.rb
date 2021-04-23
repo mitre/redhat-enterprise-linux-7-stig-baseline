@@ -34,6 +34,7 @@ sending audit records to a remote system.
   tag severity: nil
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag gid: 'V-204512'
+  tag 'legacy_id': 'V-73163'
   tag rid: 'SV-87815r3_rule'
   tag stig_id: 'RHEL-07-030321'
   tag fix_id: 'F-79609r2_fix'

@@ -39,6 +39,7 @@ in the fstab with a device and mount point.
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204496'
+  tag 'legacy_id': 'V-72065'
   tag rid: 'SV-86689r3_rule'
   tag stig_id: 'RHEL-07-021340'
   tag fix_id: 'F-78417r2_fix'

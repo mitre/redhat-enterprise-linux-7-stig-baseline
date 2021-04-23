@@ -45,6 +45,7 @@ privileged-priv_change
                     SRG-OS-000463-GPOS-00207
                     SRG-OS-000465-GPOS-00209)
   tag gid: 'V-204538'
+  tag 'legacy_id': 'V-72139'
   tag rid: 'SV-86763r4_rule'
   tag stig_id: 'RHEL-07-030580'
   tag fix_id: 'F-78491r6_fix'

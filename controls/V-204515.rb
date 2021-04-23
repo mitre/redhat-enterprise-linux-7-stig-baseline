@@ -39,6 +39,7 @@ with security personnel.
   tag severity: nil
   tag gtitle: 'SRG-OS-000343-GPOS-00134'
   tag gid: 'V-204515'
+  tag 'legacy_id': 'V-72093'
   tag rid: 'SV-86717r3_rule'
   tag stig_id: 'RHEL-07-030350'
   tag fix_id: 'F-78445r3_fix'

@@ -36,6 +36,7 @@ line to \"/etc/xinetd.d/tftp\" (or modify the line to have the required value):
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204623'
+  tag 'legacy_id': 'V-72305'
   tag rid: 'SV-86929r3_rule'
   tag stig_id: 'RHEL-07-040720'
   tag fix_id: 'F-78659r1_fix'

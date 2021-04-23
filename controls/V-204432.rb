@@ -39,6 +39,7 @@ Applicable.
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00229'
   tag gid: 'V-204432'
+  tag 'legacy_id': 'V-71953'
   tag rid: 'SV-86577r2_rule'
   tag stig_id: 'RHEL-07-010440'
   tag fix_id: 'F-78305r1_fix'

@@ -44,6 +44,7 @@ creations, modifications, disabling, and termination events that affect
   tag severity: nil
   tag gtitle: 'SRG-OS-000004-GPOS-00004'
   tag gid: 'V-204568'
+  tag 'legacy_id': 'V-73173'
   tag rid: 'SV-87825r5_rule'
   tag stig_id: 'RHEL-07-030874'
   tag fix_id: 'F-79619r6_fix'

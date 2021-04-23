@@ -36,6 +36,7 @@ by the ISSO and documented.
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204618'
+  tag 'legacy_id': 'V-72295'
   tag rid: 'SV-86919r2_rule'
   tag stig_id: 'RHEL-07-040670'
   tag fix_id: 'F-78649r1_fix'

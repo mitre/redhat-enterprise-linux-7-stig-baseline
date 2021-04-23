@@ -72,6 +72,7 @@ module if required.
                     SRG-OS-000108-GPOS-00057
                     SRG-OS-000108-GPOS-00058)
   tag gid: 'V-204441'
+  tag 'legacy_id': 'V-71965'
   tag rid: 'SV-86589r2_rule'
   tag stig_id: 'RHEL-07-010500'
   tag fix_id: 'F-78317r3_fix'

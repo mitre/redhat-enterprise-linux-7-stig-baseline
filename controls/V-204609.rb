@@ -44,6 +44,7 @@ directory (or modify the line to have the required value):
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204609'
+  tag 'legacy_id': 'V-72283'
   tag rid: 'SV-86907r2_rule'
   tag stig_id: 'RHEL-07-040610'
   tag fix_id: 'F-78637r3_fix'

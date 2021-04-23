@@ -28,6 +28,7 @@ removing the \"ypserv\" package from the system with the following command:
   tag severity: nil
   tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag gid: 'V-204443'
+  tag 'legacy_id': 'V-71969'
   tag rid: 'SV-86593r2_rule'
   tag stig_id: 'RHEL-07-020010'
   tag fix_id: 'F-78321r1_fix'

@@ -66,6 +66,7 @@ check run\" root@sysname.mil
   tag severity: nil
   tag gtitle: 'SRG-OS-000363-GPOS-00150'
   tag gid: 'V-204445'
+  tag 'legacy_id': 'V-71973'
   tag rid: 'SV-86597r2_rule'
   tag stig_id: 'RHEL-07-020030'
   tag fix_id: 'F-78325r2_fix'

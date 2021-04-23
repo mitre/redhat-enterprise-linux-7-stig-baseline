@@ -67,6 +67,7 @@ storage devices.
                     SRG-OS-000378-GPOS-00163
                     SRG-OS-000480-GPOS-00227)
   tag gid: 'V-204449'
+  tag 'legacy_id': 'V-71983'
   tag rid: 'SV-86607r4_rule'
   tag stig_id: 'RHEL-07-020100'
   tag fix_id: 'F-78335r4_fix'

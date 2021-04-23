@@ -63,6 +63,7 @@ effect.
   tag gtitle: 'SRG-OS-000028-GPOS-00009'
   tag satisfies: %w(SRG-OS-000028-GPOS-00009 SRG-OS-000030-GPOS-00011)
   tag gid: 'V-204396'
+  tag 'legacy_id': 'V-71891'
   tag rid: 'SV-86515r6_rule'
   tag stig_id: 'RHEL-07-010060'
   tag fix_id: 'F-78243r9_fix'

@@ -42,6 +42,7 @@ and set the value to \"no\":
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204588'
+  tag 'legacy_id': 'V-72239'
   tag rid: 'SV-86863r4_rule'
   tag stig_id: 'RHEL-07-040330'
   tag fix_id: 'F-78593r4_fix'

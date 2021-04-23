@@ -26,6 +26,7 @@ system, this is a finding.
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204495'
+  tag 'legacy_id': 'V-72063'
   tag rid: 'SV-86687r6_rule'
   tag stig_id: 'RHEL-07-021330'
   tag fix_id: 'F-78415r1_fix'

@@ -73,6 +73,7 @@ specific hosts.
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204628'
+  tag 'legacy_id': 'V-72315'
   tag rid: 'SV-86939r3_rule'
   tag stig_id: 'RHEL-07-040810'
   tag fix_id: 'F-78669r3_fix'

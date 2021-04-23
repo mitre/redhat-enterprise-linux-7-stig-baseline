@@ -58,6 +58,7 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
   tag gtitle: 'SRG-OS-000096-GPOS-00050'
   tag satisfies: %w(SRG-OS-000096-GPOS-00050 SRG-OS-000297-GPOS-00115)
   tag gid: 'V-204577'
+  tag 'legacy_id': 'V-72219'
   tag rid: 'SV-86843r2_rule'
   tag stig_id: 'RHEL-07-040100'
   tag fix_id: 'F-78573r1_fix'

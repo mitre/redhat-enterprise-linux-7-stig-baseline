@@ -27,6 +27,7 @@ finding.
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-214801'
+  tag 'legacy_id': 'V-72213'
   tag rid: 'SV-86837r3_rule'
   tag stig_id: 'RHEL-07-032000'
   tag fix_id: 'F-78567r2_fix'

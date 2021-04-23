@@ -41,6 +41,7 @@ the internal queue is full:
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag satisfies: %w(SRG-OS-000342-GPOS-00133 SRG-OS-000479-GPOS-00224)
   tag gid: 'V-204507'
+  tag 'legacy_id': 'V-81019'
   tag rid: 'SV-95731r1_rule'
   tag stig_id: 'RHEL-07-030210'
   tag fix_id: 'F-87853r3_fix'

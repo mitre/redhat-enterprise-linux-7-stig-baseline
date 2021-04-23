@@ -41,6 +41,7 @@ IP address of the log aggregation server.
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag satisfies: %w(SRG-OS-000342-GPOS-00133 SRG-OS-000479-GPOS-00224)
   tag gid: 'V-204509'
+  tag 'legacy_id': 'V-72083'
   tag rid: 'SV-86707r2_rule'
   tag stig_id: 'RHEL-07-030300'
   tag fix_id: 'F-78435r1_fix'

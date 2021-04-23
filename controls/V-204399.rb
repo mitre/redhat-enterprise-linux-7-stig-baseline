@@ -63,6 +63,7 @@ control 'V-204399' do
   tag severity: nil
   tag gtitle: 'SRG-OS-000029-GPOS-00010'
   tag gid: 'V-204399'
+  tag 'legacy_id': 'V-73155'
   tag rid: 'SV-87807r4_rule'
   tag stig_id: 'RHEL-07-010081'
   tag fix_id: 'F-79601r2_fix'

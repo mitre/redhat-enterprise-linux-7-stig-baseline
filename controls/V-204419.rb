@@ -28,6 +28,7 @@ password lifetime:
   tag severity: nil
   tag gtitle: 'SRG-OS-000075-GPOS-00043'
   tag gid: 'V-204419'
+  tag 'legacy_id': 'V-71927'
   tag rid: 'SV-86551r2_rule'
   tag stig_id: 'RHEL-07-010240'
   tag fix_id: 'F-78279r1_fix'

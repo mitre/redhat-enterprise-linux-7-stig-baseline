@@ -31,6 +31,7 @@ interactive users by setting the \"CREATE_HOME\" parameter in
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204466'
+  tag 'legacy_id': 'V-72013'
   tag rid: 'SV-86637r2_rule'
   tag stig_id: 'RHEL-07-020610'
   tag fix_id: 'F-78365r1_fix'

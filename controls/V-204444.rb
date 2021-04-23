@@ -76,6 +76,7 @@ implemented security safeguards/countermeasures.
   tag severity: nil
   tag gtitle: 'SRG-OS-000324-GPOS-00125'
   tag gid: 'V-204444'
+  tag 'legacy_id': 'V-71971'
   tag rid: 'SV-86595r2_rule'
   tag stig_id: 'RHEL-07-020020'
   tag fix_id: 'F-78323r1_fix'

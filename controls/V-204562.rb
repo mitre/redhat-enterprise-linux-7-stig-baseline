@@ -47,6 +47,7 @@ successful/unsuccessful attempts to use the \"delete_module\" syscall occur.
   tag gtitle: 'SRG-OS-000471-GPOS-00216'
   tag satisfies: %w(SRG-OS-000471-GPOS-00216 SRG-OS-000477-GPOS-00222)
   tag gid: 'V-204562'
+  tag 'legacy_id': 'V-72189'
   tag rid: 'SV-86813r5_rule'
   tag stig_id: 'RHEL-07-030830'
   tag fix_id: 'F-78543r7_fix'

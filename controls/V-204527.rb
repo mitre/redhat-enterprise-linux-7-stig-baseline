@@ -53,6 +53,7 @@ successful/unsuccessful attempts to use the \"removexattr\" syscall occur.
                     SRG-OS-000392-GPOS-00172
                     SRG-OS-000064-GPOS-00033)
   tag gid: 'V-204527'
+  tag 'legacy_id': 'V-72117'
   tag rid: 'SV-86741r5_rule'
   tag stig_id: 'RHEL-07-030470'
   tag fix_id: 'F-78469r7_fix'

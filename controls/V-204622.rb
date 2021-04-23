@@ -36,6 +36,7 @@ provided by a third-party vendor):
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204622'
+  tag 'legacy_id': 'V-72303'
   tag rid: 'SV-86927r4_rule'
   tag stig_id: 'RHEL-07-040710'
   tag fix_id: 'F-78657r6_fix'

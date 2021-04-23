@@ -42,6 +42,7 @@ to \"10\" for all accounts and/or account types.
   tag severity: nil
   tag gtitle: 'SRG-OS-000027-GPOS-00008'
   tag gid: 'V-204576'
+  tag 'legacy_id': 'V-72217'
   tag rid: 'SV-86841r3_rule'
   tag stig_id: 'RHEL-07-040000'
   tag fix_id: 'F-78571r2_fix'

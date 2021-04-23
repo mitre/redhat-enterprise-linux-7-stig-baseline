@@ -37,6 +37,7 @@ system software."
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204458'
+  tag 'legacy_id': 'V-71997'
   tag rid: 'SV-86621r5_rule'
   tag stig_id: 'RHEL-07-020250'
   tag fix_id: 'F-78349r1_fix'

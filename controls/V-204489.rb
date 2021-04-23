@@ -42,6 +42,7 @@ following line to \"/etc/rsyslog.conf\" or a configuration file in the
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204489'
+  tag 'legacy_id': 'V-72051'
   tag rid: 'SV-86675r2_rule'
   tag stig_id: 'RHEL-07-021100'
   tag fix_id: 'F-78403r2_fix'

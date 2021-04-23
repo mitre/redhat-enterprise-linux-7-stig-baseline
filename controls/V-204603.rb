@@ -93,6 +93,7 @@ restarted:
   tag gtitle: 'SRG-OS-000355-GPOS-00143'
   tag satisfies: %w(SRG-OS-000355-GPOS-00143 SRG-OS-000356-GPOS-00144)
   tag gid: 'V-204603'
+  tag 'legacy_id': 'V-72269'
   tag rid: 'SV-86893r5_rule'
   tag stig_id: 'RHEL-07-040500'
   tag fix_id: 'F-78623r5_fix'

@@ -54,6 +54,7 @@ lines in the \"### BEGIN /etc/grub.d/01_users ###\" section:
   tag severity: nil
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag gid: 'V-204440'
+  tag 'legacy_id': 'V-81007'
   tag rid: 'SV-95719r1_rule'
   tag stig_id: 'RHEL-07-010491'
   tag fix_id: 'F-87841r2_fix'

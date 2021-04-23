@@ -34,6 +34,7 @@ setting.
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204626'
+  tag 'legacy_id': 'V-72311'
   tag rid: 'SV-86935r4_rule'
   tag stig_id: 'RHEL-07-040750'
   tag fix_id: 'F-78665r2_fix'

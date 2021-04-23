@@ -40,6 +40,7 @@ directories, use the following command:
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204471'
+  tag 'legacy_id': 'V-72023'
   tag rid: 'SV-86647r2_rule'
   tag stig_id: 'RHEL-07-020660'
   tag fix_id: 'F-78375r2_fix'

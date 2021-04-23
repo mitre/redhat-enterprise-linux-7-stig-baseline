@@ -45,6 +45,7 @@ auid!=4294967295 -k privileged-passwd
                     SRG-OS-000392-GPOS-00172
                     SRG-OS-000471-GPOS-00215)
   tag gid: 'V-204543'
+  tag 'legacy_id': 'V-72151'
   tag rid: 'SV-86775r5_rule'
   tag stig_id: 'RHEL-07-030640'
   tag fix_id: 'F-78503r8_fix'

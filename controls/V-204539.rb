@@ -45,6 +45,7 @@ successful/unsuccessful attempts to use the \"setfiles\" command occur.
                     SRG-OS-000463-GPOS-00207
                     SRG-OS-000465-GPOS-00209)
   tag gid: 'V-204539'
+  tag 'legacy_id': 'V-72141'
   tag rid: 'SV-86765r5_rule'
   tag stig_id: 'RHEL-07-030590'
   tag fix_id: 'F-78493r7_fix'

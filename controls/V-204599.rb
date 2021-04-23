@@ -42,6 +42,7 @@ the location of the configuration file, with the ISSO.
   tag severity: nil
   tag gtitle: 'SRG-OS-000364-GPOS-00151'
   tag gid: 'V-204599'
+  tag 'legacy_id': 'V-72261'
   tag rid: 'SV-86885r3_rule'
   tag stig_id: 'RHEL-07-040440'
   tag fix_id: 'F-78615r2_fix'

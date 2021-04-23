@@ -34,6 +34,7 @@ vendor) and set the value to \"sandbox\" or \"yes\":
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204601'
+  tag 'legacy_id': 'V-72265'
   tag rid: 'SV-86889r3_rule'
   tag stig_id: 'RHEL-07-040460'
   tag fix_id: 'F-78619r2_fix'

@@ -42,6 +42,7 @@ following line to \"/etc/sysctl.conf\" or a configuration file in the
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204615'
+  tag 'legacy_id': 'V-73175'
   tag rid: 'SV-87827r4_rule'
   tag stig_id: 'RHEL-07-040641'
   tag fix_id: 'F-79621r3_fix'

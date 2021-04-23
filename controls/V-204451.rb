@@ -41,6 +41,7 @@ documented with the ISSO.
                     SRG-OS-000378-GPOS-00163
                     SRG-OS-000480-GPOS-00227)
   tag gid: 'V-204451'
+  tag 'legacy_id': 'V-71985'
   tag rid: 'SV-86609r2_rule'
   tag stig_id: 'RHEL-07-020110'
   tag fix_id: 'F-78337r2_fix'

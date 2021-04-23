@@ -46,6 +46,7 @@ between logon prompts following a failed console logon attempt.
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00226'
   tag gid: 'V-204431'
+  tag 'legacy_id': 'V-71951'
   tag rid: 'SV-86575r2_rule'
   tag stig_id: 'RHEL-07-010430'
   tag fix_id: 'F-78303r1_fix'

@@ -28,6 +28,7 @@ referenced in the \"/etc/passwd\" file to a group that exists in
   tag severity: nil
   tag gtitle: 'SRG-OS-000104-GPOS-00051'
   tag gid: 'V-204461'
+  tag 'legacy_id': 'V-72003'
   tag rid: 'SV-86627r2_rule'
   tag stig_id: 'RHEL-07-020300'
   tag fix_id: 'F-78355r1_fix'

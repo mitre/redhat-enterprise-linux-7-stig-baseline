@@ -57,6 +57,7 @@ control 'V-204631' do
   tag gtitle: 'SRG-OS-000375-GPOS-00160'
   tag satisfies: %w(SRG-OS-000375-GPOS-00160 SRG-OS-000375-GPOS-00161 SRG-OS-000375-GPOS-00162)
   tag gid: 'V-204631'
+  tag 'legacy_id': 'V-72417'
   tag rid: 'SV-87041r4_rule'
   tag stig_id: 'RHEL-07-041001'
   tag fix_id: 'F-78769r4_fix'

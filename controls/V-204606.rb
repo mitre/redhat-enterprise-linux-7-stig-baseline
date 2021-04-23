@@ -28,6 +28,7 @@ command:
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204606'
+  tag 'legacy_id': 'V-72277'
   tag rid: 'SV-86901r2_rule'
   tag stig_id: 'RHEL-07-040540'
   tag fix_id: 'F-78631r1_fix'

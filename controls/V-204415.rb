@@ -48,6 +48,7 @@ the configurations listed in this requirement.
   tag severity: nil
   tag gtitle: 'SRG-OS-000073-GPOS-00041'
   tag gid: 'V-204415'
+  tag 'legacy_id': 'V-71919'
   tag rid: 'SV-86543r3_rule'
   tag stig_id: 'RHEL-07-010200'
   tag fix_id: 'F-78271r4_fix'

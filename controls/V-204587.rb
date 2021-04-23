@@ -58,6 +58,7 @@ third-party vendor):
   tag gtitle: 'SRG-OS-000163-GPOS-00072'
   tag satisfies: %w(SRG-OS-000163-GPOS-00072 SRG-OS-000279-GPOS-00109)
   tag gid: 'V-204587'
+  tag 'legacy_id': 'V-72237'
   tag rid: 'SV-86861r4_rule'
   tag stig_id: 'RHEL-07-040320'
   tag fix_id: 'F-78591r2_fix'

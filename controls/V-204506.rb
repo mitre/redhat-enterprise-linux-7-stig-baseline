@@ -53,6 +53,7 @@ following values:
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag satisfies: %w(SRG-OS-000342-GPOS-00133 SRG-OS-000479-GPOS-00224)
   tag gid: 'V-204506'
+  tag 'legacy_id': 'V-81017'
   tag rid: 'SV-95729r1_rule'
   tag stig_id: 'RHEL-07-030201'
   tag fix_id: 'F-87851r2_fix'

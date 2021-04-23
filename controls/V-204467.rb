@@ -51,6 +51,7 @@ user home directory assigned in \"/etc/ passwd\":
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204467'
+  tag 'legacy_id': 'V-72015'
   tag rid: 'SV-86639r2_rule'
   tag stig_id: 'RHEL-07-020620'
   tag fix_id: 'F-78367r2_fix'

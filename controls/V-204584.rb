@@ -49,6 +49,7 @@ line to \"/etc/sysctl.conf\" or a config file in the /etc/sysctl.d/ directory
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204584'
+  tag 'legacy_id': 'V-77825'
   tag rid: 'SV-92521r2_rule'
   tag stig_id: 'RHEL-07-040201'
   tag fix_id: 'F-84531r2_fix'

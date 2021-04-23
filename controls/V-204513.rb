@@ -65,6 +65,7 @@ to 25 percent of the partition size.
   tag severity: nil
   tag gtitle: 'SRG-OS-000343-GPOS-00134'
   tag gid: 'V-204513'
+  tag 'legacy_id': 'V-72089'
   tag rid: 'SV-86713r4_rule'
   tag stig_id: 'RHEL-07-030330'
   tag fix_id: 'F-78441r3_fix'

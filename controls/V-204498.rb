@@ -52,6 +52,7 @@ file and directory selection lists.
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204498'
+  tag 'legacy_id': 'V-72069'
   tag rid: 'SV-86693r3_rule'
   tag stig_id: 'RHEL-07-021600'
   tag fix_id: 'F-78421r2_fix'

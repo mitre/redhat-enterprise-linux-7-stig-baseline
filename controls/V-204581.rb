@@ -57,6 +57,7 @@ integrity of LDAP authentication sessions.
   tag severity: nil
   tag gtitle: 'SRG-OS-000250-GPOS-00093'
   tag gid: 'V-204581'
+  tag 'legacy_id': 'V-72227'
   tag rid: 'SV-86851r4_rule'
   tag stig_id: 'RHEL-07-040180'
   tag fix_id: 'F-78581r2_fix'

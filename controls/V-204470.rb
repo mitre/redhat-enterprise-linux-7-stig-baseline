@@ -43,6 +43,7 @@ of \"/home/smithj\", and has a primary group of users.
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204470'
+  tag 'legacy_id': 'V-72021'
   tag rid: 'SV-86645r5_rule'
   tag stig_id: 'RHEL-07-020650'
   tag fix_id: 'F-78373r2_fix'

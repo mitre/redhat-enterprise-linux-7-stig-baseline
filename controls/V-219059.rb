@@ -8,6 +8,7 @@ control 'V-219059' do
   tag 'gtitle': 'SRG-OS-000114-GPOS-00059'
   tag 'satisfies': %w(SRG-OS-000114-GPOS-00059 SRG-OS-000378-GPOS-00163 SRG-OS-000480-GPOS-00227)
   tag 'gid': 'V-219059'
+  tag 'legacy_id': 'V-100023'
   tag 'rid': 'SV-219059r603261_rule'
   tag 'stig_id': 'RHEL-07-020111'
   tag 'fix_id': 'F-36318r602663_fix'

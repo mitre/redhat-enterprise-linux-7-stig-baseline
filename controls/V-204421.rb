@@ -29,6 +29,7 @@ lifetime restriction.
   tag severity: nil
   tag gtitle: 'SRG-OS-000076-GPOS-00044'
   tag gid: 'V-204421'
+  tag 'legacy_id': 'V-71931'
   tag rid: 'SV-86555r3_rule'
   tag stig_id: 'RHEL-07-010260'
   tag fix_id: 'F-78283r1_fix'

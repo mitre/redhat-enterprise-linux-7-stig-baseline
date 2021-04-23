@@ -36,6 +36,7 @@ of SSH that is provided by a third-party vendor) and set the value to \"yes\":
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204600'
+  tag 'legacy_id': 'V-72263'
   tag rid: 'SV-86887r3_rule'
   tag stig_id: 'RHEL-07-040450'
   tag fix_id: 'F-78617r4_fix'

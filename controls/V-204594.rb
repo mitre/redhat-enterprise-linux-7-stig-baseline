@@ -44,6 +44,7 @@ vendor). The \"Protocol\" line must be as follows:
   tag gtitle: 'SRG-OS-000074-GPOS-00042'
   tag satisfies: %w(SRG-OS-000074-GPOS-00042 SRG-OS-000480-GPOS-00227)
   tag gid: 'V-204594'
+  tag 'legacy_id': 'V-72251'
   tag rid: 'SV-86875r4_rule'
   tag stig_id: 'RHEL-07-040390'
   tag fix_id: 'F-78605r2_fix'

@@ -43,6 +43,7 @@ the following command:
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204478'
+  tag 'legacy_id': 'V-72037'
   tag rid: 'SV-86661r2_rule'
   tag stig_id: 'RHEL-07-020730'
   tag fix_id: 'F-78389r2_fix'

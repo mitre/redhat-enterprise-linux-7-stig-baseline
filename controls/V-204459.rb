@@ -53,6 +53,7 @@ available from Red Hat within 30 days or sooner as local policy dictates."
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204459'
+  tag 'legacy_id': 'V-71999'
   tag rid: 'SV-86623r4_rule'
   tag stig_id: 'RHEL-07-020260'
   tag fix_id: 'F-78351r1_fix'

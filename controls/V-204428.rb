@@ -63,6 +63,7 @@ the configurations listed in this requirement.
   tag gtitle: 'SRG-OS-000329-GPOS-00128'
   tag satisfies: %w(SRG-OS-000329-GPOS-00128 SRG-OS-000021-GPOS-00005)
   tag gid: 'V-204428'
+  tag 'legacy_id': 'V-71945'
   tag rid: 'SV-86569r4_rule'
   tag stig_id: 'RHEL-07-010330'
   tag fix_id: 'F-78297r3_fix'

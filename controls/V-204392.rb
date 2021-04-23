@@ -60,6 +60,7 @@ following command:
   tag gtitle: 'SRG-OS-000257-GPOS-00098'
   tag satisfies: %w(SRG-OS-000257-GPOS-00098 SRG-OS-000278-GPOS-00108)
   tag gid: 'V-204392'
+  tag 'legacy_id': 'V-71849'
   tag rid: 'SV-86473r4_rule'
   tag stig_id: 'RHEL-07-010010'
   tag fix_id: 'F-78201r4_fix'

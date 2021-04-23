@@ -46,6 +46,7 @@ have to be employed, and vice versa.
                     SRG-OS-000425-GPOS-00189
                     SRG-OS-000426-GPOS-00190)
   tag gid: 'V-204585'
+  tag 'legacy_id': 'V-72233'
   tag rid: 'SV-86857r3_rule'
   tag stig_id: 'RHEL-07-040300'
   tag fix_id: 'F-78587r3_fix'

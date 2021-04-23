@@ -52,6 +52,7 @@ prior to install by setting the following option in the \"/etc/yum.conf\" file:
   tag severity: nil
   tag gtitle: 'SRG-OS-000366-GPOS-00153'
   tag gid: 'V-204448'
+  tag 'legacy_id': 'V-71979'
   tag rid: 'SV-86603r2_rule'
   tag stig_id: 'RHEL-07-020060'
   tag fix_id: 'F-78331r1_fix'

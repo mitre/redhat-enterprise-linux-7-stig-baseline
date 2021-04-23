@@ -45,6 +45,7 @@ auid!=4294967295 -k privileged-priv_change
                     SRG-OS-000463-GPOS-00207
                     SRG-OS-000465-GPOS-00209)
   tag gid: 'V-204537'
+  tag 'legacy_id': 'V-72137'
   tag rid: 'SV-86761r4_rule'
   tag stig_id: 'RHEL-07-030570'
   tag fix_id: 'F-78489r6_fix'

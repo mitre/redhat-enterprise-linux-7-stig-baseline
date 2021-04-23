@@ -30,6 +30,7 @@ system with the \"chown\" command:
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204463'
+  tag 'legacy_id': 'V-72007'
   tag rid: 'SV-86631r3_rule'
   tag stig_id: 'RHEL-07-020320'
   tag fix_id: 'F-78359r1_fix'

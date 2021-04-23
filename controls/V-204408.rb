@@ -41,6 +41,7 @@ creating or changing a password.
   tag severity: nil
   tag gtitle: 'SRG-OS-000070-GPOS-00038'
   tag gid: 'V-204408'
+  tag 'legacy_id': 'V-71905'
   tag rid: 'SV-86529r5_rule'
   tag stig_id: 'RHEL-07-010130'
   tag fix_id: 'F-78257r6_fix'

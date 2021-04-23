@@ -43,6 +43,7 @@ account access events occur.
                     SRG-OS-000470-GPOS-00214
                     SRG-OS-000473-GPOS-00218)
   tag gid: 'V-204541'
+  tag 'legacy_id': 'V-72147'
   tag rid: 'SV-86771r3_rule'
   tag stig_id: 'RHEL-07-030620'
   tag fix_id: 'F-78499r3_fix'

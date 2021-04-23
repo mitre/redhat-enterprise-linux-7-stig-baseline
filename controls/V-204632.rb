@@ -59,6 +59,7 @@ control 'V-204632' do
                     SRG-OS-000375-GPOS-00161
                     SRG-OS-000375-GPOS-00162)
   tag gid: 'V-204632'
+  tag 'legacy_id': 'V-72427'
   tag rid: 'SV-87051r4_rule'
   tag stig_id: 'RHEL-07-041002'
   tag fix_id: 'F-78779r3_fix'

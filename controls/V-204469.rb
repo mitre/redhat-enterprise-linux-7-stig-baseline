@@ -36,6 +36,7 @@ the following command:
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204469'
+  tag 'legacy_id': 'V-72019'
   tag rid: 'SV-86643r5_rule'
   tag stig_id: 'RHEL-07-020640'
   tag fix_id: 'F-78371r2_fix'

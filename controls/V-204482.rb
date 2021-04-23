@@ -35,6 +35,7 @@ file systems that are being imported via NFS."
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204482'
+  tag 'legacy_id': 'V-72045'
   tag rid: 'SV-86669r2_rule'
   tag stig_id: 'RHEL-07-021020'
   tag fix_id: 'F-78397r2_fix'

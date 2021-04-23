@@ -43,6 +43,7 @@ and set it with the following line:
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag satisfies: %w(SRG-OS-000342-GPOS-00133 SRG-OS-000479-GPOS-00224)
   tag gid: 'V-204510'
+  tag 'legacy_id': 'V-72085'
   tag rid: 'SV-86709r2_rule'
   tag stig_id: 'RHEL-07-030310'
   tag fix_id: 'F-78437r1_fix'

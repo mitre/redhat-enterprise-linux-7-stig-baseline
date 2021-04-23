@@ -45,6 +45,7 @@ directory owned by the application, it must be documented with the ISSO.
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204477'
+  tag 'legacy_id': 'V-72035'
   tag rid: 'SV-86659r4_rule'
   tag stig_id: 'RHEL-07-020720'
   tag fix_id: 'F-78387r4_fix'

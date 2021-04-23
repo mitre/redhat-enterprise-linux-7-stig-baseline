@@ -34,6 +34,7 @@ and set the value to \"yes\":
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204590'
+  tag 'legacy_id': 'V-72243'
   tag rid: 'SV-86867r3_rule'
   tag stig_id: 'RHEL-07-040350'
   tag fix_id: 'F-78597r2_fix'

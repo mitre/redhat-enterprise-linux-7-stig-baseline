@@ -36,6 +36,7 @@ restrict client connections to the local network with the following command:
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204619'
+  tag 'legacy_id': 'V-72297'
   tag rid: 'SV-86921r3_rule'
   tag stig_id: 'RHEL-07-040680'
   tag fix_id: 'F-78651r2_fix'

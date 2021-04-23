@@ -53,6 +53,7 @@ either the directory owner or root with the following command:
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204474'
+  tag 'legacy_id': 'V-72029'
   tag rid: 'SV-86653r3_rule'
   tag stig_id: 'RHEL-07-020690'
   tag fix_id: 'F-78381r4_fix'

@@ -43,6 +43,7 @@ auid!=4294967295 -k privileged-postfix
   tag gtitle: 'SRG-OS-000042-GPOS-00020'
   tag satisfies: %w(SRG-OS-000042-GPOS-00020 SRG-OS-000392-GPOS-00172)
   tag gid: 'V-204555'
+  tag 'legacy_id': 'V-72177'
   tag rid: 'SV-86801r3_rule'
   tag stig_id: 'RHEL-07-030770'
   tag fix_id: 'F-78531r5_fix'

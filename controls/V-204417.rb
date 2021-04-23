@@ -38,6 +38,7 @@ section:
   tag severity: nil
   tag gtitle: 'SRG-OS-000073-GPOS-00041'
   tag gid: 'V-204417'
+  tag 'legacy_id': 'V-71923'
   tag rid: 'SV-86547r3_rule'
   tag stig_id: 'RHEL-07-010220'
   tag fix_id: 'F-78275r1_fix'

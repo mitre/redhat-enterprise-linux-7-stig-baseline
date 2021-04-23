@@ -44,6 +44,7 @@ privileged-mount
   tag gtitle: 'SRG-OS-000042-GPOS-00020'
   tag satisfies: %w(SRG-OS-000042-GPOS-00020 SRG-OS-000392-GPOS-00172)
   tag gid: 'V-204553'
+  tag 'legacy_id': 'V-72173'
   tag rid: 'SV-86797r5_rule'
   tag stig_id: 'RHEL-07-030750'
   tag fix_id: 'F-78527r5_fix'

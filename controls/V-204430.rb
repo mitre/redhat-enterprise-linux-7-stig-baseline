@@ -47,6 +47,7 @@ following command:
                     SRG-OS-000373-GPOS-00157
                     SRG-OS-000373-GPOS-00158)
   tag gid: 'V-204430'
+  tag 'legacy_id': 'V-71949'
   tag rid: 'SV-86573r3_rule'
   tag stig_id: 'RHEL-07-010350'
   tag fix_id: 'F-78301r3_fix'

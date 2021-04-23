@@ -48,6 +48,7 @@ local interactive user's files and directories, use the following command:
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204472'
+  tag 'legacy_id': 'V-72025'
   tag rid: 'SV-86649r2_rule'
   tag stig_id: 'RHEL-07-020670'
   tag fix_id: 'F-78377r2_fix'

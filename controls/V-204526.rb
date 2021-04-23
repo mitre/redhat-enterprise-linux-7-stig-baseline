@@ -53,6 +53,7 @@ successful/unsuccessful attempts to use the \"lsetxattr\" syscall occur.
                     SRG-OS-000392-GPOS-00172
                     SRG-OS-000064-GPOS-00033)
   tag gid: 'V-204526'
+  tag 'legacy_id': 'V-72115'
   tag rid: 'SV-86739r5_rule'
   tag stig_id: 'RHEL-07-030460'
   tag fix_id: 'F-78467r10_fix'

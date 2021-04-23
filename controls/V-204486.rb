@@ -31,6 +31,7 @@ is a finding.
   tag severity: nil
   tag gtitle: 'SRG-OS-000368-GPOS-00154'
   tag gid: 'V-204486'
+  tag 'legacy_id': 'V-81013'
   tag rid: 'SV-95725r2_rule'
   tag stig_id: 'RHEL-07-021024'
   tag fix_id: 'F-87847r2_fix'

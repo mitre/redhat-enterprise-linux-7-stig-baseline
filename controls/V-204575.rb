@@ -41,6 +41,7 @@ document the system as being used for log aggregation."
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204575'
+  tag 'legacy_id': 'V-72211'
   tag rid: 'SV-86835r2_rule'
   tag stig_id: 'RHEL-07-031010'
   tag fix_id: 'F-78565r2_fix'

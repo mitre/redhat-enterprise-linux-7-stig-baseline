@@ -45,6 +45,7 @@ auid!=4294967295 -k privileged-ssh
                     SRG-OS-000392-GPOS-00172
                     SRG-OS-000471-GPOS-00215)
   tag gid: 'V-204556'
+  tag 'legacy_id': 'V-72179'
   tag rid: 'SV-86803r3_rule'
   tag stig_id: 'RHEL-07-030780'
   tag fix_id: 'F-78533r4_fix'

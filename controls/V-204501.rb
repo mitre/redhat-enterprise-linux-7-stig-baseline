@@ -44,6 +44,7 @@ media or document the configuration to boot from removable media with the ISSO."
   tag severity: nil
   tag gtitle: 'SRG-OS-000364-GPOS-00151'
   tag gid: 'V-204501'
+  tag 'legacy_id': 'V-72075'
   tag rid: 'SV-86699r2_rule'
   tag stig_id: 'RHEL-07-021700'
   tag fix_id: 'F-78427r1_fix'

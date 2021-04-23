@@ -38,6 +38,7 @@ capacity is reached.
   tag severity: nil
   tag gtitle: 'SRG-OS-000343-GPOS-00134'
   tag gid: 'V-204514'
+  tag 'legacy_id': 'V-72091'
   tag rid: 'SV-86715r2_rule'
   tag stig_id: 'RHEL-07-030340'
   tag fix_id: 'F-78443r1_fix'

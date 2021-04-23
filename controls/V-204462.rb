@@ -30,6 +30,7 @@ assign a UID of greater than \"1000\" that has not already been assigned.
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204462'
+  tag 'legacy_id': 'V-72005'
   tag rid: 'SV-86629r2_rule'
   tag stig_id: 'RHEL-07-020310'
   tag fix_id: 'F-78357r1_fix'

@@ -64,6 +64,7 @@ file should be created under the appropriate subdirectory.
   tag severity: nil
   tag gtitle: 'SRG-OS-000029-GPOS-00010'
   tag gid: 'V-204403'
+  tag 'legacy_id': 'V-78997'
   tag rid: 'SV-93703r2_rule'
   tag stig_id: 'RHEL-07-010101'
   tag fix_id: 'F-85747r1_fix'

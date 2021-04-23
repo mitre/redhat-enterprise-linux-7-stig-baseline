@@ -40,6 +40,7 @@ with the ISSO."
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204629'
+  tag 'legacy_id': 'V-72317'
   tag rid: 'SV-86941r2_rule'
   tag stig_id: 'RHEL-07-040820'
   tag fix_id: 'F-78671r1_fix'

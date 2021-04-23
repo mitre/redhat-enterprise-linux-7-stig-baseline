@@ -33,6 +33,7 @@ should prevent users from being able to assign themselves empty passwords.
   tag severity: nil
   tag gtitle: 'SRG-OS-000106-GPOS-00053'
   tag gid: 'V-204425'
+  tag 'legacy_id': 'V-71939'
   tag rid: 'SV-86563r3_rule'
   tag stig_id: 'RHEL-07-010300'
   tag fix_id: 'F-78291r2_fix'

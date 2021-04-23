@@ -37,6 +37,7 @@ SSH that is provided by a third-party vendor):
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204592'
+  tag 'legacy_id': 'V-72247'
   tag rid: 'SV-86871r3_rule'
   tag stig_id: 'RHEL-07-040370'
   tag fix_id: 'F-78601r2_fix'

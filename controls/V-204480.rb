@@ -42,6 +42,7 @@ file systems that contain user home directories."
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204480'
+  tag 'legacy_id': 'V-72041'
   tag rid: 'SV-86665r4_rule'
   tag stig_id: 'RHEL-07-021000'
   tag fix_id: 'F-78393r2_fix'

@@ -55,6 +55,7 @@ in the \"/etc/sudoers.d/\" directory.
                     SRG-OS-000462-GPOS-00206
                     SRG-OS-000471-GPOS-00215)
   tag gid: 'V-204549'
+  tag 'legacy_id': 'V-72163'
   tag rid: 'SV-86787r5_rule'
   tag stig_id: 'RHEL-07-030700'
   tag fix_id: 'F-78517r6_fix'

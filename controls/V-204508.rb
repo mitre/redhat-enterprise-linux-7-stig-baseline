@@ -41,6 +41,7 @@ or the line is commented out, this is a finding.
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag satisfies: %w(SRG-OS-000342-GPOS-00133 SRG-OS-000479-GPOS-00224)
   tag gid: 'V-204508'
+  tag 'legacy_id': 'V-81021'
   tag rid: 'SV-95733r1_rule'
   tag stig_id: 'RHEL-07-030211'
   tag fix_id: 'F-87855r2_fix'

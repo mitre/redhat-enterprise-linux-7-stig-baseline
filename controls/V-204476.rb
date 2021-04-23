@@ -38,6 +38,7 @@ of \"/home/smithj\".
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204476'
+  tag 'legacy_id': 'V-72033'
   tag rid: 'SV-86657r3_rule'
   tag stig_id: 'RHEL-07-020710'
   tag fix_id: 'F-78385r4_fix'

@@ -35,6 +35,7 @@ representations of passwords.
   tag severity: nil
   tag gtitle: 'SRG-OS-000073-GPOS-00041'
   tag gid: 'V-204416'
+  tag 'legacy_id': 'V-71921'
   tag rid: 'SV-86545r2_rule'
   tag stig_id: 'RHEL-07-010210'
   tag fix_id: 'F-78273r1_fix'

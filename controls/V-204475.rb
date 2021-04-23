@@ -54,6 +54,7 @@ interactive user's home directory, use the following command:
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204475'
+  tag 'legacy_id': 'V-72031'
   tag rid: 'SV-86655r4_rule'
   tag stig_id: 'RHEL-07-020700'
   tag fix_id: 'F-78383r4_fix'

@@ -72,6 +72,7 @@ auid!=4294967295 -k access
                     SRG-OS-000461-GPOS-00205
                     SRG-OS-000392-GPOS-00172)
   tag gid: 'V-204531'
+  tag 'legacy_id': 'V-72125'
   tag rid: 'SV-86749r5_rule'
   tag stig_id: 'RHEL-07-030510'
   tag fix_id: 'F-78477r7_fix'

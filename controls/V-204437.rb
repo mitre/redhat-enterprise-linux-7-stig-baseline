@@ -36,6 +36,7 @@ single-user and maintenance modes.
   tag severity: nil
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag gid: 'V-204437'
+  tag 'legacy_id': 'V-77823'
   tag rid: 'SV-92519r2_rule'
   tag stig_id: 'RHEL-07-010481'
   tag fix_id: 'F-84523r2_fix'

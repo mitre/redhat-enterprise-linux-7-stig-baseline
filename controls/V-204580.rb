@@ -147,6 +147,7 @@ Agreement for details.\"
                     SRG-OS-000024-GPOS-00007
                     SRG-OS-000228-GPOS-00088)
   tag gid: 'V-204580'
+  tag 'legacy_id': 'V-72225'
   tag rid: 'SV-86849r4_rule'
   tag stig_id: 'RHEL-07-040170'
   tag fix_id: 'F-78579r4_fix'

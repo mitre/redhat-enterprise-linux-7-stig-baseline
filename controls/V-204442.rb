@@ -40,6 +40,7 @@ removing the rsh-server package from the system with the following command:
   tag severity: nil
   tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag gid: 'V-204442'
+  tag 'legacy_id': 'V-71967'
   tag rid: 'SV-86591r2_rule'
   tag stig_id: 'RHEL-07-020000'
   tag fix_id: 'F-78319r1_fix'

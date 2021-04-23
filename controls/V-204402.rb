@@ -58,6 +58,7 @@ effect.
   tag severity: nil
   tag gtitle: 'SRG-OS-000029-GPOS-00010'
   tag gid: 'V-204402'
+  tag 'legacy_id': 'V-71899'
   tag rid: 'SV-86523r5_rule'
   tag stig_id: 'RHEL-07-010100'
   tag fix_id: 'F-78251r2_fix'

@@ -45,6 +45,7 @@ privileged-passwd
                     SRG-OS-000392-GPOS-00172
                     SRG-OS-000471-GPOS-00215)
   tag gid: 'V-204545'
+  tag 'legacy_id': 'V-72155'
   tag rid: 'SV-86779r5_rule'
   tag stig_id: 'RHEL-07-030660'
   tag fix_id: 'F-78507r5_fix'

@@ -53,6 +53,7 @@ repository prior to install by setting the following option in the
   tag severity: nil
   tag gtitle: 'SRG-OS-000366-GPOS-00153'
   tag gid: 'V-204447'
+  tag 'legacy_id': 'V-71977'
   tag rid: 'SV-86601r2_rule'
   tag stig_id: 'RHEL-07-020050'
   tag fix_id: 'F-78329r1_fix'

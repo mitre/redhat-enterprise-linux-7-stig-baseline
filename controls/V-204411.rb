@@ -41,6 +41,7 @@ line to have the required value):
   tag severity: nil
   tag gtitle: 'SRG-OS-000072-GPOS-00040'
   tag gid: 'V-204411'
+  tag 'legacy_id': 'V-71911'
   tag rid: 'SV-86535r2_rule'
   tag stig_id: 'RHEL-07-010160'
   tag fix_id: 'F-78263r1_fix'

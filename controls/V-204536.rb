@@ -45,6 +45,7 @@ successful/unsuccessful attempts to use the \"semanage\" command occur.
                     SRG-OS-000463-GPOS-00207
                     SRG-OS-000465-GPOS-00209)
   tag gid: 'V-204536'
+  tag 'legacy_id': 'V-72135'
   tag rid: 'SV-86759r4_rule'
   tag stig_id: 'RHEL-07-030560'
   tag fix_id: 'F-78487r5_fix'

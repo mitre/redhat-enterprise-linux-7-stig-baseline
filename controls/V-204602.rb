@@ -36,6 +36,7 @@ value to \"delayed\" or \"no\":
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204602'
+  tag 'legacy_id': 'V-72267'
   tag rid: 'SV-86891r3_rule'
   tag stig_id: 'RHEL-07-040470'
   tag fix_id: 'F-78621r2_fix'

@@ -61,6 +61,7 @@ authentication.
 'SRG-OS-000375-GPOS-00161',
                   'SRG-OS-000375-GPOS-00162']
   tag gid: 'V-204633'
+  tag 'legacy_id': 'V-72433'
   tag rid: 'SV-87057r5_rule'
   tag stig_id: 'RHEL-07-041003'
   tag fix_id: 'F-78785r3_fix'

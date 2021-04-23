@@ -59,6 +59,7 @@ with the Authorizing Official.
   tag severity: nil
   tag gtitle: 'SRG-OS-000196'
   tag gid: 'V-214800'
+  tag 'legacy_id': 'V-92255'
   tag rid: 'SV-102357r1_rule'
   tag stig_id: 'RHEL-07-020019'
   tag fix_id: 'F-98477r1_fix'

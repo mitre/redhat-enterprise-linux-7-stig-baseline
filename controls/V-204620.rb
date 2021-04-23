@@ -32,6 +32,7 @@ or remove it from the system with the following command:
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204620'
+  tag 'legacy_id': 'V-72299'
   tag rid: 'SV-86923r3_rule'
   tag stig_id: 'RHEL-07-040690'
   tag fix_id: 'F-78653r3_fix'

@@ -34,6 +34,7 @@ records are written to becomes full.
   tag severity: nil
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag gid: 'V-204511'
+  tag 'legacy_id': 'V-72087'
   tag rid: 'SV-86711r3_rule'
   tag stig_id: 'RHEL-07-030320'
   tag fix_id: 'F-78439r4_fix'

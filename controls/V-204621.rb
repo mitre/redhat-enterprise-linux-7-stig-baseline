@@ -29,6 +29,7 @@ the ISSO, this is a finding.
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204621'
+  tag 'legacy_id': 'V-72301'
   tag rid: 'SV-86925r2_rule'
   tag stig_id: 'RHEL-07-040700'
   tag fix_id: 'F-78655r2_fix'

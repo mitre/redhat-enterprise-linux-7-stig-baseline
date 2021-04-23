@@ -50,6 +50,7 @@ creations, modifications, disabling, and termination events that affect
                     SRG-OS-000303-GPOS-00120
                     SRG-OS-000476-GPOS-00221)
   tag gid: 'V-204564'
+  tag 'legacy_id': 'V-72197'
   tag rid: 'SV-86821r5_rule'
   tag stig_id: 'RHEL-07-030870'
   tag fix_id: 'F-78551r4_fix'

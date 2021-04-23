@@ -38,6 +38,7 @@ have the required value):
   tag severity: nil
   tag gtitle: 'SRG-OS-000118-GPOS-00060'
   tag gid: 'V-204426'
+  tag 'legacy_id': 'V-71941'
   tag rid: 'SV-86565r2_rule'
   tag stig_id: 'RHEL-07-010310'
   tag fix_id: 'F-78293r1_fix'

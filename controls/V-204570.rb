@@ -50,6 +50,7 @@ delete
                     SRG-OS-000468-GPOS-00212
                     SRG-OS-000392-GPOS-00172)
   tag gid: 'V-204570'
+  tag 'legacy_id': 'V-72201'
   tag rid: 'SV-86825r5_rule'
   tag stig_id: 'RHEL-07-030890'
   tag fix_id: 'F-78555r8_fix'

@@ -60,6 +60,7 @@ uncommented file and directory selection lists.
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204500'
+  tag 'legacy_id': 'V-72073'
   tag rid: 'SV-86697r3_rule'
   tag stig_id: 'RHEL-07-021620'
   tag fix_id: 'F-78425r2_fix'

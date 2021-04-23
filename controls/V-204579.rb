@@ -57,6 +57,7 @@ period of inactivity.
   tag severity: nil
   tag gtitle: 'SRG-OS-000163-GPOS-00072'
   tag gid: 'V-204579'
+  tag 'legacy_id': 'V-72223'
   tag rid: 'SV-86847r4_rule'
   tag stig_id: 'RHEL-07-040160'
   tag fix_id: 'F-78577r5_fix'

@@ -58,6 +58,7 @@ kernel module.
   tag severity: nil
   tag gtitle: 'SRG-OS-000378-GPOS-00163'
   tag gid: 'V-204450'
+  tag 'legacy_id': 'V-77821'
   tag rid: 'SV-92517r3_rule'
   tag stig_id: 'RHEL-07-020101'
   tag fix_id: 'F-84521r3_fix'

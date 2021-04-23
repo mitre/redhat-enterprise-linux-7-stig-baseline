@@ -30,6 +30,7 @@ with the \"chgrp\" command:
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204464'
+  tag 'legacy_id': 'V-72009'
   tag rid: 'SV-86633r3_rule'
   tag stig_id: 'RHEL-07-020330'
   tag fix_id: 'F-78361r1_fix'

@@ -38,6 +38,7 @@ auid!=4294967295 -k privileged-pam
   tag severity: nil
   tag gtitle: 'SRG-OS-000471-GPOS-00215'
   tag gid: 'V-204558'
+  tag 'legacy_id': 'V-72185'
   tag rid: 'SV-86809r4_rule'
   tag stig_id: 'RHEL-07-030810'
   tag fix_id: 'F-78539r4_fix'

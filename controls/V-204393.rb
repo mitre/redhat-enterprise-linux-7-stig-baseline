@@ -96,6 +96,7 @@ effect.
                     SRG-OS-000024-GPOS-00007
                     SRG-OS-000228-GPOS-00088)
   tag gid: 'V-204393'
+  tag 'legacy_id': 'V-71859'
   tag rid: 'SV-86483r4_rule'
   tag stig_id: 'RHEL-07-010030'
   tag fix_id: 'F-78211r4_fix'

@@ -51,6 +51,7 @@ information to establish when (date and time) the events occurred.
                     SRG-OS-000254-GPOS-00095
                     SRG-OS-000255-GPOS-00096)
   tag gid: 'V-204503'
+  tag 'legacy_id': 'V-72079'
   tag rid: 'SV-86703r3_rule'
   tag stig_id: 'RHEL-07-030000'
   tag fix_id: 'F-78431r2_fix'

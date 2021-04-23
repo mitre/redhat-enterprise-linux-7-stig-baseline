@@ -125,6 +125,7 @@ line:
                     SRG-OS-000405-GPOS-00184
                     SRG-OS-000478-GPOS-00223)
   tag gid: 'V-204497'
+  tag 'legacy_id': 'V-72067'
   tag rid: 'SV-86691r4_rule'
   tag stig_id: 'RHEL-07-021350'
   tag fix_id: 'F-78419r3_fix'

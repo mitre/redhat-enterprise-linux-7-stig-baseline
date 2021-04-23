@@ -47,6 +47,7 @@ successful/unsuccessful attempts to use the \"finit_module\" syscall occur.
   tag gtitle: 'SRG-OS-000471-GPOS-00216'
   tag satisfies: %w(SRG-OS-000471-GPOS-00216 SRG-OS-000477-GPOS-00222)
   tag gid: 'V-204561'
+  tag 'legacy_id': 'V-79001'
   tag rid: 'SV-93707r3_rule'
   tag stig_id: 'RHEL-07-030821'
   tag fix_id: 'F-85751r3_fix'

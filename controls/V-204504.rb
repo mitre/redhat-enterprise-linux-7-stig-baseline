@@ -81,6 +81,7 @@ staff.
   tag gtitle: 'SRG-OS-000046-GPOS-00022'
   tag satisfies: %w(SRG-OS-000046-GPOS-00022 SRG-OS-000047-GPOS-00023)
   tag gid: 'V-204504'
+  tag 'legacy_id': 'V-72081'
   tag rid: 'SV-86705r4_rule'
   tag stig_id: 'RHEL-07-030010'
   tag fix_id: 'F-78433r2_fix'

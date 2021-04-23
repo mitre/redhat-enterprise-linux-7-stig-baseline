@@ -46,6 +46,7 @@ functions.
   tag severity: nil
   tag gtitle: 'SRG-OS-000445-GPOS-00199'
   tag gid: 'V-204453'
+  tag 'legacy_id': 'V-71989'
   tag rid: 'SV-86613r3_rule'
   tag stig_id: 'RHEL-07-020210'
   tag fix_id: 'F-78341r2_fix'

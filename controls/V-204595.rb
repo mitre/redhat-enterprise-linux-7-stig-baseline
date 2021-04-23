@@ -39,6 +39,7 @@ location if using a version of SSH that is provided by a third-party vendor):
   tag severity: nil
   tag gtitle: 'SRG-OS-000250-GPOS-00093'
   tag gid: 'V-204595'
+  tag 'legacy_id': 'V-72253'
   tag rid: 'SV-86877r3_rule'
   tag stig_id: 'RHEL-07-040400'
   tag fix_id: 'F-78607r2_fix'
