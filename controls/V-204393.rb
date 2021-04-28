@@ -104,8 +104,8 @@ effect.
   tag nist: ['AC-8 a']
 
   if package('gnome-desktop3').installed?
-    if !input('dconf_user').nil? && (command('whoami').stdout.strip == 'root')
-      describe command("sudo -u input('dconf_user') dconf read /org/gnome/login-screen/banner-message-enable") do
+    if !input('dconf_user').empty? && (command('whoami').stdout.strip == 'root')
+      describe command("sudo -u #{input('dconf_user')} dconf read /org/gnome/login-screen/banner-message-enable") do
         its('stdout.strip') { should cmp input('banner_message_enabled').to_s }
       end
     else

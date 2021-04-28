@@ -48,7 +48,7 @@ with the following command:
 
   if package('gnome-settings-daemon').installed?
     describe command('gsettings get org.gnome.settings-daemon.media-keys logout') do
-      its('stdout.strip') { should cmp "''" }
+      its('stdout.strip') { should cmp "" }
     end
   else
     impact 0.0

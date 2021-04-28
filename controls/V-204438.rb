@@ -75,7 +75,7 @@ the \"### BEGIN /etc/grub.d/01_users ###\" section:
     end
 
     describe parse_config_file(input('grub_main_cfg')) do
-      its('set superusers') { should cmp '"root"' }
+      its('set superusers') { should match '"root"' }
     end
   else
     impact 0.0

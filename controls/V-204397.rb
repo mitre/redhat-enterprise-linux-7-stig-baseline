@@ -80,8 +80,8 @@ should be created under the appropriate subdirectory.
 
   if package('gnome-desktop3').installed? && (package('pcsc-lite').installed? || package('esc').installed?)
     impact 0.5
-    if !dconf_user.nil? && command('whoami').stdout.strip == 'root'
-      describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
+    if !dconf_user.empty? && command('whoami').stdout.strip == 'root'
+      describe command("sudo -u #{input('dconf_user')} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
         its('stdout.strip') { should eq multifactor_enabled.to_s }
       end
     else
