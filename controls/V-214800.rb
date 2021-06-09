@@ -1,12 +1,9 @@
 control 'V-214800' do
-  title "The Red Hat Enterprise Linux operating system must have a host-based
-intrusion detection tool installed."
-  desc  "Adding host-based intrusion detection tools can provide the capability
-to automatically take actions in response to malicious behavior, which can
-provide additional agility in reacting to network threats. These tools also
-often include a reporting capability to provide network awareness of the
-system, which may not otherwise exist in an organization's systems management
-regime."
+  title 'The Red Hat Enterprise Linux operating system must have a host-based intrusion detection tool installed.'
+  desc "Adding host-based intrusion detection tools can provide the capability to automatically take actions in
+    response to malicious behavior, which can provide additional agility in reacting to network threats. These tools
+    also often include a reporting capability to provide network awareness of the system, which may not otherwise exist
+    in an organization's systems management regime."
   desc  'rationale', ''
   desc  'check',
     "
@@ -56,15 +53,15 @@ enable a supported intrusion detection system application and document its use
 with the Authorizing Official.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000196'
-  tag gid: 'V-214800'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-214800'
   tag 'legacy_id': 'V-92255'
-  tag rid: 'SV-102357r1_rule'
-  tag stig_id: 'RHEL-07-020019'
-  tag fix_id: 'F-98477r1_fix'
-  tag cci: ['CCI-001263']
-  tag nist: ['SI-4 (5)']
+  tag 'rid': 'SV-214800r603261_rule'
+  tag 'stig_id': 'RHEL-07-020019'
+  tag 'fix_id': 'F-36317r602660_fix'
+  tag 'cci': ['CCI-001263']
+  tag 'nist': ['SI-4 (5)']
 
   custom_hips = input('custom_hips')
 

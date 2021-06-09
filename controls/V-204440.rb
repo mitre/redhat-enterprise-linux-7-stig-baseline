@@ -1,12 +1,10 @@
 control 'V-204440' do
-  title "Red Hat Enterprise Linux operating systems version 7.2 or newer using
-Unified Extensible Firmware Interface (UEFI) must require authentication upon
-booting into single-user and maintenance modes."
-  desc  "If the system does not require valid root authentication before it
-boots into single-user or maintenance mode, anyone who invokes single-user or
-maintenance mode is granted privileged access to all files on the system. GRUB
-2 is the default boot loader for RHEL 7 and is designed to require a password
-to boot into single-user mode or make modifications to the boot menu."
+  title 'Red Hat Enterprise Linux operating systems version 7.2 or newer using Unified Extensible Firmware Interface
+    (UEFI) must require authentication upon booting into single-user and maintenance modes.'
+  desc 'If the system does not require valid root authentication before it boots into single-user or maintenance
+    mode, anyone who invokes single-user or maintenance mode is granted privileged access to all files on the system.
+    GRUB 2 is the default boot loader for RHEL 7 and is designed to require a password to boot into single-user mode or
+    make modifications to the boot menu.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -51,15 +49,15 @@ lines in the \"### BEGIN /etc/grub.d/01_users ###\" section:
     export superusers
   "
   impact 0.7
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000080-GPOS-00048'
-  tag gid: 'V-204440'
+  tag 'severity': 'high'
+  tag 'gtitle': 'SRG-OS-000080-GPOS-00048'
+  tag 'gid': 'V-204440'
   tag 'legacy_id': 'V-81007'
-  tag rid: 'SV-95719r1_rule'
-  tag stig_id: 'RHEL-07-010491'
-  tag fix_id: 'F-87841r2_fix'
-  tag cci: ['CCI-000213']
-  tag nist: ['AC-3']
+  tag 'rid': 'SV-204440r603261_rule'
+  tag 'stig_id': 'RHEL-07-010491'
+  tag 'fix_id': 'F-4564r88513_fix'
+  tag 'cci': ['CCI-000213']
+  tag 'nist': ['AC-3']
 
   if file('/sys/firmware/efi').exist?
     if os[:release] >= '7.2'

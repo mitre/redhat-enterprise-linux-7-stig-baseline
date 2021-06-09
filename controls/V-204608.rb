@@ -1,10 +1,9 @@
 control 'V-204608' do
-  title "For Red Hat Enterprise Linux operating systems using DNS resolution,
-at least two name servers must be configured."
-  desc  "To provide availability for name resolution services, multiple
-redundant name servers are mandated. A failure in name resolution could lead to
-the failure of security functions requiring name resolution, which may include
-time synchronization, centralized authentication, and remote system logging."
+  title 'For Red Hat Enterprise Linux operating systems using DNS resolution, at least two name servers must be
+    configured.'
+  desc 'To provide availability for name resolution services, multiple redundant name servers are mandated. A
+    failure in name resolution could lead to the failure of security functions requiring name resolution, which may
+    include time synchronization, centralized authentication, and remote system logging.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -60,15 +59,15 @@ configuration must be documented with the Information System Security Officer
 (ISSO) and the file must be verified by the system file integrity tool.
   "
   impact 0.3
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204608'
+  tag 'severity': 'low'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204608'
   tag 'legacy_id': 'V-72281'
-  tag rid: 'SV-86905r2_rule'
-  tag stig_id: 'RHEL-07-040600'
-  tag fix_id: 'F-78635r1_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204608r603261_rule'
+  tag 'stig_id': 'RHEL-07-040600'
+  tag 'fix_id': 'F-4732r89017_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   dns_in_host_line = parse_config_file('/etc/nsswitch.conf',
     {

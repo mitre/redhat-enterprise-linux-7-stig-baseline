@@ -1,11 +1,10 @@
 control 'V-204612' do
-  title "The Red Hat Enterprise Linux operating system must not forward
-Internet Protocol version 4 (IPv4) source-routed packets by default."
-  desc  "Source-routed packets allow the source of the packet to suggest that
-routers forward the packet along a different path than configured on the
-router, which can be used to bypass network security measures. This requirement
-applies only to the forwarding of source-routed traffic, such as when IPv4
-forwarding is enabled and the system is functioning as a router."
+  title 'The Red Hat Enterprise Linux operating system must not forward Internet Protocol version 4 (IPv4)
+    source-routed packets by default.'
+  desc 'Source-routed packets allow the source of the packet to suggest that routers forward the packet along a
+    different path than configured on the router, which can be used to bypass network security measures. This
+    requirement applies only to the forwarding of source-routed traffic, such as when IPv4 forwarding is enabled and the
+    system is functioning as a router.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -40,15 +39,15 @@ directory (or modify the line to have the required value):
     # sysctl --system
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204612'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204612'
   tag 'legacy_id': 'V-72285'
-  tag rid: 'SV-86909r2_rule'
-  tag stig_id: 'RHEL-07-040620'
-  tag fix_id: 'F-78639r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204612r603261_rule'
+  tag 'stig_id': 'RHEL-07-040620'
+  tag 'fix_id': 'F-4736r89029_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   describe kernel_parameter('net.ipv4.conf.default.accept_source_route') do
     its('value') { should eq 0 }

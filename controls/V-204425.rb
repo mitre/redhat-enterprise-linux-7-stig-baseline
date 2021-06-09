@@ -1,9 +1,8 @@
 control 'V-204425' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that the SSH daemon does not allow authentication using an empty password."
-  desc  "Configuring this setting for the SSH daemon provides additional
-assurance that remote logon via SSH will require a password, even in the event
-of misconfiguration elsewhere."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that the SSH daemon does not allow
+    authentication using an empty password.'
+  desc 'Configuring this setting for the SSH daemon provides additional assurance that remote logon via SSH will
+    require a password, even in the event of misconfiguration elsewhere.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -30,15 +29,15 @@ with empty passwords should be disabled immediately, and PAM configuration
 should prevent users from being able to assign themselves empty passwords.
   "
   impact 0.7
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000106-GPOS-00053'
-  tag gid: 'V-204425'
+  tag 'severity': 'high'
+  tag 'gtitle': 'SRG-OS-000106-GPOS-00053'
+  tag 'gid': 'V-204425'
   tag 'legacy_id': 'V-71939'
-  tag rid: 'SV-86563r3_rule'
-  tag stig_id: 'RHEL-07-010300'
-  tag fix_id: 'F-78291r2_fix'
-  tag cci: ['CCI-000766']
-  tag nist: ['IA-2 (2)']
+  tag 'rid': 'SV-204425r603261_rule'
+  tag 'stig_id': 'RHEL-07-010300'
+  tag 'fix_id': 'F-4549r88468_fix'
+  tag 'cci': ['CCI-000766']
+  tag 'nist': ['IA-2 (2)']
 
   describe sshd_config do
     its('PermitEmptyPasswords') { should eq 'no' }

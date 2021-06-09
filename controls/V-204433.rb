@@ -1,8 +1,6 @@
 control 'V-204433' do
-  title "The Red Hat Enterprise Linux operating system must not allow an
-unrestricted logon to the system."
-  desc  "Failure to restrict system access to authenticated users negatively
-impacts operating system security."
+  title 'The Red Hat Enterprise Linux operating system must not allow an unrestricted logon to the system.'
+  desc 'Failure to restrict system access to authenticated users negatively impacts operating system security.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -35,15 +33,15 @@ section of the \"/etc/gdm/custom.conf\" file to \"false\":
     [daemon]
     TimedLoginEnable=false
   "
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00229'
-  tag gid: 'V-204433'
+  tag 'severity': 'high'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00229'
+  tag 'gid': 'V-204433'
   tag 'legacy_id': 'V-71955'
-  tag rid: 'SV-86579r3_rule'
-  tag stig_id: 'RHEL-07-010450'
-  tag fix_id: 'F-78307r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204433r603261_rule'
+  tag 'stig_id': 'RHEL-07-010450'
+  tag 'fix_id': 'F-4557r88492_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   custom_conf = '/etc/gdm/custom.conf'
 

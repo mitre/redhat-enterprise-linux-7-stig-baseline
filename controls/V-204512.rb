@@ -1,9 +1,9 @@
 control 'V-204512' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that the audit system takes appropriate action when there is an error sending
-audit records to a remote system."
-  desc  "Taking appropriate action when there is an error sending audit records
-to a remote system will minimize the possibility of losing audit records."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that the audit system takes appropriate
+    action when there is an error sending audit records to a remote system.'
+  desc 'Taking appropriate action when there is an error sending audit records to a remote system will minimize the
+    possibility of losing audit records.
+    One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -31,15 +31,15 @@ sending audit records to a remote system.
     network_failure_action = syslog
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000342-GPOS-00133'
-  tag gid: 'V-204512'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000342-GPOS-00133'
+  tag 'gid': 'V-204512'
   tag 'legacy_id': 'V-73163'
-  tag rid: 'SV-87815r3_rule'
-  tag stig_id: 'RHEL-07-030321'
-  tag fix_id: 'F-79609r2_fix'
-  tag cci: ['CCI-001851']
-  tag nist: ['AU-4 (1)']
+  tag 'rid': 'SV-204512r603261_rule'
+  tag 'stig_id': 'RHEL-07-030321'
+  tag 'fix_id': 'F-36315r602655_fix'
+  tag 'cci': ['CCI-001851']
+  tag 'nist': ['AU-4 (1)']
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
     its('network_failure_action'.to_s) { should be_in %w(syslog single halt) }

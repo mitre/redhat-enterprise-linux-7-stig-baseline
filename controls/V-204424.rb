@@ -1,9 +1,8 @@
 control 'V-204424' do
-  title "The Red Hat Enterprise Linux operating system must not have accounts
-configured with blank or null passwords."
-  desc  "If an account has an empty password, anyone could log on and run
-commands with the privileges of that account. Accounts with empty passwords
-should never be used in operational environments."
+  title 'The Red Hat Enterprise Linux operating system must not have accounts configured with blank or null
+    passwords.'
+  desc 'If an account has an empty password, anyone could log on and run commands with the privileges of that
+    account. Accounts with empty passwords should never be used in operational environments.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -30,15 +29,15 @@ and \"/etc/pam.d/password-auth\" to prevent logons with empty passwords.
 the configurations listed in this requirement.
   "
   impact 0.7
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204424'
+  tag 'severity': 'high'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204424'
   tag 'legacy_id': 'V-71937'
-  tag rid: 'SV-86561r3_rule'
-  tag stig_id: 'RHEL-07-010290'
-  tag fix_id: 'F-78289r3_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204424r603261_rule'
+  tag 'stig_id': 'RHEL-07-010290'
+  tag 'fix_id': 'F-4548r88465_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   # Fetch all files under /etc/pam.d excluding '*-ac' files
   # but including symlinks

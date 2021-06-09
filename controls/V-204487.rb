@@ -1,17 +1,11 @@
 control 'V-204487' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that all world-writable directories are group-owned by root, sys, bin, or an
-application group."
-  desc  "If a world-writable directory has the sticky bit set and is not
-group-owned by a privileged Group Identifier (GID), unauthorized users may be
-able to modify files created by others.
-
-    The only authorized public directories are those temporary directories
-supplied with the system or those designed to be temporary file repositories.
-The setting is normally reserved for directories used by the system and by
-users for temporary file storage, (e.g., /tmp), and for directories requiring
-global read/write access.
-  "
+  title 'The Red Hat Enterprise Linux operating system must be configured so that all world-writable directories are
+    group-owned by root, sys, bin, or an application group.'
+  desc 'If a world-writable directory has the sticky bit set and is not group-owned by root, sys, bin, or an
+    application Group Identifier (GID), unauthorized users may be able to modify files created by others.
+    The only authorized public directories are those temporary directories supplied with the system or those designed to
+    be temporary file repositories. The setting is normally reserved for directories used by the system and by users for
+    temporary file storage, (e.g., /tmp), and for directories requiring global read/write access.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -39,15 +33,15 @@ following command:
     # chgrp root <directory>
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204487'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204487'
   tag 'legacy_id': 'V-72047'
-  tag rid: 'SV-86671r4_rule'
-  tag stig_id: 'RHEL-07-021030'
-  tag fix_id: 'F-78399r1_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204487r603261_rule'
+  tag 'stig_id': 'RHEL-07-021030'
+  tag 'fix_id': 'F-36308r602634_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   application_groups = input('application_groups')
 

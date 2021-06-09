@@ -1,19 +1,13 @@
 control 'V-204445' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that a file integrity tool verifies the baseline operating system configuration
-at least weekly."
-  desc  "Unauthorized changes to the baseline configuration could make the
-system vulnerable to various attacks or allow unauthorized access to the
-operating system. Changes to operating system configurations can have
-unintended side effects, some of which may be relevant to security.
-
-    Detecting such changes and providing an automated response can help avoid
-unintended, negative consequences that could ultimately affect the security
-state of the operating system. The operating system's Information Management
-Officer (IMO)/Information System Security Officer (ISSO) and System
-Administrators (SAs) must be notified via email and/or monitoring system trap
-when there is an unauthorized modification of a configuration item.
-  "
+  title 'The Red Hat Enterprise Linux operating system must be configured so that a file integrity tool verifies the
+    baseline operating system configuration at least weekly.'
+  desc "Unauthorized changes to the baseline configuration could make the system vulnerable to various attacks or
+    allow unauthorized access to the operating system. Changes to operating system configurations can have unintended
+    side effects, some of which may be relevant to security.
+    Detecting such changes and providing an automated response can help avoid unintended, negative consequences that
+    could ultimately affect the security state of the operating system. The operating system's Information Management
+    Officer (IMO)/Information System Security Officer (ISSO) and System Administrators (SAs) must be notified via email
+    and/or monitoring system trap when there is an unauthorized modification of a configuration item."
   desc  'rationale', ''
   desc  'check',
     "
@@ -63,15 +57,15 @@ AIDE daily, but other file integrity tools may be used:
 check run\" root@sysname.mil
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000363-GPOS-00150'
-  tag gid: 'V-204445'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000363-GPOS-00150'
+  tag 'gid': 'V-204445'
   tag 'legacy_id': 'V-71973'
-  tag rid: 'SV-86597r2_rule'
-  tag stig_id: 'RHEL-07-020030'
-  tag fix_id: 'F-78325r2_fix'
-  tag cci: ['CCI-001744']
-  tag nist: ['CM-3 (5)']
+  tag 'rid': 'SV-204445r603261_rule'
+  tag 'stig_id': 'RHEL-07-020030'
+  tag 'fix_id': 'F-36304r602622_fix'
+  tag 'cci': ['CCI-001744']
+  tag 'nist': ['CM-3 (5)']
 
   file_integrity_tool = input('file_integrity_tool')
   file_integrity_interval = input('file_integrity_interval')

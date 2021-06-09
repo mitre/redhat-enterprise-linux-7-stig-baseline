@@ -1,12 +1,10 @@
 control 'V-204571' do
-  title "The Red Hat Enterprise Linux operating system must audit all uses of
-the rmdir syscall."
-  desc  "If the system is not configured to audit certain activities and write
-them to an audit log, it is more difficult to detect and track system
-compromises and damages incurred during a system compromise.
-
-
-  "
+  title 'The Red Hat Enterprise Linux operating system must audit all uses of the rmdir syscall.'
+  desc 'If the system is not configured to audit certain activities and write them to an audit log, it is more
+    difficult to detect and track system compromises and damages incurred during a system compromise.
+    When a user logs on, the auid is set to the uid of the account that is being authenticated. Daemons are not user
+    sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals
+    4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -43,19 +41,16 @@ delete
     The audit daemon must be restarted for the changes to take effect.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000466-GPOS-00210'
-  tag satisfies: %w(SRG-OS-000466-GPOS-00210
-                    SRG-OS-000467-GPOS-00210
-                    SRG-OS-000468-GPOS-00212
-                    SRG-OS-000392-GPOS-00172)
-  tag gid: 'V-204571'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000466-GPOS-00210'
+  tag 'satisfies': ['SRG-OS-000466-GPOS-00210', 'SRG-OS-000467-GPOS-00211', 'SRG-OS-000468-GPOS-00212', 'SRG-OS-000392-GPOS-00172']
+  tag 'gid': 'V-204571'
   tag 'legacy_id': 'V-72203'
-  tag rid: 'SV-86827r5_rule'
-  tag stig_id: 'RHEL-07-030900'
-  tag fix_id: 'F-78557r9_fix'
-  tag cci: %w(CCI-000172 CCI-002884)
-  tag nist: ['AU-12 c', 'MA-4 (1) (a)']
+  tag 'rid': 'SV-204571r603261_rule'
+  tag 'stig_id': 'RHEL-07-030900'
+  tag 'fix_id': 'F-4695r462682_fix'
+  tag 'cci': ['CCI-000172', 'CCI-002884']
+  tag 'nist': ['AU-12 c', 'MA-4 (1) (a)']
 
   describe auditd.syscall('rmdir').where { arch == 'b32' } do
     its('action.uniq') { should eq ['always'] }

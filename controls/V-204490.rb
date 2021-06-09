@@ -1,9 +1,8 @@
 control 'V-204490' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that the cron.allow file, if it exists, is owned by root."
-  desc  "If the owner of the \"cron.allow\" file is not set to root, the
-possibility exists for an unauthorized user to view or to edit sensitive
-information."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that the cron.allow file, if it exists,
+    is owned by root.'
+  desc 'If the owner of the "cron.allow" file is not set to root, the possibility exists for an unauthorized user to
+    view or to edit sensitive information.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -25,15 +24,15 @@ command:
     # chown root /etc/cron.allow
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204490'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204490'
   tag 'legacy_id': 'V-72053'
-  tag rid: 'SV-86677r3_rule'
-  tag stig_id: 'RHEL-07-021110'
-  tag fix_id: 'F-78405r1_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204490r603261_rule'
+  tag 'stig_id': 'RHEL-07-021110'
+  tag 'fix_id': 'F-4614r88663_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   describe.one do
     # case where file doesn't exist

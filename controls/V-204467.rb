@@ -1,12 +1,12 @@
 control 'V-204467' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that all local interactive user home directories are defined in the /etc/passwd
-file."
-  desc  "If a local interactive user has a home directory defined that does not
-exist, the user may be given access to the / directory as the current working
-directory upon logon. This could create a Denial of Service because the user
-would not be able to access their logon configuration files, and it may give
-them visibility to system files they normally would not be able to access."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that all local interactive users have a
+    home directory assigned and defined in the /etc/passwd file.'
+  desc 'If local interactive users are not assigned a valid home directory, there is no place for the storage and
+    control of files they should own.
+    In addition, if a local interactive user has a home directory defined that does not exist, the user may be given
+    access to the / directory as the current working directory upon logon. This could create a Denial of Service because
+    the user would not be able to access their logon configuration files, and it may give them visibility to system
+    files they normally would not be able to access.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -48,15 +48,15 @@ user home directory assigned in \"/etc/ passwd\":
     # chmod 0750 /home/smithj
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204467'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204467'
   tag 'legacy_id': 'V-72015'
-  tag rid: 'SV-86639r2_rule'
-  tag stig_id: 'RHEL-07-020620'
-  tag fix_id: 'F-78367r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204467r603826_rule'
+  tag 'stig_id': 'RHEL-07-020620'
+  tag 'fix_id': 'F-4591r462550_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')

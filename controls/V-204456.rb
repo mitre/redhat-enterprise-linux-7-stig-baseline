@@ -1,12 +1,10 @@
 control 'V-204456' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that the x86 Ctrl-Alt-Delete key sequence is disabled in the GUI."
-  desc  "A locally logged-on user who presses Ctrl-Alt-Delete, when at the
-console, can reboot the system. If accidentally pressed, as could happen in the
-case of a mixed OS environment, this can create the risk of short-term loss of
-availability of systems due to unintentional reboot. In the GNOME graphical
-environment, risk of unintentional reboot from the Ctrl-Alt-Delete sequence is
-reduced because the user will be prompted before any action is taken."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that the x86 Ctrl-Alt-Delete key
+    sequence is disabled in the Graphical User Interface.'
+  desc 'A locally logged-on user who presses Ctrl-Alt-Delete, when at the console, can reboot the system. If
+    accidentally pressed, as could happen in the case of a mixed OS environment, this can create the risk of short-term
+    loss of availability of systems due to unintentional reboot. In the graphical environment, risk of unintentional
+    reboot from the Ctrl-Alt-Delete sequence is reduced because the user will be prompted before any action is taken.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -36,19 +34,19 @@ with the following command:
     logout=''
   "
   impact 0.7
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204456'
+  tag 'severity': 'high'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204456'
   tag 'legacy_id': 'V-94843'
-  tag rid: 'SV-104673r1_rule'
-  tag stig_id: 'RHEL-07-020231'
-  tag fix_id: 'F-100967r1_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204456r603261_rule'
+  tag 'stig_id': 'RHEL-07-020231'
+  tag 'fix_id': 'F-4580r590041_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   if package('gnome-settings-daemon').installed?
     describe command('gsettings get org.gnome.settings-daemon.media-keys logout') do
-      its('stdout.strip') { should cmp "" }
+      its('stdout.strip') { should cmp '' }
     end
   else
     impact 0.0

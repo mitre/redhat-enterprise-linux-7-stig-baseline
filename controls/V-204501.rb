@@ -1,10 +1,9 @@
 control 'V-204501' do
-  title "The Red Hat Enterprise Linux operating system must not allow removable
-media to be used as the boot loader unless approved."
-  desc  "Malicious users with removable boot media can gain access to a system
-configured to use removable media as the boot loader. If removable media is
-designed to be used as the boot loader, the requirement must be documented with
-the Information System Security Officer (ISSO)."
+  title 'The Red Hat Enterprise Linux operating system must not allow removable media to be used as the boot loader
+    unless approved.'
+  desc 'Malicious users with removable boot media can gain access to a system configured to use removable media as
+    the boot loader. If removable media is designed to be used as the boot loader, the requirement must be documented
+    with the Information System Security Officer (ISSO).'
   desc  'rationale', ''
   desc  'check',
     "
@@ -41,19 +40,15 @@ finding.
     "Remove alternate methods of booting the system from removable
 media or document the configuration to boot from removable media with the ISSO."
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000364-GPOS-00151'
-  tag gid: 'V-204501'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000364-GPOS-00151'
+  tag 'gid': 'V-204501'
   tag 'legacy_id': 'V-72075'
-  tag rid: 'SV-86699r2_rule'
-  tag stig_id: 'RHEL-07-021700'
-  tag fix_id: 'F-78427r1_fix'
-  tag cci: %w(CCI-000318
-              CCI-000368
-              CCI-001812
-              CCI-001813
-              CCI-001814)
-  tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
+  tag 'rid': 'SV-204501r603261_rule'
+  tag 'stig_id': 'RHEL-07-021700'
+  tag 'fix_id': 'F-4625r88696_fix'
+  tag 'cci': ['CCI-000368', 'CCI-001812', 'CCI-001814', 'CCI-001813', 'CCI-000318']
+  tag 'nist': ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
 
   roots = command('grubby --info=ALL | grep "^root=" | sed "s/^root=//g"')
     .stdout.strip.split("\n")

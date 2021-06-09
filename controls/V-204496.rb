@@ -1,8 +1,7 @@
 control 'V-204496' do
-  title "The Red Hat Enterprise Linux operating system must use a separate file
-system for /tmp (or equivalent)."
-  desc  "The use of separate file systems for different paths can protect the
-system from failures resulting from a file system becoming full or failing."
+  title 'The Red Hat Enterprise Linux operating system must use a separate file system for /tmp (or equivalent).'
+  desc 'The use of separate file systems for different paths can protect the system from failures resulting from a
+    file system becoming full or failing.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -36,15 +35,15 @@ defined in the fstab with a device and mount point, this is a finding.
 in the fstab with a device and mount point.
   "
   impact 0.3
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204496'
+  tag 'severity': 'low'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204496'
   tag 'legacy_id': 'V-72065'
-  tag rid: 'SV-86689r3_rule'
-  tag stig_id: 'RHEL-07-021340'
-  tag fix_id: 'F-78417r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204496r603261_rule'
+  tag 'stig_id': 'RHEL-07-021340'
+  tag 'fix_id': 'F-36309r602637_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   describe.one do
     describe systemd_service('tmp.mount') do

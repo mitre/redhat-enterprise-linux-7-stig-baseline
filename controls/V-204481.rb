@@ -1,12 +1,10 @@
 control 'V-204481' do
-  title "The Red Hat Enterprise Linux operating system must prevent files with
-the setuid and setgid bit set from being executed on file systems that are used
-with removable media."
-  desc  "The \"nosuid\" mount option causes the system to not execute
-\"setuid\" and \"setgid\" files with owner privileges. This option must be used
-for mounting any file system not containing approved \"setuid\" and \"setguid\"
-files. Executing files from untrusted file systems increases the opportunity
-for unprivileged users to attain unauthorized administrative access."
+  title 'The Red Hat Enterprise Linux operating system must prevent files with the setuid and setgid bit set from
+    being executed on file systems that are used with removable media.'
+  desc 'The "nosuid" mount option causes the system to not execute "setuid" and "setgid" files with owner
+    privileges. This option must be used for mounting any file system not containing approved "setuid" and "setguid"
+    files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain
+    unauthorized administrative access.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -28,15 +26,15 @@ does not have the \"nosuid\" option set, this is a finding.
     "Configure the \"/etc/fstab\" to use the \"nosuid\" option on
 file systems that are associated with removable media."
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204481'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204481'
   tag 'legacy_id': 'V-72043'
-  tag rid: 'SV-86667r2_rule'
-  tag stig_id: 'RHEL-07-021010'
-  tag fix_id: 'F-78395r1_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204481r603261_rule'
+  tag 'stig_id': 'RHEL-07-021010'
+  tag 'fix_id': 'F-4605r88636_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   non_removable_media_fs = input('non_removable_media_fs')
 

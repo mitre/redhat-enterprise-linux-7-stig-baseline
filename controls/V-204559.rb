@@ -1,16 +1,10 @@
 control 'V-204559' do
-  title "The Red Hat Enterprise Linux operating system must audit all uses of
-the create_module syscall."
-  desc  "Without generating audit records that are specific to the security and
-mission needs of the organization, it would be difficult to establish,
-correlate, and investigate the events relating to an incident or identify those
-responsible for one.
-
-    Audit records can be generated from various components within the
-information system (e.g., module or policy filter).
-
-
-  "
+  title 'The Red Hat Enterprise Linux operating system must audit all uses of the create_module syscall.'
+  desc 'Without generating audit records that are specific to the security and mission needs of the organization, it
+    would be difficult to establish, correlate, and investigate the events relating to an incident or identify those
+    responsible for one.
+    Audit records can be generated from various components within the information system (e.g., module or policy
+    filter).'
   desc  'rationale', ''
   desc  'check',
     "
@@ -43,16 +37,16 @@ successful/unsuccessful attempts to use the \"create_module\" syscall occur.
     The audit daemon must be restarted for the changes to take effect.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000471-GPOS-00216'
-  tag satisfies: %w(SRG-OS-000471-GPOS-00216 SRG-OS-000477-GPOS-00222)
-  tag gid: 'V-204559'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000471-GPOS-00216'
+  tag 'satisfies': ['SRG-OS-000471-GPOS-00216', 'SRG-OS-000477-GPOS-00222']
+  tag 'gid': 'V-204559'
   tag 'legacy_id': 'V-78999'
-  tag rid: 'SV-93705r3_rule'
-  tag stig_id: 'RHEL-07-030819'
-  tag fix_id: 'F-85749r4_fix'
-  tag cci: ['CCI-000172']
-  tag nist: ['AU-12 c']
+  tag 'rid': 'SV-204559r603261_rule'
+  tag 'stig_id': 'RHEL-07-030819'
+  tag 'fix_id': 'F-4683r88870_fix'
+  tag 'cci': ['CCI-000172']
+  tag 'nist': ['AU-12 c']
 
   describe auditd.syscall('create_module').where { arch == 'b32' } do
     its('action.uniq') { should eq ['always'] }

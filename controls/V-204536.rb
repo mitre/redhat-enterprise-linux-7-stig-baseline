@@ -1,16 +1,13 @@
 control 'V-204536' do
-  title "The Red Hat Enterprise Linux operating system must audit all uses of
-the semanage command."
-  desc  "Without generating audit records that are specific to the security and
-mission needs of the organization, it would be difficult to establish,
-correlate, and investigate the events relating to an incident or identify those
-responsible for one.
-
-    Audit records can be generated from various components within the
-information system (e.g., module or policy filter).
-
-
-  "
+  title 'The Red Hat Enterprise Linux operating system must audit all uses of the semanage command.'
+  desc 'Without generating audit records that are specific to the security and mission needs of the organization, it
+    would be difficult to establish, correlate, and investigate the events relating to an incident or identify those
+    responsible for one.
+    Audit records can be generated from various components within the information system (e.g., module or policy
+    filter).
+    When a user logs on, the auid is set to the uid of the account that is being authenticated. Daemons are not user
+    sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals
+    4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -39,18 +36,16 @@ successful/unsuccessful attempts to use the \"semanage\" command occur.
 
     The audit daemon must be restarted for the changes to take effect.
   "
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000392-GPOS-00172'
-  tag satisfies: %w(SRG-OS-000392-GPOS-00172
-                    SRG-OS-000463-GPOS-00207
-                    SRG-OS-000465-GPOS-00209)
-  tag gid: 'V-204536'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000392-GPOS-00172'
+  tag 'satisfies': ['SRG-OS-000392-GPOS-00172', 'SRG-OS-000463-GPOS-00207', 'SRG-OS-000465-GPOS-00209']
+  tag 'gid': 'V-204536'
   tag 'legacy_id': 'V-72135'
-  tag rid: 'SV-86759r4_rule'
-  tag stig_id: 'RHEL-07-030560'
-  tag fix_id: 'F-78487r5_fix'
-  tag cci: %w(CCI-000172 CCI-002884)
-  tag nist: ['AU-12 c', 'MA-4 (1) (a)']
+  tag 'rid': 'SV-204536r603261_rule'
+  tag 'stig_id': 'RHEL-07-030560'
+  tag 'fix_id': 'F-4660r462613_fix'
+  tag 'cci': ['CCI-000172', 'CCI-002884']
+  tag 'nist': ['AU-12 c', 'MA-4 (1) (a)']
 
   audit_file = '/usr/sbin/semanage'
 

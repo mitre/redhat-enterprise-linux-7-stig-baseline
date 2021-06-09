@@ -1,18 +1,13 @@
 control 'V-204453' do
   title 'The Red Hat Enterprise Linux operating system must enable SELinux.'
-  desc  "Without verification of the security functions, security functions may
-not operate correctly and the failure may go unnoticed. Security function is
-defined as the hardware, software, and/or firmware of the information system
-responsible for enforcing the system security policy and supporting the
-isolation of code and data on which the protection is based. Security
-functionality includes, but is not limited to, establishing system accounts,
-configuring access authorizations (i.e., permissions, privileges), setting
-events to be audited, and setting intrusion detection parameters.
-
-    This requirement applies to operating systems performing security function
-verification/testing and/or systems and environments that require this
-functionality.
-  "
+  desc 'Without verification of the security functions, security functions may not operate correctly and the failure
+    may go unnoticed. Security function is defined as the hardware, software, and/or firmware of the information system
+    responsible for enforcing the system security policy and supporting the isolation of code and data on which the
+    protection is based. Security functionality includes, but is not limited to, establishing system accounts,
+    configuring access authorizations (i.e., permissions, privileges), setting events to be audited, and setting
+    intrusion detection parameters.
+    This requirement applies to operating systems performing security function verification/testing and/or systems and
+    environments that require this functionality.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -43,15 +38,15 @@ functions.
     A reboot is required for the changes to take effect.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000445-GPOS-00199'
-  tag gid: 'V-204453'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000445-GPOS-00199'
+  tag 'gid': 'V-204453'
   tag 'legacy_id': 'V-71989'
-  tag rid: 'SV-86613r3_rule'
-  tag stig_id: 'RHEL-07-020210'
-  tag fix_id: 'F-78341r2_fix'
-  tag cci: %w(CCI-002165 CCI-002696)
-  tag nist: ['AC-3 (4)', 'SI-6 a']
+  tag 'rid': 'SV-204453r603261_rule'
+  tag 'stig_id': 'RHEL-07-020210'
+  tag 'fix_id': 'F-36306r602628_fix'
+  tag 'cci': ['CCI-002696', 'CCI-002165']
+  tag 'nist': ['AC-3 (4)', 'SI-6 a']
 
   if package('MFEhiplsm').installed? && processes(/hipclient/).exist?
     impact 0.0

@@ -1,15 +1,11 @@
 control 'V-204618' do
-  title "Network interfaces configured on the Red Hat Enterprise Linux
-operating system must not be in promiscuous mode."
-  desc  "Network interfaces in promiscuous mode allow for the capture of all
-network traffic visible to the system. If unauthorized individuals can access
-these applications, it may allow then to collect information such as logon IDs,
-passwords, and key exchanges between systems.
-
-    If the system is being used to perform a network troubleshooting function,
-the use of these tools must be documented with the Information System Security
-Officer (ISSO) and restricted to only authorized personnel.
-  "
+  title 'Network interfaces configured on the Red Hat Enterprise Linux operating system must not be in promiscuous
+    mode.'
+  desc 'Network interfaces in promiscuous mode allow for the capture of all network traffic visible to the system.
+    If unauthorized individuals can access these applications, it may allow then to collect information such as logon
+    IDs, passwords, and key exchanges between systems.
+    If the system is being used to perform a network troubleshooting function, the use of these tools must be documented
+    with the Information System Security Officer (ISSO) and restricted to only authorized personnel.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -33,15 +29,15 @@ by the ISSO and documented.
     #ip link set dev <devicename> multicast off promisc off
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204618'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204618'
   tag 'legacy_id': 'V-72295'
-  tag rid: 'SV-86919r2_rule'
-  tag stig_id: 'RHEL-07-040670'
-  tag fix_id: 'F-78649r1_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204618r603261_rule'
+  tag 'stig_id': 'RHEL-07-040670'
+  tag 'fix_id': 'F-4742r89047_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   describe command('ip link | grep -i promisc') do
     its('stdout.strip') { should match(/^$/) }

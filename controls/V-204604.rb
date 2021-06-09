@@ -1,12 +1,7 @@
 control 'V-204604' do
-  title "The Red Hat Enterprise Linux operating system must enable an
-application firewall, if available."
-  desc  "Firewalls protect computers from network attacks by blocking or
-limiting access to open network ports. Application firewalls limit which
-applications are allowed to communicate over the network.
-
-
-  "
+  title 'The Red Hat Enterprise Linux operating system must enable an application firewall, if available.'
+  desc 'Firewalls protect computers from network attacks by blocking or limiting access to open network ports.
+    Application firewalls limit which applications are allowed to communicate over the network.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -55,18 +50,16 @@ following command:
     # systemctl start firewalld
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag satisfies: %w(SRG-OS-000480-GPOS-00227
-                    SRG-OS-000480-GPOS-00231
-                    SRG-OS-000480-GPOS-00232)
-  tag gid: 'V-204604'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'satisfies': ['SRG-OS-000480-GPOS-00227', 'SRG-OS-000480-GPOS-00231', 'SRG-OS-000480-GPOS-00232']
+  tag 'gid': 'V-204604'
   tag 'legacy_id': 'V-72273'
-  tag rid: 'SV-86897r2_rule'
-  tag stig_id: 'RHEL-07-040520'
-  tag fix_id: 'F-78627r1_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204604r603261_rule'
+  tag 'stig_id': 'RHEL-07-040520'
+  tag 'fix_id': 'F-4728r89005_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   describe.one do
     describe package('firewalld') do

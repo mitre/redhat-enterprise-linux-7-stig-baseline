@@ -1,10 +1,11 @@
 control 'V-204500' do
-  title "The Red Hat Enterprise Linux operating system must use a file
-integrity tool that is configured to use FIPS 140-2 approved cryptographic
-hashes for validating file contents and directories."
-  desc  "File integrity tools use cryptographic hashes for verifying file
-contents and directories have not been altered. These hashes must be FIPS 140-2
-approved cryptographic hashes."
+  title 'The Red Hat Enterprise Linux operating system must use a file integrity tool that is configured to use FIPS
+    140-2 approved cryptographic hashes for validating file contents and directories.'
+  desc 'File integrity tools use cryptographic hashes for verifying file contents and directories have not been
+    altered. These hashes must be FIPS 140-2 approved cryptographic hashes.
+    Red Hat Enterprise Linux operating system installation media ships with an optional file integrity tool called
+    Advanced Intrusion Detection Environment (AIDE). AIDE is highly configurable at install time. This requirement
+    assumes the "aide.conf" file is under the "/etc" directory.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -57,15 +58,15 @@ for validating file and directory contents.
 uncommented file and directory selection lists.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204500'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204500'
   tag 'legacy_id': 'V-72073'
-  tag rid: 'SV-86697r3_rule'
-  tag stig_id: 'RHEL-07-021620'
-  tag fix_id: 'F-78425r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204500r603261_rule'
+  tag 'stig_id': 'RHEL-07-021620'
+  tag 'fix_id': 'F-4624r462556_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   describe package('aide') do
     it { should be_installed }

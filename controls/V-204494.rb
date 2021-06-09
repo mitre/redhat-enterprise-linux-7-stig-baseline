@@ -1,8 +1,7 @@
 control 'V-204494' do
-  title "The Red Hat Enterprise Linux operating system must use a separate file
-system for /var."
-  desc  "The use of separate file systems for different paths can protect the
-system from failures resulting from a file system becoming full or failing."
+  title 'The Red Hat Enterprise Linux operating system must use a separate file system for /var.'
+  desc 'The use of separate file systems for different paths can protect the system from failures resulting from a
+    file system becoming full or failing.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -19,15 +18,15 @@ following command:
   "
   desc 'fix', 'Migrate the "/var" path onto a separate file system.'
   impact 0.3
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204494'
+  tag 'severity': 'low'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204494'
   tag 'legacy_id': 'V-72061'
-  tag rid: 'SV-86685r2_rule'
-  tag stig_id: 'RHEL-07-021320'
-  tag fix_id: 'F-78413r1_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204494r603261_rule'
+  tag 'stig_id': 'RHEL-07-021320'
+  tag 'fix_id': 'F-4618r88675_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   describe mount('/var') do
     it { should be_mounted }

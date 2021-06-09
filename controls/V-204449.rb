@@ -1,11 +1,6 @@
 control 'V-204449' do
-  title "The Red Hat Enterprise Linux operating system must be configured to
-disable USB mass storage."
-  desc  "USB mass storage permits easy introduction of unknown devices, thereby
-facilitating malicious activity.
-
-
-  "
+  title 'The Red Hat Enterprise Linux operating system must be configured to disable USB mass storage.'
+  desc 'USB mass storage permits easy introduction of unknown devices, thereby facilitating malicious activity.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -61,18 +56,16 @@ storage devices.
     blacklist usb-storage
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000114-GPOS-00059'
-  tag satisfies: %w(SRG-OS-000114-GPOS-00059
-                    SRG-OS-000378-GPOS-00163
-                    SRG-OS-000480-GPOS-00227)
-  tag gid: 'V-204449'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000114-GPOS-00059'
+  tag 'satisfies': ['SRG-OS-000114-GPOS-00059', 'SRG-OS-000378-GPOS-00163', 'SRG-OS-000480-GPOS-00227']
+  tag 'gid': 'V-204449'
   tag 'legacy_id': 'V-71983'
-  tag rid: 'SV-86607r4_rule'
-  tag stig_id: 'RHEL-07-020100'
-  tag fix_id: 'F-78335r4_fix'
-  tag cci: %w(CCI-000366 CCI-000778 CCI-001958)
-  tag nist: ['CM-6 b', 'IA-3', 'IA-3']
+  tag 'rid': 'SV-204449r603261_rule'
+  tag 'stig_id': 'RHEL-07-020100'
+  tag 'fix_id': 'F-4573r462538_fix'
+  tag 'cci': ['CCI-001958', 'CCI-000778', 'CCI-000366']
+  tag 'nist': ['CM-6 b', 'IA-3', 'IA-3']
 
   if input('data_loss_prevention_installed')
     describe kernel_module('usb_storage') do

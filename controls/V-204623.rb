@@ -1,9 +1,8 @@
 control 'V-204623' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that if the Trivial File Transfer Protocol (TFTP) server is required, the TFTP
-daemon is configured to operate in secure mode."
-  desc  "Restricting TFTP to a specific directory prevents remote users from
-copying, transferring, or overwriting system files."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that if the Trivial File Transfer
+    Protocol (TFTP) server is required, the TFTP daemon is configured to operate in secure mode.'
+  desc 'Restricting TFTP to a specific directory prevents remote users from copying, transferring, or overwriting
+    system files.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -33,15 +32,15 @@ line to \"/etc/xinetd.d/tftp\" (or modify the line to have the required value):
 
     server_args = -s /var/lib/tftpboot
   "
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204623'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204623'
   tag 'legacy_id': 'V-72305'
-  tag rid: 'SV-86929r3_rule'
-  tag stig_id: 'RHEL-07-040720'
-  tag fix_id: 'F-78659r1_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204623r603261_rule'
+  tag 'stig_id': 'RHEL-07-040720'
+  tag 'fix_id': 'F-4747r89062_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   if package('tftp-server').installed?
     impact 0.5

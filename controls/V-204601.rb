@@ -1,9 +1,8 @@
 control 'V-204601' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that the SSH daemon uses privilege separation."
-  desc  "SSH daemon privilege separation causes the SSH process to drop root
-privileges when not needed, which would decrease the impact of software
-vulnerabilities in the unprivileged section."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that the SSH daemon uses privilege
+    separation.'
+  desc 'SSH daemon privilege separation causes the SSH process to drop root privileges when not needed, which would
+    decrease the impact of software vulnerabilities in the unprivileged section.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -31,15 +30,15 @@ vendor) and set the value to \"sandbox\" or \"yes\":
     The SSH service must be restarted for changes to take effect.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204601'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204601'
   tag 'legacy_id': 'V-72265'
-  tag rid: 'SV-86889r3_rule'
-  tag stig_id: 'RHEL-07-040460'
-  tag fix_id: 'F-78619r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204601r603261_rule'
+  tag 'stig_id': 'RHEL-07-040460'
+  tag 'fix_id': 'F-4725r88996_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   describe.one do
     describe sshd_config do

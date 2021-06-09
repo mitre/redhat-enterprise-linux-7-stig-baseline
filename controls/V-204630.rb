@@ -1,11 +1,9 @@
 control 'V-204630' do
-  title "The Red Hat Enterprise Linux operating system must not forward IPv6
-source-routed packets."
-  desc  "Source-routed packets allow the source of the packet to suggest that
-routers forward the packet along a different path than configured on the
-router, which can be used to bypass network security measures. This requirement
-applies only to the forwarding of source-routed traffic, such as when IPv6
-forwarding is enabled and the system is functioning as a router."
+  title 'The Red Hat Enterprise Linux operating system must not forward IPv6 source-routed packets.'
+  desc 'Source-routed packets allow the source of the packet to suggest that routers forward the packet along a
+    different path than configured on the router, which can be used to bypass network security measures. This
+    requirement applies only to the forwarding of source-routed traffic, such as when IPv6 forwarding is enabled and the
+    system is functioning as a router.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -43,15 +41,15 @@ the /etc/sysctl.d/ directory (or modify the line to have the required value):
     # sysctl --system
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204630'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204630'
   tag 'legacy_id': 'V-72319'
-  tag rid: 'SV-86943r2_rule'
-  tag stig_id: 'RHEL-07-040830'
-  tag fix_id: 'F-78673r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204630r603261_rule'
+  tag 'stig_id': 'RHEL-07-040830'
+  tag 'fix_id': 'F-4754r89083_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   describe.one do
     describe kernel_parameter('net.ipv6.conf.all.accept_source_route') do

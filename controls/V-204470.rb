@@ -1,11 +1,9 @@
 control 'V-204470' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that all local interactive user home directories are group-owned by the home
-directory owners primary group."
-  desc  "If the Group Identifier (GID) of a local interactive user's home
-directory is not the same as the primary GID of the user, this would allow
-unauthorized access to the user's files, and users that share the same group
-may not be able to access files that they legitimately should."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that all local interactive user home
+    directories are group-owned by the home directory owners primary group.'
+  desc "If the Group Identifier (GID) of a local interactive user's home directory is not the same as the primary
+    GID of the user, this would allow unauthorized access to the user's files, and users that share the same group may
+    not be able to access files that they legitimately should."
   desc  'rationale', ''
   desc  'check',
     "
@@ -40,15 +38,15 @@ of \"/home/smithj\", and has a primary group of users.
     # chgrp users /home/smithj
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204470'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204470'
   tag 'legacy_id': 'V-72021'
-  tag rid: 'SV-86645r5_rule'
-  tag stig_id: 'RHEL-07-020650'
-  tag fix_id: 'F-78373r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204470r603832_rule'
+  tag 'stig_id': 'RHEL-07-020650'
+  tag 'fix_id': 'F-4594r88603_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')

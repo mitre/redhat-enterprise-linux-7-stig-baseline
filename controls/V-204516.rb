@@ -1,12 +1,9 @@
 control 'V-204516' do
-  title "The Red Hat Enterprise Linux operating system must audit all
-executions of privileged functions."
-  desc  "Misuse of privileged functions, either intentionally or
-unintentionally by authorized users, or by unauthorized external entities that
-have compromised information system accounts, is a serious and ongoing concern
-and can have significant adverse impacts on organizations. Auditing the use of
-privileged functions is one way to detect such misuse and identify the risk
-from insider threats and the advanced persistent threat."
+  title 'The Red Hat Enterprise Linux operating system must audit all executions of privileged functions.'
+  desc 'Misuse of privileged functions, either intentionally or unintentionally by authorized users, or by
+    unauthorized external entities that have compromised information system accounts, is a serious and ongoing concern
+    and can have significant adverse impacts on organizations. Auditing the use of privileged functions is one way to
+    detect such misuse and identify the risk from insider threats and the advanced persistent threat.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -42,15 +39,15 @@ functions.
     The audit daemon must be restarted for the changes to take effect.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000327-GPOS-00127'
-  tag gid: 'V-204516'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000327-GPOS-00127'
+  tag 'gid': 'V-204516'
   tag 'legacy_id': 'V-72095'
-  tag rid: 'SV-86719r7_rule'
-  tag stig_id: 'RHEL-07-030360'
-  tag fix_id: 'F-78447r9_fix'
-  tag cci: ['CCI-002234']
-  tag nist: ['AC-6 (9)']
+  tag 'rid': 'SV-204516r603261_rule'
+  tag 'stig_id': 'RHEL-07-030360'
+  tag 'fix_id': 'F-4640r88741_fix'
+  tag 'cci': ['CCI-002234']
+  tag 'nist': ['AC-6 (9)']
 
   # All execve calls should use 'always,exit'
   describe auditd.syscall('execve') do

@@ -1,9 +1,8 @@
 control 'V-204463' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that all files and directories have a valid owner."
-  desc  "Unowned files and directories may be unintentionally inherited if a
-user is assigned the same User Identifier \"UID\" as the UID of the un-owned
-files."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that all files and directories have a
+    valid owner.'
+  desc 'Unowned files and directories may be unintentionally inherited if a user is assigned the same User
+    Identifier "UID" as the UID of the un-owned files.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -27,15 +26,15 @@ system with the \"chown\" command:
     # chown <user> <file>
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204463'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204463'
   tag 'legacy_id': 'V-72007'
-  tag rid: 'SV-86631r3_rule'
-  tag stig_id: 'RHEL-07-020320'
-  tag fix_id: 'F-78359r1_fix'
-  tag cci: ['CCI-002165']
-  tag nist: ['AC-3 (4)']
+  tag 'rid': 'SV-204463r603261_rule'
+  tag 'stig_id': 'RHEL-07-020320'
+  tag 'fix_id': 'F-4587r88582_fix'
+  tag 'cci': ['CCI-002165']
+  tag 'nist': ['AC-3 (4)']
 
   command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'')
     .stdout.strip.split("\n").each do |fs|

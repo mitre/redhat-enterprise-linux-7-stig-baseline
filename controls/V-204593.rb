@@ -1,10 +1,8 @@
 control 'V-204593' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that the SSH daemon does not allow authentication using known hosts
-authentication."
-  desc  "Configuring this setting for the SSH daemon provides additional
-assurance that remote logon via SSH will require a password, even in the event
-of misconfiguration elsewhere."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that the SSH daemon does not allow
+    authentication using known hosts authentication.'
+  desc 'Configuring this setting for the SSH daemon provides additional assurance that remote logon via SSH will
+    require a password, even in the event of misconfiguration elsewhere.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -34,15 +32,15 @@ and set the value to \"yes\":
     The SSH service must be restarted for changes to take effect.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204593'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204593'
   tag 'legacy_id': 'V-72249'
-  tag rid: 'SV-86873r3_rule'
-  tag stig_id: 'RHEL-07-040380'
-  tag fix_id: 'F-78603r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204593r603261_rule'
+  tag 'stig_id': 'RHEL-07-040380'
+  tag 'fix_id': 'F-4717r88972_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   describe sshd_config do
     its('IgnoreUserKnownHosts') { should cmp 'yes' }

@@ -1,18 +1,11 @@
 control 'V-214801' do
-  title "The Red Hat Enterprise Linux operating system must use a virus scan
-program."
-  desc  "Virus scanning software can be used to protect a system from
-penetration from computer viruses and to limit their spread through
-intermediate systems.
-
-    The virus scanning software should be configured to perform scans
-dynamically on accessed files. If this capability is not available, the system
-must be configured to scan, at a minimum, all altered files on the system on a
-daily basis.
-
-    If the system processes inbound SMTP mail, the virus scanner must be
-configured to scan all received mail.
-  "
+  title 'The Red Hat Enterprise Linux operating system must use a virus scan program.'
+  desc 'Virus scanning software can be used to protect a system from penetration from computer viruses and to limit
+    their spread through intermediate systems.
+    The virus scanning software should be configured to perform scans dynamically on accessed files. If this capability
+    is not available, the system must be configured to scan, at a minimum, all altered files on the system on a daily
+    basis.
+    If the system processes inbound SMTP mail, the virus scanner must be configured to scan all received mail.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -24,15 +17,15 @@ finding.
   "
   desc 'fix', 'Install an antivirus solution on the system.'
   impact 0.7
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-214801'
+  tag 'severity': 'high'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-214801'
   tag 'legacy_id': 'V-72213'
-  tag rid: 'SV-86837r3_rule'
-  tag stig_id: 'RHEL-07-032000'
-  tag fix_id: 'F-78567r2_fix'
-  tag cci: ['CCI-001668']
-  tag nist: ['SI-3 a']
+  tag 'rid': 'SV-214801r603261_rule'
+  tag 'stig_id': 'RHEL-07-032000'
+  tag 'fix_id': 'F-15999r192369_fix'
+  tag 'cci': ['CCI-001668']
+  tag 'nist': ['SI-3 a']
 
   custom_antivirus = input('custom_antivirus')
 

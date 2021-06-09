@@ -1,8 +1,8 @@
 control 'V-204605' do
-  title "The Red Hat Enterprise Linux operating system must display the date
-and time of the last successful account logon upon logon."
-  desc  "Providing users with feedback on when account accesses last occurred
-facilitates user recognition and reporting of unauthorized account use."
+  title 'The Red Hat Enterprise Linux operating system must display the date and time of the last successful account
+    logon upon logon.'
+  desc 'Providing users with feedback on when account accesses last occurred facilitates user recognition and
+    reporting of unauthorized account use.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -29,15 +29,15 @@ account accesses last occurred by setting the required configuration options in
     session required pam_lastlog.so showfailed
   "
   impact 0.3
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204605'
+  tag 'severity': 'low'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204605'
   tag 'legacy_id': 'V-72275'
-  tag rid: 'SV-86899r4_rule'
-  tag stig_id: 'RHEL-07-040530'
-  tag fix_id: 'F-78629r4_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204605r603261_rule'
+  tag 'stig_id': 'RHEL-07-040530'
+  tag 'fix_id': 'F-4729r89008_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   describe pam('/etc/pam.d/postlogin') do
     its('lines') { should match_pam_rule('session .* pam_lastlog.so showfailed') }

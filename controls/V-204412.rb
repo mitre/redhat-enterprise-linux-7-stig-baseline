@@ -1,17 +1,12 @@
 control 'V-204412' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that when passwords are changed a minimum of four character classes must be
-changed."
-  desc  "Use of a complex password helps to increase the time and resources
-required to compromise the password. Password complexity, or strength, is a
-measure of the effectiveness of a password in resisting attempts at guessing
-and brute-force attacks.
-
-    Password complexity is one factor of several that determines how long it
-takes to crack a password. The more complex the password, the greater the
-number of possible combinations that need to be tested before the password is
-compromised.
-  "
+  title 'The Red Hat Enterprise Linux operating system must be configured so that when passwords are changed a
+    minimum of four character classes must be changed.'
+  desc 'Use of a complex password helps to increase the time and resources required to compromise the password.
+    Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing
+    and brute-force attacks.
+    Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
+    the password, the greater the number of possible combinations that need to be tested before the password is
+    compromised.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -37,15 +32,15 @@ the line to have the required value):
     minclass = 4
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000072-GPOS-00040'
-  tag gid: 'V-204412'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000072-GPOS-00040'
+  tag 'gid': 'V-204412'
   tag 'legacy_id': 'V-71913'
-  tag rid: 'SV-86537r2_rule'
-  tag stig_id: 'RHEL-07-010170'
-  tag fix_id: 'F-78265r1_fix'
-  tag cci: ['CCI-000195']
-  tag nist: ['IA-5 (1) (b)']
+  tag 'rid': 'SV-204412r603261_rule'
+  tag 'stig_id': 'RHEL-07-010170'
+  tag 'fix_id': 'F-4536r88429_fix'
+  tag 'cci': ['CCI-000195']
+  tag 'nist': ['IA-5 (1) (b)']
 
   describe parse_config_file('/etc/security/pwquality.conf') do
     its('minclass.to_i') { should cmp >= 4 }

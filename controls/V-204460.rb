@@ -1,10 +1,8 @@
 control 'V-204460' do
-  title "The Red Hat Enterprise Linux operating system must not have
-unnecessary accounts."
-  desc  "Accounts providing no operational purpose provide additional
-opportunities for system compromise. Unnecessary accounts include user accounts
-for individuals not requiring access to the system and application accounts for
-applications not installed on the system."
+  title 'The Red Hat Enterprise Linux operating system must not have unnecessary accounts.'
+  desc 'Accounts providing no operational purpose provide additional opportunities for system compromise.
+    Unnecessary accounts include user accounts for individuals not requiring access to the system and application
+    accounts for applications not installed on the system.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -44,15 +42,15 @@ allow for a normal user to perform administrative-level actions.
     Document all authorized accounts on the system.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204460'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204460'
   tag 'legacy_id': 'V-72001'
-  tag rid: 'SV-86625r2_rule'
-  tag stig_id: 'RHEL-07-020270'
-  tag fix_id: 'F-78353r1_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204460r603261_rule'
+  tag 'stig_id': 'RHEL-07-020270'
+  tag 'fix_id': 'F-4584r88573_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   known_system_accounts = input('known_system_accounts')
   user_accounts = input('user_accounts')

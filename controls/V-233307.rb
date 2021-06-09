@@ -8,11 +8,11 @@ control 'V-233307' do
   impact 0.5
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag satisfies: nil
+  tag 'satisfies': nil
   tag 'gid': 'V-233307'
   tag 'rid': 'SV-233307r603301_rule'
   tag 'stig_id': 'RHEL-07-040711'
-  tag 'fix_id': 'F-36466r603300_fix'
+  tag 'fix_id': 'F-36466r622234_fix'
   tag 'cci': ['CCI-000366']
   tag 'false_negatives': nil
   tag 'false_positives': nil
@@ -34,7 +34,7 @@ control 'V-233307' do
     value to "yes" (this file may be named differently or be in a different location if using a version of SSH that is
     provided by a third-party vendor):
     X11UseLocalhost yes'
-  
+
   describe sshd_config do
     its('X11UseLocalhost') { should eq 'yes' }
   end

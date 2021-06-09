@@ -1,14 +1,11 @@
 control 'V-204426' do
-  title "The Red Hat Enterprise Linux operating system must disable account
-identifiers (individuals, groups, roles, and devices) if the password expires."
-  desc  "Inactive identifiers pose a risk to systems and applications because
-attackers may exploit an inactive identifier and potentially obtain undetected
-access to the system. Owners of inactive accounts will not notice if
-unauthorized access to their user account has been obtained.
-
-    Operating systems need to track periods of inactivity and disable
-application identifiers after zero days of inactivity.
-  "
+  title 'The Red Hat Enterprise Linux operating system must disable account identifiers (individuals, groups, roles,
+    and devices) if the password expires.'
+  desc 'Inactive identifiers pose a risk to systems and applications because attackers may exploit an inactive
+    identifier and potentially obtain undetected access to the system. Owners of inactive accounts will not notice if
+    unauthorized access to their user account has been obtained.
+    Operating systems need to track periods of inactivity and disable application identifiers after zero days of
+    inactivity.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -35,15 +32,15 @@ have the required value):
     INACTIVE=0
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000118-GPOS-00060'
-  tag gid: 'V-204426'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000118-GPOS-00060'
+  tag 'gid': 'V-204426'
   tag 'legacy_id': 'V-71941'
-  tag rid: 'SV-86565r2_rule'
-  tag stig_id: 'RHEL-07-010310'
-  tag fix_id: 'F-78293r1_fix'
-  tag cci: ['CCI-000795']
-  tag nist: ['IA-4 e']
+  tag 'rid': 'SV-204426r603261_rule'
+  tag 'stig_id': 'RHEL-07-010310'
+  tag 'fix_id': 'F-4550r88471_fix'
+  tag 'cci': ['CCI-000795']
+  tag 'nist': ['IA-4 e']
 
   days_of_inactivity = input('days_of_inactivity')
 

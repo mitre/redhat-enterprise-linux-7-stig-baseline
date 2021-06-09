@@ -10,15 +10,12 @@ control 'V-228564' do
   impact 0.5
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000057-GPOS-00027'
-  tag 'satisfies': %w(SRG-OS-000057-GPOS-00027
-                      SRG-OS-000058-GPOS-00028
-                      SRG-OS-000059-GPOS-00029
-                      SRG-OS-000206-GPOS-00084)
+  tag 'satisfies': ['SRG-OS-000057-GPOS-00027', 'SRG-OS-000058-GPOS-00028', 'SRG-OS-000059-GPOS-00029', 'SRG-OS-000206-GPOS-00084']
   tag 'gid': 'V-228564'
   tag 'rid': 'SV-228564r606407_rule'
   tag 'stig_id': 'RHEL-07-910055'
   tag 'fix_id': 'F-23603r419770_fix'
-  tag 'cci': %w(CCI-001314 CCI-000162 CCI-000163 CCI-000164)
+  tag 'cci': ['CCI-001314', 'CCI-000162', 'CCI-000163', 'CCI-000164']
   tag 'false_negatives': nil
   tag 'false_positives': nil
   tag 'documentable': false
@@ -45,7 +42,7 @@ control 'V-228564' do
     Change the owner and group owner of the audit log files with the following command:
     # chown root:root [audit_file]'
 
-  describe directory('/var/log/audit') do |filename|
+  describe directory('/var/log/audit') do |_filename|
     its('owner') { should eq 'root' }
     its('group') { should eq 'root' }
     it { should_not be_more_permissive_than('0600') }

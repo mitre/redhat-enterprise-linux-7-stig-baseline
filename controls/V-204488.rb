@@ -1,12 +1,10 @@
 control 'V-204488' do
-  title "The Red Hat Enterprise Linux operating system must set the umask value
-to 077 for all local interactive user accounts."
-  desc  "The umask controls the default access mode assigned to newly created
-files. A umask of 077 limits new files to mode 700 or less permissive. Although
-umask can be represented as a four-digit number, the first digit representing
-special access modes is typically ignored or required to be \"0\". This
-requirement applies to the globally configured system defaults and the local
-interactive user defaults for each account on the system."
+  title 'The Red Hat Enterprise Linux operating system must set the umask value to 077 for all local interactive
+    user accounts.'
+  desc 'The umask controls the default access mode assigned to newly created files. A umask of 077 limits new files
+    to mode 700 or less permissive. Although umask can be represented as a four-digit number, the first digit
+    representing special access modes is typically ignored or required to be "0". This requirement applies to the
+    globally configured system defaults and the local interactive user defaults for each account on the system.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -40,19 +38,15 @@ user to the application account with the correct option to gain the account's
 environment variables.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204488'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204488'
   tag 'legacy_id': 'V-72049'
-  tag rid: 'SV-86673r2_rule'
-  tag stig_id: 'RHEL-07-021040'
-  tag fix_id: 'F-78401r3_fix'
-  tag cci: %w(CCI-000318
-              CCI-000368
-              CCI-001812
-              CCI-001813
-              CCI-001814)
-  tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
+  tag 'rid': 'SV-204488r603261_rule'
+  tag 'stig_id': 'RHEL-07-021040'
+  tag 'fix_id': 'F-4612r88657_fix'
+  tag 'cci': ['CCI-000318', 'CCI-000368', 'CCI-001813', 'CCI-001814', 'CCI-001812']
+  tag 'nist': ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
 
   non_interactive_shells = input('non_interactive_shells')
 

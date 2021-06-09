@@ -1,17 +1,12 @@
 control 'V-204398' do
-  title "The Red Hat Enterprise Linux operating system must initiate a
-screensaver after a 15-minute period of inactivity for graphical user
-interfaces."
-  desc  "A session time-out lock is a temporary action taken when a user stops
-work and moves away from the immediate physical vicinity of the information
-system but does not log out because of the temporary nature of the absence.
-Rather than relying on the user to manually lock their operating system session
-prior to vacating the vicinity, operating systems need to be able to identify
-when a user's session has idled and take action to initiate the session lock.
-
-    The session lock is implemented at the point where session activity can be
-determined and/or controlled.
-  "
+  title 'The Red Hat Enterprise Linux operating system must initiate a screensaver after a 15-minute period of
+    inactivity for graphical user interfaces.'
+  desc "A session time-out lock is a temporary action taken when a user stops work and moves away from the immediate
+    physical vicinity of the information system but does not log out because of the temporary nature of the absence.
+    Rather than relying on the user to manually lock their operating system session prior to vacating the vicinity,
+    operating systems need to be able to identify when a user's session has idled and take action to initiate the
+    session lock.
+    The session lock is implemented at the point where session activity can be determined and/or controlled."
   desc  'rationale', ''
   desc  'check',
     "
@@ -58,15 +53,15 @@ lines:
 effect.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000029-GPOS-00010'
-  tag gid: 'V-204398'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000029-GPOS-00010'
+  tag 'gid': 'V-204398'
   tag 'legacy_id': 'V-71893'
-  tag rid: 'SV-86517r5_rule'
-  tag stig_id: 'RHEL-07-010070'
-  tag fix_id: 'F-78245r5_fix'
-  tag cci: ['CCI-000057']
-  tag nist: ['AC-11 a']
+  tag 'rid': 'SV-204398r603261_rule'
+  tag 'stig_id': 'RHEL-07-010070'
+  tag 'fix_id': 'F-4522r88387_fix'
+  tag 'cci': ['CCI-000057']
+  tag 'nist': ['AC-11 a']
 
   if package('gnome-desktop3').installed?
     describe command("gsettings get org.gnome.desktop.session idle-delay | cut -d ' ' -f2") do

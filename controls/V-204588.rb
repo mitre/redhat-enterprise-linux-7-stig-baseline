@@ -1,10 +1,8 @@
 control 'V-204588' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that the SSH daemon does not allow authentication using RSA rhosts
-authentication."
-  desc  "Configuring this setting for the SSH daemon provides additional
-assurance that remote logon via SSH will require a password, even in the event
-of misconfiguration elsewhere."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that the SSH daemon does not allow
+    authentication using RSA rhosts authentication.'
+  desc 'Configuring this setting for the SSH daemon provides additional assurance that remote logon via SSH will
+    require a password, even in the event of misconfiguration elsewhere.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -39,15 +37,15 @@ and set the value to \"no\":
     The SSH service must be restarted for changes to take effect.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204588'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204588'
   tag 'legacy_id': 'V-72239'
-  tag rid: 'SV-86863r4_rule'
-  tag stig_id: 'RHEL-07-040330'
-  tag fix_id: 'F-78593r4_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204588r603261_rule'
+  tag 'stig_id': 'RHEL-07-040330'
+  tag 'fix_id': 'F-4712r88957_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   describe sshd_config do
     its('RhostsRSAAuthentication') { should cmp 'no' }

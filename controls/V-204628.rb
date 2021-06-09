@@ -1,10 +1,8 @@
 control 'V-204628' do
-  title "The Red Hat Enterprise Linux operating system access control program
-must be configured to grant or deny system access to specific hosts and
-services."
-  desc  "If the systems access control program is not configured with
-appropriate rules for allowing and denying access to system network resources,
-services may be accessible to unauthorized hosts."
+  title 'The Red Hat Enterprise Linux operating system access control program must be configured to grant or deny
+    system access to specific hosts and services.'
+  desc 'If the systems access control program is not configured with appropriate rules for allowing and denying
+    access to system network resources, services may be accessible to unauthorized hosts.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -70,15 +68,15 @@ allowing specific services and hosts.
 specific hosts.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204628'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204628'
   tag 'legacy_id': 'V-72315'
-  tag rid: 'SV-86939r3_rule'
-  tag stig_id: 'RHEL-07-040810'
-  tag fix_id: 'F-78669r3_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204628r603261_rule'
+  tag 'stig_id': 'RHEL-07-040810'
+  tag 'fix_id': 'F-4752r89077_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   firewalld_services = input('firewalld_services')
   firewalld_hosts_allow = input('firewalld_hosts_allow')

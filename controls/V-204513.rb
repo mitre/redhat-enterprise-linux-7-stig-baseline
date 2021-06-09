@@ -1,11 +1,9 @@
 control 'V-204513' do
-  title "The Red Hat Enterprise Linux operating system must initiate an action
-to notify the System Administrator (SA) and Information System Security Officer
-ISSO, at a minimum, when allocated audit record storage volume reaches 75% of
-the repository maximum audit record storage capacity."
-  desc  "If security personnel are not notified immediately when storage volume
-reaches 75 percent utilization, they are unable to plan for audit record
-storage capacity expansion."
+  title 'The Red Hat Enterprise Linux operating system must initiate an action to notify the System Administrator
+    (SA) and Information System Security Officer ISSO, at a minimum, when allocated audit record storage volume reaches
+    75% of the repository maximum audit record storage capacity.'
+  desc 'If security personnel are not notified immediately when storage volume reaches 75 percent utilization, they
+    are unable to plan for audit record storage capacity expansion.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -62,15 +60,15 @@ the example being \"/var/log/audit/\"):
 to 25 percent of the partition size.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000343-GPOS-00134'
-  tag gid: 'V-204513'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000343-GPOS-00134'
+  tag 'gid': 'V-204513'
   tag 'legacy_id': 'V-72089'
-  tag rid: 'SV-86713r4_rule'
-  tag stig_id: 'RHEL-07-030330'
-  tag fix_id: 'F-78441r3_fix'
-  tag cci: ['CCI-001855']
-  tag nist: ['AU-5 (1)']
+  tag 'rid': 'SV-204513r603261_rule'
+  tag 'stig_id': 'RHEL-07-030330'
+  tag 'fix_id': 'F-4637r88732_fix'
+  tag 'cci': ['CCI-001855']
+  tag 'nist': ['AU-5 (1)']
 
   if (f = file(audit_log_dir = command("dirname #{auditd_conf.log_file}").stdout.strip)).directory?
     # Fetch partition sizes in 1K blocks for consistency

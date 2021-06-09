@@ -1,16 +1,12 @@
 control 'V-204576' do
-  title "The Red Hat Enterprise Linux operating system must limit the number of
-concurrent sessions to 10 for all accounts and/or account types."
-  desc  "Operating system management includes the ability to control the number
-of users and user sessions that utilize an operating system. Limiting the
-number of allowed users and sessions per user is helpful in reducing the risks
-related to DoS attacks.
-
-    This requirement addresses concurrent sessions for information system
-accounts and does not address concurrent sessions by single users via multiple
-system accounts. The maximum number of concurrent sessions should be defined
-based on mission needs and the operational environment for each system.
-  "
+  title 'The Red Hat Enterprise Linux operating system must limit the number of concurrent sessions to 10 for all
+    accounts and/or account types.'
+  desc 'Operating system management includes the ability to control the number of users and user sessions that
+    utilize an operating system. Limiting the number of allowed users and sessions per user is helpful in reducing the
+    risks related to DoS attacks.
+    This requirement addresses concurrent sessions for information system accounts and does not address concurrent
+    sessions by single users via multiple system accounts. The maximum number of concurrent sessions should be defined
+    based on mission needs and the operational environment for each system.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -39,15 +35,15 @@ to \"10\" for all accounts and/or account types.
     * hard maxlogins 10
   "
   impact 0.3
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000027-GPOS-00008'
-  tag gid: 'V-204576'
+  tag 'severity': 'low'
+  tag 'gtitle': 'SRG-OS-000027-GPOS-00008'
+  tag 'gid': 'V-204576'
   tag 'legacy_id': 'V-72217'
-  tag rid: 'SV-86841r3_rule'
-  tag stig_id: 'RHEL-07-040000'
-  tag fix_id: 'F-78571r2_fix'
-  tag cci: ['CCI-000054']
-  tag nist: ['AC-10']
+  tag 'rid': 'SV-204576r603261_rule'
+  tag 'stig_id': 'RHEL-07-040000'
+  tag 'fix_id': 'F-4700r88921_fix'
+  tag 'cci': ['CCI-000054']
+  tag 'nist': ['AC-10']
 
   maxlogins_limit = input('maxlogins_limit')
 

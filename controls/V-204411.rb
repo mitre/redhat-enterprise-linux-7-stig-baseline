@@ -1,17 +1,12 @@
 control 'V-204411' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that when passwords are changed a minimum of eight of the total number of
-characters must be changed."
-  desc  "Use of a complex password helps to increase the time and resources
-required to compromise the password. Password complexity, or strength, is a
-measure of the effectiveness of a password in resisting attempts at guessing
-and brute-force attacks.
-
-    Password complexity is one factor of several that determines how long it
-takes to crack a password. The more complex the password, the greater the
-number of possible combinations that need to be tested before the password is
-compromised.
-  "
+  title 'The Red Hat Enterprise Linux operating system must be configured so that when passwords are changed a
+    minimum of eight of the total number of characters must be changed.'
+  desc 'Use of a complex password helps to increase the time and resources required to compromise the password.
+    Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing
+    and brute-force attacks.
+    Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
+    the password, the greater the number of possible combinations that need to be tested before the password is
+    compromised.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -38,15 +33,15 @@ line to have the required value):
     difok = 8
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000072-GPOS-00040'
-  tag gid: 'V-204411'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000072-GPOS-00040'
+  tag 'gid': 'V-204411'
   tag 'legacy_id': 'V-71911'
-  tag rid: 'SV-86535r2_rule'
-  tag stig_id: 'RHEL-07-010160'
-  tag fix_id: 'F-78263r1_fix'
-  tag cci: ['CCI-000195']
-  tag nist: ['IA-5 (1) (b)']
+  tag 'rid': 'SV-204411r603261_rule'
+  tag 'stig_id': 'RHEL-07-010160'
+  tag 'fix_id': 'F-4535r88426_fix'
+  tag 'cci': ['CCI-000195']
+  tag 'nist': ['IA-5 (1) (b)']
 
   difok = input('difok')
 

@@ -1,11 +1,9 @@
 control 'V-204420' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that passwords for new users are restricted to a 60-day maximum lifetime."
-  desc  "Any password, no matter how complex, can eventually be cracked.
-Therefore, passwords need to be changed periodically. If the operating system
-does not limit the lifetime of passwords and force users to change their
-passwords, there is the risk that the operating system passwords could be
-compromised."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that passwords for new users are
+    restricted to a 60-day maximum lifetime.'
+  desc 'Any password, no matter how complex, can eventually be cracked. Therefore, passwords need to be changed
+    periodically. If the operating system does not limit the lifetime of passwords and force users to change their
+    passwords, there is the risk that the operating system passwords could be compromised.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -34,15 +32,15 @@ the required value):
     PASS_MAX_DAYS     60
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000076-GPOS-00044'
-  tag gid: 'V-204420'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000076-GPOS-00044'
+  tag 'gid': 'V-204420'
   tag 'legacy_id': 'V-71929'
-  tag rid: 'SV-86553r2_rule'
-  tag stig_id: 'RHEL-07-010250'
-  tag fix_id: 'F-78281r1_fix'
-  tag cci: ['CCI-000199']
-  tag nist: ['IA-5 (1) (d)']
+  tag 'rid': 'SV-204420r603261_rule'
+  tag 'stig_id': 'RHEL-07-010250'
+  tag 'fix_id': 'F-4544r88453_fix'
+  tag 'cci': ['CCI-000199']
+  tag 'nist': ['IA-5 (1) (d)']
 
   if command("grep 'pam_unix.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'optional'").stdout.empty? && command("grep 'pam_permit.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'required'").stdout.empty?
     describe login_defs do

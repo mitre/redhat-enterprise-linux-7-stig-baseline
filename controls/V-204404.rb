@@ -1,16 +1,12 @@
 control 'V-204404' do
-  title "The Red Hat Enterprise Linux operating system must initiate a session
-lock for graphical user interfaces when the screensaver is activated."
-  desc  "A session time-out lock is a temporary action taken when a user stops
-work and moves away from the immediate physical vicinity of the information
-system but does not log out because of the temporary nature of the absence.
-Rather than relying on the user to manually lock their operating system session
-prior to vacating the vicinity, operating systems need to be able to identify
-when a user's session has idled and take action to initiate the session lock.
-
-    The session lock is implemented at the point where session activity can be
-determined and/or controlled.
-  "
+  title 'The Red Hat Enterprise Linux operating system must initiate a session lock for graphical user interfaces
+    when the screensaver is activated.'
+  desc "A session time-out lock is a temporary action taken when a user stops work and moves away from the immediate
+    physical vicinity of the information system but does not log out because of the temporary nature of the absence.
+    Rather than relying on the user to manually lock their operating system session prior to vacating the vicinity,
+    operating systems need to be able to identify when a user's session has idled and take action to initiate the
+    session lock.
+    The session lock is implemented at the point where session activity can be determined and/or controlled."
   desc  'rationale', ''
   desc  'check',
     "
@@ -55,15 +51,15 @@ does not already exist) with the following command:
 effect.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000029-GPOS-00010'
-  tag gid: 'V-204404'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000029-GPOS-00010'
+  tag 'gid': 'V-204404'
   tag 'legacy_id': 'V-71901'
-  tag rid: 'SV-86525r3_rule'
-  tag stig_id: 'RHEL-07-010110'
-  tag fix_id: 'F-78253r2_fix'
-  tag cci: ['CCI-000057']
-  tag nist: ['AC-11 a']
+  tag 'rid': 'SV-204404r603261_rule'
+  tag 'stig_id': 'RHEL-07-010110'
+  tag 'fix_id': 'F-4528r88405_fix'
+  tag 'cci': ['CCI-000057']
+  tag 'nist': ['AC-11 a']
 
   if package('gnome-desktop3').installed?
     describe command("gsettings get org.gnome.desktop.screensaver lock-delay | cut -d ' ' -f2") do

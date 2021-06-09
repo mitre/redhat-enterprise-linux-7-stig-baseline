@@ -1,13 +1,11 @@
 control 'V-204599' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that the SSH daemon does not permit Kerberos authentication unless needed."
-  desc  "Kerberos authentication for SSH is often implemented using Generic
-Security Service Application Program Interface (GSSAPI). If Kerberos is enabled
-through SSH, the SSH daemon provides a means of access to the system's Kerberos
-implementation. Vulnerabilities in the system's Kerberos implementation may
-then be subject to exploitation. To reduce the attack surface of the system,
-the Kerberos authentication mechanism within SSH must be disabled for systems
-not using this capability."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that the SSH daemon does not permit
+    Kerberos authentication unless needed.'
+  desc "Kerberos authentication for SSH is often implemented using Generic Security Service Application Program
+    Interface (GSSAPI). If Kerberos is enabled through SSH, the SSH daemon provides a means of access to the system's
+    Kerberos implementation. Vulnerabilities in the system's Kerberos implementation may then be subject to
+    exploitation. To reduce the attack surface of the system, the Kerberos authentication mechanism within SSH must be
+    disabled for systems not using this capability."
   desc  'rationale', ''
   desc  'check',
     "
@@ -39,19 +37,15 @@ vendor) and set the value to \"no\":
 the location of the configuration file, with the ISSO.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000364-GPOS-00151'
-  tag gid: 'V-204599'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000364-GPOS-00151'
+  tag 'gid': 'V-204599'
   tag 'legacy_id': 'V-72261'
-  tag rid: 'SV-86885r3_rule'
-  tag stig_id: 'RHEL-07-040440'
-  tag fix_id: 'F-78615r2_fix'
-  tag cci: %w(CCI-000318
-              CCI-000368
-              CCI-001812
-              CCI-001813
-              CCI-001814)
-  tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
+  tag 'rid': 'SV-204599r603261_rule'
+  tag 'stig_id': 'RHEL-07-040440'
+  tag 'fix_id': 'F-4723r88990_fix'
+  tag 'cci': ['CCI-000368', 'CCI-001813', 'CCI-001812', 'CCI-001814', 'CCI-000318']
+  tag 'nist': ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
 
   describe sshd_config do
     its('KerberosAuthentication') { should cmp 'no' }

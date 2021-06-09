@@ -1,12 +1,9 @@
 control 'V-204415' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that the PAM system service is configured to store only encrypted
-representations of passwords."
-  desc  "Passwords need to be protected at all times, and encryption is the
-standard method for protecting passwords. If passwords are not encrypted, they
-can be plainly read (i.e., clear text) and easily compromised. Passwords
-encrypted with a weak algorithm are no more protected than if they are kept in
-plain text."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that the PAM system service is
+    configured to store only encrypted representations of passwords.'
+  desc 'Passwords need to be protected at all times, and encryption is the standard method for protecting passwords.
+    If passwords are not encrypted, they can be plainly read (i.e., clear text) and easily compromised. Passwords
+    encrypted with a weak algorithm are no more protected than if they are kept in plain text.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -45,15 +42,15 @@ representations of passwords.
 the configurations listed in this requirement.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000073-GPOS-00041'
-  tag gid: 'V-204415'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000073-GPOS-00041'
+  tag 'gid': 'V-204415'
   tag 'legacy_id': 'V-71919'
-  tag rid: 'SV-86543r3_rule'
-  tag stig_id: 'RHEL-07-010200'
-  tag fix_id: 'F-78271r4_fix'
-  tag cci: ['CCI-000196']
-  tag nist: ['IA-5 (1) (c)']
+  tag 'rid': 'SV-204415r603261_rule'
+  tag 'stig_id': 'RHEL-07-010200'
+  tag 'fix_id': 'F-4539r88438_fix'
+  tag 'cci': ['CCI-000196']
+  tag 'nist': ['IA-5 (1) (c)']
 
   describe pam('/etc/pam.d/system-auth') do
     its('lines') { should match_pam_rule('password sufficient pam_unix.so sha512') }

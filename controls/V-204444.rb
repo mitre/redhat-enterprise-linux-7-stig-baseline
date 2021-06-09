@@ -1,18 +1,12 @@
 control 'V-204444' do
-  title "The Red Hat Enterprise Linux operating system must prevent
-non-privileged users from executing privileged functions to include disabling,
-circumventing, or altering implemented security safeguards/countermeasures."
-  desc  "Preventing non-privileged users from executing privileged functions
-mitigates the risk that unauthorized individuals or processes may gain
-unnecessary access to information or privileges.
-
-    Privileged functions include, for example, establishing accounts,
-performing system integrity checks, or administering cryptographic key
-management activities. Non-privileged users are individuals who do not possess
-appropriate authorizations. Circumventing intrusion detection and prevention
-mechanisms or malicious code protection mechanisms are examples of privileged
-functions that require protection from non-privileged users.
-  "
+  title 'The Red Hat Enterprise Linux operating system must prevent non-privileged users from executing privileged
+    functions to include disabling, circumventing, or altering implemented security safeguards/countermeasures.'
+  desc 'Preventing non-privileged users from executing privileged functions mitigates the risk that unauthorized
+    individuals or processes may gain unnecessary access to information or privileges.
+    Privileged functions include, for example, establishing accounts, performing system integrity checks, or
+    administering cryptographic key management activities. Non-privileged users are individuals who do not possess
+    appropriate authorizations. Circumventing intrusion detection and prevention mechanisms or malicious code protection
+    mechanisms are examples of privileged functions that require protection from non-privileged users.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -73,15 +67,15 @@ implemented security safeguards/countermeasures.
     # semanage login -m -s user_u <username>
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000324-GPOS-00125'
-  tag gid: 'V-204444'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000324-GPOS-00125'
+  tag 'gid': 'V-204444'
   tag 'legacy_id': 'V-71971'
-  tag rid: 'SV-86595r2_rule'
-  tag stig_id: 'RHEL-07-020020'
-  tag fix_id: 'F-78323r1_fix'
-  tag cci: %w(CCI-002165 CCI-002235)
-  tag nist: ['AC-3 (4)', 'AC-6 (10)']
+  tag 'rid': 'SV-204444r603261_rule'
+  tag 'stig_id': 'RHEL-07-020020'
+  tag 'fix_id': 'F-4568r462535_fix'
+  tag 'cci': ['CCI-002235', 'CCI-002165']
+  tag 'nist': ['AC-3 (4)', 'AC-6 (10)']
 
   admin_logins = input('admin_logins')
 

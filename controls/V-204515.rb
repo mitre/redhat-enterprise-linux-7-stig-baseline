@@ -1,11 +1,10 @@
 control 'V-204515' do
-  title "The Red Hat Enterprise Linux operating system must immediately notify
-the System Administrator (SA) and Information System Security Officer (ISSO)
-(at a minimum) when the threshold for the repository maximum audit record
-storage capacity is reached."
-  desc  "If security personnel are not notified immediately when the threshold
-for the repository maximum audit record storage capacity is reached, they are
-unable to expand the audit record storage capacity before records are lost."
+  title 'The Red Hat Enterprise Linux operating system must immediately notify the System Administrator (SA) and
+    Information System Security Officer (ISSO) (at a minimum) when the threshold for the repository maximum audit record
+    storage capacity is reached.'
+  desc 'If security personnel are not notified immediately when the threshold for the repository maximum audit
+    record storage capacity is reached, they are unable to expand the audit record storage capacity before records are
+    lost.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -36,15 +35,15 @@ with security personnel.
     action_mail_acct = root
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000343-GPOS-00134'
-  tag gid: 'V-204515'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000343-GPOS-00134'
+  tag 'gid': 'V-204515'
   tag 'legacy_id': 'V-72093'
-  tag rid: 'SV-86717r3_rule'
-  tag stig_id: 'RHEL-07-030350'
-  tag fix_id: 'F-78445r3_fix'
-  tag cci: ['CCI-001855']
-  tag nist: ['AU-5 (1)']
+  tag 'rid': 'SV-204515r603261_rule'
+  tag 'stig_id': 'RHEL-07-030350'
+  tag 'fix_id': 'F-4639r88738_fix'
+  tag 'cci': ['CCI-001855']
+  tag 'nist': ['AU-5 (1)']
 
   describe auditd_conf do
     its('action_mail_acct') { should cmp 'root' }

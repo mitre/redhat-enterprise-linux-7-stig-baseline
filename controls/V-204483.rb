@@ -1,12 +1,10 @@
 control 'V-204483' do
-  title "The Red Hat Enterprise Linux operating system must prevent binary
-files from being executed on file systems that are being imported via Network
-File System (NFS)."
-  desc  "The \"noexec\" mount option causes the system to not execute binary
-files. This option must be used for mounting any file system not containing
-approved binary files as they may be incompatible. Executing files from
-untrusted file systems increases the opportunity for unprivileged users to
-attain unauthorized administrative access."
+  title 'The Red Hat Enterprise Linux operating system must prevent binary files from being executed on file systems
+    that are being imported via Network File System (NFS).'
+  desc 'The "noexec" mount option causes the system to not execute binary files. This option must be used for
+    mounting any file system not containing approved binary files as they may be incompatible. Executing files from
+    untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative
+    access.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -36,15 +34,15 @@ operational requirement, this is a finding.
     "Configure the \"/etc/fstab\" to use the \"noexec\" option on
 file systems that are being imported via NFS."
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204483'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204483'
   tag 'legacy_id': 'V-73161'
-  tag rid: 'SV-87813r2_rule'
-  tag stig_id: 'RHEL-07-021021'
-  tag fix_id: 'F-79607r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204483r603261_rule'
+  tag 'stig_id': 'RHEL-07-021021'
+  tag 'fix_id': 'F-4607r88642_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   nfs_systems = etc_fstab.nfs_file_systems.entries
   if !nfs_systems.nil? && !nfs_systems.empty?

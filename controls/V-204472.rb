@@ -1,10 +1,9 @@
 control 'V-204472' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that all files and directories contained in local interactive user home
-directories are group-owned by a group of which the home directory owner is a
-member."
-  desc  "If a local interactive user's files are group-owned by a group of
-which the user is not a member, unintended users may be able to access them."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that all files and directories
+    contained in local interactive user home directories are group-owned by a group of which the home directory owner is
+    a member.'
+  desc "If a local interactive user's files are group-owned by a group of which the user is not a member, unintended
+    users may be able to access them."
   desc  'rationale', ''
   desc  'check',
     "
@@ -45,15 +44,15 @@ local interactive user's files and directories, use the following command:
     # chgrp users /home/smithj/<file>
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204472'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204472'
   tag 'legacy_id': 'V-72025'
-  tag rid: 'SV-86649r2_rule'
-  tag stig_id: 'RHEL-07-020670'
-  tag fix_id: 'F-78377r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204472r603261_rule'
+  tag 'stig_id': 'RHEL-07-020670'
+  tag 'fix_id': 'F-4596r88609_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')

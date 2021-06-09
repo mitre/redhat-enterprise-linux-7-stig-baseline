@@ -6,13 +6,13 @@ control 'V-219059' do
   impact 0.5
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000114-GPOS-00059'
-  tag 'satisfies': %w(SRG-OS-000114-GPOS-00059 SRG-OS-000378-GPOS-00163 SRG-OS-000480-GPOS-00227)
+  tag 'satisfies': ['SRG-OS-000114-GPOS-00059', 'SRG-OS-000378-GPOS-00163', 'SRG-OS-000480-GPOS-00227']
   tag 'gid': 'V-219059'
   tag 'legacy_id': 'V-100023'
   tag 'rid': 'SV-219059r603261_rule'
   tag 'stig_id': 'RHEL-07-020111'
   tag 'fix_id': 'F-36318r602663_fix'
-  tag 'cci': %w(CCI-001958 CCI-000778 CCI-000366)
+  tag 'cci': ['CCI-001958', 'CCI-000778', 'CCI-000366']
   tag 'false_negatives': nil
   tag 'false_positives': nil
   tag 'documentable': false
@@ -68,7 +68,7 @@ control 'V-219059' do
   else
     impact 0.0
     describe 'The system does not have GNOME installed' do
-      skip "The system does not have GNOME installed, this requirement is Not Applicable."
+      skip 'The system does not have GNOME installed, this requirement is Not Applicable.'
     end
   end
 end

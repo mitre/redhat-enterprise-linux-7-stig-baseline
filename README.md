@@ -13,29 +13,29 @@ Latest versions and installation options are available at the [InSpec](http://in
 The following inputs may be configured in an inputs ".yml" file for the profile to run correctly for your specific environment. More information about InSpec inputs can be found in the [InSpec Profile Documentation](https://www.inspec.io/docs/reference/profiles/).
 
 ```
-# Used by InSpec checks V-71849, V-71855, V-72037
-# InSpec Tests that are known to consistently have long run times (V-71849, V-71855, V-72037) can be disabled with this attribute
+# Used by InSpec checks V-204392, V-214799, V-204478
+# InSpec Tests that are known to consistently have long run times (V-204392, V-214799, V-204478) can be disabled with this attribute
 # Acceptable values: false, true
 # (default: false)
 disable_slow_controls: 
 
-# Used by InSpec check V-71849
+# V-204392
 # list of system files that should be allowed to change from an rpm verify point of view
 rpm_verify_perms_except: []
 
-# Used by InSpec check V-71855
+# V-214799
 # list of system files that should be allowed to change from an rpm verify point of view
 rpm_verify_integrity_except: []
 
-# Used by InSpec check V-72211 (default: false)
+# V-204575 (default: false)
 # Do NOT set to 'true' UNLESS the server is documented as being used as a log aggregation server. 
 log_aggregation_server: 
 
-# Used by InSpec check V-72047 (default: [])
+# V-204487 (default: [])
 # Known application groups that are allowed to have world-writeable files or directories
 application_groups: []
 
-# Used by InSpec check V-72307 (default: false)
+# V-204624 (default: false)
 # Do NOT set to 'true' UNLESS use of X Windows System is documented and approved. 
 x11_enabled: 
 
@@ -59,21 +59,21 @@ known_system_accounts:
     "systemd-bus-proxy",
   ]
 
-# V-71965, V-72417, V-72433
+# V-204441, V-204631, V-204633
 # (enabled or disabled)
 smart_card_status: "enabled"
 
-# V-72051/V-72209
+# V-204489/V-204574
 # The path to the logging package
 log_pkg_path: "/etc/rsyslog.conf"
 
-# V-72011, V-72015, V-72017, V-72019, V-72021, V-72023, V-72025
-# V-72027, V-72029, V-72031, V-72033, V-72035, V-72037, V-72059
+# V-204467, V-204468, V-204469, V-204470, V-204471, V-204472
+# V-204473, V-204474, V-204475, V-204476, V-204477, V-204478, V-204493
 # Users exempt from home directory-based controls in array
 # format
 exempt_home_users: []
 
-# V-71961
+# V-204436
 # main grub boot config file
 grub_main_cfg: "/boot/grub2/grub.cfg"
 
@@ -83,7 +83,7 @@ grub_superusers: ["root"]
 # grub boot config files
 grub_user_boot_files: ["/boot/grub2/user.cfg"]
 
-# V-71963
+# V-204439
 # superusers for efi boot ( array )
 efi_superusers: ["root"]
 
@@ -93,20 +93,20 @@ efi_user_boot_files: ["/boot/efi/EFI/redhat/user.cfg"]
 # main efi boot config file
 efi_main_cfg: "/boot/efi/EFI/redhat/grub.cfg"
 
-# V-71971
+# V-204444
 # system accounts that support approved system activities
 admin_logins: []
 
-# V-77819
+# V-204397
 # should dconf have smart card authentication (e.g., true or false <- no quotes!)
 multifactor_enabled: true
 
-# V-72317
+# V-204629
 # approved configured tunnels prepended with word 'conn'
 # Example: ['conn myTunnel']
 approved_tunnels: []
 
-# V-72039
+# V-204479
 # Is the target expected to be a virtual machine
 virtual_machine: false
 
@@ -118,9 +118,9 @@ input (mentioned above in the user-defined inputs) in the profile to allow you t
 
 The input `disable_slow_controls (bool: false)` can be set to `true` or `false` as needed in a <name_of_your_input_file>.yml file.
 
-* `V-71849` (~3 minutes)
-* `V-71855` (~3 minutes)
-* `V-72037` (10+ minutes)
+* `V-204392` (~3 minutes)
+* `V-214799` (~3 minutes)
+* `V-204478` (10+ minutes)
 
 ## Running This Profile Directly from Github
 
@@ -280,7 +280,7 @@ profiles in `spec/fixtures/inspec_profiles` during testing.
 3. If the tests are not found when running `kitchen verify`, open
    `.kitchen.yml` and consult `inspec_tests` under the `suites` section.
 
-4) You may also experience an error when running `kitchen converge` where a
+4. You may also experience an error when running `kitchen converge` where a
    folder is unable to be created due to the length of the path. In this case,
    you may need to edit a registry key as explained
    [here](https://www.howtogeek.com/266621/how-to-make-windows-10-accept-file-paths-over-260-characters/).

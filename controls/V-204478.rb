@@ -1,9 +1,11 @@
 control 'V-204478' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that local initialization files do not execute world-writable programs."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that local initialization files do not
+    execute world-writable programs.'
   if input('disable_slow_controls')
-    desc "This control consistently takes a long to run and has been disabled
-          using the disable_slow_controls attribute."
+    desc 'If user start-up files execute world-writable programs, especially in unprotected directories, they could be
+    maliciously modified to destroy user files or otherwise compromise the system at the user level. If the system is
+    compromised at the user level, it is easier to elevate privileges to eventually compromise the system at the root
+    and network level.'
   else
     desc "If user start-up files execute world-writable programs, especially in
 unprotected directories, they could be maliciously modified to destroy user
@@ -40,15 +42,15 @@ the following command:
     # chmod 0755 <file>
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204478'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204478'
   tag 'legacy_id': 'V-72037'
-  tag rid: 'SV-86661r2_rule'
-  tag stig_id: 'RHEL-07-020730'
-  tag fix_id: 'F-78389r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204478r603261_rule'
+  tag 'stig_id': 'RHEL-07-020730'
+  tag 'fix_id': 'F-4602r88627_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')
@@ -56,10 +58,10 @@ the following command:
   if input('disable_slow_controls')
     describe "This control consistently takes a long to run and has been disabled
   using the disable_slow_controls attribute." do
-    skip "This control consistently takes a long to run and has been disabled
+      skip "This control consistently takes a long to run and has been disabled
   using the disable_slow_controls attribute. You must enable this control for a
   full accredidation for production."
-  end
+    end
   else
     ignore_shells = non_interactive_shells.join('|')
 

@@ -1,10 +1,10 @@
 control 'V-204595' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that the SSH daemon is configured to only use Message Authentication Codes
-(MACs) employing FIPS 140-2 approved cryptographic hash algorithms."
-  desc  "DoD information systems are required to use FIPS 140-2 approved
-cryptographic hash functions. The only SSHv2 hash algorithm meeting this
-requirement is SHA."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that the SSH daemon is configured to
+    only use Message Authentication Codes (MACs) employing FIPS 140-2 approved cryptographic hash algorithms.'
+  desc 'DoD information systems are required to use FIPS 140-2 approved cryptographic hash functions. The only SSHv2
+    hash algorithm meeting this requirement is SHA.
+    By specifying a hash algorithm list with the order of hashes being in a “strongest to weakest” orientation, the
+    system will automatically attempt to use the strongest hash for securing SSH connections.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -36,15 +36,15 @@ location if using a version of SSH that is provided by a third-party vendor):
     The SSH service must be restarted for changes to take effect.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000250-GPOS-00093'
-  tag gid: 'V-204595'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000250-GPOS-00093'
+  tag 'gid': 'V-204595'
   tag 'legacy_id': 'V-72253'
-  tag rid: 'SV-86877r3_rule'
-  tag stig_id: 'RHEL-07-040400'
-  tag fix_id: 'F-78607r2_fix'
-  tag cci: ['CCI-001453']
-  tag nist: ['AC-17 (2)']
+  tag 'rid': 'SV-204595r603846_rule'
+  tag 'stig_id': 'RHEL-07-040400'
+  tag 'fix_id': 'F-4719r622309_fix'
+  tag 'cci': ['CCI-001453']
+  tag 'nist': ['AC-17 (2)']
 
   @macs = inspec.sshd_config.params('macs')
   if @macs.nil?

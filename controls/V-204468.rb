@@ -1,9 +1,8 @@
 control 'V-204468' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that all local interactive user home directories have mode 0750 or less
-permissive."
-  desc  "Excessive permissions on local interactive user home directories may
-allow unauthorized access to user files by other users."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that all local interactive user home
+    directories have mode 0750 or less permissive.'
+  desc 'Excessive permissions on local interactive user home directories may allow unauthorized access to user files
+    by other users.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -34,15 +33,15 @@ command:
     # chmod 0750 /home/smithj
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204468'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204468'
   tag 'legacy_id': 'V-72017'
-  tag rid: 'SV-86641r3_rule'
-  tag stig_id: 'RHEL-07-020630'
-  tag fix_id: 'F-78369r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204468r603828_rule'
+  tag 'stig_id': 'RHEL-07-020630'
+  tag 'fix_id': 'F-4592r88597_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')

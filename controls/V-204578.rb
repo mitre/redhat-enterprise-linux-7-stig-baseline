@@ -1,20 +1,15 @@
 control 'V-204578' do
-  title "The Red Hat Enterprise Linux operating system must use a FIPS 140-2
-approved cryptographic algorithm for SSH communications."
-  desc  "Unapproved mechanisms that are used for authentication to the
-cryptographic module are not verified and therefore cannot be relied upon to
-provide confidentiality or integrity, and DoD data may be compromised.
-
-    Operating systems utilizing encryption are required to use FIPS-compliant
-mechanisms for authenticating to cryptographic modules.
-
-    FIPS 140-2 is the current standard for validating that mechanisms used to
-access cryptographic modules utilize authentication that meets DoD
-requirements. This allows for Security Levels 1, 2, 3, or 4 for use on a
-general purpose computing system.
-
-
-  "
+  title 'The Red Hat Enterprise Linux 7 operating system must implement DoD-approved encryption to protect the
+    confidentiality of SSH connections.'
+  desc 'Unapproved mechanisms that are used for authentication to the cryptographic module are not verified and
+    therefore cannot be relied upon to provide confidentiality or integrity, and DoD data may be compromised.
+    Operating systems utilizing encryption are required to use FIPS-compliant mechanisms for authenticating to
+    cryptographic modules.
+    FIPS 140-2 is the current standard for validating that mechanisms used to access cryptographic modules utilize
+    authentication that meets DoD requirements. This allows for Security Levels 1, 2, 3, or 4 for use on a general
+    purpose computing system.
+    By specifying a cipher list with the order of ciphers being in a “strongest to weakest” orientation, the system will
+    automatically attempt to use the strongest cipher for securing SSH connections.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -52,20 +47,16 @@ third-party vendor).
     The SSH service must be restarted for changes to take effect.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000033-GPOS-00014'
-  tag satisfies: %w(SRG-OS-000033-GPOS-00014
-                    SRG-OS-000120-GPOS-00061
-                    SRG-OS-000125-GPOS-00065
-                    SRG-OS-000250-GPOS-00093
-                    SRG-OS-000393-GPOS-00173)
-  tag gid: 'V-204578'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000033-GPOS-00014'
+  tag 'satisfies': ['SRG-OS-000033-GPOS-00014', 'SRG-OS-000120-GPOS-00061', 'SRG-OS-000125-GPOS-00065', 'SRG-OS-000250-GPOS-00093', 'SRG-OS-000393-GPOS-00173']
+  tag 'gid': 'V-204578'
   tag 'legacy_id': 'V-72221'
-  tag rid: 'SV-86845r3_rule'
-  tag stig_id: 'RHEL-07-040110'
-  tag fix_id: 'F-78575r3_fix'
-  tag cci: %w(CCI-000068 CCI-000366 CCI-000803)
-  tag nist: ['AC-17 (2)', 'CM-6 b', 'IA-7']
+  tag 'rid': 'SV-204578r603843_rule'
+  tag 'stig_id': 'RHEL-07-040110'
+  tag 'fix_id': 'F-4702r622306_fix'
+  tag 'cci': ['CCI-000366', 'CCI-000803', 'CCI-000068']
+  tag 'nist': ['AC-17 (2)', 'CM-6 b', 'IA-7']
 
   @ciphers_array = inspec.sshd_config.params['ciphers']
 

@@ -1,10 +1,9 @@
 control 'V-204625' do
-  title "The Red Hat Enterprise Linux operating system must not be performing
-packet forwarding unless the system is a router."
-  desc  "Routing protocol daemons are typically used on routers to exchange
-network topology information with other routers. If this software is used when
-not required, system network information may be unnecessarily transmitted
-across the network."
+  title 'The Red Hat Enterprise Linux operating system must not be performing packet forwarding unless the system is
+    a router.'
+  desc 'Routing protocol daemons are typically used on routers to exchange network topology information with other
+    routers. If this software is used when not required, system network information may be unnecessarily transmitted
+    across the network.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -41,15 +40,15 @@ directory (or modify the line to have the required value):
     # sysctl --system
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204625'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204625'
   tag 'legacy_id': 'V-72309'
-  tag rid: 'SV-86933r2_rule'
-  tag stig_id: 'RHEL-07-040740'
-  tag fix_id: 'F-78663r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204625r603261_rule'
+  tag 'stig_id': 'RHEL-07-040740'
+  tag 'fix_id': 'F-4749r89068_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   describe kernel_parameter('net.ipv4.ip_forward') do
     its('value') { should eq 0 }

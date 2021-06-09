@@ -1,12 +1,10 @@
 control 'V-204482' do
-  title "The Red Hat Enterprise Linux operating system must prevent files with
-the setuid and setgid bit set from being executed on file systems that are
-being imported via Network File System (NFS)."
-  desc  "The \"nosuid\" mount option causes the system to not execute
-\"setuid\" and \"setgid\" files with owner privileges. This option must be used
-for mounting any file system not containing approved \"setuid\" and \"setguid\"
-files. Executing files from untrusted file systems increases the opportunity
-for unprivileged users to attain unauthorized administrative access."
+  title 'The Red Hat Enterprise Linux operating system must prevent files with the setuid and setgid bit set from
+    being executed on file systems that are being imported via Network File System (NFS).'
+  desc 'The "nosuid" mount option causes the system to not execute "setuid" and "setgid" files with owner
+    privileges. This option must be used for mounting any file system not containing approved "setuid" and "setguid"
+    files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain
+    unauthorized administrative access.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -32,15 +30,15 @@ the \"nosuid\" option set, this is a finding.
     "Configure the \"/etc/fstab\" to use the \"nosuid\" option on
 file systems that are being imported via NFS."
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204482'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204482'
   tag 'legacy_id': 'V-72045'
-  tag rid: 'SV-86669r2_rule'
-  tag stig_id: 'RHEL-07-021020'
-  tag fix_id: 'F-78397r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204482r603261_rule'
+  tag 'stig_id': 'RHEL-07-021020'
+  tag 'fix_id': 'F-4606r88639_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   nfs_systems = etc_fstab.nfs_file_systems.entries
   if !nfs_systems.nil? && !nfs_systems.empty?

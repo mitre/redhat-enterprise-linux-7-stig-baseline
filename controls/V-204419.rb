@@ -1,11 +1,10 @@
 control 'V-204419' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that passwords are restricted to a 24 hours/1 day minimum lifetime."
-  desc  "Enforcing a minimum password lifetime helps to prevent repeated
-password changes to defeat the password reuse or history enforcement
-requirement. If users are allowed to immediately and continually change their
-password, the password could be repeatedly changed in a short period of time to
-defeat the organization's policy regarding password reuse."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that passwords are restricted to a 24
+    hours/1 day minimum lifetime.'
+  desc "Enforcing a minimum password lifetime helps to prevent repeated password changes to defeat the password
+    reuse or history enforcement requirement. If users are allowed to immediately and continually change their password,
+    the password could be repeatedly changed in a short period of time to defeat the organization's policy regarding
+    password reuse."
   desc  'rationale', ''
   desc  'check',
     "
@@ -25,15 +24,15 @@ password lifetime:
     # chage -m 1 [user]
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000075-GPOS-00043'
-  tag gid: 'V-204419'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000075-GPOS-00043'
+  tag 'gid': 'V-204419'
   tag 'legacy_id': 'V-71927'
-  tag rid: 'SV-86551r2_rule'
-  tag stig_id: 'RHEL-07-010240'
-  tag fix_id: 'F-78279r1_fix'
-  tag cci: ['CCI-000198']
-  tag nist: ['IA-5 (1) (d)']
+  tag 'rid': 'SV-204419r603261_rule'
+  tag 'stig_id': 'RHEL-07-010240'
+  tag 'fix_id': 'F-4543r88450_fix'
+  tag 'cci': ['CCI-000198']
+  tag 'nist': ['IA-5 (1) (d)']
 
   shadow.users.each do |user|
     # filtering on non-system accounts (uid >= 1000)

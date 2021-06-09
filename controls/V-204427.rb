@@ -1,13 +1,8 @@
 control 'V-204427' do
-  title "The Red Hat Enterprise Linux operating system must be configured to
-lock accounts for a minimum of 15 minutes after three unsuccessful logon
-attempts within a 15-minute timeframe."
-  desc  "By limiting the number of failed logon attempts, the risk of
-unauthorized system access via user password guessing, otherwise known as
-brute-forcing, is reduced. Limits are imposed by locking the account.
-
-
-  "
+  title 'The Red Hat Enterprise Linux operating system must be configured to lock accounts for a minimum of 15
+    minutes after three unsuccessful logon attempts within a 15-minute timeframe.'
+  desc 'By limiting the number of failed logon attempts, the risk of unauthorized system access via user password
+    guessing, otherwise known as brute-forcing, is reduced. Limits are imposed by locking the account.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -93,16 +88,16 @@ fail_interval=900 unlock_time=900
 the configurations listed in this requirement.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000329-GPOS-00128'
-  tag satisfies: %w(SRG-OS-000329-GPOS-00128 SRG-OS-000021-GPOS-00005)
-  tag gid: 'V-204427'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000329-GPOS-00128'
+  tag 'satisfies': ['SRG-OS-000329-GPOS-00128', 'SRG-OS-000021-GPOS-00005']
+  tag 'gid': 'V-204427'
   tag 'legacy_id': 'V-71943'
-  tag rid: 'SV-86567r5_rule'
-  tag stig_id: 'RHEL-07-010320'
-  tag fix_id: 'F-78295r5_fix'
-  tag cci: %w(CCI-000044 CCI-002236 CCI-002237 CCI-002238)
-  tag nist: ['AC-7 a', 'AC-7 b', 'AC-7 b', 'AC-7 b']
+  tag 'rid': 'SV-204427r603824_rule'
+  tag 'stig_id': 'RHEL-07-010320'
+  tag 'fix_id': 'F-4551r622287_fix'
+  tag 'cci': ['CCI-000044', 'CCI-002236', 'CCI-002237', 'CCI-002238']
+  tag 'nist': ['AC-7 a', 'AC-7 b', 'AC-7 b', 'AC-7 b']
 
   describe pam('/etc/pam.d/password-auth') do
     its('lines') do

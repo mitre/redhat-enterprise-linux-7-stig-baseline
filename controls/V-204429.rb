@@ -1,14 +1,10 @@
 control 'V-204429' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that users must provide a password for privilege escalation."
-  desc  "Without re-authentication, users may access resources or perform tasks
-for which they do not have authorization.
-
-    When operating systems provide the capability to escalate a functional
-capability, it is critical the user re-authenticate.
-
-
-  "
+  title 'The Red Hat Enterprise Linux operating system must be configured so that users must provide a password for
+    privilege escalation.'
+  desc 'Without re-authentication, users may access resources or perform tasks for which they do not have
+    authorization.
+    When operating systems provide the capability to escalate a functional capability, it is critical the user
+    re-authenticate.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -42,18 +38,16 @@ command:
     Remove any occurrences of \"NOPASSWD\" tags in the file.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000373-GPOS-00156'
-  tag satisfies: %w(SRG-OS-000373-GPOS-00156
-                    SRG-OS-000373-GPOS-00157
-                    SRG-OS-000373-GPOS-00158)
-  tag gid: 'V-204429'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000373-GPOS-00156'
+  tag 'satisfies': ['SRG-OS-000373-GPOS-00156', 'SRG-OS-000373-GPOS-00157', 'SRG-OS-000373-GPOS-00158']
+  tag 'gid': 'V-204429'
   tag 'legacy_id': 'V-71947'
-  tag rid: 'SV-86571r3_rule'
-  tag stig_id: 'RHEL-07-010340'
-  tag fix_id: 'F-78299r2_fix'
-  tag cci: ['CCI-002038']
-  tag nist: ['IA-11']
+  tag 'rid': 'SV-204429r603261_rule'
+  tag 'stig_id': 'RHEL-07-010340'
+  tag 'fix_id': 'F-36303r602619_fix'
+  tag 'cci': ['CCI-002038']
+  tag 'nist': ['IA-11']
 
   processed = []
   to_process = ['/etc/sudoers', '/etc/sudoers.d']

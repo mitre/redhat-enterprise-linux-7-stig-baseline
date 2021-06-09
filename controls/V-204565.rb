@@ -1,15 +1,11 @@
 control 'V-204565' do
-  title "The Red Hat Enterprise Linux operating system must generate audit
-records for all account creations, modifications, disabling, and termination
-events that affect /etc/group."
-  desc  "Without generating audit records that are specific to the security and
-mission needs of the organization, it would be difficult to establish,
-correlate, and investigate the events relating to an incident or identify those
-responsible for one.
-
-    Audit records can be generated from various components within the
-information system (e.g., module or policy filter).
-  "
+  title 'The Red Hat Enterprise Linux operating system must generate audit records for all account creations,
+    modifications, disabling, and termination events that affect /etc/group.'
+  desc 'Without generating audit records that are specific to the security and mission needs of the organization, it
+    would be difficult to establish, correlate, and investigate the events relating to an incident or identify those
+    responsible for one.
+    Audit records can be generated from various components within the information system (e.g., module or policy
+    filter).'
   desc  'rationale', ''
   desc  'check',
     "
@@ -39,15 +35,15 @@ creations, modifications, disabling, and termination events that affect
 
     The audit daemon must be restarted for the changes to take effect.
   "
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000004-GPOS-00004'
-  tag gid: 'V-204565'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000004-GPOS-00004'
+  tag 'gid': 'V-204565'
   tag 'legacy_id': 'V-73165'
-  tag rid: 'SV-87817r3_rule'
-  tag stig_id: 'RHEL-07-030871'
-  tag fix_id: 'F-79611r3_fix'
-  tag cci: %w(CCI-000018 CCI-000172 CCI-001403 CCI-002130)
-  tag nist: ['AC-2 (4)', 'AU-12 c', 'AC-2 (4)', 'AC-2 (4)']
+  tag 'rid': 'SV-204565r603261_rule'
+  tag 'stig_id': 'RHEL-07-030871'
+  tag 'fix_id': 'F-4689r88888_fix'
+  tag 'cci': ['CCI-001403', 'CCI-000018', 'CCI-000172', 'CCI-002130']
+  tag 'nist': ['AC-2 (4)', 'AU-12 c', 'AC-2 (4)', 'AC-2 (4)']
 
   audit_file = '/etc/group'
 

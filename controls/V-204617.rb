@@ -1,10 +1,9 @@
 control 'V-204617' do
-  title "The Red Hat Enterprise Linux operating system must not send Internet
-Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) redirects."
-  desc  "ICMP redirect messages are used by routers to inform hosts that a more
-direct route exists for a particular destination. These messages contain
-information from the system's route table, possibly revealing portions of the
-network topology."
+  title 'The Red Hat Enterprise Linux operating system must not send Internet Protocol version 4 (IPv4) Internet
+    Control Message Protocol (ICMP) redirects.'
+  desc "ICMP redirect messages are used by routers to inform hosts that a more direct route exists for a particular
+    destination. These messages contain information from the system's route table, possibly revealing portions of the
+    network topology."
   desc  'rationale', ''
   desc  'check',
     "
@@ -41,15 +40,15 @@ directory (or modify the line to have the required value):
     # sysctl --system
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204617'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204617'
   tag 'legacy_id': 'V-72293'
-  tag rid: 'SV-86917r3_rule'
-  tag stig_id: 'RHEL-07-040660'
-  tag fix_id: 'F-78647r3_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204617r603261_rule'
+  tag 'stig_id': 'RHEL-07-040660'
+  tag 'fix_id': 'F-4741r89044_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   describe kernel_parameter('net.ipv4.conf.all.send_redirects') do
     its('value') { should eq 0 }

@@ -1,9 +1,8 @@
 control 'V-204437' do
-  title "The Red Hat Enterprise Linux operating system must require
-authentication upon booting into single-user and maintenance modes."
-  desc  "If the system does not require valid root authentication before it
-boots into single-user or maintenance mode, anyone who invokes single-user or
-maintenance mode is granted privileged access to all files on the system."
+  title 'The Red Hat Enterprise Linux operating system must require authentication upon booting into single-user and
+    maintenance modes.'
+  desc 'If the system does not require valid root authentication before it boots into single-user or maintenance
+    mode, anyone who invokes single-user or maintenance mode is granted privileged access to all files on the system.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -33,15 +32,15 @@ single-user and maintenance modes.
 --no-block default\"
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000080-GPOS-00048'
-  tag gid: 'V-204437'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000080-GPOS-00048'
+  tag 'gid': 'V-204437'
   tag 'legacy_id': 'V-77823'
-  tag rid: 'SV-92519r2_rule'
-  tag stig_id: 'RHEL-07-010481'
-  tag fix_id: 'F-84523r2_fix'
-  tag cci: ['CCI-000213']
-  tag nist: ['AC-3']
+  tag 'rid': 'SV-204437r603261_rule'
+  tag 'stig_id': 'RHEL-07-010481'
+  tag 'fix_id': 'F-4561r88504_fix'
+  tag 'cci': ['CCI-000213']
+  tag 'nist': ['AC-3']
 
   describe command('grep -i execstart /usr/lib/systemd/system/rescue.service') do
     its('stdout.strip') { should match %r{/usr/sbin/sulogin} }

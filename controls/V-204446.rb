@@ -1,19 +1,13 @@
 control 'V-204446' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that designated personnel are notified if baseline configurations are changed
-in an unauthorized manner."
-  desc  "Unauthorized changes to the baseline configuration could make the
-system vulnerable to various attacks or allow unauthorized access to the
-operating system. Changes to operating system configurations can have
-unintended side effects, some of which may be relevant to security.
-
-    Detecting such changes and providing an automated response can help avoid
-unintended, negative consequences that could ultimately affect the security
-state of the operating system. The operating system's Information Management
-Officer (IMO)/Information System Security Officer (ISSO) and System
-Administrators (SAs) must be notified via email and/or monitoring system trap
-when there is an unauthorized modification of a configuration item.
-  "
+  title 'The Red Hat Enterprise Linux operating system must be configured so that designated personnel are notified
+    if baseline configurations are changed in an unauthorized manner.'
+  desc "Unauthorized changes to the baseline configuration could make the system vulnerable to various attacks or
+    allow unauthorized access to the operating system. Changes to operating system configurations can have unintended
+    side effects, some of which may be relevant to security.
+    Detecting such changes and providing an automated response can help avoid unintended, negative consequences that
+    could ultimately affect the security state of the operating system. The operating system's Information Management
+    Officer (IMO)/Information System Security Officer (ISSO) and System Administrators (SAs) must be notified via email
+    and/or monitoring system trap when there is an unauthorized modification of a configuration item."
   desc  'rationale', ''
   desc  'check',
     "
@@ -74,15 +68,15 @@ and to send email at the completion of the analysis.
 check run\" root@sysname.mil
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000363-GPOS-00150'
-  tag gid: 'V-204446'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000363-GPOS-00150'
+  tag 'gid': 'V-204446'
   tag 'legacy_id': 'V-71975'
-  tag rid: 'SV-86599r2_rule'
-  tag stig_id: 'RHEL-07-020040'
-  tag fix_id: 'F-78327r3_fix'
-  tag cci: ['CCI-001744']
-  tag nist: ['CM-3 (5)']
+  tag 'rid': 'SV-204446r603261_rule'
+  tag 'stig_id': 'RHEL-07-020040'
+  tag 'fix_id': 'F-36305r602625_fix'
+  tag 'cci': ['CCI-001744']
+  tag 'nist': ['CM-3 (5)']
 
   file_integrity_tool = input('file_integrity_tool')
 

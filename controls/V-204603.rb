@@ -1,25 +1,14 @@
 control 'V-204603' do
-  title "The Red Hat Enterprise Linux operating system must, for networked
-systems, synchronize clocks with a server that is synchronized to one of the
-redundant United States Naval Observatory (USNO) time servers, a time server
-designated for the appropriate DoD network (NIPRNet/SIPRNet), and/or the Global
-Positioning System (GPS)."
-  desc  "Inaccurate time stamps make it more difficult to correlate events and
-can lead to an inaccurate analysis. Determining the correct time a particular
-event occurred on a system is critical when conducting forensic analysis and
-investigating system events. Sources outside the configured acceptable
-allowance (drift) may be inaccurate.
-
-    Synchronizing internal information system clocks provides uniformity of
-time stamps for information systems with multiple system clocks and systems
-connected over a network.
-
-    Organizations should consider endpoints that may not have regular access to
-the authoritative time server (e.g., mobile, teleworking, and tactical
-endpoints).
-
-
-  "
+  title 'The Red Hat Enterprise Linux operating system must, for networked systems, synchronize clocks with a server
+    that is synchronized to one of the redundant United States Naval Observatory (USNO) time servers, a time server
+    designated for the appropriate DoD network (NIPRNet/SIPRNet), and/or the Global Positioning System (GPS).'
+  desc 'Inaccurate time stamps make it more difficult to correlate events and can lead to an inaccurate analysis.
+    Determining the correct time a particular event occurred on a system is critical when conducting forensic analysis
+    and investigating system events. Sources outside the configured acceptable allowance (drift) may be inaccurate.
+    Synchronizing internal information system clocks provides uniformity of time stamps for information systems with
+    multiple system clocks and systems connected over a network.
+    Organizations should consider endpoints that may not have regular access to the authoritative time server (e.g.,
+    mobile, teleworking, and tactical endpoints).'
   desc  'rationale', ''
   desc  'check',
     "
@@ -89,16 +78,16 @@ restarted:
     # systemctl start chronyd.service
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000355-GPOS-00143'
-  tag satisfies: %w(SRG-OS-000355-GPOS-00143 SRG-OS-000356-GPOS-00144)
-  tag gid: 'V-204603'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000355-GPOS-00143'
+  tag 'satisfies': ['SRG-OS-000355-GPOS-00143', 'SRG-OS-000356-GPOS-00144']
+  tag 'gid': 'V-204603'
   tag 'legacy_id': 'V-72269'
-  tag rid: 'SV-86893r5_rule'
-  tag stig_id: 'RHEL-07-040500'
-  tag fix_id: 'F-78623r5_fix'
-  tag cci: %w(CCI-001891 CCI-002046)
-  tag nist: ['AU-8 (1) (a)', 'AU-8 (1) (b)']
+  tag 'rid': 'SV-204603r603261_rule'
+  tag 'stig_id': 'RHEL-07-040500'
+  tag 'fix_id': 'F-4727r89002_fix'
+  tag 'cci': ['CCI-001891', 'CCI-002046']
+  tag 'nist': ['AU-8 (1) (a)', 'AU-8 (1) (b)']
 
   # Either ntpd or chronyd should be running
   describe.one do

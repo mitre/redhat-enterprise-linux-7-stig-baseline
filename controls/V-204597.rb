@@ -1,8 +1,7 @@
 control 'V-204597' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that the SSH private host key files have mode 0640 or less permissive."
-  desc  "If an unauthorized user obtains the private SSH host key file, the
-host could be impersonated."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that the SSH private host key files
+    have mode 0640 or less permissive.'
+  desc 'If an unauthorized user obtains the private SSH host key file, the host could be impersonated.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -28,15 +27,15 @@ list their modes:
 
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204597'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204597'
   tag 'legacy_id': 'V-72257'
-  tag rid: 'SV-86881r3_rule'
-  tag stig_id: 'RHEL-07-040420'
-  tag fix_id: 'F-78611r5_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204597r603261_rule'
+  tag 'stig_id': 'RHEL-07-040420'
+  tag 'fix_id': 'F-4721r88984_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   key_files = command("find /etc/ssh -xdev -name '*ssh_host*key'").stdout.split("\n")
   if !key_files.nil? && !key_files.empty?

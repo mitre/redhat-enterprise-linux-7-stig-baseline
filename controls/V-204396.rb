@@ -1,20 +1,11 @@
 control 'V-204396' do
-  title "The Red Hat Enterprise Linux operating system must enable a user
-session lock until that user re-establishes access using established
-identification and authentication procedures."
-  desc  "A session lock is a temporary action taken when a user stops work and
-moves away from the immediate physical vicinity of the information system but
-does not want to log out because of the temporary nature of the absence.
-
-    The session lock is implemented at the point where session activity can be
-determined.
-
-    Regardless of where the session lock is determined and implemented, once
-invoked, the session lock must remain in place until the user reauthenticates.
-No other activity aside from reauthentication must unlock the system.
-
-
-  "
+  title 'The Red Hat Enterprise Linux operating system must enable a user session lock until that user
+    re-establishes access using established identification and authentication procedures.'
+  desc 'A session lock is a temporary action taken when a user stops work and moves away from the immediate physical
+    vicinity of the information system but does not want to log out because of the temporary nature of the absence.
+    The session lock is implemented at the point where session activity can be determined.
+    Regardless of where the session lock is determined and implemented, once invoked, the session lock must remain in
+    place until the user reauthenticates. No other activity aside from reauthentication must unlock the system.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -59,16 +50,16 @@ and add or update the following lines:
 effect.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000028-GPOS-00009'
-  tag satisfies: %w(SRG-OS-000028-GPOS-00009 SRG-OS-000030-GPOS-00011)
-  tag gid: 'V-204396'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000028-GPOS-00009'
+  tag 'satisfies': ['SRG-OS-000028-GPOS-00009', 'SRG-OS-000030-GPOS-00011']
+  tag 'gid': 'V-204396'
   tag 'legacy_id': 'V-71891'
-  tag rid: 'SV-86515r6_rule'
-  tag stig_id: 'RHEL-07-010060'
-  tag fix_id: 'F-78243r9_fix'
-  tag cci: ['CCI-000056']
-  tag nist: ['AC-11 b']
+  tag 'rid': 'SV-204396r603261_rule'
+  tag 'stig_id': 'RHEL-07-010060'
+  tag 'fix_id': 'F-4520r88381_fix'
+  tag 'cci': ['CCI-000056']
+  tag 'nist': ['AC-11 b']
 
   if package('gnome-desktop3').installed?
     describe command('gsettings get org.gnome.desktop.screensaver lock-enabled') do

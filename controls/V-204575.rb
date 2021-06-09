@@ -1,16 +1,11 @@
 control 'V-204575' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that the rsyslog daemon does not accept log messages from other servers unless
-the server is being used for log aggregation."
-  desc  "Unintentionally running a rsyslog server accepting remote messages
-puts the system at increased risk. Malicious rsyslog messages sent to the
-server could exploit vulnerabilities in the server software itself, could
-introduce misleading information in to the system's logs, or could fill the
-system's storage leading to a Denial of Service.
-
-    If the system is intended to be a log aggregation server its use must be
-documented with the ISSO.
-  "
+  title 'The Red Hat Enterprise Linux operating system must be configured so that the rsyslog daemon does not accept
+    log messages from other servers unless the server is being used for log aggregation.'
+  desc "Unintentionally running a rsyslog server accepting remote messages puts the system at increased risk.
+    Malicious rsyslog messages sent to the server could exploit vulnerabilities in the server software itself, could
+    introduce misleading information in to the system's logs, or could fill the system's storage leading to a Denial of
+    Service.
+    If the system is intended to be a log aggregation server its use must be documented with the ISSO."
   desc  'rationale', ''
   desc  'check',
     "
@@ -38,19 +33,15 @@ log aggregation system, this is a finding.
 imtcp\", \"ModLoad imudp\", and \"ModLoad imrelp\" configuration lines, or
 document the system as being used for log aggregation."
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204575'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204575'
   tag 'legacy_id': 'V-72211'
-  tag rid: 'SV-86835r2_rule'
-  tag stig_id: 'RHEL-07-031010'
-  tag fix_id: 'F-78565r2_fix'
-  tag cci: %w(CCI-000318
-              CCI-000368
-              CCI-001812
-              CCI-001813
-              CCI-001814)
-  tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
+  tag 'rid': 'SV-204575r603261_rule'
+  tag 'stig_id': 'RHEL-07-031010'
+  tag 'fix_id': 'F-4699r88918_fix'
+  tag 'cci': ['CCI-000318', 'CCI-001812', 'CCI-001814', 'CCI-001813', 'CCI-000368']
+  tag 'nist': ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
 
   log_aggregation_server = input('log_aggregation_server')
 

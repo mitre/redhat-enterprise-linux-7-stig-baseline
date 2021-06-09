@@ -1,14 +1,8 @@
 control 'V-204509' do
-  title "The Red Hat Enterprise Linux operating system must off-load audit
-records onto a different system or media from the system being audited."
-  desc  "Information stored in one location is vulnerable to accidental or
-incidental deletion or alteration.
-
-    Off-loading is a common process in information systems with limited audit
-storage capacity.
-
-
-  "
+  title 'The Red Hat Enterprise Linux operating system must off-load audit records onto a different system or media
+    from the system being audited.'
+  desc 'Information stored in one location is vulnerable to accidental or incidental deletion or alteration.
+    Off-loading is a common process in information systems with limited audit storage capacity.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -37,16 +31,16 @@ system or media from the system being audited.
 IP address of the log aggregation server.
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000342-GPOS-00133'
-  tag satisfies: %w(SRG-OS-000342-GPOS-00133 SRG-OS-000479-GPOS-00224)
-  tag gid: 'V-204509'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000342-GPOS-00133'
+  tag 'satisfies': ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
+  tag 'gid': 'V-204509'
   tag 'legacy_id': 'V-72083'
-  tag rid: 'SV-86707r2_rule'
-  tag stig_id: 'RHEL-07-030300'
-  tag fix_id: 'F-78435r1_fix'
-  tag cci: ['CCI-001851']
-  tag nist: ['AU-4 (1)']
+  tag 'rid': 'SV-204509r603261_rule'
+  tag 'stig_id': 'RHEL-07-030300'
+  tag 'fix_id': 'F-4633r88720_fix'
+  tag 'cci': ['CCI-001851']
+  tag 'nist': ['AU-4 (1)']
 
   if file('/etc/audisp/audisp-remote.conf').exist?
     describe parse_config_file('/etc/audisp/audisp-remote.conf') do

@@ -1,10 +1,8 @@
 control 'V-204471' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that all files and directories contained in local interactive user home
-directories are owned by the owner of the home directory."
-  desc  "If local interactive users do not own the files in their directories,
-unauthorized users may be able to access them. Additionally, if files are not
-owned by the user, this could be an indication of system compromise."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that all files and directories
+    contained in local interactive user home directories are owned by the owner of the home directory.'
+  desc 'If local interactive users do not own the files in their directories, unauthorized users may be able to
+    access them. Additionally, if files are not owned by the user, this could be an indication of system compromise.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -37,15 +35,15 @@ directories, use the following command:
     # chown smithj /home/smithj/<file or directory>
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204471'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204471'
   tag 'legacy_id': 'V-72023'
-  tag rid: 'SV-86647r2_rule'
-  tag stig_id: 'RHEL-07-020660'
-  tag fix_id: 'F-78375r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204471r603261_rule'
+  tag 'stig_id': 'RHEL-07-020660'
+  tag 'fix_id': 'F-4595r88606_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')

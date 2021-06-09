@@ -1,12 +1,8 @@
 control 'V-204594' do
-  title "The Red Hat Enterprise Linux operating system must be configured so
-that the SSH daemon is configured to only use the SSHv2 protocol."
-  desc  "SSHv1 is an insecure implementation of the SSH protocol and has many
-well-known vulnerability exploits. Exploits of the SSH daemon could provide
-immediate root access to the system.
-
-
-  "
+  title 'The Red Hat Enterprise Linux operating system must be configured so that the SSH daemon is configured to
+    only use the SSHv2 protocol.'
+  desc 'SSHv1 is an insecure implementation of the SSH protocol and has many well-known vulnerability exploits.
+    Exploits of the SSH daemon could provide immediate root access to the system.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -40,16 +36,16 @@ vendor). The \"Protocol\" line must be as follows:
     The SSH service must be restarted for changes to take effect.
   "
   impact 0.7
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000074-GPOS-00042'
-  tag satisfies: %w(SRG-OS-000074-GPOS-00042 SRG-OS-000480-GPOS-00227)
-  tag gid: 'V-204594'
+  tag 'severity': 'high'
+  tag 'gtitle': 'SRG-OS-000074-GPOS-00042'
+  tag 'satisfies': ['SRG-OS-000074-GPOS-00042', 'SRG-OS-000480-GPOS-00227']
+  tag 'gid': 'V-204594'
   tag 'legacy_id': 'V-72251'
-  tag rid: 'SV-86875r4_rule'
-  tag stig_id: 'RHEL-07-040390'
-  tag fix_id: 'F-78605r2_fix'
-  tag cci: %w(CCI-000197 CCI-000366)
-  tag nist: ['IA-5 (1) (c)', 'CM-6 b']
+  tag 'rid': 'SV-204594r603261_rule'
+  tag 'stig_id': 'RHEL-07-040390'
+  tag 'fix_id': 'F-4718r88975_fix'
+  tag 'cci': ['CCI-000366', 'CCI-000197']
+  tag 'nist': ['IA-5 (1) (c)', 'CM-6 b']
 
   if os.release.to_f >= 7.4
     impact 0.0

@@ -1,16 +1,12 @@
 control 'V-204399' do
-  title "The Red Hat Enterprise Linux operating system must prevent a user from
-  overriding the screensaver lock-delay setting for the graphical user interface."
-  desc "A session time-out lock is a temporary action taken when a user stops
-  work and moves away from the immediate physical vicinity of the information
-  system but does not log out because of the temporary nature of the absence.
-  Rather than relying on the user to manually lock their operating system session
-  prior to vacating the vicinity, operating systems need to be able to identify
-  when a user's session has idled and take action to initiate the session lock.
-
-      The session lock is implemented at the point where session activity can be
-  determined and/or controlled.
-  "
+  title 'The Red Hat Enterprise Linux operating system must prevent a user from overriding the screensaver
+    lock-delay setting for the graphical user interface.'
+  desc "A session time-out lock is a temporary action taken when a user stops work and moves away from the immediate
+    physical vicinity of the information system but does not log out because of the temporary nature of the absence.
+    Rather than relying on the user to manually lock their operating system session prior to vacating the vicinity,
+    operating systems need to be able to identify when a user's session has idled and take action to initiate the
+    session lock.
+    The session lock is implemented at the point where session activity can be determined and/or controlled."
   desc  'rationale', ''
   desc  'check',
     "
@@ -60,15 +56,15 @@ control 'V-204399' do
   "
 
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000029-GPOS-00010'
-  tag gid: 'V-204399'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000029-GPOS-00010'
+  tag 'gid': 'V-204399'
   tag 'legacy_id': 'V-73155'
-  tag rid: 'SV-87807r4_rule'
-  tag stig_id: 'RHEL-07-010081'
-  tag fix_id: 'F-79601r2_fix'
-  tag cci: ['CCI-000057']
-  tag nist: ['AC-11 a']
+  tag 'rid': 'SV-204399r603261_rule'
+  tag 'stig_id': 'RHEL-07-010081'
+  tag 'fix_id': 'F-4523r88390_fix'
+  tag 'cci': ['CCI-000057']
+  tag 'nist': ['AC-11 a']
 
   if package('gnome-desktop3').installed?
     describe command('gsettings writable org.gnome.desktop.screensaver lock-delay') do

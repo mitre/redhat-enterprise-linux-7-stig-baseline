@@ -1,9 +1,7 @@
 control 'V-204489' do
-  title "The Red Hat Enterprise Linux operating system must have cron logging
-implemented."
-  desc  "Cron logging can be used to trace the successful or unsuccessful
-execution of cron jobs. It can also be used to spot intrusions into the use of
-the cron facility by unauthorized and malicious users."
+  title 'The Red Hat Enterprise Linux operating system must have cron logging implemented.'
+  desc 'Cron logging can be used to trace the successful or unsuccessful execution of cron jobs. It can also be used
+    to spot intrusions into the use of the cron facility by unauthorized and malicious users.'
   desc  'rationale', ''
   desc  'check',
     "
@@ -39,15 +37,15 @@ following line to \"/etc/rsyslog.conf\" or a configuration file in the
     cron.* /var/log/cron.log
   "
   impact 0.5
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204489'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
+  tag 'gid': 'V-204489'
   tag 'legacy_id': 'V-72051'
-  tag rid: 'SV-86675r2_rule'
-  tag stig_id: 'RHEL-07-021100'
-  tag fix_id: 'F-78403r2_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag 'rid': 'SV-204489r603261_rule'
+  tag 'stig_id': 'RHEL-07-021100'
+  tag 'fix_id': 'F-4613r88660_fix'
+  tag 'cci': ['CCI-000366']
+  tag 'nist': ['CM-6 b']
 
   log_pkg_path = input('log_pkg_path')
 
