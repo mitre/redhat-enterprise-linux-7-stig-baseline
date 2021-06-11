@@ -42,7 +42,7 @@ control 'V-237634' do
     Defaults !runaspw'
   
   describe command('egrep -i \'(!rootpw|!targetpw|!runaspw)\' /etc/sudoers /etc/sudoers.d/* | grep -v \'#\'') do
-    its('stdout') {should_not contain /#/}
+    its('stdout') {should_not match /#/}
     its('stdout') {should_not eq nil}
   end
 end
