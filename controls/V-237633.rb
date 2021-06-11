@@ -33,7 +33,7 @@ control 'V-237633' do
     ALL     ALL=(ALL:ALL) ALL'
 
   describe command('grep -iw "ALL" /etc/sudoers /etc/sudoers.d/*') do
-    its('stdout') { should_not contain /^ALL\s*ALL=\(ALL\) ALL$/}
-    its('stdout') { should_not contain /^ALL\s*ALL=\(ALL:ALL\) ALL$/}
+    its('stdout') { should_not match /^ALL\s*ALL=\(ALL\) ALL$/}
+    its('stdout') { should_not match /^ALL\s*ALL=\(ALL:ALL\) ALL$/}
   end
 end

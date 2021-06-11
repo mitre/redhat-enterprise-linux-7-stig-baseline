@@ -41,7 +41,7 @@ control 'V-237635' do
 
   describe command('grep -i \'timestamp_timeout\' /etc/sudoers /etc/sudoers.d/*') do
     its('stdout') { should_not be nil }
-    its('stdout') { should_not contain "#" }
-    its('stdout') { should_not contain "-" }
+    its('stdout') { should_not match /#/ }
+    its('stdout') { should_not match /-/ }
   end
 end
