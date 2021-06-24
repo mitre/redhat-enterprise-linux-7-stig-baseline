@@ -43,8 +43,14 @@ the required value):
   tag 'nist': ['IA-5 (1) (d)']
 
   if command("grep 'pam_unix.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'optional'").stdout.empty? && command("grep 'pam_permit.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'required'").stdout.empty?
-    describe login_defs do
-      its('PASS_MAX_DAYS.to_i') { should cmp <= 60 }
+    begin
+      describe login_defs do
+        its('PASS_MAX_DAYS.to_i') { should cmp <= 60 }
+      end
+    rescue
+      describe "Error was caught during the login_defs" do
+        skip
+      end
     end
   else
     impact 0.0

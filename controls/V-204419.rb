@@ -35,11 +35,18 @@ password lifetime:
   tag 'nist': ['IA-5 (1) (d)']
 
   shadow.users.each do |user|
-    # filtering on non-system accounts (uid >= 1000)
-    next unless user(user).uid >= 1000
+    begin
+      # filtering on non-system accounts (uid >= 1000)
+      next unless user(user).uid >= 1000
 
-    describe shadow.users(user) do
-      its('min_days.first.to_i') { should cmp >= 1 }
+      describe shadow.users(user) do
+        its('min_days.first.to_i') { should cmp >= 1 }
+      end
+    rescue 
+      describe "Warning user does not have a valid shadow entry" do
+        print user
+        skip
+      end
     end
   end
 end
