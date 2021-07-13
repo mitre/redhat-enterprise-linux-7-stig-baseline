@@ -9,9 +9,6 @@ on:
 jobs:
   container-job:
     runs-on: ubuntu-latest
-    services:
-      redhat:
-        image: registry.access.redhat.com/ubi8/ubi:latest
     env:
       CHEF_LICENSE: accept-silent
       KITCHEN_LOCAL_YAML: kitchen.vagrant.yml
@@ -30,8 +27,9 @@ jobs:
       - name: Regenerate current `profile.json`
         run: |
           bundle exec inspec json . | jq . > profile.json
+      - run: docker run -dit --name redhat registry.access.redhat.com/ubi8/ubi:latest
       - name: Run InSpec
-        run: bundle exec inspec exec . -t docker://redhat -o rhel7-docker-results.json
+        run: bundle exec inspec exec . -t docker://redhat --reporter=json:rhel7-docker-results.json
       - name: Display our results summary
         run: bundle exec inspec_tools summary -j rhel7-docker-results.json --json-counts | jq .
       - name: Save Test Result JSON
