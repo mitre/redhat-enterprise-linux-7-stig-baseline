@@ -1,0 +1,40 @@
+name: Docker Testing Matrix
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  container-job:
+    runs-on: ubuntu-latest
+    services:
+      redhat:
+        image: registry.access.redhat.com/ubi8/ubi:latest
+    env:
+      CHEF_LICENSE: accept-silent
+      KITCHEN_LOCAL_YAML: kitchen.vagrant.yml
+    steps:
+      - name: Add jq for output formatting
+        run: brew install jq
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Disable ri and rdoc
+        run: 'echo "gem: --no-ri --no-rdoc" >> ~/.gemrc'
+      - run: bundle install
+      - name: Regenerate current `profile.json`
+        run: |
+          bundle exec inspec json . | jq . > profile.json
+      - name: Run InSpec
+        run: bundle exec inspec exec . -t docker://redhat -o rhel7-docker-results.json
+      - name: Display our results summary
+        run: bundle exec inspec_tools summary -j rhel7-docker-results.json --json-counts | jq .
+      - name: Save Test Result JSON
+        uses: actions/upload-artifact@v2
+        with:
+          path: rhel7-docker-results.json
