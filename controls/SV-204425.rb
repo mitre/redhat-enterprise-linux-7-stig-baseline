@@ -39,5 +39,8 @@ should prevent users from being able to assign themselves empty passwords.
   tag cci: ['CCI-000766']
   tag legacy: ['SV-86563', 'V-71939']
   tag nist: ['IA-2 (2)']
-end
 
+  describe sshd_config do
+    its('PermitEmptyPasswords') { should eq 'no' }
+  end
+end

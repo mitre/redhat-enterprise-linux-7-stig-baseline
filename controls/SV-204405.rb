@@ -36,5 +36,16 @@ the required value):
   tag cci: ['CCI-000192']
   tag legacy: ['SV-95715', 'V-81003']
   tag nist: ['IA-5 (1) (a)']
-end
+  # Get the content of /etc/pam.d/passwd as an array
+  pam_passwd_content = file('/etc/pam.d/passwd').content.strip.split("\n")
+  # Make a new array of any line matching the target pattern:
+  # /password\s+substack\s+system-auth
+  matching_lines = pam_passwd_content.select { |i| i.match(/^password\s+substack\s+system-auth/) }
 
+  describe '/etc/pam.d/passwd' do
+    subject { matching_lines }
+    it 'substacks system-auth' do
+      expect(subject.length).to( be >= 1)
+    end
+  end
+end

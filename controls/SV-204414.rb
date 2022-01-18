@@ -48,5 +48,7 @@ the line to have the required value):
   tag cci: ['CCI-000195']
   tag legacy: ['SV-86541', 'V-71917']
   tag nist: ['IA-5 (1) (b)']
+  describe parse_config_file('/etc/security/pwquality.conf') do
+    its('maxclassrepeat.to_i') { should cmp <= 4 }
+  end
 end
-

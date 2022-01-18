@@ -75,5 +75,38 @@ should be created under the appropriate subdirectory.
   tag cci: ['CCI-001948', 'CCI-001953', 'CCI-001954']
   tag legacy: ['V-77819', 'SV-92515']
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
-end
 
+  multifactor_enabled = input('multifactor_enabled')
+  dconf_user = input('dconf_user')
+
+  if package('gnome-desktop3').installed? && (package('pcsc-lite').installed? || package('esc').installed?)
+    impact 0.5
+    if !dconf_user.empty? && command('whoami').stdout.strip == 'root'
+      describe command("sudo -u #{input('dconf_user')} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
+        its('stdout.strip') { should eq multifactor_enabled.to_s }
+      end
+    else
+      describe command('dconf read /org/gnome/login-screen/enable-smartcard-authentication') do
+        its('stdout.strip') { should eq multifactor_enabled.to_s }
+      end
+    end
+  else
+    impact 0.0
+    unless package('gnome-desktop3').installed?
+      describe 'The GNOME desktop is not installed' do
+        skip 'The GNOME desktop is not installed, this control is Not Applicable.'
+      end
+    end
+
+    unless package('pcsc-lite').installed?
+      describe 'The pcsc-lite package is not installed' do
+        skip 'The pcsc-lite package is not installed, this control is Not Applicable.'
+      end
+    end
+    unless package('esc').installed?
+      describe 'The esc package is not installed' do
+        skip 'The esc package is not installed, this control is Not Applicable.'
+      end
+    end
+  end
+end

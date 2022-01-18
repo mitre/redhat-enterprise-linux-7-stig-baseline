@@ -34,5 +34,20 @@ password lifetime:
   tag cci: ['CCI-000198']
   tag legacy: ['SV-86551', 'V-71927']
   tag nist: ['IA-5 (1) (d)']
-end
 
+  shadow.users.each do |user|
+    begin
+      # filtering on non-system accounts (uid >= 1000)
+      next unless user(user).uid >= 1000
+
+      describe shadow.users(user) do
+        its('min_days.first.to_i') { should cmp >= 1 }
+      end
+    rescue 
+      describe "Warning user does not have a valid shadow entry" do
+        print user
+        skip
+      end
+    end
+  end
+end

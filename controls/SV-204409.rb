@@ -47,5 +47,7 @@ to have the required value):
   tag cci: ['CCI-000194']
   tag legacy: ['SV-86531', 'V-71907']
   tag nist: ['IA-5 (1) (a)']
+  describe parse_config_file('/etc/security/pwquality.conf') do
+    its('dcredit.to_i') { should cmp < 0 }
+  end
 end
-

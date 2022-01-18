@@ -43,5 +43,21 @@ the required value):
   tag cci: ['CCI-000199']
   tag legacy: ['V-71929', 'SV-86553']
   tag nist: ['IA-5 (1) (d)']
-end
 
+  if command("grep 'pam_unix.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'optional'").stdout.empty? && command("grep 'pam_permit.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'required'").stdout.empty?
+    begin
+      describe login_defs do
+        its('PASS_MAX_DAYS.to_i') { should cmp <= 60 }
+      end
+    rescue
+      describe "Error was caught during the login_defs" do
+        skip
+      end
+    end
+  else
+    impact 0.0
+    describe 'The system is not using password for authentication' do
+      skip 'The system is not using password for authentication, this control is Not Applicable.'
+    end
+  end
+end

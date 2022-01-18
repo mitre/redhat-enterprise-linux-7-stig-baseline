@@ -101,5 +101,20 @@ effect.
   tag cci: ['CCI-000048']
   tag legacy: ['V-71859', 'SV-86483']
   tag nist: ['AC-8 a']
+  if package('gnome-desktop3').installed?
+    if !input('dconf_user').empty? && (command('whoami').stdout.strip == 'root')
+      describe command("sudo -u #{input('dconf_user')} dconf read /org/gnome/login-screen/banner-message-enable") do
+        its('stdout.strip') { should cmp input('banner_message_enabled').to_s }
+      end
+    else
+      describe command('dconf read /org/gnome/login-screen/banner-message-enable') do
+        its('stdout.strip') { should cmp input('banner_message_enabled').to_s }
+      end
+    end
+  else
+    impact 0.0
+    describe 'The GNOME desktop is not installed' do
+      skip 'The GNOME desktop is not installed, this control is Not Applicable.'
+    end
+  end
 end
-

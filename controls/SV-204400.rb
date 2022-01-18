@@ -67,5 +67,14 @@ should be created under the appropriate subdirectory.
   tag cci: ['CCI-000057']
   tag legacy: ['V-73157', 'SV-87809']
   tag nist: ['AC-11 a']
+  if package('gnome-desktop3').installed?
+    describe command('gsettings writable org.gnome.desktop.session idle-delay') do
+      its('stdout.strip') { should cmp 'false' }
+    end
+  else
+    impact 0.0
+    describe 'The GNOME desktop is not installed' do
+      skip 'The GNOME desktop is not installed, this control is Not Applicable.'
+    end
+  end
 end
-

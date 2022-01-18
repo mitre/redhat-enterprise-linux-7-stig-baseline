@@ -47,5 +47,11 @@ have the required value):
   tag cci: ['CCI-000192']
   tag legacy: ['SV-87811', 'V-73159']
   tag nist: ['IA-5 (1) (a)']
-end
+  max_retry = input('max_retry')
+
+  describe pam('/etc/pam.d/passwd') do
+    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so') }
+    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '>=', 1) }
+    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '<=', max_retry) }
+  end
 

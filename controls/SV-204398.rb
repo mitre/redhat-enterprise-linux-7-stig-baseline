@@ -67,5 +67,16 @@ effect.
   tag cci: ['CCI-000057']
   tag legacy: ['V-71893', 'SV-86517']
   tag nist: ['AC-11 a']
-end
 
+  if package('gnome-desktop3').installed?
+    describe command("gsettings get org.gnome.desktop.session idle-delay | cut -d ' ' -f2") do
+      its('stdout.strip') { should cmp <= 900 }
+    end
+  else
+    impact 0.0
+    describe 'The system does not have GNOME installed' do
+      skip "The system does not have GNOME installed, this requirement is Not
+      Applicable."
+    end
+  end
+end

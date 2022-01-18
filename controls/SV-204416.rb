@@ -41,5 +41,8 @@ representations of passwords.
   tag cci: ['CCI-000196']
   tag legacy: ['V-71921', 'SV-86545']
   tag nist: ['IA-5 (1) (c)']
-end
 
+  describe login_defs do
+    its('ENCRYPT_METHOD') { should cmp 'SHA512' }
+  end
+end

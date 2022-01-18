@@ -144,5 +144,45 @@ Graphical User Interface.
   tag cci: ['CCI-000048']
   tag legacy: ['V-71861', 'SV-86485']
   tag nist: ['AC-8 a']
+  if package('gnome-desktop3').installed?
+    # Get all files that have the banner-message-text specified.
+    banner_files =
+      command('grep -l banner-message-text /etc/dconf/db/local.d/*').stdout.split("\n")
+    # If there are no banner files then this is a finding.
+    banner_missing = banner_files.empty?
+    if banner_missing
+      describe 'If no files specify the banner text then this is a finding' do
+        subject { banner_missing }
+        it { should be false }
+      end
+    end
+    # If there are banner files then check them to make sure they have the correct text.
+    banner_files.each do |banner_file|
+      banner_message =
+        parse_config_file(banner_file).params('org/gnome/login-screen', 'banner-message-text').gsub(/[\r\n\s]/, '')
+      # dconf expects the banner-message-text to be quoted so remove leading and trailing quote.
+      # See https://developer.gnome.org/dconf/unstable/dconf-tool.html which states:
+      #  VALUE arguments must be in GVariant format, so e.g. a string must include
+      #  explicit quotes: "'foo'". This format is also used when printing out values.
+      banner_message = banner_message[1, banner_message.length] if banner_message.start_with?('"') || banner_message.start_with?('\'')
+      banner_message = banner_message.chop if banner_message.end_with?('"') || banner_message.end_with?('\'')
+      banner_message.gsub!('\\n', '')
+      foo = input('banner_message_text_gui')
+      foo2 = input('banner_message_text_gui_limited')
+      describe.one do
+        describe banner_message do
+          it { should cmp foo.gsub(/[\r\n\s]/, '') }
+        end
+        describe banner_message do
+          it { should cmp foo2.gsub(/[\r\n\s]/, '') }
+        end
+      end
+    end
+  else
+    impact 0.0
+    describe 'The system does not have GNOME installed' do
+      skip "The system does not have GNOME installed, this requirement is Not
+        Applicable."
+    end
+  end
 end
-

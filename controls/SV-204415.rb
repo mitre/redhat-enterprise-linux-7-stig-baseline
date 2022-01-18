@@ -54,5 +54,8 @@ the configurations listed in this requirement.
   tag cci: ['CCI-000196']
   tag legacy: ['V-71919', 'SV-86543']
   tag nist: ['IA-5 (1) (c)']
+  describe pam('/etc/pam.d/system-auth') do
+    its('lines') { should match_pam_rule('password sufficient pam_unix.so sha512') }
+    its('lines') { should match_pam_rule('password .* pam_unix.so').all_without_args('^(md5|bigcrypt|sha256|blowfish)$') }
+  end
 end
-

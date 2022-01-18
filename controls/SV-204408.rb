@@ -47,5 +47,8 @@ creating or changing a password.
   tag cci: ['CCI-000193']
   tag legacy: ['SV-86529', 'V-71905']
   tag nist: ['IA-5 (1) (a)']
-end
 
+  describe parse_config_file('/etc/security/pwquality.conf') do
+    its('lcredit.to_i') { should cmp < 0 }
+  end
+end

@@ -136,5 +136,33 @@ Agreement for details.\"
   tag cci: ['CCI-000048']
   tag legacy: ['V-71863', 'SV-86487']
   tag nist: ['AC-8 a']
-end
 
+  banner_message_text_cli = input('banner_message_text_cli')
+  banner_message_text_cli_limited = input('banner_message_text_cli_limited')
+
+  clean_banner = banner_message_text_cli.gsub(/[\r\n\s]/, '')
+  clean_banner_limited = banner_message_text_cli_limited.gsub(/[\r\n\s]/, '')
+  banner_file = file('/etc/issue')
+  banner_missing = !banner_file.exist?
+
+  if banner_missing
+    describe 'The banner text is not set because /etc/issue does not exist' do
+      subject { banner_missing }
+      it { should be false }
+    end
+  end
+
+  banner_message = banner_file.content.gsub(/[\r\n\s]/, '')
+  unless banner_missing
+    describe.one do
+      describe 'The banner text should match the standard banner' do
+        subject { banner_message }
+        it { should cmp clean_banner }
+      end
+      describe 'The banner text should match the limited banner' do
+        subject { banner_message }
+        it { should cmp clean_banner_limited }
+      end
+    end
+  end
+end

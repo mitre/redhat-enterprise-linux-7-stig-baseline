@@ -69,5 +69,15 @@ effect.
   tag cci: ['CCI-000056']
   tag legacy: ['SV-86515', 'V-71891']
   tag nist: ['AC-11 b']
+  if package('gnome-desktop3').installed?
+    describe command('gsettings get org.gnome.desktop.screensaver lock-enabled') do
+      its('stdout.strip') { should cmp 'true' }
+    end
+  else
+    impact 0.0
+    describe 'The system does not have GNOME installed' do
+      skip "The system does not have GNOME installed, this requirement is Not
+      Applicable."
+    end
+  end
 end
-

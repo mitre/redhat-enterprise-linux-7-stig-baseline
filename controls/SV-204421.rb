@@ -35,5 +35,12 @@ lifetime restriction.
   tag cci: ['CCI-000199']
   tag legacy: ['V-71931', 'SV-86555']
   tag nist: ['IA-5 (1) (d)']
-end
+  shadow.users.each do |user|
+    # filtering on non-system accounts (uid >= 1000)
+    next unless user(user).uid >= 1000
 
+    describe shadow.users(user) do
+      its('max_days.first.to_i') { should cmp <= 60 }
+    end
+  end
+end

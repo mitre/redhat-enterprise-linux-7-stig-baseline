@@ -44,5 +44,18 @@ have the required value):
   tag cci: ['CCI-000795']
   tag legacy: ['SV-86565', 'V-71941']
   tag nist: ['IA-4 e']
-end
 
+  days_of_inactivity = input('days_of_inactivity')
+
+  if command("grep 'pam_unix.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'optional'").stdout.empty? && command("grep 'pam_permit.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'required'").stdout.empty?
+    describe parse_config_file('/etc/default/useradd') do
+      its('INACTIVE') { should cmp >= 0 }
+      its('INACTIVE') { should cmp <= days_of_inactivity }
+    end
+  else
+    impact 0.0
+    describe 'The system is not using password for authentication' do
+      skip 'The system is not using password for authentication, this control is Not Applicable.'
+    end
+  end
+end

@@ -44,5 +44,7 @@ section:
   tag cci: ['CCI-000196']
   tag legacy: ['V-71923', 'SV-86547']
   tag nist: ['IA-5 (1) (c)']
+  describe command('cat /etc/libuser.conf | grep -i sha512') do
+    its('stdout.strip') { should match(/^crypt_style = sha512$/) }
+  end
 end
-

@@ -64,5 +64,16 @@ effect.
   tag cci: ['CCI-000057']
   tag legacy: ['V-71901', 'SV-86525']
   tag nist: ['AC-11 a']
-end
 
+  if package('gnome-desktop3').installed?
+    describe command("gsettings get org.gnome.desktop.screensaver lock-delay | cut -d ' ' -f2") do
+      its('stdout.strip') { should cmp <= input('lock_delay') }
+    end
+  else
+    impact 0.0
+    describe 'The system does not have GNOME installed' do
+      skip "The system does not have GNOME installed, this requirement is Not
+      Applicable."
+    end
+  end
+end

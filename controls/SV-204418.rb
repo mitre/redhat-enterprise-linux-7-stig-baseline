@@ -42,5 +42,8 @@ the required value):
   tag cci: ['CCI-000198']
   tag legacy: ['V-71925', 'SV-86549']
   tag nist: ['IA-5 (1) (d)']
-end
 
+  describe login_defs do
+    its('PASS_MIN_DAYS.to_i') { should cmp >= 1 }
+  end
+end

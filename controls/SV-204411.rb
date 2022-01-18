@@ -47,5 +47,9 @@ line to have the required value):
   tag cci: ['CCI-000195']
   tag legacy: ['V-71911', 'SV-86535']
   tag nist: ['IA-5 (1) (b)']
-end
+  difok = input('difok')
 
+  describe parse_config_file('/etc/security/pwquality.conf') do
+    its('difok.to_i') { should cmp >= difok }
+  end
+end
