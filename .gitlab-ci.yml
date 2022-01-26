@@ -1,0 +1,67 @@
+include:
+- project: stig/inspec-scanning-integration
+  ref: 'master'
+  file: templates/templates.yml
+
+before_script:
+  - echo "SCV Pipeline for RHEL7 Inspec Profile."
+
+stages:
+  - scan
+  - setup
+  - verify
+  - publish
+  - report
+
+sonarqube-check:
+  stage: scan
+  image: 
+    name: $REGISTRY/sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script: 
+    - sonar-scanner
+  allow_failure: true
+  only:
+    - merge_requests
+    - master # or the name of your main branch
+    - develop
+
+setup:
+  extends: .ci:stage:setup:inspec
+
+check:
+  extends: .ci:stage:check:inspec
+  dependencies:
+  - setup
+  variables:
+    INSPEC_VENDOR: 'true'
+    GIT_CREDS: 'true'
+
+lint:
+  extends: .ci:stage:lint:inspec
+  dependencies:
+  - setup
+
+kitchen-exec:
+  extends: .ci:stage:kitchen-exec:inspec
+  variables:
+
+.publish:
+  extends: .ci:stage:publish:inspec:artifacts
+  dependencies:
+  - check
+  - lint
+  - exec
+
+.sync:
+  extends: .ci:stage:publish:inspec:sync
+  variables:
+    SYNC_REPO: ""
+    SYNC_TOKEN: ""

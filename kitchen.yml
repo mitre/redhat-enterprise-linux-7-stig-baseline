@@ -1,0 +1,50 @@
+provisioner:
+  name: dummy
+
+platforms:
+  - name: rhel7-ec2
+    driver:
+      name: ec2
+      aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
+      user_data: ./user_data.sh
+      tags: 
+        POC: <%= ENV['POC_TAG'] %>
+      security_group_ids: <%= ENV['SECURITY_GROUP_IDS'] %>
+      region: <%= ENV['AWS_REGION'] %>
+      subnet_id: <%= ENV['SUBNET_ID'] %>
+      instance_type: t2.large
+      associate_public_ip: true
+    transport:
+      username: ec2-user
+      ssh_key: ./ssh_key
+      connection_timeout: 10
+      connection_retries: 5
+  - name: rhel8-ubi
+    driver:
+      name: dokken
+      pull_platform_image: false
+    transport:
+      name: dokken
+
+# add provisioner for generating a hardened image with an ansible role?
+
+verifier:
+  name: inspec
+  sudo: true
+  reporter:
+    - cli
+    - json:reports/raw/%{suite}/%{platform}.json
+  inspec_tests:
+    - name: RedHat Enterprise Linux 7 STIG
+      path: .
+  load_plugins: true
+
+suites:
+  - name: vanilla
+    driver:
+      image_id: <%= ENV['VANILLA_AMI_ID'] %>
+      image: <%= ENV['VANILLA_CONTAINER_IMAGE'] %>
+  - name: hardened
+    driver:
+      image_id: <%= ENV['HARDENED_AMI_ID'] %>
+      image: <%= ENV['HARDENED_CONTAINER_IMAGE'] %>
