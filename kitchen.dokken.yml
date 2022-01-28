@@ -19,21 +19,13 @@ verifier:
 
 suites:
   - name: vanilla
-    # provisioner:
-    #   name: ansible_playbook
-    #   playbook: test/ansible/rhel7STIG-ansible/vanilla.yml
     verifier:
       reporter:
         - cli
         - json:test/results/vanilla-test-result.json
     driver:
-      #image_id: <%= ENV['VANILLA_AMI_ID'] %>
-      #image: <%= ENV['VANILLA_CONTAINER_IMAGE'] %>
       image: registry.access.redhat.com/ubi7/ubi:latest
   - name: hardened
-    # provisioner:
-    #   name: ansible_playbook
-    #   playbook: test/ansible/rhel7STIG-ansible/site.yml
     verifier:
       reporter:
         - cli

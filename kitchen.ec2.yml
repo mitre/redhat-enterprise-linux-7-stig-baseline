@@ -46,9 +46,6 @@ suites:
       reporter:
         - cli
         - json:test/results/vanilla-test-result.json
-    # # driver:
-    #image_id: <%= ENV['VANILLA_AMI_ID'] %>
-    # image: <%= ENV['VANILLA_CONTAINER_IMAGE'] %>
   - name: hardened
     provisioner:
       name: ansible_playbook

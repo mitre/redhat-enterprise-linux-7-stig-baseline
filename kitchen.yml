@@ -1,18 +1,7 @@
-# platforms:
-#   - name: rhel7
-
-# - name: rhel8-ubi
-#   driver:
-#     name: dokken
-#     pull_platform_image: false
-#   transport:
-#     name: dokken
-
-# add provisioner for generating a hardened image with an ansible role?
 transport:
   name: ssh
   max_ssh_sessions: 2
-  
+
 verifier:
   name: inspec
   sudo: true
@@ -28,20 +17,11 @@ provisioner:
   name: ansible_playbook
   hosts: all
   require_ansible_repo: true
-  # require_ansible_omnibus: true
   require_chef_for_busser: false
   require_ruby_for_busser: false
-  #require_pip3: true
-  #ansible_binary_path: /usr/local/bin
   ansible_verbose: true
   roles_path: test/ansible/rhel7STIG-ansible/roles
 
 suites:
   - name: vanilla
-    driver:
-      #image_id: <%= ENV['VANILLA_AMI_ID'] %>
-      # image: <%= ENV['VANILLA_CONTAINER_IMAGE'] %>
   - name: hardened
-    driver:
-      #image_id: <%= ENV['HARDENED_AMI_ID'] %>
-      # image: <%= ENV['HARDENED_CONTAINER_IMAGE'] %>
