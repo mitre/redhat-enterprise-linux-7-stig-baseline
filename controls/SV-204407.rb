@@ -53,3 +53,4 @@ line to have the required value):
     its('ucredit.to_i') { should cmp < 0 }
   end
 
+end

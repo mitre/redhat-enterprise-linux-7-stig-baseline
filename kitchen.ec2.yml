@@ -1,0 +1,59 @@
+---
+platforms:
+  - name: rhel-7
+
+driver:
+  name: ec2
+  #aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
+  #user_data: ./user_data.sh
+  #tags:
+  #  POC: <%= ENV['POC_TAG'] %>
+  #security_group_ids: <%= ENV['SECURITY_GROUP_IDS'] %>
+  #region: <%= ENV['AWS_REGION'] %>
+  #subnet_id: <%= ENV['SUBNET_ID'] %>
+  instance_type: t2.large
+  associate_public_ip: true
+transport:
+  name: ssh
+  # username: ec2-user
+  # ssh_key: ./ssh_key
+  connection_timeout: 10
+  connection_retries: 5
+
+verifier:
+  input_files:
+    - ec2.inputs.yml
+
+lifecycle:
+  post_create:
+    - remote: |
+        sudo yum -y install python3-pip
+        sudo python3 -m pip install --upgrade pip
+
+  pre_converge:
+    - remote: |
+        echo "NOTICE - Updating the ec2-user to keep sudo working"
+        sudo chage -d $(( $( date +%s ) / 86400 )) ec2-user
+        echo "NOTICE - updating ec2-user sudo config"
+        sudo chmod 600 /etc/sudoers && sudo sed -i'' "/ec2-user/d" /etc/sudoers && sudo chmod 400 /etc/sudoers
+
+suites:
+  - name: vanilla
+    provisioner:
+      name: ansible_playbook
+      playbook: test/ansible/rhel7STIG-ansible/vanilla.yml
+    verifier:
+      reporter:
+        - cli
+        - json:test/results/vanilla-test-result.json
+    # # driver:
+    #image_id: <%= ENV['VANILLA_AMI_ID'] %>
+    # image: <%= ENV['VANILLA_CONTAINER_IMAGE'] %>
+  - name: hardened
+    provisioner:
+      name: ansible_playbook
+      playbook: test/ansible/rhel7STIG-ansible/site.yml
+    verifier:
+      reporter:
+        - cli
+        - json:test/results/hardened-test-result.json

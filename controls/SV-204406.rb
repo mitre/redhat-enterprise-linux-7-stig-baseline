@@ -55,3 +55,4 @@ have the required value):
     its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '<=', max_retry) }
   end
 
+end
