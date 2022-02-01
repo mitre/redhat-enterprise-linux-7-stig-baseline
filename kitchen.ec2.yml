@@ -5,8 +5,8 @@ platforms:
 driver:
   name: ec2
   aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
-  # aws_access_key: "<%= ENV['AWS_ACCESS_KEY_ID'] %>"
-  # aws_secret_key: "<%= ENV['AWS_SECRET_ACCESS_KEY'] %>"
+  aws_access_key: "<%= ENV['AWS_ACCESS_KEY_ID'] %>"
+  aws_secret_key: "<%= ENV['AWS_SECRET_ACCESS_KEY'] %>"
   user_data: ./user_data.sh
   tags:
     POC: <%= ENV['POC_TAG'] %>
