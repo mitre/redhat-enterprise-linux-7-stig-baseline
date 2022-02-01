@@ -80,7 +80,7 @@ authentication.
         describe 'each cert policy line should include oscp_on' do
           cert_policy_lines.each do |line|
             subject { line }
-          it { should match /=[^;]*ocsp_on/i }
+          it { should match /ocsp_on/i }
           end
         end
       end
