@@ -4,13 +4,13 @@ platforms:
 
 driver:
   name: ec2
-  #aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
-  #user_data: ./user_data.sh
-  #tags:
-  #  POC: <%= ENV['POC_TAG'] %>
-  #security_group_ids: <%= ENV['SECURITY_GROUP_IDS'] %>
-  #region: <%= ENV['AWS_REGION'] %>
-  #subnet_id: <%= ENV['SUBNET_ID'] %>
+  aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
+  user_data: ./user_data.sh
+  tags:
+    POC: <%= ENV['POC_TAG'] %>
+  security_group_ids: <%= ENV['SECURITY_GROUP_IDS'] %>
+  region: <%= ENV['AWS_REGION'] %>
+  subnet_id: <%= ENV['SUBNET_ID'] %>
   instance_type: t2.large
   associate_public_ip: true
 transport:

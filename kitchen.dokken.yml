@@ -24,11 +24,12 @@ suites:
         - cli
         - json:test/results/vanilla-test-result.json
     driver:
-      image: registry.access.redhat.com/ubi7/ubi:latest
+      image: <%= ENV['VANILLA_CONTAINER_IMAGE'] %>
   - name: hardened
+
     verifier:
       reporter:
         - cli
         - json:test/results/hardened-test-result.json
     driver:
-      image: registry1.dso.mil/ironbank/redhat/ubi/ubi7:latest
+      image: <%= ENV['HARDENED_CONTAINER_IMAGE'] %>
