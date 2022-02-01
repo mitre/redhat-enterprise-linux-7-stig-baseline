@@ -1,6 +1,7 @@
 ---
 platforms:
   - name: rhel-7
+    driver: <%= ENV['AMI_ID'] %>
 
 driver:
   name: ec2
