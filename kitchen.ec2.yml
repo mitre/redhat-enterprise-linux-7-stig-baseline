@@ -1,7 +1,6 @@
 ---
 platforms:
   - name: rhel-7
-    driver: <%= ENV['AMI_ID'] %>
 
 driver:
   name: ec2
@@ -16,6 +15,8 @@ driver:
   subnet_id: <%= ENV['SUBNET_ID'] %>
   instance_type: t2.large
   associate_public_ip: true
+  aws_ami_id: <%= ENV['AMI_ID'] %>
+
 transport:
   name: ssh
   # username: ec2-user
