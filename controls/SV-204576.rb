@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204576' do
+control 'V-72217' do
   title "The Red Hat Enterprise Linux operating system must limit the number of
 concurrent sessions to 10 for all accounts and/or account types."
   desc  "Operating system management includes the ability to control the number
@@ -13,8 +11,8 @@ accounts and does not address concurrent sessions by single users via multiple
 system accounts. The maximum number of concurrent sessions should be defined
 based on mission needs and the operational environment for each system.
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system limits the number of concurrent sessions to
 \"10\" for all accounts and/or account types by issuing the following command:
 
@@ -29,7 +27,7 @@ differently for multiple domains.
 set to \"10\" or less for all domains that have the \"maxlogins\" item
 assigned, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to limit the number of concurrent sessions
 to \"10\" for all accounts and/or account types.
 
@@ -39,14 +37,53 @@ to \"10\" for all accounts and/or account types.
     * hard maxlogins 10
   "
   impact 0.3
-  tag severity: 'low'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000027-GPOS-00008'
-  tag gid: 'V-204576'
-  tag rid: 'SV-204576r603261_rule'
+  tag gid: 'V-72217'
+  tag rid: 'SV-86841r3_rule'
   tag stig_id: 'RHEL-07-040000'
-  tag fix_id: 'F-4700r88921_fix'
+  tag fix_id: 'F-78571r2_fix'
   tag cci: ['CCI-000054']
-  tag legacy: ['V-72217', 'SV-86841']
   tag nist: ['AC-10']
-end
 
+  maxlogins_limit = input('maxlogins_limit')
+
+  # Collect any files under limits.d if they exist
+  limits_files = directory('/etc/security/limits.d').exist? ? command('ls /etc/security/limits.d/*.conf').stdout.strip.lines : []
+  # Add limits.conf to the list
+  limits_files.push('/etc/security/limits.conf')
+  compliant_files = []
+  noncompliant_files = []
+
+  limits_files.each do |limits_file|
+    # Get any universal limits from each file
+    local_limits = limits_conf(limits_file).*
+    # If we got an array (results) check further
+    next unless local_limits.is_a?(Array)
+
+    local_limits.each do |temp_limit|
+      # For each result check if it is a 'hard' limit for 'maxlogins'
+      if temp_limit.include?('hard') && temp_limit.include?('maxlogins')
+        # If the limit is in range, push to compliant files
+        if temp_limit[-1].to_i <= maxlogins_limit
+          compliant_files.push(limits_file)
+        # Otherwise add to noncompliant files
+        else
+          noncompliant_files.push(limits_file)
+        end
+      end
+    end
+  end
+
+  # It is required that at least 1 file contain compliant configuration
+  describe "Files configuring maxlogins less than or equal to #{maxlogins_limit}" do
+    subject { compliant_files.length }
+    it { should be_positive }
+  end
+
+  # No files should set 'hard' 'maxlogins' to any noncompliant value
+  describe "Files configuring maxlogins greater than #{maxlogins_limit}" do
+    subject { noncompliant_files }
+    it { should cmp [] }
+  end
+end

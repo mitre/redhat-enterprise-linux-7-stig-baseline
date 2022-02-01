@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-214799' do
+control 'V-71855' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that the cryptographic hash of system files and commands matches vendor values."
   desc  "Without cryptographic integrity protections, system command and files
@@ -11,8 +9,8 @@ include, for example, signed hash functions using asymmetric cryptography
 enabling distribution of the public key to verify the hash information while
 maintaining the confidentiality of the key used to generate the hash.
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the cryptographic hash of system files and commands match the vendor
 values.
 
@@ -28,7 +26,7 @@ investigated through the system audit log.
     If there is any output from the command for system files or binaries, this
 is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Run the following command to determine which package owns the file:
 
     # rpm -qf <filename>
@@ -43,14 +41,29 @@ command:
     # sudo rpm -Uvh <packagename>
   "
   impact 0.7
-  tag severity: 'high'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-214799'
-  tag rid: 'SV-214799r603261_rule'
+  tag gid: 'V-71855'
+  tag rid: 'SV-86479r4_rule'
   tag stig_id: 'RHEL-07-010020'
-  tag fix_id: 'F-15997r192363_fix'
+  tag fix_id: 'F-78207r1_fix'
   tag cci: ['CCI-001749']
-  tag legacy: ['SV-86479', 'V-71855']
   tag nist: ['CM-5 (3)']
-end
 
+  rpm_verify_integrity_except = input('rpm_verify_integrity_except')
+
+  if input('disable_slow_controls')
+    describe "This control consistently takes a long to run and has been disabled
+    using the disable_slow_controls attribute." do
+      skip "This control consistently takes a long to run and has been disabled
+      using the disable_slow_controls attribute. You must enable this control for a
+      full accredidation for production."
+    end
+  else
+    # grep excludes files that are marked with 'c' attribute (config files)
+    describe command("rpm -Va | grep '^..5' | grep -E -v '[a-z]*c[a-z]*\\s+\\S+$' | awk 'NF>1{print $NF}'")
+      .stdout.strip.split("\n") do
+        it { should all(be_in(rpm_verify_integrity_except)) }
+      end
+  end
+end

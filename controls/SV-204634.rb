@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204634' do
+control 'V-73177' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all wireless network adapters are disabled."
   desc  "The use of wireless networking can introduce many different attack
@@ -10,8 +8,8 @@ wireless access point (AP), allowing validated systems to connect to the
 malicious AP and enabling the attacker to monitor and record network traffic.
 These malicious APs can also serve to create a man-in-the-middle attack or be
 used to create a denial of service to valid network resources."
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify that there are no wireless interfaces configured on the system.
 
     This is N/A for systems that do not have wireless network adapters.
@@ -29,21 +27,23 @@ command:
 documented with the Information System Security Officer (ISSO), this is a
 finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the system to disable all wireless network interfaces with the
 following command:
 
     #nmcli radio wifi off
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000424-GPOS-00188'
-  tag gid: 'V-204634'
-  tag rid: 'SV-204634r603261_rule'
+  tag gid: 'V-73177'
+  tag rid: 'SV-87829r2_rule'
   tag stig_id: 'RHEL-07-041010'
-  tag fix_id: 'F-4758r89095_fix'
+  tag fix_id: 'F-79623r1_fix'
   tag cci: ['CCI-001443', 'CCI-001444', 'CCI-002418']
-  tag legacy: ['V-73177', 'SV-87829']
   tag nist: ['AC-18 (1)', 'AC-18 (1)', 'SC-8']
-end
 
+  describe command('nmcli device') do
+    its('stdout.strip') { should_not match(/wifi connected/) }
+  end
+end

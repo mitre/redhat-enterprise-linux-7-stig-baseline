@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-214801' do
+control 'V-72213' do
   title "The Red Hat Enterprise Linux operating system must use a virus scan
 program."
   desc  "Virus scanning software can be used to protect a system from
@@ -15,24 +13,46 @@ daily basis.
     If the system processes inbound SMTP mail, the virus scanner must be
 configured to scan all received mail.
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify an anti-virus solution is installed on the system. The anti-virus
 solution may be bundled with an approved host-based security solution.
 
     If there is no anti-virus solution installed on the system, this is a
 finding.
   "
-  desc  'fix', 'Install an antivirus solution on the system.'
+  tag 'fix': 'Install an antivirus solution on the system.'
   impact 0.7
-  tag severity: 'high'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-214801'
-  tag rid: 'SV-214801r603261_rule'
+  tag gid: 'V-72213'
+  tag rid: 'SV-86837r3_rule'
   tag stig_id: 'RHEL-07-032000'
-  tag fix_id: 'F-15999r192369_fix'
+  tag fix_id: 'F-78567r2_fix'
   tag cci: ['CCI-001668']
-  tag legacy: ['V-72213', 'SV-86837']
   tag nist: ['SI-3 a']
-end
 
+  custom_antivirus = input('custom_antivirus')
+
+  if !custom_antivirus
+    describe.one do
+      describe service('nails') do
+        it { should be_running }
+      end
+      describe service('clamav-daemon.socket') do
+        it { should be_running }
+      end
+      describe service('ds_agent') do
+        it { should be_running }
+      end
+    end
+  else
+    # Allow user to provide a description of their AV solution
+    # for documentation.
+    custom_antivirus_description = input('custom_antivirus_description')
+    describe "Antivirus: #{custom_antivirus_description}" do
+      subject { custom_antivirus_description }
+      it { should_not cmp 'None' }
+    end
+  end
+end

@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204580' do
+control 'V-72225' do
   title "The Red Hat Enterprise Linux operating system must display the
 Standard Mandatory DoD Notice and Consent Banner immediately prior to, or as
 part of, remote access logon prompts."
@@ -45,8 +43,8 @@ Agreement for details.\"
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify any publicly accessible connection to the operating system displays
 the Standard Mandatory DoD Notice and Consent Banner before granting access to
 the system.
@@ -67,10 +65,8 @@ contains the ssh banner (in this case \"/etc/issue\").
 text of the Standard Mandatory DoD Notice and Consent Banner:
 
     \"You are accessing a U.S. Government (USG) Information System (IS) that is
-provided for USG-authorized use only.
-
-    By using this IS (which includes any device attached to this IS), you
-consent to the following conditions:
+provided for USG-authorized use only. By using this IS (which includes any
+device attached to this IS), you consent to the following conditions:
 
     -The USG routinely intercepts and monitors communications on this IS for
 purposes including, but not limited to, penetration testing, COMSEC monitoring,
@@ -100,7 +96,7 @@ finding.
     If the text in the file does not match the Standard Mandatory DoD Notice
 and Consent Banner, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to display the Standard Mandatory DoD Notice
 and Consent Banner before granting access to the system via the ssh.
 
@@ -116,10 +112,8 @@ file with the Standard Mandatory DoD Notice and Consent Banner. The DoD
 required text is:
 
     \"You are accessing a U.S. Government (USG) Information System (IS) that is
-provided for USG-authorized use only.
-
-    By using this IS (which includes any device attached to this IS), you
-consent to the following conditions:
+provided for USG-authorized use only. By using this IS (which includes any
+device attached to this IS), you consent to the following conditions:
 
     -The USG routinely intercepts and monitors communications on this IS for
 purposes including, but not limited to, penetration testing, COMSEC monitoring,
@@ -145,18 +139,67 @@ Agreement for details.\"
     The SSH service must be restarted for changes to take effect.
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000023-GPOS-00006'
   tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007',
-'SRG-OS-000228-GPOS-00088']
-  tag gid: 'V-204580'
-  tag rid: 'SV-204580r603261_rule'
+                  'SRG-OS-000228-GPOS-00088']
+  tag gid: 'V-72225'
+  tag rid: 'SV-86849r4_rule'
   tag stig_id: 'RHEL-07-040170'
-  tag fix_id: 'F-4704r297486_fix'
+  tag fix_id: 'F-78579r4_fix'
   tag cci: ['CCI-000048', 'CCI-000050', 'CCI-001384', 'CCI-001385',
-'CCI-001386', 'CCI-001387', 'CCI-001388']
-  tag legacy: ['V-72225', 'SV-86849']
+            'CCI-001386', 'CCI-001387', 'CCI-001388']
   tag nist: ['AC-8 a', 'AC-8 b', 'AC-8 c 1', 'AC-8 c 2', 'AC-8 c 2', "AC-8 c
 2", 'AC-8 c 3']
-end
 
+  banner_message_text_ral = input('banner_message_text_ral')
+  banner_message_text_ral_limited = input('banner_message_text_ral_limited')
+
+  # When Banner is commented, not found, disabled, or the specified file does not exist, this is a finding.
+  banner_files = [sshd_config.banner].flatten
+
+  banner_files.each do |banner_file|
+    # Banner property is commented out.
+    if banner_file.nil?
+      describe 'The SSHD Banner is not set' do
+        subject { banner_file.nil? }
+        it { should be false }
+      end
+    end
+
+    # Banner property is set to "none"
+    if !banner_file.nil? && !banner_file.match(/none/i).nil?
+      describe 'The SSHD Banner is disabled' do
+        subject { banner_file.match(/none/i).nil? }
+        it { should be true }
+      end
+    end
+
+    # Banner property provides a path to a file, however, it does not exist.
+    if !banner_file.nil? && banner_file.match(/none/i).nil? && !file(banner_file).exist?
+      describe 'The SSHD Banner is set, but, the file does not exist' do
+        subject { file(banner_file).exist? }
+        it { should be true }
+      end
+    end
+
+    # Banner property provides a path to a file and it exists.
+    next unless !banner_file.nil? && banner_file.match(/none/i).nil? && file(banner_file).exist?
+
+    describe.one do
+      banner = file(banner_file).content.gsub(/[\r\n\s]/, '')
+      clean_banner = banner_message_text_ral.gsub(/[\r\n\s]/, '')
+      clean_banner_limited = banner_message_text_ral_limited.gsub(/[\r\n\s]/, '')
+
+      describe 'The SSHD Banner is set to the standard banner and has the correct text' do
+        subject { banner }
+        it { should cmp clean_banner }
+      end
+
+      describe 'The SSHD Banner is set to the standard limited banner and has the correct text' do
+        subject { banner }
+        it { should cmp clean_banner_limited }
+      end
+    end
+  end
+end

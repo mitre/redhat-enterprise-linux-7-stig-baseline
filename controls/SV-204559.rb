@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204559' do
+control 'V-78999' do
   title "The Red Hat Enterprise Linux operating system must audit all uses of
 the create_module syscall."
   desc  "Without generating audit records that are specific to the security and
@@ -13,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"create_module\" syscall occur.
 
@@ -30,7 +28,7 @@ command:
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"create_module\" syscall, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"create_module\" syscall occur.
 
@@ -43,15 +41,24 @@ successful/unsuccessful attempts to use the \"create_module\" syscall occur.
     The audit daemon must be restarted for the changes to take effect.
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000471-GPOS-00216'
   tag satisfies: ['SRG-OS-000471-GPOS-00216', 'SRG-OS-000477-GPOS-00222']
-  tag gid: 'V-204559'
-  tag rid: 'SV-204559r603261_rule'
+  tag gid: 'V-78999'
+  tag rid: 'SV-93705r3_rule'
   tag stig_id: 'RHEL-07-030819'
-  tag fix_id: 'F-4683r88870_fix'
+  tag fix_id: 'F-85749r4_fix'
   tag cci: ['CCI-000172']
-  tag legacy: ['V-78999', 'SV-93705']
   tag nist: ['AU-12 c']
-end
 
+  describe auditd.syscall('create_module').where { arch == 'b32' } do
+    its('action.uniq') { should eq ['always'] }
+    its('list.uniq') { should eq ['exit'] }
+  end
+  if os.arch == 'x86_64'
+    describe auditd.syscall('create_module').where { arch == 'b64' } do
+      its('action.uniq') { should eq ['always'] }
+      its('list.uniq') { should eq ['exit'] }
+    end
+  end
+end

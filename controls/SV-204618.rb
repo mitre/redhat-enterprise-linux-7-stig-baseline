@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204618' do
+control 'V-72295' do
   title "Network interfaces configured on the Red Hat Enterprise Linux
 operating system must not be in promiscuous mode."
   desc  "Network interfaces in promiscuous mode allow for the capture of all
@@ -12,8 +10,8 @@ passwords, and key exchanges between systems.
 the use of these tools must be documented with the Information System Security
 Officer (ISSO) and restricted to only authorized personnel.
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify network interfaces are not in promiscuous mode unless approved by
 the ISSO and documented.
 
@@ -24,7 +22,7 @@ the ISSO and documented.
     If network interfaces are found on the system in promiscuous mode and their
 use has not been approved by the ISSO and documented, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure network interfaces to turn off promiscuous mode unless approved
 by the ISSO and documented.
 
@@ -33,14 +31,16 @@ by the ISSO and documented.
     #ip link set dev <devicename> multicast off promisc off
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204618'
-  tag rid: 'SV-204618r603261_rule'
+  tag gid: 'V-72295'
+  tag rid: 'SV-86919r2_rule'
   tag stig_id: 'RHEL-07-040670'
-  tag fix_id: 'F-4742r89047_fix'
+  tag fix_id: 'F-78649r1_fix'
   tag cci: ['CCI-000366']
-  tag legacy: ['V-72295', 'SV-86919']
   tag nist: ['CM-6 b']
-end
 
+  describe command('ip link | grep -i promisc') do
+    its('stdout.strip') { should match(/^$/) }
+  end
+end

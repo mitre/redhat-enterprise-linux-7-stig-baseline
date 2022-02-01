@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204587' do
+control 'V-72237' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all network connections associated with SSH traffic are terminated at the
 end of the session or after 10 minutes of inactivity, except to fulfill
@@ -21,8 +19,8 @@ and releases the resources associated with that session.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system automatically terminates a user session after
 inactivity time-outs have expired.
 
@@ -40,7 +38,7 @@ of \"0\", this is a finding.
 not documented with the Information System Security Officer (ISSO) as an
 operational requirement, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to automatically terminate a user session
 after inactivity time-outs have expired or at shutdown.
 
@@ -54,15 +52,25 @@ third-party vendor):
     The SSH service must be restarted for changes to take effect.
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000163-GPOS-00072'
   tag satisfies: ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000279-GPOS-00109']
-  tag gid: 'V-204587'
-  tag rid: 'SV-204587r603261_rule'
+  tag gid: 'V-72237'
+  tag rid: 'SV-86861r4_rule'
   tag stig_id: 'RHEL-07-040320'
-  tag fix_id: 'F-4711r88954_fix'
+  tag fix_id: 'F-78591r2_fix'
   tag cci: ['CCI-001133', 'CCI-002361']
-  tag legacy: ['V-72237', 'SV-86861']
   tag nist: ['SC-10', 'AC-12']
-end
 
+  client_alive_interval = input('client_alive_interval')
+
+  # This may show slightly confusing results when a ClientAliveInterValue is not
+  # specified. Specifically, because the value will be nil and when you try to
+  # convert it to an integer using to_i it will convert it to 0 and pass the
+  # <= client_alive_interval check. However, the control as a whole will still fail.
+  describe sshd_config do
+    its('ClientAliveInterval.to_i') { should cmp >= 1 }
+    its('ClientAliveInterval.to_i') { should cmp <= client_alive_interval }
+    its('ClientAliveInterval') { should_not eq nil }
+  end
+end

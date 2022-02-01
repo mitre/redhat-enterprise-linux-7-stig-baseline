@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204393' do
+control 'V-71859' do
   title "The Red Hat Enterprise Linux operating system must display the
 Standard Mandatory DoD Notice and Consent Banner before granting local or
 remote access to the system via a graphical user logon."
@@ -46,8 +44,8 @@ Agreement for details.\"
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system displays the Standard Mandatory DoD Notice and
 Consent Banner before granting access to the operating system via a graphical
 user logon.
@@ -64,7 +62,7 @@ with the following command:
     If \"banner-message-enable\" is set to \"false\" or is missing, this is a
 finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to display the Standard Mandatory DoD Notice
 and Consent Banner before granting access to the system.
 
@@ -90,20 +88,20 @@ Applicable.
 effect.
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000023-GPOS-00006'
   tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007',
-'SRG-OS-000228-GPOS-00088']
-  tag gid: 'V-204393'
-  tag rid: 'SV-204393r603261_rule'
+                  'SRG-OS-000228-GPOS-00088']
+  tag gid: 'V-71859'
+  tag rid: 'SV-86483r4_rule'
   tag stig_id: 'RHEL-07-010030'
-  tag fix_id: 'F-4517r88372_fix'
+  tag fix_id: 'F-78211r4_fix'
   tag cci: ['CCI-000048']
-  tag legacy: ['V-71859', 'SV-86483']
   tag nist: ['AC-8 a']
+
   if package('gnome-desktop3').installed?
-    if !input('dconf_user').empty? && (command('whoami').stdout.strip == 'root')
-      describe command("sudo -u #{input('dconf_user')} dconf read /org/gnome/login-screen/banner-message-enable") do
+    if !input('dconf_user').nil? and command('whoami').stdout.strip == 'root'
+      describe command("sudo -u input('dconf_user') dconf read /org/gnome/login-screen/banner-message-enable") do
         its('stdout.strip') { should cmp input('banner_message_enabled').to_s }
       end
     else

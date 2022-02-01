@@ -1,14 +1,12 @@
-# encoding: UTF-8
-
-control 'SV-204472' do
+control 'V-72025' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all files and directories contained in local interactive user home
 directories are group-owned by a group of which the home directory owner is a
 member."
   desc  "If a local interactive user's files are group-owned by a group of
 which the user is not a member, unintended users may be able to access them."
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify all files and directories in a local interactive user home directory
 are group-owned by a group the user is a member of.
 
@@ -34,7 +32,7 @@ following command:
     If the user is not a member of a group that group owns file(s) in a local
 interactive user's home directory, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Change the group of a local interactive user's files and directories to a
 group that the interactive user is a member of. To change the group owner of a
 local interactive user's files and directories, use the following command:
@@ -45,14 +43,36 @@ local interactive user's files and directories, use the following command:
     # chgrp users /home/smithj/<file>
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204472'
-  tag rid: 'SV-204472r603261_rule'
+  tag gid: 'V-72025'
+  tag rid: 'SV-86649r2_rule'
   tag stig_id: 'RHEL-07-020670'
-  tag fix_id: 'F-4596r88609_fix'
+  tag fix_id: 'F-78377r2_fix'
   tag cci: ['CCI-000366']
-  tag legacy: ['V-72025', 'SV-86649']
   tag nist: ['CM-6 b']
-end
 
+  exempt_home_users = input('exempt_home_users')
+  non_interactive_shells = input('non_interactive_shells')
+
+  ignore_shells = non_interactive_shells.join('|')
+
+  uid_min = login_defs.read_params['UID_MIN'].to_i
+  uid_min = 1000 if uid_min.nil?
+
+  findings = Set[]
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+    next if exempt_home_users.include?(user_info.username.to_s)
+
+    find_args = ''
+    user_info.groups.each do |curr_group|
+      # some key files and secure dirs (like .ssh) are group owned 'root'
+      find_args += "-not -group #{curr_group} -o root"
+    end
+    findings += command("find #{user_info.home} -xdev -xautofs #{find_args}").stdout.split("\n")
+  end
+  describe "Home directory files with incorrect group ownership or not 'root' owned" do
+    subject { findings.to_a }
+    it { should be_empty }
+  end
+end

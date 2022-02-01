@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204397' do
+control 'V-77819' do
   title "The Red Hat Enterprise Linux operating system must uniquely identify
 and must authenticate users using multifactor authentication via a graphical
 user logon."
@@ -16,8 +14,8 @@ Card.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system uniquely identifies and authenticates users
 using multifactor authentication via a graphical user logon.
 
@@ -42,7 +40,7 @@ than local is being used.
     If \"enable-smartcard-authentication\" is set to \"false\" or the keyword
 is missing, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to uniquely identify and authenticate users
 using multifactor authentication via a graphical user logon.
 
@@ -64,16 +62,14 @@ should be created under the appropriate subdirectory.
     Update the system databases:
     # dconf update
   "
-  impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000375-GPOS-00160'
   tag satisfies: ['SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']
-  tag gid: 'V-204397'
-  tag rid: 'SV-204397r603261_rule'
+  tag gid: 'V-77819'
+  tag rid: 'SV-92515r2_rule'
   tag stig_id: 'RHEL-07-010061'
-  tag fix_id: 'F-4521r88384_fix'
+  tag fix_id: 'F-84519r4_fix'
   tag cci: ['CCI-001948', 'CCI-001953', 'CCI-001954']
-  tag legacy: ['V-77819', 'SV-92515']
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
 
   multifactor_enabled = input('multifactor_enabled')
@@ -81,8 +77,8 @@ should be created under the appropriate subdirectory.
 
   if package('gnome-desktop3').installed? && (package('pcsc-lite').installed? || package('esc').installed?)
     impact 0.5
-    if !dconf_user.empty? && command('whoami').stdout.strip == 'root'
-      describe command("sudo -u #{input('dconf_user')} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
+    if !dconf_user.nil? && command('whoami').stdout.strip == 'root'
+      describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
         its('stdout.strip') { should eq multifactor_enabled.to_s }
       end
     else

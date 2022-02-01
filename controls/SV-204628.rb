@@ -1,14 +1,12 @@
-# encoding: UTF-8
-
-control 'SV-204628' do
+control 'V-72315' do
   title "The Red Hat Enterprise Linux operating system access control program
 must be configured to grant or deny system access to specific hosts and
 services."
   desc  "If the systems access control program is not configured with
 appropriate rules for allowing and denying access to system network resources,
 services may be accessible to unauthorized hosts."
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     If the \"firewalld\" package is not installed, ask the System Administrator
 (SA) if another firewall application (such as iptables) is installed. If an
 application firewall is not installed, this is a finding.
@@ -61,7 +59,7 @@ or denies access to specific hosts or services.
 specific hosts or \"tcpwrappers\" is not configured to grant or deny access to
 specific hosts, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     If \"firewalld\" is installed and active on the system, configure rules for
 allowing specific services and hosts.
 
@@ -70,14 +68,66 @@ allowing specific services and hosts.
 specific hosts.
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204628'
-  tag rid: 'SV-204628r603261_rule'
+  tag gid: 'V-72315'
+  tag rid: 'SV-86939r3_rule'
   tag stig_id: 'RHEL-07-040810'
-  tag fix_id: 'F-4752r89077_fix'
+  tag fix_id: 'F-78669r3_fix'
   tag cci: ['CCI-000366']
-  tag legacy: ['SV-86939', 'V-72315']
   tag nist: ['CM-6 b']
-end
 
+  firewalld_services = input('firewalld_services')
+  firewalld_hosts_allow = input('firewalld_hosts_allow')
+  firewalld_hosts_deny = input('firewalld_hosts_deny')
+  firewalld_ports_allow = input('firewalld_ports_allow')
+  firewalld_ports_deny = input('firewalld_ports_deny')
+  tcpwrappers_allow = input('tcpwrappers_allow')
+  tcpwrappers_deny = input('tcpwrappers_deny')
+  iptable_rules = input('iptables_rules')
+
+  if service('firewalld').running?
+    @default_zone = firewalld.default_zone
+
+    describe firewalld.where { zone = @default_zone } do
+      its('services') { should be_in firewalld_services }
+    end
+
+    describe firewalld do
+      firewalld_hosts_allow.each do |rule|
+        it { should have_rule_enabled(rule) }
+      end
+      firewalld_hosts_deny.each do |rule|
+        it { should_not have_rule_enabled(rule) }
+      end
+      firewalld_ports_allow.each do |port|
+        it { should have_port_enabled_in_zone(port) }
+      end
+      firewalld_ports_deny.each do |port|
+        it { should_not have_port_enabled_in_zone(port) }
+      end
+    end
+  elsif service('iptables').running?
+    describe iptables do
+      iptable_rules.each do |rule|
+        it { should have_rule(rule) }
+      end
+    end
+  else
+    describe package('tcp_wrappers') do
+      it { should be_installed }
+    end
+    tcpwrappers_allow.each do |rule|
+      describe etc_hosts_allow.where { daemon == rule['daemon'] } do
+        its('client_list') { should be rule['client_list'] }
+        its('options') { should be rule['options'] }
+      end
+    end
+    tcpwrappers_deny.each do |rule|
+      describe etc_hosts_deny.where { daemon == rule['daemon'] } do
+        its('client_list') { should be rule['client_list'] }
+        its('options') { should be rule['options'] }
+      end
+    end
+  end
+end

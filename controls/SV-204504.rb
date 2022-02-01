@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204504' do
+control 'V-72081' do
   title "The Red Hat Enterprise Linux operating system must shut down upon
 audit processing failure, unless availability is an overriding concern. If
 availability is a concern, the system must alert the designated staff (System
@@ -22,8 +20,8 @@ storage repositories combined), or both.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Confirm the audit configuration regarding how auditing processing failures
 are handled.
 
@@ -33,22 +31,22 @@ are handled.
 
     failure 2
 
-    Note: If the value of \"failure\" is set to \"2\", the system is configured
-to panic (shut down) in the event of an auditing failure. If the value of
-\"failure\" is set to \"1\", the system is configured to only send information
-to the kernel log regarding the failure.
+    If the value of \"failure\" is set to \"2\", the system is configured to
+panic (shut down) in the event of an auditing failure.
+
+    If the value of \"failure\" is set to \"1\", the system is configured to
+only send information to the kernel log regarding the failure.
+
+    If the \"failure\" setting is not set, this is a CAT I finding.
 
     If the \"failure\" setting is set to any value other than \"1\" or \"2\",
-this is a finding.
-
-    If the \"failure\" setting is not set, this should be upgraded to a CAT I
-finding.
+this is a CAT II finding.
 
     If the \"failure\" setting is set to \"1\" but the availability concern is
-not documented or there is no monitoring of the kernel log, this should be
-downgraded to a CAT III finding.
+not documented or there is no monitoring of the kernel log, this is a CAT III
+finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to shut down in the event of an audit
 processing failure.
 
@@ -77,16 +75,33 @@ staff.
 
     The audit daemon must be restarted for the changes to take effect.
   "
-  impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000046-GPOS-00022'
   tag satisfies: ['SRG-OS-000046-GPOS-00022', 'SRG-OS-000047-GPOS-00023']
-  tag gid: 'V-204504'
-  tag rid: 'SV-204504r603261_rule'
+  tag gid: 'V-72081'
+  tag rid: 'SV-86705r4_rule'
   tag stig_id: 'RHEL-07-030010'
-  tag fix_id: 'F-4628r462467_fix'
+  tag fix_id: 'F-78433r2_fix'
   tag cci: ['CCI-000139']
-  tag legacy: ['V-72081', 'SV-86705']
   tag nist: ['AU-5 a']
-end
 
+  monitor_kernel_log = input('monitor_kernel_log')
+
+  if auditd.status['failure'].nil?
+    impact 0.7
+  elsif auditd.status['failure'].match?(/^1$/) && !monitor_kernel_log
+    impact 0.3
+  else
+    impact 0.5
+  end
+
+  if !monitor_kernel_log
+    describe auditd.status['failure'] do
+      it { should match(/^2$/) }
+    end
+  else
+    describe auditd.status['failure'] do
+      it { should match(/^(1|2)$/) }
+    end
+  end
+end

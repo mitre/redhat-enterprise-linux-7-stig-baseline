@@ -1,22 +1,19 @@
-# encoding: UTF-8
-
-control 'SV-204507' do
+control 'V-81019' do
   title "The Red Hat Enterprise Linux operating system must take appropriate
-action when the remote logging buffer is full."
+action when the audisp-remote buffer is full."
   desc  "Information stored in one location is vulnerable to accidental or
 incidental deletion or alteration.
 
     Off-loading is a common process in information systems with limited audit
 storage capacity.
 
-    One method of off-loading audit logs in Red Hat Enterprise Linux is with
-the use of the audisp-remote dameon.  When the remote buffer is full, audit
-logs will not be collected and sent to the central log server.
+    When the remote buffer is full, audit logs will not be collected and sent
+to the central log server.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the audisp daemon is configured to take an appropriate action when
 the internal queue is full:
 
@@ -25,16 +22,9 @@ the internal queue is full:
     overflow_action = syslog
 
     If the \"overflow_action\" option is not \"syslog\", \"single\", or
-\"halt\", or the line is commented out, ask the System Administrator to
-indicate how the audit logs are off-loaded to a different system or storage
-media, and to indicate what action that system takes when the internal queue is
-full.
-
-    If there is no evidence the system is configured to off-load audit logs to
-a different system or storage media or, if the configuration does not take
-appropriate action when the internal queue is full, this is a finding.
+\"halt\", or the line is commented out, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Edit the /etc/audisp/audispd.conf file and add or update the
 \"overflow_action\" option:
 
@@ -45,15 +35,23 @@ appropriate action when the internal queue is full, this is a finding.
     # service auditd restart
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
-  tag gid: 'V-204507'
-  tag rid: 'SV-204507r603261_rule'
+  tag gid: 'V-81019'
+  tag rid: 'SV-95731r1_rule'
   tag stig_id: 'RHEL-07-030210'
-  tag fix_id: 'F-36312r602646_fix'
+  tag fix_id: 'F-87853r3_fix'
   tag cci: ['CCI-001851']
-  tag legacy: ['V-81019', 'SV-95731']
   tag nist: ['AU-4 (1)']
-end
 
+  if file('/etc/audisp/audispd.conf').exist?
+    describe parse_config_file('/etc/audisp/audispd.conf') do
+      its('overflow_action') { should match(/syslog$|single$|halt$/i) }
+    end
+  else
+    describe "File '/etc/audisp/audispd.conf' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do
+      skip "File '/etc/audisp/audispd.conf' cannot be found. This check must be performed manually"
+    end
+  end
+end

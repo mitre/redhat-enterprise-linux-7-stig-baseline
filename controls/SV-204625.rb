@@ -1,14 +1,12 @@
-# encoding: UTF-8
-
-control 'SV-204625' do
+control 'V-72309' do
   title "The Red Hat Enterprise Linux operating system must not be performing
 packet forwarding unless the system is a router."
   desc  "Routing protocol daemons are typically used on routers to exchange
 network topology information with other routers. If this software is used when
 not required, system network information may be unnecessarily transmitted
 across the network."
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the system is not performing packet forwarding, unless the system is
 a router.
 
@@ -29,7 +27,7 @@ following command:
     If IP forwarding value is \"1\" and the system is hosting any application,
 database, or web servers, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Set the system to the required kernel parameter by adding the following
 line to \"/etc/sysctl.conf\" or a configuration file in the /etc/sysctl.d/
 directory (or modify the line to have the required value):
@@ -41,14 +39,16 @@ directory (or modify the line to have the required value):
     # sysctl --system
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204625'
-  tag rid: 'SV-204625r603261_rule'
+  tag gid: 'V-72309'
+  tag rid: 'SV-86933r2_rule'
   tag stig_id: 'RHEL-07-040740'
-  tag fix_id: 'F-4749r89068_fix'
+  tag fix_id: 'F-78663r2_fix'
   tag cci: ['CCI-000366']
-  tag legacy: ['SV-86933', 'V-72309']
   tag nist: ['CM-6 b']
-end
 
+  describe kernel_parameter('net.ipv4.ip_forward') do
+    its('value') { should eq 0 }
+  end
+end

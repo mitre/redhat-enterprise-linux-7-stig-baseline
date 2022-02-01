@@ -1,14 +1,12 @@
-# encoding: UTF-8
-
-control 'SV-204479' do
+control 'V-72039' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all system device files are correctly labeled to prevent unauthorized
 modification."
   desc  "If an unauthorized or modified device is allowed to exist on the
 system, there is the possibility the system may perform unintended or
 unauthorized operations."
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify that all system device files are correctly labeled to prevent
 unauthorized modification.
 
@@ -34,7 +32,7 @@ are not a finding.
     If there is output from either of these commands, other than already noted,
 this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Run the following command to determine which package owns the device file:
 
     # rpm -qf <filename>
@@ -49,15 +47,29 @@ command:
     # sudo rpm -Uvh <packagename>
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204479'
-  tag rid: 'SV-204479r603261_rule'
+  tag gid: 'V-72039'
+  tag rid: 'SV-86663r2_rule'
   tag stig_id: 'RHEL-07-020900'
-  tag fix_id: 'F-4603r88630_fix'
+  tag fix_id: 'F-78391r1_fix'
   tag cci: ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813',
-'CCI-001814']
-  tag legacy: ['V-72039', 'SV-86663']
+            'CCI-001814']
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
-end
 
+  virtual_machine = input('virtual_machine')
+
+  findings = Set[]
+  findings += command('find / -xdev -context *:device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
+  findings += command('find / -xdev -context *:unlabeled_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
+  findings += command('find / -xdev -context *:vmci_device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
+
+  describe findings do
+    if virtual_machine
+      its('length') { should cmp 1 }
+      its('first') { should include '/dev/vmci' }
+    else
+      its('length') { should cmp 0 }
+    end
+  end
+end

@@ -1,14 +1,12 @@
-# encoding: UTF-8
-
-control 'SV-204617' do
+control 'V-72293' do
   title "The Red Hat Enterprise Linux operating system must not send Internet
 Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) redirects."
   desc  "ICMP redirect messages are used by routers to inform hosts that a more
 direct route exists for a particular destination. These messages contain
 information from the system's route table, possibly revealing portions of the
 network topology."
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the system does not send IPv4 ICMP redirect messages.
 
     # grep 'net.ipv4.conf.all.send_redirects' /etc/sysctl.conf /etc/sysctl.d/*
@@ -26,7 +24,7 @@ variables with the following command:
 
     If the returned line does not have a value of \"0\", this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the system to not allow interfaces to perform IPv4 ICMP
 redirects.
 
@@ -41,14 +39,16 @@ directory (or modify the line to have the required value):
     # sysctl --system
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204617'
-  tag rid: 'SV-204617r603261_rule'
+  tag gid: 'V-72293'
+  tag rid: 'SV-86917r3_rule'
   tag stig_id: 'RHEL-07-040660'
-  tag fix_id: 'F-4741r89044_fix'
+  tag fix_id: 'F-78647r3_fix'
   tag cci: ['CCI-000366']
-  tag legacy: ['V-72293', 'SV-86917']
   tag nist: ['CM-6 b']
-end
 
+  describe kernel_parameter('net.ipv4.conf.all.send_redirects') do
+    its('value') { should eq 0 }
+  end
+end

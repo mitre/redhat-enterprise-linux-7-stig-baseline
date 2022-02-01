@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204396' do
+control 'V-71891' do
   title "The Red Hat Enterprise Linux operating system must enable a user
 session lock until that user re-establishes access using established
 identification and authentication procedures."
@@ -17,8 +15,8 @@ No other activity aside from reauthentication must unlock the system.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system enables a user's session lock until that user
 re-establishes access using established identification and authentication
 procedures. The screen program must be installed to lock sessions on the
@@ -35,7 +33,7 @@ Applicable.
     If the \"lock-enabled\" setting is missing or is not set to \"true\", this
 is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to enable a user's session lock until that
 user re-establishes access using established identification and authentication
 procedures.
@@ -59,16 +57,16 @@ and add or update the following lines:
 effect.
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000028-GPOS-00009'
   tag satisfies: ['SRG-OS-000028-GPOS-00009', 'SRG-OS-000030-GPOS-00011']
-  tag gid: 'V-204396'
-  tag rid: 'SV-204396r603261_rule'
+  tag gid: 'V-71891'
+  tag rid: 'SV-86515r6_rule'
   tag stig_id: 'RHEL-07-010060'
-  tag fix_id: 'F-4520r88381_fix'
+  tag fix_id: 'F-78243r9_fix'
   tag cci: ['CCI-000056']
-  tag legacy: ['SV-86515', 'V-71891']
   tag nist: ['AC-11 b']
+
   if package('gnome-desktop3').installed?
     describe command('gsettings get org.gnome.desktop.screensaver lock-enabled') do
       its('stdout.strip') { should cmp 'true' }

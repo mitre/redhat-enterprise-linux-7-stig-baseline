@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204509' do
+control 'V-72083' do
   title "The Red Hat Enterprise Linux operating system must off-load audit
 records onto a different system or media from the system being audited."
   desc  "Information stored in one location is vulnerable to accidental or
@@ -11,8 +9,8 @@ storage capacity.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system off-loads audit records onto a different system
 or media from the system being audited.
 
@@ -29,7 +27,7 @@ different system or media.
     If there is no evidence that the audit logs are being off-loaded to another
 system or media, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to off-load audit records onto a different
 system or media from the system being audited.
 
@@ -37,15 +35,24 @@ system or media from the system being audited.
 IP address of the log aggregation server.
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
-  tag gid: 'V-204509'
-  tag rid: 'SV-204509r603261_rule'
+  tag gid: 'V-72083'
+  tag rid: 'SV-86707r2_rule'
   tag stig_id: 'RHEL-07-030300'
-  tag fix_id: 'F-4633r88720_fix'
+  tag fix_id: 'F-78435r1_fix'
   tag cci: ['CCI-001851']
-  tag legacy: ['V-72083', 'SV-86707']
   tag nist: ['AU-4 (1)']
-end
 
+  if file('/etc/audisp/audisp-remote.conf').exist?
+    describe parse_config_file('/etc/audisp/audisp-remote.conf') do
+      its('remote_server'.to_s) { should match(/^\S+$/) }
+      its('remote_server'.to_s) { should_not be_in ['localhost', '127.0.0.1'] }
+    end
+  else
+    describe "File '/etc/audisp/audisp-remote.conf' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do
+      skip "File '/etc/audisp/audisp-remote.conf' cannot be found. This check must be performed manually"
+    end
+  end
+end

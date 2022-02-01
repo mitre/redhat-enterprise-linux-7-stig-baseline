@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204453' do
+control 'V-71989' do
   title 'The Red Hat Enterprise Linux operating system must enable SELinux.'
   desc  "Without verification of the security functions, security functions may
 not operate correctly and the failure may go unnoticed. Security function is
@@ -15,10 +13,9 @@ events to be audited, and setting intrusion detection parameters.
 verification/testing and/or systems and environments that require this
 functionality.
   "
-  desc  'rationale', ''
-  desc  'check', "
-    Per OPORD 16-0080, the preferred endpoint security tool is Endpoint
-Security for Linux (ENSL) in conjunction with SELinux.
+  tag 'rationale': ''
+  tag 'check': "
+    If an HBSS or HIPS is active on the system, this is Not Applicable.
 
     Verify the operating system verifies correct operation of all security
 functions.
@@ -32,7 +29,7 @@ command:
     If \"SELinux\" is not active and not in \"Enforcing\" mode, this is a
 finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to verify correct operation of all security
 functions.
 
@@ -43,15 +40,30 @@ functions.
 
     A reboot is required for the changes to take effect.
   "
-  impact 0.5
-  tag severity: 'medium'
+  impact 0.7
+  tag severity: nil
   tag gtitle: 'SRG-OS-000445-GPOS-00199'
-  tag gid: 'V-204453'
-  tag rid: 'SV-204453r754746_rule'
+  tag gid: 'V-71989'
+  tag rid: 'SV-86613r3_rule'
   tag stig_id: 'RHEL-07-020210'
-  tag fix_id: 'F-36306r602628_fix'
+  tag fix_id: 'F-78341r2_fix'
   tag cci: ['CCI-002165', 'CCI-002696']
-  tag legacy: ['V-71989', 'SV-86613']
   tag nist: ['AC-3 (4)', 'SI-6 a']
-end
 
+  if package('MFEhiplsm').installed? && processes(/hipclient/).exist?
+    impact 0.0
+    describe 'HIPS is active on the system' do
+      skip 'A HIPS process is active on the system, this control is Not Applicable.'
+    end
+  elsif service('cma').installed? && service('cma').enabled?
+    impact 0.0
+    describe 'HBSS is active on the system' do
+      skip 'A HBSS service is active on the system, this control is Not Applicable.'
+    end
+  else
+    impact 0.7
+    describe command('getenforce') do
+      its('stdout.strip') { should eq 'Enforcing' }
+    end
+  end
+end

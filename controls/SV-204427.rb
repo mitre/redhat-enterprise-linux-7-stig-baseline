@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204427' do
+control 'V-71943' do
   title "The Red Hat Enterprise Linux operating system must be configured to
 lock accounts for a minimum of 15 minutes after three unsuccessful logon
 attempts within a 15-minute timeframe."
@@ -10,8 +8,8 @@ brute-forcing, is reduced. Limits are imposed by locking the account.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Check that the system locks an account for a minimum of 15 minutes after
 three unsuccessful logon attempts within a period of 15 minutes with the
 following command:
@@ -24,7 +22,7 @@ fail_interval=900 unlock_time=900
 fail_interval=900 unlock_time=900
     account required pam_faillock.so
 
-    If the \"deny\" parameter is set to \"0\" or a value greater than \"3\" on
+    If the \"deny\" parameter is set to \"0\" or a value less than \"3\" on
 both \"auth\" lines with the \"pam_faillock.so\" module, or is missing from
 these lines, this is a finding.
 
@@ -53,7 +51,7 @@ fail_interval=900 unlock_time=900
 fail_interval=900 unlock_time=900
     account required pam_faillock.so
 
-    If the \"deny\" parameter is set to \"0\" or a value greater than \"3\" on
+    If the \"deny\" parameter is set to \"0\" or a value less than \"3\" on
 both \"auth\" lines with the \"pam_faillock.so\" module, or is missing from
 these lines, this is a finding.
 
@@ -70,15 +68,15 @@ to a value less than \"900\" on both \"auth\" lines with the
 \"pam_faillock.so\" module or is missing from these lines, this is a finding.
 
     Note: The maximum configurable value for \"unlock_time\" is \"604800\".
-
     If any line referencing the \"pam_faillock.so\" module is commented out,
 this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to lock an account for the maximum period
 when three unsuccessful logon attempts in 15 minutes are made.
 
-    Add/Modify the appropriate sections of the \"/etc/pam.d/system-auth\" and
+    Modify the first three lines of the auth section and the first line of the
+account section of the \"/etc/pam.d/system-auth\" and
 \"/etc/pam.d/password-auth\" files to match the following lines:
 
     auth required pam_faillock.so preauth silent audit deny=3 even_deny_root
@@ -93,15 +91,57 @@ fail_interval=900 unlock_time=900
 the configurations listed in this requirement.
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000329-GPOS-00128'
   tag satisfies: ['SRG-OS-000329-GPOS-00128', 'SRG-OS-000021-GPOS-00005']
-  tag gid: 'V-204427'
-  tag rid: 'SV-204427r603824_rule'
+  tag gid: 'V-71943'
+  tag rid: 'SV-86567r5_rule'
   tag stig_id: 'RHEL-07-010320'
-  tag fix_id: 'F-4551r622287_fix'
+  tag fix_id: 'F-78295r5_fix'
   tag cci: ['CCI-000044', 'CCI-002236', 'CCI-002237', 'CCI-002238']
-  tag legacy: ['V-71943', 'SV-86567']
   tag nist: ['AC-7 a', 'AC-7 b', 'AC-7 b', 'AC-7 b']
-end
 
+  describe pam('/etc/pam.d/password-auth') do
+    its('lines') do
+      should match_pam_rules(input('required_rules')).exactly.or \
+        match_pam_rules(input('alternate_rules')).exactly
+    end
+    its('lines') do
+      should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', '<=',
+                                                                                                input('unsuccessful_attempts'))
+    end
+    its('lines') do
+      should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', '<=',
+                                                                                                input('fail_interval'))
+    end
+    its('lines') do
+      should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(0|never)').or \
+        (match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '<=',
+                                                                                            604_800).and \
+                                                                                              match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '>=',
+                                                                                                                                                                                 input('lockout_time')))
+    end
+  end
+
+  describe pam('/etc/pam.d/system-auth') do
+    its('lines') do
+      should match_pam_rules(input('required_rules')).exactly.or \
+        match_pam_rules(input('alternate_rules')).exactly
+    end
+    its('lines') do
+      should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', '<=',
+                                                                                                input('unsuccessful_attempts'))
+    end
+    its('lines') do
+      should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', '<=',
+                                                                                                input('fail_interval'))
+    end
+    its('lines') do
+      should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(0|never)').or \
+        (match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '<=',
+                                                                                            604_800).and \
+                                                                                              match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '>=',
+                                                                                                                                                                                 input('lockout_time')))
+    end
+  end
+end

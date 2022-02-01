@@ -1,13 +1,11 @@
-# encoding: UTF-8
-
-control 'SV-204457' do
+control 'V-71995' do
   title "The Red Hat Enterprise Linux operating system must define default
 permissions for all authenticated users in such a way that the user can only
 read and modify their own files."
   desc  "Setting the most restrictive default permissions ensures that when new
 accounts are created, they do not have unnecessary access."
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system defines default permissions for all
 authenticated users in such a way that the user can only read and modify their
 own files.
@@ -24,7 +22,7 @@ with the following command:
     If the value for the \"UMASK\" parameter is not \"077\", or the \"UMASK\"
 parameter is missing or is commented out, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to define default permissions for all
 authenticated users in such a way that the user can only read and modify their
 own files.
@@ -34,15 +32,21 @@ file to \"077\":
 
     UMASK  077
   "
-  impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00228'
-  tag gid: 'V-204457'
-  tag rid: 'SV-204457r603261_rule'
+  tag gid: 'V-71995'
+  tag rid: 'SV-86619r2_rule'
   tag stig_id: 'RHEL-07-020240'
-  tag fix_id: 'F-4581r88564_fix'
+  tag fix_id: 'F-78347r1_fix'
   tag cci: ['CCI-000366']
-  tag legacy: ['SV-86619', 'V-71995']
   tag nist: ['CM-6 b']
-end
 
+  if login_defs.read_params['UMASK'].eql?('000')
+    impact 0.7
+  else
+    impact 0.5
+  end
+  describe login_defs do
+    its('UMASK') { should eq '077' }
+  end
+end

@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204510' do
+control 'V-72085' do
   title "The Red Hat Enterprise Linux operating system must encrypt the
 transfer of audit records off-loaded onto a different system or media from the
 system being audited."
@@ -12,8 +10,8 @@ storage capacity.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system encrypts audit records off-loaded onto a
 different system or media from the system being audited.
 
@@ -29,7 +27,7 @@ logs are off-loaded to a different system or media.
     If there is no evidence that the transfer of the audit logs being
 off-loaded to another system or media is encrypted, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to encrypt the transfer of off-loaded audit
 records onto a different system or media from the system being audited.
 
@@ -39,15 +37,17 @@ and set it with the following line:
     enable_krb5 = yes
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
-  tag gid: 'V-204510'
-  tag rid: 'SV-204510r603261_rule'
+  tag gid: 'V-72085'
+  tag rid: 'SV-86709r2_rule'
   tag stig_id: 'RHEL-07-030310'
-  tag fix_id: 'F-4634r88723_fix'
+  tag fix_id: 'F-78437r1_fix'
   tag cci: ['CCI-001851']
-  tag legacy: ['V-72085', 'SV-86709']
   tag nist: ['AU-4 (1)']
-end
 
+  describe parse_config_file('/etc/audisp/audisp-remote.conf') do
+    its('enable_krb5'.to_s) { should cmp 'yes' }
+  end
+end

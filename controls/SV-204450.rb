@@ -1,13 +1,11 @@
-# encoding: UTF-8
-
-control 'SV-204450' do
+control 'V-77821' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that the Datagram Congestion Control Protocol (DCCP) kernel module is disabled
 unless required."
   desc  "Disabling DCCP protects the system against exploitation of any flaws
 in the protocol implementation."
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system disables the ability to load the DCCP kernel
 module.
 
@@ -34,7 +32,7 @@ dccp\", and use of the dccp kernel module is not documented with the
 Information System Security Officer (ISSO) as an operational requirement, this
 is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to disable the ability to use the DCCP
 kernel module.
 
@@ -55,14 +53,17 @@ kernel module.
     blacklist dccp
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000378-GPOS-00163'
-  tag gid: 'V-204450'
-  tag rid: 'SV-204450r603261_rule'
+  tag gid: 'V-77821'
+  tag rid: 'SV-92517r3_rule'
   tag stig_id: 'RHEL-07-020101'
-  tag fix_id: 'F-4574r88543_fix'
+  tag fix_id: 'F-84521r3_fix'
   tag cci: ['CCI-001958']
-  tag legacy: ['V-77821', 'SV-92517']
   tag nist: ['IA-3']
-end
 
+  describe kernel_module('dccp') do
+    it { should_not be_loaded }
+    it { should be_blacklisted }
+  end
+end

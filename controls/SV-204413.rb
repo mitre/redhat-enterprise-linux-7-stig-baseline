@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204413' do
+control 'V-71915' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that when passwords are changed the number of repeating consecutive characters
 must not be more than three characters."
@@ -14,8 +12,8 @@ takes to crack a password. The more complex the password, the greater the
 number of possible combinations that need to be tested before the password is
 compromised.
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     The \"maxrepeat\" option sets the maximum number of allowed same
 consecutive characters in a new password.
 
@@ -27,7 +25,7 @@ consecutive characters in a new password.
 
     If the value of \"maxrepeat\" is set to more than \"3\", this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to require the change of the number of
 repeating consecutive characters when passwords are changed by setting the
 \"maxrepeat\" option.
@@ -38,14 +36,13 @@ the line to have the required value):
     maxrepeat = 3
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000072-GPOS-00040'
-  tag gid: 'V-204413'
-  tag rid: 'SV-204413r603261_rule'
+  tag gid: 'V-71915'
+  tag rid: 'SV-86539r3_rule'
   tag stig_id: 'RHEL-07-010180'
-  tag fix_id: 'F-4537r88432_fix'
+  tag fix_id: 'F-78267r2_fix'
   tag cci: ['CCI-000195']
-  tag legacy: ['SV-86539', 'V-71915']
   tag nist: ['IA-5 (1) (b)']
 
   describe parse_config_file('/etc/security/pwquality.conf') do

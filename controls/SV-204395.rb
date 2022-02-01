@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204395' do
+control 'V-71863' do
   title "The Red Hat Enterprise Linux operating system must display the
 Standard Mandatory DoD Notice and Consent Banner before granting local or
 remote access to the system via a command line user logon."
@@ -45,8 +43,8 @@ Agreement for details.\"
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system displays the Standard Mandatory DoD Notice and
 Consent Banner before granting access to the operating system via a command
 line user logon.
@@ -91,7 +89,7 @@ this is a finding.
     If the text in the \"/etc/issue\" file does not match the Standard
 Mandatory DoD Notice and Consent Banner, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to display the Standard Mandatory DoD Notice
 and Consent Banner before granting access to the system via the command line by
 editing the \"/etc/issue\" file.
@@ -126,15 +124,14 @@ communications and work product are private and confidential.  See User
 Agreement for details.\"
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000023-GPOS-00006'
   tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007']
-  tag gid: 'V-204395'
-  tag rid: 'SV-204395r603261_rule'
+  tag gid: 'V-71863'
+  tag rid: 'SV-86487r3_rule'
   tag stig_id: 'RHEL-07-010050'
-  tag fix_id: 'F-4519r88378_fix'
+  tag fix_id: 'F-78217r2_fix'
   tag cci: ['CCI-000048']
-  tag legacy: ['V-71863', 'SV-86487']
   tag nist: ['AC-8 a']
 
   banner_message_text_cli = input('banner_message_text_cli')

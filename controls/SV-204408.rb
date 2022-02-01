@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204408' do
+control 'V-71905' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that when passwords are changed or new passwords are established, the new
 password must contain at least one lower-case character."
@@ -14,8 +12,8 @@ takes to crack a password. The more complex the password, the greater the
 number of possible combinations that need to be tested before the password is
 compromised.
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Note: The value to require a number of lower-case characters to be set is
 expressed as a negative number in \"/etc/security/pwquality.conf\".
 
@@ -28,7 +26,7 @@ the following command:
     If the value of \"lcredit\" is not set to a negative value, this is a
 finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the system to require at least one lower-case character when
 creating or changing a password.
 
@@ -38,14 +36,13 @@ creating or changing a password.
     lcredit = -1
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000070-GPOS-00038'
-  tag gid: 'V-204408'
-  tag rid: 'SV-204408r603261_rule'
+  tag gid: 'V-71905'
+  tag rid: 'SV-86529r5_rule'
   tag stig_id: 'RHEL-07-010130'
-  tag fix_id: 'F-4532r88417_fix'
+  tag fix_id: 'F-78257r6_fix'
   tag cci: ['CCI-000193']
-  tag legacy: ['SV-86529', 'V-71905']
   tag nist: ['IA-5 (1) (a)']
 
   describe parse_config_file('/etc/security/pwquality.conf') do

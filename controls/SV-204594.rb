@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204594' do
+control 'V-72251' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that the SSH daemon is configured to only use the SSHv2 protocol."
   desc  "SSHv1 is an insecure implementation of the SSH protocol and has many
@@ -9,8 +7,8 @@ immediate root access to the system.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Check the version of the operating system with the following command:
 
     # cat /etc/redhat-release
@@ -29,7 +27,7 @@ the following command:
     If any protocol line other than \"Protocol 2\" is uncommented, this is a
 finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Remove all Protocol lines that reference version \"1\" in
 \"/etc/ssh/sshd_config\" (this file may be named differently or be in a
 different location if using a version of SSH that is provided by a third-party
@@ -40,15 +38,24 @@ vendor). The \"Protocol\" line must be as follows:
     The SSH service must be restarted for changes to take effect.
   "
   impact 0.7
-  tag severity: 'high'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000074-GPOS-00042'
   tag satisfies: ['SRG-OS-000074-GPOS-00042', 'SRG-OS-000480-GPOS-00227']
-  tag gid: 'V-204594'
-  tag rid: 'SV-204594r603261_rule'
+  tag gid: 'V-72251'
+  tag rid: 'SV-86875r4_rule'
   tag stig_id: 'RHEL-07-040390'
-  tag fix_id: 'F-4718r88975_fix'
+  tag fix_id: 'F-78605r2_fix'
   tag cci: ['CCI-000197', 'CCI-000366']
-  tag legacy: ['SV-86875', 'V-72251']
   tag nist: ['IA-5 (1) (c)', 'CM-6 b']
-end
 
+  if os.release.to_f >= 7.4
+    impact 0.0
+    describe "The release is #{os.release}" do
+      skip 'The release is newer than 7.4; this control is Not Applicable.'
+    end
+  else
+    describe sshd_config do
+      its('Protocol') { should cmp '2' }
+    end
+  end
+end

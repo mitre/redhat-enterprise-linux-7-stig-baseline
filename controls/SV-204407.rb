@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204407' do
+control 'V-71903' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that when passwords are changed or new passwords are established, the new
 password must contain at least one upper-case character."
@@ -14,8 +12,8 @@ takes to crack a password. The more complex the password, the greater the
 number of possible combinations that need to be tested before the password is
 compromised.
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Note: The value to require a number of upper-case characters to be set is
 expressed as a negative number in \"/etc/security/pwquality.conf\".
 
@@ -28,7 +26,7 @@ the following command:
     If the value of \"ucredit\" is not set to a negative value, this is a
 finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to enforce password complexity by requiring
 that at least one upper-case character be used by setting the \"ucredit\"
 option.
@@ -39,18 +37,16 @@ line to have the required value):
     ucredit = -1
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000069-GPOS-00037'
-  tag gid: 'V-204407'
-  tag rid: 'SV-204407r603261_rule'
+  tag gid: 'V-71903'
+  tag rid: 'SV-86527r3_rule'
   tag stig_id: 'RHEL-07-010120'
-  tag fix_id: 'F-4531r88414_fix'
+  tag fix_id: 'F-78255r1_fix'
   tag cci: ['CCI-000192']
-  tag legacy: ['SV-86527', 'V-71903']
   tag nist: ['IA-5 (1) (a)']
 
   describe parse_config_file('/etc/security/pwquality.conf') do
     its('ucredit.to_i') { should cmp < 0 }
   end
-
 end

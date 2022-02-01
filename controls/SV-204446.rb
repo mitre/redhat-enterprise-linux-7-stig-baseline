@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204446' do
+control 'V-71975' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that designated personnel are notified if baseline configurations are changed
 in an unauthorized manner."
@@ -16,8 +14,8 @@ Officer (IMO)/Information System Security Officer (ISSO) and System
 Administrators (SAs) must be notified via email and/or monitoring system trap
 when there is an unauthorized modification of a configuration item.
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system notifies designated personnel if baseline
 configurations are changed in an unauthorized manner.
 
@@ -44,8 +42,8 @@ on the system, use the following command:
     -rwxr-xr-x 1 root root 32 Jul 1 2011 aide
 
     # grep aide /etc/crontab /var/spool/cron/root
-    /etc/crontab: 30 04 * * * root /usr/sbin/aide  --check
-    /var/spool/cron/root: 30 04 * * * /usr/sbin/aide  --check
+    /etc/crontab: 30 04 * * * /root/aide
+    /var/spool/cron/root: 30 04 * * * /root/aide
 
     AIDE does not have a configuration that will send a notification, so the
 cron job uses the mail application on the system to email the results of the
@@ -60,7 +58,7 @@ check run\" root@sysname.mil
     If the file integrity application does not notify designated personnel of
 changes, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to notify designated personnel if baseline
 configurations are changed in an unauthorized manner. The AIDE tool can be
 configured to email designated personnel with the use of the cron system.
@@ -74,14 +72,34 @@ and to send email at the completion of the analysis.
 check run\" root@sysname.mil
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000363-GPOS-00150'
-  tag gid: 'V-204446'
-  tag rid: 'SV-204446r603261_rule'
+  tag gid: 'V-71975'
+  tag rid: 'SV-86599r2_rule'
   tag stig_id: 'RHEL-07-020040'
-  tag fix_id: 'F-36305r602625_fix'
+  tag fix_id: 'F-78327r3_fix'
   tag cci: ['CCI-001744']
-  tag legacy: ['V-71975', 'SV-86599']
   tag nist: ['CM-3 (5)']
-end
 
+  file_integrity_tool = input('file_integrity_tool')
+
+  describe package(file_integrity_tool) do
+    it { should be_installed }
+  end
+  describe.one do
+    describe file("/etc/cron.daily/#{file_integrity_tool}") do
+      its('content') { should match %r{/bin/mail} }
+    end
+    describe file("/etc/cron.weekly/#{file_integrity_tool}") do
+      its('content') { should match %r{/bin/mail} }
+    end
+    describe crontab('root').where { command =~ /#{file_integrity_tool}/ } do
+      its('commands.flatten') { should include(match %r{/bin/mail}) }
+    end
+    if file("/etc/cron.d/#{file_integrity_tool}").exist?
+      describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+        its('commands') { should include(match %r{/bin/mail}) }
+      end
+    end
+  end
+end

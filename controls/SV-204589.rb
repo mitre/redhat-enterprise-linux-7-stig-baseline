@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204589' do
+control 'V-72241' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all network connections associated with SSH traffic terminate after a
 period of inactivity."
@@ -20,8 +18,8 @@ and releases the resources associated with that session.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system automatically terminates a user session after
 inactivity time-outs have expired.
 
@@ -33,7 +31,7 @@ following command:
 
     If \"ClientAliveCountMax\" is not set to \"0\", this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to terminate automatically a user session
 after inactivity time-outs have expired or at shutdown.
 
@@ -47,15 +45,24 @@ third-party vendor):
     The SSH service must be restarted for changes to take effect.
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000163-GPOS-00072'
   tag satisfies: ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000279-GPOS-00109']
-  tag gid: 'V-204589'
-  tag rid: 'SV-204589r603261_rule'
+  tag gid: 'V-72241'
+  tag rid: 'SV-86865r4_rule'
   tag stig_id: 'RHEL-07-040340'
-  tag fix_id: 'F-4713r88960_fix'
+  tag fix_id: 'F-78595r4_fix'
   tag cci: ['CCI-001133', 'CCI-002361']
-  tag legacy: ['SV-86865', 'V-72241']
   tag nist: ['SC-10', 'AC-12']
-end
 
+  if os.release.to_f >= 7.4
+    impact 0.0
+    describe "The release is #{os.release}" do
+      skip 'The release is newer than 7.4; this control is Not Applicable.'
+    end
+  else
+    describe sshd_config do
+      its('ClientAliveCountMax') { should cmp '0' }
+    end
+  end
+end

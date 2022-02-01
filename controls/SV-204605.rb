@@ -1,12 +1,10 @@
-# encoding: UTF-8
-
-control 'SV-204605' do
+control 'V-72275' do
   title "The Red Hat Enterprise Linux operating system must display the date
 and time of the last successful account logon upon logon."
   desc  "Providing users with feedback on when account accesses last occurred
 facilitates user recognition and reporting of unauthorized account use."
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify users are provided with feedback on when account accesses last
 occurred.
 
@@ -19,7 +17,7 @@ command:
     If \"pam_lastlog\" is missing from \"/etc/pam.d/postlogin\" file, or the
 silent option is present, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to provide users with feedback on when
 account accesses last occurred by setting the required configuration options in
 \"/etc/pam.d/postlogin\".
@@ -29,14 +27,26 @@ account accesses last occurred by setting the required configuration options in
     session required pam_lastlog.so showfailed
   "
   impact 0.3
-  tag severity: 'low'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag gid: 'V-204605'
-  tag rid: 'SV-204605r603261_rule'
+  tag gid: 'V-72275'
+  tag rid: 'SV-86899r4_rule'
   tag stig_id: 'RHEL-07-040530'
-  tag fix_id: 'F-4729r89008_fix'
+  tag fix_id: 'F-78629r4_fix'
   tag cci: ['CCI-000366']
-  tag legacy: ['SV-86899', 'V-72275']
   tag nist: ['CM-6 b']
-end
 
+  describe pam('/etc/pam.d/postlogin') do
+    its('lines') { should match_pam_rule('session .* pam_lastlog.so showfailed') }
+  end
+
+  describe.one do
+    describe sshd_config do
+      its('PrintLastLog') { should cmp 'yes' }
+    end
+
+    describe pam('/etc/pam.d/postlogin') do
+      its('lines') { should match_pam_rule('session .* pam_lastlog.so showfailed').all_without_args('silent') }
+    end
+  end
+end

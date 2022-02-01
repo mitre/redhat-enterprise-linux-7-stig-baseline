@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204402' do
+control 'V-71899' do
   title "The Red Hat Enterprise Linux operating system must initiate a session
 lock for the screensaver after a period of inactivity for graphical user
 interfaces."
@@ -14,8 +12,8 @@ when a user's session has idled and take action to initiate the session lock.
     The session lock is implemented at the point where session activity can be
 determined and/or controlled.
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system initiates a session lock after a 15-minute
 period of inactivity for graphical user interfaces. The screen program must be
 installed to lock sessions on the console.
@@ -31,7 +29,7 @@ this requirement is Not Applicable.
 
     If \"idle-activation-enabled\" is not set to \"true\", this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to initiate a session lock after a 15-minute
 period of inactivity for graphical user interfaces.
 
@@ -55,15 +53,15 @@ inactivity:
 effect.
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000029-GPOS-00010'
-  tag gid: 'V-204402'
-  tag rid: 'SV-204402r603261_rule'
+  tag gid: 'V-71899'
+  tag rid: 'SV-86523r5_rule'
   tag stig_id: 'RHEL-07-010100'
-  tag fix_id: 'F-4526r88399_fix'
+  tag fix_id: 'F-78251r2_fix'
   tag cci: ['CCI-000057']
-  tag legacy: ['V-71899', 'SV-86523']
   tag nist: ['AC-11 a']
+
   if package('gnome-desktop3').installed?
     describe command('gsettings get org.gnome.desktop.screensaver idle-activation-enabled') do
       its('stdout.strip') { should cmp 'true' }

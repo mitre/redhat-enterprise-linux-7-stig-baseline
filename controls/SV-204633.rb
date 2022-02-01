@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204633' do
+control 'V-72433' do
   title "The Red Hat Enterprise Linux operating system must implement
 certificate status checking for PKI authentication."
   desc  "Using an authentication device, such as a CAC or token that is
@@ -48,24 +46,56 @@ system with the following command:
     If \"ocsp_on\" is not present in all uncommented \"cert_policy\" lines in
 \"/etc/pam_pkcs11/pam_pkcs11.conf\", this is a finding.
   "
-  desc  'fix', "
+  desc 'fix', "
     Configure the operating system to do certificate status checking for PKI
 authentication.
 
     Modify all of the \"cert_policy\" lines in
 \"/etc/pam_pkcs11/pam_pkcs11.conf\" to include \"ocsp_on\".
   "
-  impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000375-GPOS-00160'
   tag satisfies: ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000375-GPOS-00161',
-'SRG-OS-000375-GPOS-00162']
-  tag gid: 'V-204633'
-  tag rid: 'SV-204633r603261_rule'
+                  'SRG-OS-000375-GPOS-00162']
+  tag gid: 'V-72433'
+  tag rid: 'SV-87057r5_rule'
   tag stig_id: 'RHEL-07-041003'
-  tag fix_id: 'F-4757r89092_fix'
+  tag fix_id: 'F-78785r3_fix'
   tag cci: ['CCI-001948', 'CCI-001953', 'CCI-001954']
-  tag legacy: ['V-72433', 'SV-87057']
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
-end
 
+  smart_card_status = input('smart_card_status')
+
+  if smart_card_status.eql?('enabled')
+    impact 0.5
+    if (pam_file = file('/etc/pam_pkcs11/pam_pkcs11.conf')).exist?
+      cert_policy_lines = if pam_file.content.nil?
+                            []
+                          else
+                            pam_file.content.lines.grep(/^(?!.+#).*cert_policy/i)
+                          end
+      if cert_policy_lines.length < 3
+        describe 'should contain at least 3 cert policy lines' do
+          subject { cert_policy_lines.length }
+          it { should >= 3 }
+        end
+      else
+        describe 'each cert policy line should include oscp_on' do
+          cert_policy_lines.each do |line|
+            subject { line }
+            it { should match(/ocsp_on/i) }
+          end
+        end
+      end
+    else
+      describe pam_file do
+        it { should exist }
+      end
+    end
+  else
+    impact 0.0
+    describe 'The system is not smartcard enabled' do
+      skip 'The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.'
+    end
+  end
+end

@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204515' do
+control 'V-72093' do
   title "The Red Hat Enterprise Linux operating system must immediately notify
 the System Administrator (SA) and Information System Security Officer (ISSO)
 (at a minimum) when the threshold for the repository maximum audit record
@@ -8,8 +6,8 @@ storage capacity is reached."
   desc  "If security personnel are not notified immediately when the threshold
 for the repository maximum audit record storage capacity is reached, they are
 unable to expand the audit record storage capacity before records are lost."
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system immediately notifies the SA and ISSO (at a
 minimum) via email when the threshold for the repository maximum audit record
 storage capacity is reached.
@@ -24,7 +22,7 @@ command:
     If the value of the \"action_mail_acct\" keyword is not set to \"root\" and
 other accounts for security personnel, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to immediately notify the SA and ISSO (at a
 minimum) when the threshold for the repository maximum audit record storage
 capacity is reached.
@@ -36,14 +34,16 @@ with security personnel.
     action_mail_acct = root
   "
   impact 0.5
-  tag severity: 'medium'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000343-GPOS-00134'
-  tag gid: 'V-204515'
-  tag rid: 'SV-204515r603261_rule'
+  tag gid: 'V-72093'
+  tag rid: 'SV-86717r3_rule'
   tag stig_id: 'RHEL-07-030350'
-  tag fix_id: 'F-4639r88738_fix'
+  tag fix_id: 'F-78445r3_fix'
   tag cci: ['CCI-001855']
-  tag legacy: ['V-72093', 'SV-86717']
   tag nist: ['AU-5 (1)']
-end
 
+  describe auditd_conf do
+    its('action_mail_acct') { should cmp 'root' }
+  end
+end

@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204497' do
+control 'V-72067' do
   title "The Red Hat Enterprise Linux operating system must implement NIST
 FIPS-validated cryptography for the following: to provision digital signatures,
 to generate cryptographic hashes, and to protect data requiring data-at-rest
@@ -13,8 +11,8 @@ government since this provides assurance they have been tested and validated.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system implements DoD-approved encryption to protect
 the confidentiality of remote access sessions.
 
@@ -46,14 +44,8 @@ the system is in FIPS mode with the following command:
     If a \"dracut-fips\" package is not installed, the kernel command line does
 not have a fips entry, or the system has a value of \"0\" for \"fips_enabled\"
 in \"/proc/sys/crypto\", this is a finding.
-
-    Verify the file /etc/system-fips exists.
-
-    # ls -l /etc/system-fips
-
-    If this file does not exist, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to implement DoD-approved encryption by
 installing the dracut-fips package.
 
@@ -120,24 +112,36 @@ line:
 
     boot=UUID=05c000f1-a213-759e-c7a2-f11b7424c797
 
-    If the file /etc/system-fips does not exists, recreate it:
-
-    # touch /etc/ system-fips
-
     Reboot the system for the changes to take effect.
   "
   impact 0.7
-  tag severity: 'high'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000033-GPOS-00014'
   tag satisfies: ['SRG-OS-000033-GPOS-00014', 'SRG-OS-000185-GPOS-00079',
-'SRG-OS-000396-GPOS-00176', 'SRG-OS-000405-GPOS-00184',
-'SRG-OS-000478-GPOS-00223']
-  tag gid: 'V-204497'
-  tag rid: 'SV-204497r603261_rule'
+                  'SRG-OS-000396-GPOS-00176', 'SRG-OS-000405-GPOS-00184',
+                  'SRG-OS-000478-GPOS-00223']
+  tag gid: 'V-72067'
+  tag rid: 'SV-86691r4_rule'
   tag stig_id: 'RHEL-07-021350'
-  tag fix_id: 'F-36310r602640_fix'
+  tag fix_id: 'F-78419r3_fix'
   tag cci: ['CCI-000068', 'CCI-001199', 'CCI-002450', 'CCI-002476']
-  tag legacy: ['SV-86691', 'V-72067']
   tag nist: ['AC-17 (2)', 'SC-28', 'SC-13', 'SC-28 (1)']
-end
 
+  describe package('dracut-fips') do
+    it { should be_installed }
+  end
+
+  all_args = command('grubby --info=ALL | grep "^args=" | sed "s/^args=//g"')
+             .stdout.strip.split("\n")
+             .map { |s| s.sub(/^"(.*)"$/, '\1') } # strip outer quotes if they exist
+
+  all_args.each do |args|
+    describe args do
+      it { should match(/\bfips=1\b/) }
+    end
+  end
+
+  describe file('/proc/sys/crypto/fips_enabled') do
+    its('content.strip') { should cmp 1 }
+  end
+end

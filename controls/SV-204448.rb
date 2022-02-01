@@ -1,6 +1,4 @@
-# encoding: UTF-8
-
-control 'SV-204448' do
+control 'V-71979' do
   title "The Red Hat Enterprise Linux operating system must prevent the
 installation of software, patches, service packs, device drivers, or operating
 system components of local packages without verification they have been
@@ -22,8 +20,8 @@ operating system should not have to verify the software again. This requirement
 does not mandate DoD certificates for this purpose; however, the certificate
 used to verify the software must be from an approved CA.
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag 'rationale': ''
+  tag 'check': "
     Verify the operating system prevents the installation of patches, service
 packs, device drivers, or operating system components of local packages without
 verification that they have been digitally signed using a certificate that is
@@ -42,21 +40,31 @@ packages and other operating system components are verified.
     If there is no process to validate the signatures of local packages that is
 approved by the organization, this is a finding.
   "
-  desc  'fix', "
+  tag 'fix': "
     Configure the operating system to verify the signature of local packages
 prior to install by setting the following option in the \"/etc/yum.conf\" file:
 
     localpkg_gpgcheck=1
   "
   impact 0.7
-  tag severity: 'high'
+  tag severity: nil
   tag gtitle: 'SRG-OS-000366-GPOS-00153'
-  tag gid: 'V-204448'
-  tag rid: 'SV-204448r603261_rule'
+  tag gid: 'V-71979'
+  tag rid: 'SV-86603r2_rule'
   tag stig_id: 'RHEL-07-020060'
-  tag fix_id: 'F-4572r88537_fix'
+  tag fix_id: 'F-78331r1_fix'
   tag cci: ['CCI-001749']
-  tag legacy: ['V-71979', 'SV-86603']
   tag nist: ['CM-5 (3)']
-end
 
+  yum_conf = '/etc/yum.conf'
+
+  if (f = file(yum_conf)).exist?
+    describe ini(yum_conf) do
+      its('main.localpkg_gpgcheck') { cmp 1 }
+    end
+  else
+    describe f do
+      it { should exist }
+    end
+  end
+end
