@@ -69,8 +69,11 @@ authentication.
   if smart_card_status.eql?('enabled')
     impact 0.5
     if (pam_file = file('/etc/pam_pkcs11/pam_pkcs11.conf')).exist?
-      cert_policy_lines = pam_file.content.nil? ? [] :
-        pam_file.content.lines.grep(/^(?!.+#).*cert_policy/i)
+      cert_policy_lines = if pam_file.content.nil?
+                            []
+                          else
+                            pam_file.content.lines.grep(/^(?!.+#).*cert_policy/i)
+                          end
       if cert_policy_lines.length < 3
         describe 'should contain at least 3 cert policy lines' do
           subject { cert_policy_lines.length }
@@ -80,7 +83,7 @@ authentication.
         describe 'each cert policy line should include oscp_on' do
           cert_policy_lines.each do |line|
             subject { line }
-          it { should match /ocsp_on/i }
+            it { should match(/ocsp_on/i) }
           end
         end
       end
