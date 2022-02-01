@@ -1,61 +1,32 @@
-control 'V-81007' do
-  title "Red Hat Enterprise Linux operating systems version 7.2 or newer using
-Unified Extensible Firmware Interface (UEFI) must require authentication upon
-booting into single-user and maintenance modes."
-  desc  "If the system does not require valid root authentication before it
-boots into single-user or maintenance mode, anyone who invokes single-user or
-maintenance mode is granted privileged access to all files on the system. GRUB
-2 is the default boot loader for RHEL 7 and is designed to require a password
-to boot into single-user mode or make modifications to the boot menu."
+control 'SV-204440' do
+  title 'Red Hat Enterprise Linux operating systems version 7.2 or newer using Unified Extensible Firmware Interface
+    (UEFI) must require authentication upon booting into single-user and maintenance modes.'
+  desc 'If the system does not require valid authentication before it boots into single-user or maintenance mode,
+    anyone who invokes single-user or maintenance mode is granted privileged access to all files on the system. GRUB 2
+    is the default boot loader for RHEL 7 and is designed to require a password to boot into single-user mode or make
+    modifications to the boot menu.'
+  tag 'legacy': ['SV-95719', 'V-81007']
   tag 'rationale': ''
-  tag 'check': "
-    For systems that use BIOS, this is Not Applicable.
-
-    For systems that are running a version of RHEL prior to 7.2, this is Not
-Applicable.
-
-    Check to see if an encrypted root password is set. On systems that use
-UEFI, use the following command:
-
-    # grep -iw grub2_password /boot/efi/EFI/redhat/user.cfg
+  tag 'check': 'For systems that use BIOS, this is Not Applicable.
+    For systems that are running a version of RHEL prior to 7.2, this is Not Applicable.
+    Check to see if an encrypted grub superusers password is set. On systems that use UEFI, use the following command:
+    $ sudo grep -iw grub2_password /boot/efi/EFI/redhat/user.cfg
     GRUB2_PASSWORD=grub.pbkdf2.sha512.[password_hash]
-
-    If the root password does not begin with \"grub.pbkdf2.sha512\", this is a
-finding.
-
-    Verify that the \"root\" account is set as the \"superusers\":
-
-    # grep -iw \"superusers\" /boot/efi/EFI/redhat/grub.cfg
-        set superusers=\"root\"
-        export superusers
-
-    If \"superusers\" is not set to \"root\", this is a finding.
-  "
-  tag 'fix': "
-    Configure the system to encrypt the boot password for root.
-
-    Generate an encrypted grub2 password for root with the following command:
-
-    Note: The hash generated is an example.
-
-    # grub2-setpassword
+    If the grub superusers password does not begin with "grub.pbkdf2.sha512", this is a finding.'
+  tag 'fix': 'Configure the system to encrypt the boot password for the grub superusers account with the
+    grub2-setpassword command, which creates/overwrites the /boot/efi/EFI/redhat/user.cfg file.
+    Generate an encrypted grub2 password for the grub superusers account with the following command:
+    $ sudo grub2-setpassword
     Enter password:
-    Confirm password:
-
-    Edit the /boot/efi/EFI/redhat/grub.cfg file and add or modify the following
-lines in the \"### BEGIN /etc/grub.d/01_users ###\" section:
-
-    set superusers=\"root\"
-    export superusers
-  "
+    Confirm password:'
   impact 0.7
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000080-GPOS-00048'
-  tag gid: 'V-81007'
-  tag rid: 'SV-95719r1_rule'
-  tag stig_id: 'RHEL-07-010491'
-  tag fix_id: 'F-87841r2_fix'
-  tag cci: ['CCI-000213']
+  tag 'severity': 'high'
+  tag 'gtitle': 'SRG-OS-000080-GPOS-00048'
+  tag 'gid': 'V-204440'
+  tag 'rid': 'SV-204440r744098_rule'
+  tag 'stig_id': 'RHEL-07-010491'
+  tag 'fix_id': 'F-4564r744097_fix'
+  tag 'cci': ['CCI-000213']
   tag nist: ['AC-3']
 
   if file('/sys/firmware/efi').exist?

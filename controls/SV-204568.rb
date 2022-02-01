@@ -1,51 +1,32 @@
-control 'V-73173' do
-  title "The Red Hat Enterprise Linux operating system must generate audit
-records for all account creations, modifications, disabling, and termination
-events that affect /etc/opasswd."
-  desc  "Without generating audit records that are specific to the security and
-mission needs of the organization, it would be difficult to establish,
-correlate, and investigate the events relating to an incident or identify those
-responsible for one.
-
-    Audit records can be generated from various components within the
-information system (e.g., module or policy filter).
-  "
+control 'SV-204568' do
+  title 'The Red Hat Enterprise Linux operating system must generate audit records for all account creations,
+    modifications, disabling, and termination events that affect /etc/security/opasswd.'
+  desc 'Without generating audit records that are specific to the security and mission needs of the organization, it
+    would be difficult to establish, correlate, and investigate the events relating to an incident or identify those
+    responsible for one.
+    Audit records can be generated from various components within the information system (e.g., module or policy
+    filter).'
+  tag 'legacy': ['SV-87825', 'V-73173']
   tag 'rationale': ''
-  tag 'check': "
-    Verify the operating system must generate audit records for all account
-creations, modifications, disabling, and termination events that affect
-/etc/opasswd.
-
-    Check the auditing rules in \"/etc/audit/audit.rules\" with the following
-command:
-
+  tag 'check': 'Verify the operating system must generate audit records for all account creations, modifications,
+    disabling, and termination events that affect /etc/security/opasswd.
+    Check the auditing rules in "/etc/audit/audit.rules" with the following command:
     # grep /etc/security/opasswd /etc/audit/audit.rules
-
     -w /etc/security/opasswd -p wa -k identity
-
-    If the command does not return a line, or the line is commented out, this
-is a finding.
-  "
-  tag 'fix': "
-    Configure the operating system to generate audit records for all account
-creations, modifications, disabling, and termination events that affect
-/etc/opasswd.
-
-    Add or update the following file system rule in
-\"/etc/audit/rules.d/audit.rules\":
-
+    If the command does not return a line, or the line is commented out, this is a finding.'
+  tag 'fix': 'Configure the operating system to generate audit records for all account creations, modifications,
+    disabling, and termination events that affect /etc/security/opasswd.
+    Add or update the following file system rule in "/etc/audit/rules.d/audit.rules":
     -w /etc/security/opasswd -p wa -k identity
-
     The audit daemon must be restarted for the changes to take effect:
-    # systemctl restart auditd
-  "
-  tag severity: nil
-  tag gtitle: 'SRG-OS-000004-GPOS-00004'
-  tag gid: 'V-73173'
-  tag rid: 'SV-87825r5_rule'
-  tag stig_id: 'RHEL-07-030874'
-  tag fix_id: 'F-79619r6_fix'
-  tag cci: ['CCI-000018', 'CCI-000172', 'CCI-001403', 'CCI-002130']
+    # systemctl restart auditd'
+  tag 'severity': 'medium'
+  tag 'gtitle': 'SRG-OS-000004-GPOS-00004'
+  tag 'gid': 'V-204568'
+  tag 'rid': 'SV-204568r744115_rule'
+  tag 'stig_id': 'RHEL-07-030874'
+  tag 'fix_id': 'F-4692r744114_fix'
+  tag 'cci': ['CCI-000018', 'CCI-000172', 'CCI-001403', 'CCI-002130']
   tag nist: ['AC-2 (4)', 'AU-12 c', 'AC-2 (4)', 'AC-2 (4)']
 
   audit_file = '/etc/security/opasswd'
