@@ -52,14 +52,14 @@ lint:
 kitchen-exec-container:
   extends: .ci:stage:kitchen-exec:inspec
   variables:
-    KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-    DEBUG: true
+    KITCHEN_LOCAL_YAML: 'kitchen.dokken.yml'
+    DEBUG: 'true'
 
 kitchen-exec-ec2:
   extends: .ci:stage:kitchen-exec:inspec
   variables:
-    KITCHEN_LOCAL_YAML: kitchen.ec2.yml
-    DEBUG: true
+    KITCHEN_LOCAL_YAML: 'kitchen.ec2.yml'
+    DEBUG: 'true'
 
 .publish:
   extends: .ci:stage:publish:inspec:artifacts
