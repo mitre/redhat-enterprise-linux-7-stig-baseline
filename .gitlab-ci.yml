@@ -62,7 +62,7 @@ kitchen-exec-ec2:
 
 verify:
   extends: .ci:stage:saf:verify
-  depends:
+  dependencies:
     - kitchen-exec-ec2
     - kitchen-exec-container
 
