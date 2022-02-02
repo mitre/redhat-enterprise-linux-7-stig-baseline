@@ -18,7 +18,7 @@ verifier:
     - dokken.inputs.yml
   reporter:
       - cli
-      - json:reports/raw/%{suite}/%{suite}-%{platform}.json
+      - json:reports/raw/%{suite}-%{platform}.json
 
 suites:
   - name: vanilla      
