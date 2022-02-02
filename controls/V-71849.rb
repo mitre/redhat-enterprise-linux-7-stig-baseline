@@ -7,8 +7,8 @@ permissions to system files and directories greater than the default.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the file permissions, ownership, and group membership of system
 files and commands match the vendor values.
 

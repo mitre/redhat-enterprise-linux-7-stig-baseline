@@ -3,8 +3,8 @@ control 'V-72055' do
 that the cron.allow file, if it exists, is group-owned by root."
   desc  "If the group owner of the \"cron.allow\" file is not set to root,
 sensitive information could be viewed or edited by unauthorized users."
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify that the \"cron.allow\" file is group-owned by root.
 
     Check the group owner of the \"cron.allow\" file with the following command:

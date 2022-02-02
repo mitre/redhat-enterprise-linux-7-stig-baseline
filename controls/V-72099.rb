@@ -11,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"fchown\" syscall occur.
 

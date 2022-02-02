@@ -4,8 +4,8 @@ that the cron.allow file, if it exists, is owned by root."
   desc  "If the owner of the \"cron.allow\" file is not set to root, the
 possibility exists for an unauthorized user to view or to edit sensitive
 information."
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify that the \"cron.allow\" file is owned by root.
 
     Check the owner of the \"cron.allow\" file with the following command:

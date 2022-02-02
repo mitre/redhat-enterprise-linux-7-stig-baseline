@@ -5,8 +5,8 @@ packet forwarding unless the system is a router."
 network topology information with other routers. If this software is used when
 not required, system network information may be unnecessarily transmitted
 across the network."
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the system is not performing packet forwarding, unless the system is
 a router.
 

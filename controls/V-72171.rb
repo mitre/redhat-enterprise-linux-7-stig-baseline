@@ -11,8 +11,8 @@ compromise.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"mount\" command and syscall occur.
 
@@ -35,7 +35,7 @@ privileged-mount
     If all uses of the \"mount\" command are not being audited, this is a
 finding.
   "
-  desc 'fix', "
+  tag  'fix': "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"mount\" command and syscall occur.
 

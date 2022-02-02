@@ -14,8 +14,8 @@ Card.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the operating system uniquely identifies and authenticates users
 using multifactor authentication via a graphical user logon.
 
@@ -40,7 +40,7 @@ than local is being used.
     If \"enable-smartcard-authentication\" is set to \"false\" or the keyword
 is missing, this is a finding.
   "
-  desc 'fix', "
+  tag  'fix': "
     Configure the operating system to uniquely identify and authenticate users
 using multifactor authentication via a graphical user logon.
 

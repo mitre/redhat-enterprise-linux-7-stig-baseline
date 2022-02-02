@@ -6,8 +6,8 @@ routers forward the packet along a different path than configured on the
 router, which can be used to bypass network security measures. This requirement
 applies only to the forwarding of source-routed traffic, such as when IPv4
 forwarding is enabled and the system is functioning as a router."
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the system does not accept IPv4 source-routed packets.
 
     # grep net.ipv4.conf.all.accept_source_route /etc/sysctl.conf

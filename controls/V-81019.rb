@@ -12,8 +12,8 @@ to the central log server.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the audisp daemon is configured to take an appropriate action when
 the internal queue is full:
 
@@ -24,7 +24,7 @@ the internal queue is full:
     If the \"overflow_action\" option is not \"syslog\", \"single\", or
 \"halt\", or the line is commented out, this is a finding.
   "
-  desc 'fix', "
+  tag  'fix': "
     Edit the /etc/audisp/audispd.conf file and add or update the
 \"overflow_action\" option:
 
