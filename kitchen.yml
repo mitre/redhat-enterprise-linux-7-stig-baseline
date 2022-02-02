@@ -6,8 +6,8 @@ verifier:
   name: inspec
   sudo: true
   reporter:
-    - cli
-    - json:reports/raw/%{suite}/%{platform}.json
+      - cli
+      - json:reports/raw/%{suite}-%{platform}.json
   inspec_tests:
     - name: RedHat Enterprise Linux 7 STIG
       path: .

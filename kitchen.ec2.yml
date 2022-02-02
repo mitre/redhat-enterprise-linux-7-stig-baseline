@@ -48,10 +48,6 @@ suites:
     provisioner:
       name: ansible_playbook
       playbook: test/ansible/rhel7STIG-ansible/vanilla.yml
-    verifier:
-      reporter:
-        - cli
-        - json:reports/raw/%{suite}/%{platform}.json
     
   - name: hardened
     driver:
@@ -59,9 +55,4 @@ suites:
     provisioner:
       name: ansible_playbook
       playbook: test/ansible/rhel7STIG-ansible/site.yml
-    
-    verifier:
-      reporter:
-        - cli
-        - json:reports/raw/%{suite}/%{platform}.json
     

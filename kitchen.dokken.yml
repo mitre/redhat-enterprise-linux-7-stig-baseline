@@ -16,9 +16,6 @@ driver:
 verifier:
   input_files:
     - dokken.inputs.yml
-  reporter:
-      - cli
-      - json:reports/raw/%{suite}-%{platform}.json
 
 suites:
   - name: vanilla      
