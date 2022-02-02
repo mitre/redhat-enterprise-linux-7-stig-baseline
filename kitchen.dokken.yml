@@ -16,20 +16,14 @@ driver:
 verifier:
   input_files:
     - dokken.inputs.yml
+  reporter:
+      - cli
+      - json:reports/raw/%{suite}/%{suite}-%{platform}.json
 
 suites:
-  - name: vanilla
-    verifier:
-      reporter:
-        - cli
-        - json:reports/raw/%{suite}/%{platform}.json
+  - name: vanilla      
     driver:
       image: <%= ENV['VANILLA_CONTAINER_IMAGE'] %>
   - name: hardened
-
-    verifier:
-      reporter:
-        - cli
-        - json:reports/raw/%{suite}/%{platform}.json
     driver:
       image: <%= ENV['HARDENED_CONTAINER_IMAGE'] %>
