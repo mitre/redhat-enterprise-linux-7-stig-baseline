@@ -4,8 +4,8 @@ that all files and directories contained in local interactive user home
 directories have a mode of 0750 or less permissive."
   desc  "If a local interactive user files have excessive permissions,
 unintended users may be able to access or modify them."
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify all files and directories contained in a local interactive user home
 directory, excluding local initialization files, have a mode of \"0750\".
 

@@ -4,8 +4,8 @@ Internet Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP)
 echoes sent to a broadcast address."
   desc  "Responding to broadcast (ICMP) echoes facilitates network mapping and
 provides a vector for amplification attacks."
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the system does not respond to IPv4 ICMP echoes sent to a broadcast
 address.
 

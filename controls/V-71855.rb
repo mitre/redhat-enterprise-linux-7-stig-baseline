@@ -9,8 +9,8 @@ include, for example, signed hash functions using asymmetric cryptography
 enabling distribution of the public key to verify the hash information while
 maintaining the confidentiality of the key used to generate the hash.
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the cryptographic hash of system files and commands match the vendor
 values.
 

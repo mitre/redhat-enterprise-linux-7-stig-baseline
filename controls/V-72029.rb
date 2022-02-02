@@ -5,8 +5,8 @@ directory user or root."
   desc  "Local initialization files are used to configure the user's shell
 environment upon logon. Malicious modification of these files could compromise
 accounts upon logon."
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the local initialization files of all local interactive users are
 group-owned by that user's primary Group Identifier (GID).
 

@@ -5,8 +5,8 @@ filter for IPv4 network traffic when possible on all interfaces."
 that should not have been able to be received on the interface they were
 received on. It should not be used on systems which are routers for complicated
 networks, but is helpful for end hosts and routers serving small networks."
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the system uses a reverse-path filter for IPv4:
 
     # grep net.ipv4.conf.all.rp_filter /etc/sysctl.conf /etc/sysctl.d/*

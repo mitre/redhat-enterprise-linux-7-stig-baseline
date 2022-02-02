@@ -26,7 +26,7 @@ control 'V-72417' do
         proxy capability). This does not apply to authentication for the purpose of
         configuring the device itself (management)."
 
-  desc  'check', "
+  tag  'check': "
         Verify the operating system has the packages required for multifactor
         authentication installed.
 

@@ -27,8 +27,8 @@ configuring the device itself (management).
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the operating system implements certificate status checking for PKI
 authentication.
 
@@ -46,7 +46,7 @@ system with the following command:
     If \"ocsp_on\" is not present in all uncommented \"cert_policy\" lines in
 \"/etc/pam_pkcs11/pam_pkcs11.conf\", this is a finding.
   "
-  desc 'fix', "
+  tag  'fix': "
     Configure the operating system to do certificate status checking for PKI
 authentication.
 

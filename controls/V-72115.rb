@@ -11,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"lsetxattr\" syscall occur.
 
@@ -30,7 +30,7 @@ following commands:
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"lsetxattr\" syscall, this is a finding.
   "
-  desc 'fix', "
+  tag  'fix': "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"lsetxattr\" syscall occur.
 

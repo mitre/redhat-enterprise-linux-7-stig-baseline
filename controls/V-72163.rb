@@ -11,8 +11,8 @@ compromise.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to access the \"/etc/sudoers\" file and files
 in the \"/etc/sudoers.d/\" directory.
@@ -32,7 +32,7 @@ the following commands to check the file system rules in
     If the commands do not return output that match the examples, this is a
 finding.
   "
-  desc 'fix', "
+  tag  'fix': "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to access the \"/etc/sudoers\" file and files
 in the \"/etc/sudoers.d/\" directory.

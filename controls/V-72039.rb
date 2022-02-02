@@ -5,8 +5,8 @@ modification."
   desc  "If an unauthorized or modified device is allowed to exist on the
 system, there is the possibility the system may perform unintended or
 unauthorized operations."
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify that all system device files are correctly labeled to prevent
 unauthorized modification.
 

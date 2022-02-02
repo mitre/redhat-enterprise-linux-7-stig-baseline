@@ -20,8 +20,8 @@ storage repositories combined), or both.
 
 
   "
-  desc  'rationale', ''
-  desc  'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Confirm the audit configuration regarding how auditing processing failures
 are handled.
 
@@ -46,7 +46,7 @@ this is a CAT II finding.
 not documented or there is no monitoring of the kernel log, this is a CAT III
 finding.
   "
-  desc 'fix', "
+  tag  'fix': "
     Configure the operating system to shut down in the event of an audit
 processing failure.
 
