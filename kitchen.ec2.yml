@@ -51,7 +51,7 @@ suites:
     verifier:
       reporter:
         - cli
-        - json:test/results/vanilla-test-result.json
+        - json:reports/raw/%{suite}/%{platform}.json
     
   - name: hardened
     driver:
@@ -63,5 +63,5 @@ suites:
     verifier:
       reporter:
         - cli
-        - json:test/results/hardened-test-result.json
+        - json:reports/raw/%{suite}/%{platform}.json
     
