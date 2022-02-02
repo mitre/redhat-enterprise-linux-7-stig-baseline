@@ -51,12 +51,16 @@ lint:
 
 kitchen-exec-container:
   extends: .ci:stage:kitchen-exec:inspec
+  before_script:
+    - apt-get install -y jq
   variables:
     KITCHEN_LOCAL_YAML: 'kitchen.dokken.yml'
     DEBUG: 'true'
 
 kitchen-exec-ec2:
   extends: .ci:stage:kitchen-exec:inspec
+  before_script:
+    - apt-get install -y jq
   variables:
     KITCHEN_LOCAL_YAML: 'kitchen.ec2.yml'
     DEBUG: 'true'
