@@ -9,6 +9,7 @@ before_script:
 stages:
   - scan
   - setup
+  - validate
   - verify
   - publish
   - report
@@ -53,13 +54,17 @@ kitchen-exec-container:
   extends: .ci:stage:kitchen-exec:inspec
   variables:
     KITCHEN_LOCAL_YAML: 'kitchen.dokken.yml'
-    DEBUG: 'true'
 
 kitchen-exec-ec2:
   extends: .ci:stage:kitchen-exec:inspec
   variables:
     KITCHEN_LOCAL_YAML: 'kitchen.ec2.yml'
-    DEBUG: 'true'
+
+verify:
+  extends: .ci:stage:saf:verify
+  depends:
+    - kitchen-exec-ec2
+    - kitchen-exec-container
 
 .publish:
   extends: .ci:stage:publish:inspec:artifacts
