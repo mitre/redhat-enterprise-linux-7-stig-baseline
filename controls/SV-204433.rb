@@ -1,22 +1,22 @@
 control 'SV-204433' do
   title 'The Red Hat Enterprise Linux operating system must not allow an unrestricted logon to the system.'
   desc 'Failure to restrict system access to authenticated users negatively impacts operating system security.'
-  tag 'legacy': ['V-71955', 'SV-86579']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system does not allow an unrestricted logon to the system via a graphical user
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system does not allow an unrestricted logon to the system via a graphical user
     interface.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
     Check for the value of the "TimedLoginEnable" parameter in "/etc/gdm/custom.conf" file with the following command:
     # grep -i timedloginenable /etc/gdm/custom.conf
     TimedLoginEnable=false
     If the value of "TimedLoginEnable" is not set to "false", this is a finding.'
-  desc 'fix', 'Configure the operating system to not allow an unrestricted account to log on to the system via a
+  tag 'fix': 'Configure the operating system to not allow an unrestricted account to log on to the system via a
     graphical user interface.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
     Add or edit the line for the "TimedLoginEnable" parameter in the [daemon] section of the "/etc/gdm/custom.conf" file
     to "false":
     [daemon]
     TimedLoginEnable=false'
+  tag 'legacy': ['V-71955', 'SV-86579']
   tag 'severity': 'high'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00229'
   tag 'gid': 'V-204433'

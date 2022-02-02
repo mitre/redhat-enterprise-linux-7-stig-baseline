@@ -1,9 +1,8 @@
 control 'SV-204449' do
   title 'The Red Hat Enterprise Linux operating system must be configured to disable USB mass storage.'
   desc 'USB mass storage permits easy introduction of unknown devices, thereby facilitating malicious activity.'
-  tag 'legacy': ['SV-86607', 'V-71983']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system disables the ability to load the USB Storage kernel module.
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system disables the ability to load the USB Storage kernel module.
     # grep -r usb-storage /etc/modprobe.d/* | grep -i "/bin/true" | grep -v "^#"
     install usb-storage /bin/true
     If the command does not return any output, or the line is commented out, and use of USB Storage is not documented
@@ -15,7 +14,7 @@ control 'SV-204449' do
     If the command does not return any output or the output is not "blacklist usb-storage", and use of USB storage
     devices is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is
     a finding.'
-  desc 'fix', 'Configure the operating system to disable the ability to use the USB Storage kernel module.
+  tag 'fix': 'Configure the operating system to disable the ability to use the USB Storage kernel module.
     Create a file under "/etc/modprobe.d" with the following command:
     # touch /etc/modprobe.d/usb-storage.conf
     Add the following line to the created file:
@@ -25,9 +24,11 @@ control 'SV-204449' do
     Add or update the line:
     blacklist usb-storage'
   impact 0.5
+  tag 'legacy': ['SV-86607', 'V-71983']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000114-GPOS-00059'
-  tag 'satisfies': ['SRG-OS-000114-GPOS-00059', 'SRG-OS-000378-GPOS-00163', 'SRG-OS-000480-GPOS-00227']
+  tag 'satisfies': ['SRG-OS-000114-GPOS-00059', 'SRG-OS-000378-GPOS-00163',
+                    'SRG-OS-000480-GPOS-00227']
   tag 'gid': 'V-204449'
   tag 'rid': 'SV-204449r603261_rule'
   tag 'stig_id': 'RHEL-07-020100'

@@ -3,9 +3,8 @@ control 'SV-204492' do
   desc 'Kernel core dumps may contain the full contents of system memory at the time of the crash. Kernel core dumps
     may consume a considerable amount of disk space and may result in denial of service by exhausting the available
     space on the target file system partition.'
-  tag 'legacy': ['SV-86681', 'V-72057']
-  desc 'rationale', ''
-  desc 'check', 'Verify that kernel core dumps are disabled unless needed.
+  tag 'rationale': ''
+  tag 'check': 'Verify that kernel core dumps are disabled unless needed.
     Check the status of the "kdump" service with the following command:
     # systemctl status kdump.service
     kdump.service - Crash recovery kernel arming
@@ -16,10 +15,11 @@ control 'SV-204492' do
     If the "kdump" service is active, ask the System Administrator if the use of the service is required and documented
     with the Information System Security Officer (ISSO).
     If the service is active and is not documented, this is a finding.'
-  desc 'fix', 'If kernel core dumps are not required, disable the "kdump" service with the following command:
+  tag 'fix': 'If kernel core dumps are not required, disable the "kdump" service with the following command:
     # systemctl disable kdump.service
     If kernel core dumps are required, document the need with the ISSO.'
   impact 0.5
+  tag 'legacy': ['SV-86681', 'V-72057']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204492'

@@ -4,9 +4,8 @@ control 'SV-204608' do
   desc 'To provide availability for name resolution services, multiple redundant name servers are mandated. A
     failure in name resolution could lead to the failure of security functions requiring name resolution, which may
     include time synchronization, centralized authentication, and remote system logging.'
-  tag 'legacy': ['SV-86905', 'V-72281']
-  desc 'rationale', ''
-  desc 'check', %q{Determine whether the system is using local or DNS name resolution with the following command:
+  tag 'rationale': ''
+  tag 'check': %q{Determine whether the system is using local or DNS name resolution with the following command:
     # grep hosts /etc/nsswitch.conf
     hosts: files dns
     If the DNS entry is missing from the host's line in the "/etc/nsswitch.conf" file, the "/etc/resolv.conf" file must
@@ -27,7 +26,7 @@ control 'SV-204608' do
     ----i----------- /etc/resolv.conf
     If the file is mutable and has not been documented with the Information System Security Officer (ISSO), this is a
     finding.}
-  desc 'fix', 'Configure the operating system to use two or more name servers for DNS resolution.
+  tag 'fix': 'Configure the operating system to use two or more name servers for DNS resolution.
     Edit the "/etc/resolv.conf" file to uncomment or add the two or more "nameserver" option lines with the IP address
     of local authoritative name servers. If local host resolution is being performed, the "/etc/resolv.conf" file must
     be empty. An empty "/etc/resolv.conf" file can be created as follows:
@@ -37,6 +36,7 @@ control 'SV-204608' do
     If the "/etc/resolv.conf" file must be mutable, the required configuration must be documented with the Information
     System Security Officer (ISSO) and the file must be verified by the system file integrity tool.'
   impact 0.3
+  tag 'legacy': ['SV-86905', 'V-72281']
   tag 'severity': 'low'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204608'
@@ -61,7 +61,9 @@ control 'SV-204608' do
 
   unless dns_in_host_line
     describe 'If `local` resoultion is being used, the /etc/resolv.conf file should' do
-      subject { parse_config_file('/etc/resolv.conf', { comment_char: '#' }).params }
+      subject do
+        parse_config_file('/etc/resolv.conf', { comment_char: '#' }).params
+      end
       it { should be_empty }
     end
   end

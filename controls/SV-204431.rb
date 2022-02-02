@@ -9,19 +9,19 @@ control 'SV-204431' do
     those parameters impacting the security state of the system, including the parameters required to satisfy other
     security control requirements. Security-related parameters include, for example, registry settings; account, file,
     and directory permission settings; and settings for functions, ports, protocols, services, and remote connections.'
-  tag 'legacy': ['SV-86575', 'V-71951']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system enforces a delay of at least four seconds between console logon prompts
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system enforces a delay of at least four seconds between console logon prompts
     following a failed logon attempt.
     Check the value of the "fail_delay" parameter in the "/etc/login.defs" file with the following command:
     # grep -i fail_delay /etc/login.defs
     FAIL_DELAY 4
     If the value of "FAIL_DELAY" is not set to "4" or greater, or the line is commented out, this is a finding.'
-  desc 'fix', 'Configure the operating system to enforce a delay of at least four seconds between logon prompts
+  tag 'fix': 'Configure the operating system to enforce a delay of at least four seconds between logon prompts
     following a failed console logon attempt.
     Modify the "/etc/login.defs" file to set the "FAIL_DELAY" parameter to "4" or greater:
     FAIL_DELAY 4'
   impact 0.5
+  tag 'legacy': ['SV-86575', 'V-71951']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00226'
   tag 'gid': 'V-204431'

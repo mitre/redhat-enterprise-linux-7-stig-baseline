@@ -5,9 +5,8 @@ control 'SV-204609' do
     different path than configured on the router, which can be used to bypass network security measures. This
     requirement applies only to the forwarding of source-routed traffic, such as when IPv4 forwarding is enabled and the
     system is functioning as a router.'
-  tag 'legacy': ['V-72283', 'SV-86907']
-  desc 'rationale', ''
-  desc 'check', 'Verify the system does not accept IPv4 source-routed packets.
+  tag 'rationale': ''
+  tag 'check': 'Verify the system does not accept IPv4 source-routed packets.
     # grep net.ipv4.conf.all.accept_source_route /etc/sysctl.conf /etc/sysctl.d/*
     net.ipv4.conf.all.accept_source_route = 0
     If " net.ipv4.conf.all.accept_source_route " is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/
@@ -16,12 +15,19 @@ control 'SV-204609' do
     # /sbin/sysctl -a | grep net.ipv4.conf.all.accept_source_route
     net.ipv4.conf.all.accept_source_route = 0
     If the returned line does not have a value of "0", this is a finding.'
-  desc 'fix', 'Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" or
-    a configuration file in the /etc/sysctl.d/ directory (or modify the line to have the required value):
+  desc  'fix', "
+    Set the system to the required kernel parameter by adding the following
+line to \"/etc/sysctl.conf\" or a configuration file in the /etc/sysctl.d/
+directory (or modify the line to have the required value):
+
     net.ipv4.conf.all.accept_source_route = 0
+
     Issue the following command to make the changes take effect:
-    # sysctl -system'
+
+    # sysctl -system
+  "
   impact 0.5
+  tag 'legacy': ['V-72283', 'SV-86907']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204609'

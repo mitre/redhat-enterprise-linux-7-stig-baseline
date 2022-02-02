@@ -8,22 +8,23 @@ control 'SV-204536' do
     When a user logs on, the auid is set to the uid of the account that is being authenticated. Daemons are not user
     sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals
     4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
-  tag 'legacy': ['SV-86759', 'V-72135']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
     "semanage" command occur.
     Check the file system rule in "/etc/audit/audit.rules" with the following command:
     # grep -i /usr/sbin/semanage /etc/audit/audit.rules
     -a always,exit -F path=/usr/sbin/semanage -F auid>=1000 -F auid!=unset -k privileged-priv_change
     If the command does not return any output, this is a finding.'
-  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
+  tag 'fix': 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
     the "semanage" command occur.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F path=/usr/sbin/semanage -F auid>=1000 -F auid!=unset -k privileged-priv_change
     The audit daemon must be restarted for the changes to take effect.'
+  tag 'legacy': ['SV-86759', 'V-72135']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000392-GPOS-00172'
-  tag 'satisfies': ['SRG-OS-000392-GPOS-00172', 'SRG-OS-000463-GPOS-00207', 'SRG-OS-000465-GPOS-00209']
+  tag 'satisfies': ['SRG-OS-000392-GPOS-00172', 'SRG-OS-000463-GPOS-00207',
+                    'SRG-OS-000465-GPOS-00209']
   tag 'gid': 'V-204536'
   tag 'rid': 'SV-204536r603261_rule'
   tag 'stig_id': 'RHEL-07-030560'

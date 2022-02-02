@@ -5,18 +5,18 @@ control 'SV-204620' do
     integrity of user passwords or the remote session. If a privileged user were to log on using this service, the
     privileged user password could be compromised. SSH or other encrypted file transfer methods must be used in place of
     this service.'
-  tag 'legacy': ['SV-86923', 'V-72299']
-  desc 'rationale', ''
-  desc 'check', 'Verify an FTP server has not been installed on the system.
+  tag 'rationale': ''
+  tag 'check': 'Verify an FTP server has not been installed on the system.
     Check to see if an FTP server has been installed with the following commands:
     # yum list installed vsftpd
     vsftpd-3.0.2.el7.x86_64.rpm
     If "vsftpd" is installed and is not documented with the Information System Security Officer (ISSO) as an operational
     requirement, this is a finding.'
-  desc 'fix', 'Document the "vsftpd" package with the ISSO as an operational requirement or remove it from the system
+  tag 'fix': 'Document the "vsftpd" package with the ISSO as an operational requirement or remove it from the system
     with the following command:
     # yum remove vsftpd'
   impact 0.7
+  tag 'legacy': ['SV-86923', 'V-72299']
   tag 'severity': 'high'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204620'

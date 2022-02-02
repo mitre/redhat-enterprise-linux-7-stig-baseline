@@ -6,9 +6,8 @@ control 'SV-204397' do
     Multifactor solutions that require devices separate from information systems gaining access include, for example,
     hardware tokens providing time-based or challenge-response authenticators and smart cards such as the U.S.
     Government Personal Identity Verification card and the DoD Common Access Card.'
-  tag 'legacy': ['V-77819', 'SV-92515']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system uniquely identifies and authenticates users using multifactor
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system uniquely identifies and authenticates users using multifactor
     authentication via a graphical user logon.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
     Determine which profile the system database is using with the following command:
@@ -19,7 +18,7 @@ control 'SV-204397' do
     # grep enable-smartcard-authentication /etc/dconf/db/local.d/*
     enable-smartcard-authentication=true
     If "enable-smartcard-authentication" is set to "false" or the keyword is missing, this is a finding.'
-  desc 'fix', 'Configure the operating system to uniquely identify and authenticate users using multifactor
+  tag 'fix': 'Configure the operating system to uniquely identify and authenticate users using multifactor
     authentication via a graphical user logon.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
@@ -31,6 +30,7 @@ control 'SV-204397' do
     enable-smartcard-authentication=true
     Update the system databases:
     # dconf update'
+  tag 'legacy': ['V-77819', 'SV-92515']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000375-GPOS-00160'
   tag 'satisfies': ['SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']

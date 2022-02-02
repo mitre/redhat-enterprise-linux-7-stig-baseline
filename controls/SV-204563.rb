@@ -8,19 +8,19 @@ control 'SV-204563' do
     When a user logs on, the auid is set to the uid of the account that is being authenticated. Daemons are not user
     sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals
     4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
-  tag 'legacy': ['SV-86815', 'V-72191']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
     "kmod" command occur.
     Check the auditing rules in "/etc/audit/audit.rules" with the following command:
     # grep -iw kmod /etc/audit/audit.rules
     -w /usr/bin/kmod -p x -F auid!=unset -k module-change
     If the command does not return any output, this is a finding.'
-  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
+  tag 'fix': 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
     the "kmod" command occur.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -w /usr/bin/kmod -p x -F auid!=unset -k module-change
     The audit daemon must be restarted for the changes to take effect.'
+  tag 'legacy': ['SV-86815', 'V-72191']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000471-GPOS-00216'
   tag 'satisfies': ['SRG-OS-000471-GPOS-00216', 'SRG-OS-000477-GPOS-00222']

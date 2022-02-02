@@ -30,7 +30,7 @@ auid!=4294967295 -k perm_mod
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"fremovexattr\" syscall, this is a finding.
   "
-  tag  'fix': "
+  tag 'fix': "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"fremovexattr\" syscall occur.
 

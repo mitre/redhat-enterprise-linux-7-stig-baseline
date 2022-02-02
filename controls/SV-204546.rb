@@ -8,22 +8,23 @@ control 'SV-204546' do
     When a user logs on, the auid is set to the uid of the account that is being authenticated. Daemons are not user
     sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals
     4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
-  tag 'legacy': ['SV-86781', 'V-72157']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
     "userhelper" command occur.
     Check the file system rule in "/etc/audit/audit.rules" with the following command:
     # grep -i /usr/sbin/userhelper /etc/audit/audit.rules
     -a always,exit -F path=/usr/sbin/userhelper -F auid>=1000 -F auid!=unset -k privileged-passwd
     If the command does not return any output, this is a finding.'
-  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
+  tag 'fix': 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
     the "userhelper" command occur.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F path=/usr/sbin/userhelper -F auid>=1000 -F auid!=unset -k privileged-passwd
     The audit daemon must be restarted for the changes to take effect.'
+  tag 'legacy': ['SV-86781', 'V-72157']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000042-GPOS-00020'
-  tag 'satisfies': ['SRG-OS-000042-GPOS-00020', 'SRG-OS-000392-GPOS-00172', 'SRG-OS-000471-GPOS-00215']
+  tag 'satisfies': ['SRG-OS-000042-GPOS-00020', 'SRG-OS-000392-GPOS-00172',
+                    'SRG-OS-000471-GPOS-00215']
   tag 'gid': 'V-204546'
   tag 'rid': 'SV-204546r603261_rule'
   tag 'stig_id': 'RHEL-07-030670'

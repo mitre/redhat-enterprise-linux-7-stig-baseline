@@ -4,9 +4,8 @@ control 'SV-204512' do
   desc 'Taking appropriate action when there is an error sending audit records to a remote system will minimize the
     possibility of losing audit records.
     One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon.'
-  tag 'legacy': ['V-73163', 'SV-87815']
-  desc 'rationale', ''
-  desc 'check', 'Verify the action the operating system takes if there is an error sending audit records to a remote
+  tag 'rationale': ''
+  tag 'check': 'Verify the action the operating system takes if there is an error sending audit records to a remote
     system.
     Check the action that takes place if there is an error sending audit records to a remote system with the following
     command:
@@ -18,12 +17,13 @@ control 'SV-204512' do
     If there is no evidence that the system is configured to off-load audit logs to a different system or storage media,
     or if the configuration does not take appropriate action if there is an error sending audit records to the remote
     system, this is a finding.'
-  desc 'fix', 'Configure the action the operating system takes if there is an error sending audit records to a remote
+  tag 'fix': 'Configure the action the operating system takes if there is an error sending audit records to a remote
     system.
     Uncomment the "network_failure_action" option in "/etc/audisp/audisp-remote.conf" and set it to "syslog", "single",
     or "halt".
     network_failure_action = syslog'
   impact 0.5
+  tag 'legacy': ['V-73163', 'SV-87815']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000342-GPOS-00133'
   tag 'gid': 'V-204512'
@@ -34,6 +34,8 @@ control 'SV-204512' do
   tag nist: ['AU-4 (1)']
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('network_failure_action'.to_s) { should be_in ['syslog', 'single', 'halt'] }
+    its('network_failure_action'.to_s) do
+      should be_in ['syslog', 'single', 'halt']
+    end
   end
 end

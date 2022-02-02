@@ -3,16 +3,20 @@ control 'SV-204490' do
     is owned by root.'
   desc 'If the owner of the "cron.allow" file is not set to root, the possibility exists for an unauthorized user to
     view or to edit sensitive information.'
-  tag 'legacy': ['V-72053', 'SV-86677']
-  desc 'rationale', ''
-  desc 'check', 'Verify that the "cron.allow" file is owned by root.
+  tag 'rationale': ''
+  tag 'check': 'Verify that the "cron.allow" file is owned by root.
     Check the owner of the "cron.allow" file with the following command:
     # ls -al /etc/cron.allow
     -rw------- 1 root root 6 Mar  5  2011 /etc/cron.allow
     If the "cron.allow" file exists and has an owner other than root, this is a finding.'
-  desc 'fix', 'Set the owner on the "/etc/cron.allow" file to root with the following command:
-    # chown root /etc/cron.allow'
+  desc  'fix', "
+    Set the owner on the \"/etc/cron.allow\" file to root with the following
+command:
+
+    # chown root /etc/cron.allow
+  "
   impact 0.5
+  tag 'legacy': ['V-72053', 'SV-86677']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204490'

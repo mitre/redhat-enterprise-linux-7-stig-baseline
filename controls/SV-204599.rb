@@ -6,15 +6,14 @@ control 'SV-204599' do
     Kerberos implementation. Vulnerabilities in the system's Kerberos implementation may then be subject to
     exploitation. To reduce the attack surface of the system, the Kerberos authentication mechanism within SSH must be
     disabled for systems not using this capability."
-  tag 'legacy': ['V-72261', 'SV-86885']
-  desc 'rationale', ''
-  desc 'check', 'Verify the SSH daemon does not permit Kerberos to authenticate passwords unless approved.
+  tag 'rationale': ''
+  tag 'check': 'Verify the SSH daemon does not permit Kerberos to authenticate passwords unless approved.
     Check that the SSH daemon does not permit Kerberos to authenticate passwords with the following command:
     # grep -i kerberosauth /etc/ssh/sshd_config
     KerberosAuthentication no
     If the "KerberosAuthentication" keyword is missing, or is set to "yes" and is not documented with the Information
     System Security Officer (ISSO), or the returned line is commented out, this is a finding.'
-  desc 'fix', 'Uncomment the "KerberosAuthentication" keyword in "/etc/ssh/sshd_config" (this file may be named
+  tag 'fix': 'Uncomment the "KerberosAuthentication" keyword in "/etc/ssh/sshd_config" (this file may be named
     differently or be in a different location if using a version of SSH that is provided by a third-party vendor) and
     set the value to "no":
     KerberosAuthentication no
@@ -22,13 +21,15 @@ control 'SV-204599' do
     If Kerberos authentication is required, it must be documented, to include the location of the configuration file,
     with the ISSO.'
   impact 0.5
+  tag 'legacy': ['V-72261', 'SV-86885']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000364-GPOS-00151'
   tag 'gid': 'V-204599'
   tag 'rid': 'SV-204599r603261_rule'
   tag 'stig_id': 'RHEL-07-040440'
   tag 'fix_id': 'F-4723r88990_fix'
-  tag 'cci': ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813', 'CCI-001814']
+  tag 'cci': ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813',
+              'CCI-001814']
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
 
   describe sshd_config do

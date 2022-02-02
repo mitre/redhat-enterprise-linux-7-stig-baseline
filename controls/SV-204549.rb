@@ -6,9 +6,8 @@ control 'SV-204549' do
     At a minimum, the organization must audit the full-text recording of privileged access commands. The organization
     must maintain audit trails in sufficient detail to reconstruct events to determine the cause and impact of
     compromise.'
-  tag 'legacy': ['V-72163', 'SV-86787']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to access
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system generates audit records when successful/unsuccessful attempts to access
     the "/etc/sudoers" file and files in the "/etc/sudoers.d/" directory.
     Check for modification of the following files being audited by performing the following commands to check the file
     system rules in "/etc/audit/audit.rules":
@@ -17,12 +16,13 @@ control 'SV-204549' do
     # grep -i "/etc/sudoers.d/" /etc/audit/audit.rules
     -w /etc/sudoers.d/ -p wa -k privileged-actions
     If the commands do not return output that match the examples, this is a finding.'
-  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to
+  tag 'fix': 'Configure the operating system to generate audit records when successful/unsuccessful attempts to
     access the "/etc/sudoers" file and files in the "/etc/sudoers.d/" directory.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -w /etc/sudoers -p wa -k privileged-actions
     -w /etc/sudoers.d/ -p wa -k privileged-actions
     The audit daemon must be restarted for the changes to take effect.'
+  tag 'legacy': ['V-72163', 'SV-86787']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000037-GPOS-00015'
   tag 'satisfies': ['SRG-OS-000037-GPOS-00015', 'SRG-OS-000042-GPOS-00020', 'SRG-OS-000392-GPOS-00172',

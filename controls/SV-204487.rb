@@ -6,17 +6,17 @@ control 'SV-204487' do
     The only authorized public directories are those temporary directories supplied with the system or those designed to
     be temporary file repositories. The setting is normally reserved for directories used by the system and by users for
     temporary file storage, (e.g., /tmp), and for directories requiring global read/write access.'
-  tag 'legacy': ['V-72047', 'SV-86671']
-  desc 'rationale', ''
-  desc 'check', 'The following command will discover and print world-writable directories that are not group-owned by
+  tag 'rationale': ''
+  tag 'check': 'The following command will discover and print world-writable directories that are not group-owned by
     a system account, assuming only system accounts have a GID lower than 1000. Run it once for each local partition
     [PART]:
     # find [PART] -xdev -type d -perm -0002 -gid +999 -print
     If there is output, this is a finding.'
-  desc 'fix', 'All directories in local partitions which are world-writable should be group-owned by root or another
+  tag 'fix': 'All directories in local partitions which are world-writable should be group-owned by root or another
     system account. If any world-writable directories are not group-owned by a system account, this should be
     investigated. Following this, the directories should be deleted or assigned to an appropriate group.'
   impact 0.5
+  tag 'legacy': ['V-72047', 'SV-86671']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204487'
@@ -29,7 +29,9 @@ control 'SV-204487' do
   application_groups = input('application_groups')
 
   ww_dirs = Set[]
-  partitions = etc_fstab.params.map { |partition| partition['file_system_type'] }.uniq
+  partitions = etc_fstab.params.map do |partition|
+    partition['file_system_type']
+  end.uniq
   partitions.each do |part|
     cmd = "find / -perm -002 -xdev -type d -fstype #{part} -exec ls -lLd {} \\;"
     ww_dirs += command(cmd).stdout.split("\n")
@@ -38,7 +40,9 @@ control 'SV-204487' do
   ww_dirs.to_a.each do |curr_dir|
     dir_arr = curr_dir.split(' ')
     describe file(dir_arr.last) do
-      its('group') { should be_in ['root', 'sys', 'bin'] + application_groups }
+      its('group') do
+        should be_in ['root', 'sys', 'bin'] + application_groups
+      end
     end
   end
 end

@@ -6,9 +6,8 @@ control 'SV-204396' do
     The session lock is implemented at the point where session activity can be determined.
     Regardless of where the session lock is determined and implemented, once invoked, the session lock must remain in
     place until the user reauthenticates. No other activity aside from reauthentication must unlock the system.'
-  tag 'legacy': ['SV-86515', 'V-71891']
-  desc 'rationale', ''
-  desc 'check', %q(Verify the operating system enables a user's session lock until that user re-establishes access
+  tag 'rationale': ''
+  tag 'check': %q(Verify the operating system enables a user's session lock until that user re-establishes access
     using established identification and authentication procedures. The screen program must be installed to lock
     sessions on the console.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
@@ -16,7 +15,7 @@ control 'SV-204396' do
     # grep -i lock-enabled /etc/dconf/db/local.d/*
     lock-enabled=true
     If the "lock-enabled" setting is missing or is not set to "true", this is a finding.)
-  desc 'fix', %q{Configure the operating system to enable a user's session lock until that user re-establishes access
+  tag 'fix': %q{Configure the operating system to enable a user's session lock until that user re-establishes access
     using established identification and authentication procedures.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
     example:
@@ -28,6 +27,7 @@ control 'SV-204396' do
     # dconf update
     Users must log out and back in again before the system-wide settings take effect. }
   impact 0.5
+  tag 'legacy': ['SV-86515', 'V-71891']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000028-GPOS-00009'
   tag 'satisfies': ['SRG-OS-000028-GPOS-00009', 'SRG-OS-000030-GPOS-00011']

@@ -7,19 +7,19 @@ control 'SV-204409' do
     Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
-  tag 'legacy': ['SV-86531', 'V-71907']
-  desc 'rationale', ''
-  desc 'check', 'Note: The value to require a number of numeric characters to be set is expressed as a negative
+  tag 'rationale': ''
+  tag 'check': 'Note: The value to require a number of numeric characters to be set is expressed as a negative
     number in "/etc/security/pwquality.conf".
     Check the value for "dcredit" in "/etc/security/pwquality.conf" with the following command:
     # grep dcredit /etc/security/pwquality.conf
     dcredit = -1
     If the value of "dcredit" is not set to a negative value, this is a finding.'
-  desc 'fix', 'Configure the operating system to enforce password complexity by requiring that at least one numeric
+  tag 'fix': 'Configure the operating system to enforce password complexity by requiring that at least one numeric
     character be used by setting the "dcredit" option.
     Add the following line to /etc/security/pwquality.conf (or modify the line to have the required value):
     dcredit = -1'
   impact 0.5
+  tag 'legacy': ['SV-86531', 'V-71907']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000071-GPOS-00039'
   tag 'gid': 'V-204409'

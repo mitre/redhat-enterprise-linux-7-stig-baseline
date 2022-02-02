@@ -13,9 +13,8 @@ files or otherwise compromise the system at the user level. If the system is
 compromised at the user level, it is easier to elevate privileges to eventually
 compromise the system at the root and network level."
   end
-  tag 'legacy': ['SV-86661', 'V-72037']
-  desc 'rationale', ''
-  desc 'check', %q(Verify that local initialization files do not execute world-writable programs.
+  tag 'rationale': ''
+  tag 'check': %q(Verify that local initialization files do not execute world-writable programs.
     Check the system for world-writable files with the following command:
     # find / -xdev -perm -002 -type f -exec ls -ld {} \; | more
     For all files listed, check for their presence in the local initialization files with the following commands:
@@ -23,9 +22,14 @@ compromise the system at the root and network level."
     directory.
     # grep <file> /home/*/.*
     If any local initialization files are found to reference world-writable files, this is a finding.)
-  desc 'fix', 'Set the mode on files being executed by the local initialization files with the following command:
-    # chmod 0755 <file>'
+  desc  'fix', "
+    Set the mode on files being executed by the local initialization files with
+the following command:
+
+    # chmod 0755 <file>
+  "
   impact 0.5
+  tag 'legacy': ['SV-86661', 'V-72037']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204478'
@@ -50,7 +54,9 @@ compromise the system at the root and network level."
 
     # Get home directory for users with UID >= 1000 or UID == 0 and support interactive logins.
     dotfiles = Set[]
-    u = users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid == 0) }.entries
+    u = users.where do
+      !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)
+    end.entries
     # For each user, build and execute a find command that identifies initialization files
     # in a user's home directory.
     u.each do |user|
@@ -72,7 +78,9 @@ compromise the system at the root and network level."
         raise 'Single pattern is longer than PATTERN_FILE_MAX_LENGTH'
       end
 
-      ww_chunked.append('') if ww_chunked[-1].length + "\n".length + item.length > PATTERN_FILE_MAX_LENGTH
+      if ww_chunked[-1].length + "\n".length + item.length > PATTERN_FILE_MAX_LENGTH
+        ww_chunked.append('')
+      end
       ww_chunked[-1] += "\n" + item # This will leave an extra newline at the beginning of chunks
     end
     ww_chunked = ww_chunked.map(&:strip) # This gets rid of the beginning newlines

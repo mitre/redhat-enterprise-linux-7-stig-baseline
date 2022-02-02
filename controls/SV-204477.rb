@@ -8,9 +8,8 @@ control 'SV-204477' do
     consecutive colons, this is interpreted as the current working directory. If deviations from the default system
     search path for the local interactive user are required, they must be documented with the Information System
     Security Officer (ISSO)."
-  tag 'legacy': ['V-72035', 'SV-86659']
-  desc 'rationale', ''
-  desc 'check', %q(Verify that all local interactive user initialization files' executable search path statements do
+  tag 'rationale': ''
+  tag 'check': %q(Verify that all local interactive user initialization files' executable search path statements do
     not contain statements that will reference a working directory other than the user's home directory.
     Check the executable search path statement for all local interactive user initialization files in the user's home
     directory with the following commands:
@@ -19,11 +18,12 @@ control 'SV-204477' do
     /home/smithj/.bash_profile:PATH=$PATH:$HOME/.local/bin:$HOME/bin
     If any local interactive user initialization files have executable search path statements that include directories
     outside of their home directory, this is a finding.)
-  desc 'fix', 'Edit the local interactive user initialization files to change any PATH variable statements that
+  tag 'fix': 'Edit the local interactive user initialization files to change any PATH variable statements that
     reference directories other than their home directory.
     If a local interactive user requires path variables to reference a directory owned by the application, it must be
     documented with the ISSO.'
   impact 0.5
+  tag 'legacy': ['V-72035', 'SV-86659']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204477'
@@ -39,7 +39,9 @@ control 'SV-204477' do
   ignore_shells = non_interactive_shells.join('|')
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid == 0) }.entries.each do |user_info|
+  users.where do
+    !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)
+  end.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
     grep_results = command("grep -i path --exclude=\".bash_history\" #{user_info.home}/.*").stdout.split('\\n')

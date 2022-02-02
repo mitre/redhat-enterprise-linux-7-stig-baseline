@@ -7,19 +7,19 @@ control 'SV-204412' do
     Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
-  tag 'legacy': ['V-71913', 'SV-86537']
-  desc 'rationale', ''
-  desc 'check', 'The "minclass" option sets the minimum number of required classes of characters for the new password
+  tag 'rationale': ''
+  tag 'check': 'The "minclass" option sets the minimum number of required classes of characters for the new password
     (digits, upper-case, lower-case, others).
     Check for the value of the "minclass" option in "/etc/security/pwquality.conf" with the following command:
     # grep minclass /etc/security/pwquality.conf
     minclass = 4
     If the value of "minclass" is set to less than "4", this is a finding.'
-  desc 'fix', 'Configure the operating system to require the change of at least four character classes when passwords
+  tag 'fix': 'Configure the operating system to require the change of at least four character classes when passwords
     are changed by setting the "minclass" option.
     Add the following line to "/etc/security/pwquality.conf conf" (or modify the line to have the required value):
     minclass = 4'
   impact 0.5
+  tag 'legacy': ['V-71913', 'SV-86537']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000072-GPOS-00040'
   tag 'gid': 'V-204412'

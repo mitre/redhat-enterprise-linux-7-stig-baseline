@@ -8,9 +8,8 @@ control 'SV-204454' do
     intrusion detection parameters.
     This requirement applies to operating systems performing security function verification/testing and/or systems and
     environments that require this functionality.'
-  tag 'legacy': ['V-71991', 'SV-86615']
-  desc 'rationale', ''
-  desc 'check', %q{Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL) in
+  tag 'rationale': ''
+  tag 'check': %q{Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL) in
     conjunction with SELinux.
     Verify the operating system verifies correct operation of all security functions.
     Check if "SELinux" is active and is enforcing the targeted policy with the following command:
@@ -29,12 +28,13 @@ control 'SV-204454' do
     # grep -i "selinuxtype" /etc/selinux/config | grep -v '^#'
     SELINUXTYPE = targeted
     If no results are returned or "SELINUXTYPE" is not set to "targeted", this is a finding.}
-  desc 'fix', 'Configure the operating system to verify correct operation of all security functions.
+  tag 'fix': 'Configure the operating system to verify correct operation of all security functions.
     Set the "SELinuxtype" to the "targeted" policy by modifying the "/etc/selinux/config" file to have the following
     line:
     SELINUXTYPE=targeted
     A reboot is required for the changes to take effect.'
   impact 0.5
+  tag 'legacy': ['V-71991', 'SV-86615']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000445-GPOS-00199'
   tag 'gid': 'V-204454'
@@ -46,10 +46,14 @@ control 'SV-204454' do
 
   describe.one do
     describe command('sestatus') do
-      its('stdout') { should match(/^Policy\sfrom\sconfigs\sfile:\s+targeted\n?$/) }
+      its('stdout') do
+        should match(/^Policy\sfrom\sconfigs\sfile:\s+targeted\n?$/)
+      end
     end
     describe command('sestatus') do
-      its('stdout') { should match(/^Loaded\spolicy\sname:\s+targeted\n?$/) }
+      its('stdout') do
+        should match(/^Loaded\spolicy\sname:\s+targeted\n?$/)
+      end
     end
   end
 end

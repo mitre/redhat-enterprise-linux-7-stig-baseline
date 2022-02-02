@@ -4,9 +4,8 @@ control 'SV-204584' do
     attack code he or she has introduced into a process's address space during an attempt at exploitation. Additionally,
     ASLR also makes it more difficult for an attacker to know the location of existing code in order to repurpose it
     using return-oriented programming (ROP) techniques."
-  tag 'legacy': ['SV-92521', 'V-77825']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system implements virtual address space randomization.
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system implements virtual address space randomization.
     # grep kernel.randomize_va_space /etc/sysctl.conf /etc/sysctl.d/*
     kernel.randomize_va_space = 2
     If "kernel.randomize_va_space" is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/ directory, is
@@ -15,13 +14,14 @@ control 'SV-204584' do
     # /sbin/sysctl -a | grep kernel.randomize_va_space
     kernel.randomize_va_space = 2
     If "kernel.randomize_va_space" does not have a value of "2", this is a finding.'
-  desc 'fix', 'Configure the operating system implement virtual address space randomization.
+  tag 'fix': 'Configure the operating system implement virtual address space randomization.
     Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" or a config file
     in the /etc/sysctl.d/ directory (or modify the line to have the required value):
     kernel.randomize_va_space = 2
     Issue the following command to make the changes take effect:
     # sysctl --system'
   impact 0.5
+  tag 'legacy': ['SV-92521', 'V-77825']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204584'

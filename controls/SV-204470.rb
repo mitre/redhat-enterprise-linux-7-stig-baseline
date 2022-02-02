@@ -4,9 +4,8 @@ control 'SV-204470' do
   desc "If the Group Identifier (GID) of a local interactive user's home directory is not the same as the primary
     GID of the user, this would allow unauthorized access to the user's files, and users that share the same group may
     not be able to access files that they legitimately should."
-  tag 'legacy': ['SV-86645', 'V-72021']
-  desc 'rationale', ''
-  desc 'check', %q{Verify the assigned home directory of all local interactive users is group-owned by that user's
+  tag 'rationale': ''
+  tag 'check': %q{Verify the assigned home directory of all local interactive users is group-owned by that user's
     primary GID.
     Check the home directory assignment for all local interactive users on the system with the following command:
     # ls -ld $(awk -F: '($3>=1000)&&($7 !~ /nologin/){print $6}' /etc/passwd)
@@ -16,12 +15,13 @@ control 'SV-204470' do
     users:x:250:smithj,jonesj,jacksons
     If the user home directory referenced in "/etc/passwd" is not group-owned by that user's primary GID, this is a
     finding.}
-  desc 'fix', %q(Change the group owner of a local interactive user's home directory to the group found in
+  tag 'fix': %q(Change the group owner of a local interactive user's home directory to the group found in
     "/etc/passwd". To change the group owner of a local interactive user's home directory, use the following command:
     Note: The example will be for the user "smithj", who has a home directory of "/home/smithj", and has a primary group
     of users.
     # chgrp users /home/smithj)
   impact 0.5
+  tag 'legacy': ['SV-86645', 'V-72021']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204470'
@@ -40,7 +40,9 @@ control 'SV-204470' do
   uid_min = 1000 if uid_min.nil?
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+  users.where do
+    !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)
+  end.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
     findings += command("find #{user_info.home} -maxdepth 0 -not -gid #{user_info.gid}").stdout.split("\n")

@@ -6,9 +6,8 @@ control 'SV-204583' do
     Cryptographic mechanisms used for protecting the integrity of information include, for example, signed hash
     functions using asymmetric cryptography enabling distribution of the public key to verify the hash information while
     maintaining the confidentiality of the key used to generate the hash.'
-  tag 'legacy': ['SV-86855', 'V-72231']
-  desc 'rationale', ''
-  desc 'check', 'If LDAP is not being utilized, this requirement is Not Applicable.
+  tag 'rationale': ''
+  tag 'check': 'If LDAP is not being utilized, this requirement is Not Applicable.
     Verify the operating system implements cryptography to protect the integrity of remote LDAP access sessions.
     To determine if LDAP is being used for authentication, use the following command:
     # systemctl status sssd.service
@@ -25,11 +24,12 @@ control 'SV-204583' do
     ldap_tls_cacert = /etc/pki/tls/certs/ca-bundle.crt
     Verify the "ldap_tls_cacert" option points to a file that contains the trusted CA certificate.
     If this file does not exist, or the option is commented out or missing, this is a finding.'
-  desc 'fix', 'Configure the operating system to implement cryptography to protect the integrity of LDAP remote
+  tag 'fix': 'Configure the operating system to implement cryptography to protect the integrity of LDAP remote
     access sessions.
     Add or modify the following line in "/etc/sssd/sssd.conf":
     ldap_tls_cacert = /etc/pki/tls/certs/ca-bundle.crt'
   impact 0.5
+  tag 'legacy': ['SV-86855', 'V-72231']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000250-GPOS-00093'
   tag 'gid': 'V-204583'
@@ -57,7 +57,9 @@ control 'SV-204583' do
   if sssd_id_ldap_enabled
     ldap_id_use_start_tls = command('grep ldap_id_use_start_tls /etc/sssd/sssd.conf')
     describe ldap_id_use_start_tls do
-      its('stdout.strip') { should match(/^ldap_id_use_start_tls\s*=\s*true$/) }
+      its('stdout.strip') do
+        should match(/^ldap_id_use_start_tls\s*=\s*true$/)
+      end
     end
 
     ldap_id_use_start_tls.stdout.strip.each_line do |line|

@@ -11,19 +11,19 @@ control 'SV-204503' do
     Associating event types with detected events in the operating system audit logs provides a means of investigating an
     attack; recognizing resource utilization or capacity thresholds; or identifying an improperly configured operating
     system.'
-  tag 'legacy': ['SV-86703', 'V-72079']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system produces audit records containing information to establish when (date
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system produces audit records containing information to establish when (date
     and time) the events occurred.
     Check to see if auditing is active by issuing the following command:
     # systemctl is-active auditd.service
     active
     If the "auditd" status is not active, this is a finding.'
-  desc 'fix', 'Configure the operating system to produce audit records containing information to establish when (date
+  tag 'fix': 'Configure the operating system to produce audit records containing information to establish when (date
     and time) the events occurred.
     Enable the auditd service with the following command:
     # systemctl start auditd.service'
   impact 0.5
+  tag 'legacy': ['SV-86703', 'V-72079']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000038-GPOS-00016'
   tag 'satisfies': ['SRG-OS-000038-GPOS-00016', 'SRG-OS-000039-GPOS-00017', 'SRG-OS-000042-GPOS-00021',

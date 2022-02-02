@@ -4,9 +4,8 @@ control 'SV-204511' do
   desc 'Taking appropriate action in case of a filled audit storage volume will minimize the possibility of losing
     audit records.
     One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon.'
-  tag 'legacy': ['V-72087', 'SV-86711']
-  desc 'rationale', ''
-  desc 'check', 'Verify the action the operating system takes if the disk the audit records are written to becomes
+  tag 'rationale': ''
+  tag 'check': 'Verify the action the operating system takes if the disk the audit records are written to becomes
     full.
     To determine the action that takes place if the disk is full on the remote server, use the following command:
     # grep -i disk_full_action /etc/audisp/audisp-remote.conf
@@ -17,12 +16,13 @@ control 'SV-204511' do
     If there is no evidence that the system is configured to off-load audit logs to a different system or storage media,
     or if the configuration does not take appropriate action when the disk is full on the remote server, this is a
     finding.'
-  desc 'fix', 'Configure the action the operating system takes if the disk the audit records are written to becomes
+  tag 'fix': 'Configure the action the operating system takes if the disk the audit records are written to becomes
     full.
     Uncomment or edit the "disk_full_action" option in "/etc/audisp/audisp-remote.conf" and set it to "syslog",
     "single", or "halt", such as the following line:
     disk_full_action = single'
   impact 0.5
+  tag 'legacy': ['V-72087', 'SV-86711']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000342-GPOS-00133'
   tag 'gid': 'V-204511'
@@ -33,11 +33,15 @@ control 'SV-204511' do
   tag nist: ['AU-4 (1)']
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('disk_full_action'.to_s) { should be_in ['syslog', 'single', 'halt'] }
+    its('disk_full_action'.to_s) do
+      should be_in ['syslog', 'single', 'halt']
+    end
   end
 
   # Test matches ./inspec-profiles/controls/V-73163.rb
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('network_failure_action'.to_s) { should be_in ['syslog', 'single', 'halt'] }
+    its('network_failure_action'.to_s) do
+      should be_in ['syslog', 'single', 'halt']
+    end
   end
 end

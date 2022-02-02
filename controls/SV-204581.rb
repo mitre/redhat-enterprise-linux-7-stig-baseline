@@ -6,9 +6,8 @@ control 'SV-204581' do
     Cryptographic mechanisms used for protecting the integrity of information include, for example, signed hash
     functions using asymmetric cryptography enabling distribution of the public key to verify the hash information while
     maintaining the confidentiality of the key used to generate the hash.'
-  tag 'legacy': ['V-72227', 'SV-86851']
-  desc 'rationale', ''
-  desc 'check', 'If LDAP is not being utilized, this requirement is Not Applicable.
+  tag 'rationale': ''
+  tag 'check': 'If LDAP is not being utilized, this requirement is Not Applicable.
     Verify the operating system implements cryptography to protect the integrity of remote LDAP authentication sessions.
     To determine if LDAP is being used for authentication, use the following command:
     # systemctl status sssd.service
@@ -24,11 +23,12 @@ control 'SV-204581' do
     # grep -i "start_tls" /etc/sssd/sssd.conf
     ldap_id_use_start_tls = true
     If the "ldap_id_use_start_tls" option is not "true", this is a finding.'
-  desc 'fix', 'Configure the operating system to implement cryptography to protect the integrity of LDAP
+  tag 'fix': 'Configure the operating system to implement cryptography to protect the integrity of LDAP
     authentication sessions.
     Add or modify the following line in "/etc/sssd/sssd.conf":
     ldap_id_use_start_tls = true'
   impact 0.5
+  tag 'legacy': ['V-72227', 'SV-86851']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000250-GPOS-00093'
   tag 'gid': 'V-204581'
@@ -53,7 +53,9 @@ control 'SV-204581' do
   if sssd_id_ldap_enabled
     ldap_id_use_start_tls = command('grep ldap_id_use_start_tls /etc/sssd/sssd.conf')
     describe ldap_id_use_start_tls do
-      its('stdout.strip') { should match(/^ldap_id_use_start_tls\s*=\s*true$/) }
+      its('stdout.strip') do
+        should match(/^ldap_id_use_start_tls\s*=\s*true$/)
+      end
     end
 
     ldap_id_use_start_tls.stdout.strip.each_line do |line|

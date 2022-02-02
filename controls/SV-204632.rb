@@ -14,23 +14,24 @@ control 'SV-204632' do
     This requirement only applies to components where this is specific to the function of the device or has the concept
     of an organizational user (e.g., VPN, proxy capability). This does not apply to authentication for the purpose of
     configuring the device itself (management).'
-  tag 'legacy': ['V-72427', 'SV-87051']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system implements multifactor authentication for remote access to privileged
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system implements multifactor authentication for remote access to privileged
     accounts via pluggable authentication modules (PAM).
     Check the "/etc/sssd/sssd.conf" file for the authentication services that are being used with the following command:
     # grep services /etc/sssd/sssd.conf /etc/sssd/conf.d/*.conf
     services = nss, pam
     If the "pam" service is not present on all "services" lines, this is a finding.'
-  desc 'fix', 'Configure the operating system to implement multifactor authentication for remote access to privileged
+  tag 'fix': 'Configure the operating system to implement multifactor authentication for remote access to privileged
     accounts via pluggable authentication modules (PAM).
     Modify all of the services lines in "/etc/sssd/sssd.conf" or in configuration files found under "/etc/sssd/conf.d"
     to include pam.'
 
   impact 0.5
+  tag 'legacy': ['V-72427', 'SV-87051']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000375-GPOS-00160'
-  tag 'satisfies': ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']
+  tag 'satisfies': ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000375-GPOS-00161',
+                    'SRG-OS-000375-GPOS-00162']
   tag 'gid': 'V-204632'
   tag 'rid': 'SV-204632r603261_rule'
   tag 'stig_id': 'RHEL-07-041002'
