@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72045" do
+control 'V-72045' do
   title "The Red Hat Enterprise Linux operating system must prevent files with
 the setuid and setgid bit set from being executed on file systems that are
 being imported via Network File System (NFS)."
@@ -8,8 +7,8 @@ being imported via Network File System (NFS)."
 for mounting any file system not containing approved \"setuid\" and \"setguid\"
 files. Executing files from untrusted file systems increases the opportunity
 for unprivileged users to attain unauthorized administrative access."
-  desc  "rationale", ""
-  desc  "check", "
+  desc  'rationale', ''
+  desc  'check', "
     Verify file systems that are being NFS imported are configured with the
 \"nosuid\" option.
 
@@ -28,17 +27,17 @@ the \"nosuid\" option set, this is a finding.
     # mount | grep nfs | grep nosuid
     If no results are returned, this is a finding.
   "
-  desc  "fix", "Configure the \"/etc/fstab\" to use the \"nosuid\" option on
+  desc 'fix', "Configure the \"/etc/fstab\" to use the \"nosuid\" option on
 file systems that are being imported via NFS."
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72045"
-  tag rid: "SV-86669r2_rule"
-  tag stig_id: "RHEL-07-021020"
-  tag fix_id: "F-78397r2_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72045'
+  tag rid: 'SV-86669r2_rule'
+  tag stig_id: 'RHEL-07-021020'
+  tag fix_id: 'F-78397r2_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   nfs_systems = etc_fstab.nfs_file_systems.entries
   if !nfs_systems.nil? and !nfs_systems.empty?
@@ -48,10 +47,9 @@ file systems that are being imported via NFS."
       end
     end
   else
-    describe "No NFS file systems were found." do
+    describe 'No NFS file systems were found.' do
       subject { nfs_systems.nil? or nfs_systems.empty? }
       it { should eq true }
     end
   end
 end
-

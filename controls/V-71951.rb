@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71951" do
+control 'V-71951' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that the delay between logon prompts following a failed console logon attempt
 is at least four seconds."
@@ -18,8 +17,8 @@ requirements. Security-related parameters include, for example, registry
 settings; account, file, and directory permission settings; and settings for
 functions, ports, protocols, services, and remote connections.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  desc  'rationale', ''
+  desc  'check', "
     Verify the operating system enforces a delay of at least four seconds
 between console logon prompts following a failed logon attempt.
 
@@ -32,7 +31,7 @@ file with the following command:
     If the value of \"FAIL_DELAY\" is not set to \"4\" or greater, or the line
 is commented out, this is a finding.
   "
-  desc  "fix", "
+  desc 'fix', "
     Configure the operating system to enforce a delay of at least four seconds
 between logon prompts following a failed console logon attempt.
 
@@ -43,16 +42,15 @@ between logon prompts following a failed console logon attempt.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00226"
-  tag gid: "V-71951"
-  tag rid: "SV-86575r2_rule"
-  tag stig_id: "RHEL-07-010430"
-  tag fix_id: "F-78303r1_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00226'
+  tag gid: 'V-71951'
+  tag rid: 'SV-86575r2_rule'
+  tag stig_id: 'RHEL-07-010430'
+  tag fix_id: 'F-78303r1_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   describe login_defs do
     its('FAIL_DELAY.to_i') { should cmp >= 4 }
   end
 end
-

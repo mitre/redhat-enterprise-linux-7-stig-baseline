@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71991" do
+control 'V-71991' do
   title "The Red Hat Enterprise Linux operating system must enable the SELinux
 targeted policy."
   desc  "Without verification of the security functions, security functions may
@@ -15,8 +14,8 @@ events to be audited, and setting intrusion detection parameters.
 verification/testing and/or systems and environments that require this
 functionality.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  desc  'rationale', ''
+  desc  'check', "
     If an HBSS or HIPS is active on the system, this is Not Applicable.
 
     Verify the operating system verifies correct operation of all security
@@ -57,7 +56,7 @@ the following command:
     If no results are returned or \"SELINUXTYPE\" is not set to \"targeted\",
 this is a finding.
   "
-  desc  "fix", "
+  desc 'fix', "
     Configure the operating system to verify correct operation of all security
 functions.
 
@@ -70,21 +69,20 @@ functions.
   "
   impact 0.7
   tag severity: nil
-  tag gtitle: "SRG-OS-000445-GPOS-00199"
-  tag gid: "V-71991"
-  tag rid: "SV-86615r5_rule"
-  tag stig_id: "RHEL-07-020220"
-  tag fix_id: "F-78343r2_fix"
-  tag cci: ["CCI-002165", "CCI-002696"]
-  tag nist: ["AC-3 (4)", "SI-6 a"]
+  tag gtitle: 'SRG-OS-000445-GPOS-00199'
+  tag gid: 'V-71991'
+  tag rid: 'SV-86615r5_rule'
+  tag stig_id: 'RHEL-07-020220'
+  tag fix_id: 'F-78343r2_fix'
+  tag cci: ['CCI-002165', 'CCI-002696']
+  tag nist: ['AC-3 (4)', 'SI-6 a']
 
   describe.one do
     describe command('sestatus') do
-      its('stdout') { should match %r{^Policy\sfrom\sconfigs\sfile:\s+targeted\n?$} }
+      its('stdout') { should match(/^Policy\sfrom\sconfigs\sfile:\s+targeted\n?$/) }
     end
     describe command('sestatus') do
-      its('stdout') { should match %r{^Loaded\spolicy\sname:\s+targeted\n?$} }
+      its('stdout') { should match(/^Loaded\spolicy\sname:\s+targeted\n?$/) }
     end
   end
 end
-

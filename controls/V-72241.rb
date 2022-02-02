@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72241" do
+control 'V-72241' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all network connections associated with SSH traffic terminate after a
 period of inactivity."
@@ -19,8 +18,8 @@ and releases the resources associated with that session.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  desc  'rationale', ''
+  desc  'check', "
     Verify the operating system automatically terminates a user session after
 inactivity time-outs have expired.
 
@@ -32,7 +31,7 @@ following command:
 
     If \"ClientAliveCountMax\" is not set to \"0\", this is a finding.
   "
-  desc  "fix", "
+  desc 'fix', "
     Configure the operating system to terminate automatically a user session
 after inactivity time-outs have expired or at shutdown.
 
@@ -47,19 +46,19 @@ third-party vendor):
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000163-GPOS-00072"
-  tag satisfies: ["SRG-OS-000163-GPOS-00072", "SRG-OS-000279-GPOS-00109"]
-  tag gid: "V-72241"
-  tag rid: "SV-86865r4_rule"
-  tag stig_id: "RHEL-07-040340"
-  tag fix_id: "F-78595r4_fix"
-  tag cci: ["CCI-001133", "CCI-002361"]
-  tag nist: ["SC-10", "AC-12"]
+  tag gtitle: 'SRG-OS-000163-GPOS-00072'
+  tag satisfies: ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000279-GPOS-00109']
+  tag gid: 'V-72241'
+  tag rid: 'SV-86865r4_rule'
+  tag stig_id: 'RHEL-07-040340'
+  tag fix_id: 'F-78595r4_fix'
+  tag cci: ['CCI-001133', 'CCI-002361']
+  tag nist: ['SC-10', 'AC-12']
 
   if os.release.to_f >= 7.4
     impact 0.0
     describe "The release is #{os.release}" do
-      skip "The release is newer than 7.4; this control is Not Applicable."
+      skip 'The release is newer than 7.4; this control is Not Applicable.'
     end
   else
     describe sshd_config do
@@ -67,4 +66,3 @@ third-party vendor):
     end
   end
 end
-

@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71973" do
+control 'V-71973' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that a file integrity tool verifies the baseline operating system configuration
 at least weekly."
@@ -15,8 +14,8 @@ Officer (IMO)/Information System Security Officer (ISSO) and System
 Administrators (SAs) must be notified via email and/or monitoring system trap
 when there is an unauthorized modification of a configuration item.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  desc  'rationale', ''
+  desc  'check', "
     Verify the operating system routinely checks the baseline configuration for
 unauthorized changes.
 
@@ -50,7 +49,7 @@ system, use the following command:
 controlling the execution of the file integrity application does not exist,
 this is a finding.
   "
-  desc  "fix", "
+  desc 'fix', "
     Configure the file integrity tool to run automatically on the system at
 least weekly. The following example output is generic. It will set cron to run
 AIDE daily, but other file integrity tools may be used:
@@ -63,13 +62,13 @@ check run\" root@sysname.mil
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000363-GPOS-00150"
-  tag gid: "V-71973"
-  tag rid: "SV-86597r2_rule"
-  tag stig_id: "RHEL-07-020030"
-  tag fix_id: "F-78325r2_fix"
-  tag cci: ["CCI-001744"]
-  tag nist: ["CM-3 (5)"]
+  tag gtitle: 'SRG-OS-000363-GPOS-00150'
+  tag gid: 'V-71973'
+  tag rid: 'SV-86597r2_rule'
+  tag stig_id: 'RHEL-07-020030'
+  tag fix_id: 'F-78325r2_fix'
+  tag cci: ['CCI-001744']
+  tag nist: ['CM-3 (5)']
 
   file_integrity_tool = input('file_integrity_tool')
   file_integrity_interval = input('file_integrity_interval')
@@ -99,11 +98,11 @@ check run\" root@sysname.mil
           its('months') { should cmp '*' }
         end
       end
-      describe crontab('root').where { command =~ %r{#{file_integrity_tool}} } do
+      describe crontab('root').where { command =~ /#{file_integrity_tool}/ } do
         its('months') { should cmp '*' }
         its('weekdays') { should cmp '*' }
       end
-      describe crontab('root').where { command =~ %r{#{file_integrity_tool}} } do
+      describe crontab('root').where { command =~ /#{file_integrity_tool}/ } do
         its('days') { should cmp '*' }
         its('months') { should cmp '*' }
       end
@@ -122,7 +121,7 @@ check run\" root@sysname.mil
           its('months') { should cmp '*' }
         end
       end
-      describe crontab('root').where { command =~ %r{#{file_integrity_tool}} } do
+      describe crontab('root').where { command =~ /#{file_integrity_tool}/ } do
         its('days') { should cmp '*' }
         its('months') { should cmp '*' }
       end
@@ -139,7 +138,7 @@ check run\" root@sysname.mil
           its('weekdays') { should cmp '*' }
         end
       end
-      describe crontab('root').where { command =~ %r{#{file_integrity_tool}} } do
+      describe crontab('root').where { command =~ /#{file_integrity_tool}/ } do
         its('days') { should cmp '*' }
         its('months') { should cmp '*' }
         its('weekdays') { should cmp '*' }
@@ -147,5 +146,3 @@ check run\" root@sysname.mil
     end
   end
 end
-
-

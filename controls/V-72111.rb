@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72111" do
+control 'V-72111' do
   title "The Red Hat Enterprise Linux operating system must audit all uses of
 the setxattr syscall."
   desc  "Without generating audit records that are specific to the security and
@@ -12,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  desc  'rationale', ''
+  desc  'check', "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"setxattr\" syscall occur.
 
@@ -31,7 +30,7 @@ perm_mod
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"setxattr\" syscall, this is a finding.
   "
-  desc  "fix", "
+  desc 'fix', "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"setxattr\" syscall occur.
 
@@ -47,25 +46,24 @@ perm_mod
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000458-GPOS-00203"
-  tag satisfies: ["SRG-OS-000458-GPOS-00203", "SRG-OS-000392-GPOS-00172",
-"SRG-OS-000064-GPOS-00033"]
-  tag gid: "V-72111"
-  tag rid: "SV-86735r5_rule"
-  tag stig_id: "RHEL-07-030440"
-  tag fix_id: "F-78463r8_fix"
-  tag cci: ["CCI-000172"]
-  tag nist: ["AU-12 c"]
+  tag gtitle: 'SRG-OS-000458-GPOS-00203'
+  tag satisfies: ['SRG-OS-000458-GPOS-00203', 'SRG-OS-000392-GPOS-00172',
+                  'SRG-OS-000064-GPOS-00033']
+  tag gid: 'V-72111'
+  tag rid: 'SV-86735r5_rule'
+  tag stig_id: 'RHEL-07-030440'
+  tag fix_id: 'F-78463r8_fix'
+  tag cci: ['CCI-000172']
+  tag nist: ['AU-12 c']
 
-  describe auditd.syscall("setxattr").where {arch == "b32"} do
+  describe auditd.syscall('setxattr').where { arch == 'b32' } do
     its('action.uniq') { should eq ['always'] }
     its('list.uniq') { should eq ['exit'] }
   end
   if os.arch == 'x86_64'
-    describe auditd.syscall("setxattr").where {arch == "b64"} do
+    describe auditd.syscall('setxattr').where { arch == 'b64' } do
       its('action.uniq') { should eq ['always'] }
       its('list.uniq') { should eq ['exit'] }
     end
   end
 end
-

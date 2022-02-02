@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71893" do
+control 'V-71893' do
   title "The Red Hat Enterprise Linux operating system must initiate a
 screensaver after a 15-minute period of inactivity for graphical user
 interfaces."
@@ -13,8 +12,8 @@ when a user's session has idled and take action to initiate the session lock.
     The session lock is implemented at the point where session activity can be
 determined and/or controlled.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  desc  'rationale', ''
+  desc  'check', "
     Verify the operating system initiates a screensaver after a 15-minute
 period of inactivity for graphical user interfaces. The screen program must be
 installed to lock sessions on the console.
@@ -31,7 +30,7 @@ minute delay with the following command:
     If the \"idle-delay\" setting is missing or is not set to \"900\" or less,
 this is a finding.
   "
-  desc  "fix", "
+  desc 'fix', "
     Configure the operating system to initiate a screensaver after a 15-minute
 period of inactivity for graphical user interfaces.
 
@@ -58,23 +57,23 @@ effect.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000029-GPOS-00010"
-  tag gid: "V-71893"
-  tag rid: "SV-86517r5_rule"
-  tag stig_id: "RHEL-07-010070"
-  tag fix_id: "F-78245r5_fix"
-  tag cci: ["CCI-000057"]
-  tag nist: ["AC-11 a"]
+  tag gtitle: 'SRG-OS-000029-GPOS-00010'
+  tag gid: 'V-71893'
+  tag rid: 'SV-86517r5_rule'
+  tag stig_id: 'RHEL-07-010070'
+  tag fix_id: 'F-78245r5_fix'
+  tag cci: ['CCI-000057']
+  tag nist: ['AC-11 a']
 
-  unless package('gnome-desktop3').installed?
+  if package('gnome-desktop3').installed?
+    describe command("gsettings get org.gnome.desktop.session idle-delay | cut -d ' ' -f2") do
+      its('stdout.strip') { should cmp <= 900 }
+    end
+  else
     impact 0.0
-    describe "The system does not have GNOME installed" do
+    describe 'The system does not have GNOME installed' do
       skip "The system does not have GNOME installed, this requirement is Not
       Applicable."
     end
-  else 
-    describe command("gsettings get org.gnome.desktop.session idle-delay | cut -d ' ' -f2") do
-      its('stdout.strip') { should cmp <= 900 }
-    end 
   end
 end

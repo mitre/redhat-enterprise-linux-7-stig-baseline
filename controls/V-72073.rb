@@ -1,13 +1,12 @@
-# -*- encoding : utf-8 -*-
-control "V-72073" do
+control 'V-72073' do
   title "The Red Hat Enterprise Linux operating system must use a file
 integrity tool that is configured to use FIPS 140-2 approved cryptographic
 hashes for validating file contents and directories."
   desc  "File integrity tools use cryptographic hashes for verifying file
 contents and directories have not been altered. These hashes must be FIPS 140-2
 approved cryptographic hashes."
-  desc  "rationale", ""
-  desc  "check", "
+  desc  'rationale', ''
+  desc  'check', "
     Verify the file integrity tool is configured to use FIPS 140-2 approved
 cryptographic hashes for validating file contents and directories.
 
@@ -48,7 +47,7 @@ in the \"/etc/aide.conf\" file, or another file integrity tool is not using
 FIPS 140-2 approved cryptographic hashes for validating file contents and
 directories, this is a finding.
   "
-  desc  "fix", "
+  desc 'fix', "
     Configure the file integrity tool to use FIPS 140-2 cryptographic hashes
 for validating file and directory contents.
 
@@ -57,25 +56,26 @@ uncommented file and directory selection lists.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72073"
-  tag rid: "SV-86697r3_rule"
-  tag stig_id: "RHEL-07-021620"
-  tag fix_id: "F-78425r2_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72073'
+  tag rid: 'SV-86697r3_rule'
+  tag stig_id: 'RHEL-07-021620'
+  tag fix_id: 'F-78425r2_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
-  describe package("aide") do
+  describe package('aide') do
     it { should be_installed }
   end
 
   exclude_patterns = input('aide_exclude_patterns')
 
-  findings = aide_conf.where { !selection_line.start_with?('!') && !exclude_patterns.include?(selection_line) && !rules.include?('sha512')}
+  findings = aide_conf.where do
+    !selection_line.start_with?('!') && !exclude_patterns.include?(selection_line) && !rules.include?('sha512')
+  end
 
   describe "List of monitored files/directories without 'sha512' rule" do
     subject { findings.selection_lines }
     it { should be_empty }
   end
 end
-

@@ -1,12 +1,11 @@
-# -*- encoding : utf-8 -*-
-control "V-72059" do
+control 'V-72059' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that a separate file system is used for user home directories (such as /home or
 an equivalent)."
   desc  "The use of separate file systems for different paths can protect the
 system from failures resulting from a file system becoming full or failing."
-  desc  "rationale", ""
-  desc  "check", "
+  desc  'rationale', ''
+  desc  'check', "
     Verify that a separate file system/partition has been created for
 non-privileged local interactive user home directories.
 
@@ -38,17 +37,17 @@ interactive users with the following command:
 non-privileged interactive users' home directories does not exist, this is a
 finding.
   "
-  desc  "fix", "Migrate the \"/home\" directory onto a separate file
+  desc 'fix', "Migrate the \"/home\" directory onto a separate file
 system/partition."
   impact 0.3
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72059"
-  tag rid: "SV-86683r2_rule"
-  tag stig_id: "RHEL-07-021310"
-  tag fix_id: "F-78411r1_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72059'
+  tag rid: 'SV-86683r2_rule'
+  tag stig_id: 'RHEL-07-021310'
+  tag fix_id: 'F-78411r1_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')
@@ -59,18 +58,17 @@ system/partition."
   uid_min = 1000 if uid_min.nil?
 
   # excluding root because its home directory is usually "/root" (mountpoint "/")
-  users.where{ !shell.match(ignore_shells) && (uid >= uid_min)}.entries.each do |user_info|
-    next if exempt_home_users.include?("#{user_info.username}")
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min) }.entries.each do |user_info|
+    next if exempt_home_users.include?(user_info.username.to_s)
 
     home_mount = command(%(df #{user_info.home} --output=target | tail -1)).stdout.strip
     describe user_info.username do
       context 'with mountpoint' do
         context home_mount do
           it { should_not be_empty }
-          it { should_not match(%r(^/$)) }
+          it { should_not match(%r{^/$}) }
         end
       end
     end
   end
 end
-
