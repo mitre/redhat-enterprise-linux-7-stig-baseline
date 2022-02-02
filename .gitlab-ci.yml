@@ -62,7 +62,6 @@ kitchen-exec-ec2:
 
 verify:
   dependencies:
-    - kitchen-exec-ec2
     - kitchen-exec-container
   image:
     name: mitre/saf:latest
