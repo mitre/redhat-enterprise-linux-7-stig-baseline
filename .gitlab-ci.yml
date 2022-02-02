@@ -1,6 +1,6 @@
 include:
   - project: stig/inspec-scanning-integration
-    ref: "master"
+    ref: "debug_cleanup"
     file: templates/templates.yml
 
 before_script:
