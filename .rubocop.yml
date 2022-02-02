@@ -3,3 +3,6 @@ Style/WordArray:
 
 Style/RedundantPercentQ:
   Enabled: true
+
+Layout/LineLength:
+  Max: 80
