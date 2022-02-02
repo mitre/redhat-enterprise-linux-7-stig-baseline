@@ -22,7 +22,7 @@ suites:
     verifier:
       reporter:
         - cli
-        - json:test/results/vanilla-test-result.json
+        - json:reports/raw/%{suite}/%{platform}.json
     driver:
       image: <%= ENV['VANILLA_CONTAINER_IMAGE'] %>
   - name: hardened
@@ -30,6 +30,6 @@ suites:
     verifier:
       reporter:
         - cli
-        - json:test/results/hardened-test-result.json
+        - json:reports/raw/%{suite}/%{platform}.json
     driver:
       image: <%= ENV['HARDENED_CONTAINER_IMAGE'] %>
