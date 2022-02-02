@@ -62,14 +62,9 @@ kitchen-exec-ec2:
     KITCHEN_LOCAL_YAML: 'kitchen.ec2.yml'
 
 verify:
+  extends: .ci:stage:saf:verify
   dependencies:
     - kitchen-exec-container
-  image:
-    name: mitre/saf:latest
-  stage: verify
-  script:
-      - view:summary -i $CI_PROJECT_DIR/reports/raw/vanilla*.json
-      - view:summary -i $CI_PROJECT_DIR/reports/raw/hardened*.json
 
 .publish:
   extends: .ci:stage:publish:inspec:artifacts
