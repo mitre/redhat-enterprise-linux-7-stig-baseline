@@ -9,6 +9,7 @@ before_script:
 stages:
   - scan
   - setup
+  - linting
   - validate
   - verify
   - publish
