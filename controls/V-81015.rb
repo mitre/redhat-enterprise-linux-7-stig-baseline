@@ -12,8 +12,8 @@ daemon will not off-load the logs from the system being audited.
 
 
   "
-  desc 'rationale', ''
-  desc 'check', "
+  desc  'rationale', ''
+  desc  'check', "
     Verify the \"au-remote\" plugin is active on the system:
 
     # grep \"active\" /etc/audisp/plugins.d/au-remote.conf

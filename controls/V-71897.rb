@@ -13,8 +13,8 @@ the session lock.
 configured.
 
   "
-  desc 'rationale', ''
-  desc 'check', "
+  desc  'rationale', ''
+  desc  'check', "
     Verify the operating system has the screen package installed.
 
     Check to see if the screen package is installed with the following command:

@@ -11,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  desc 'rationale', ''
-  desc 'check', "
+  desc  'rationale', ''
+  desc  'check', "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"removexattr\" syscall occur.
 

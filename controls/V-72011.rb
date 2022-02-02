@@ -4,8 +4,8 @@ that all local interactive users have a home directory assigned in the
 /etc/passwd file."
   desc  "If local interactive users are not assigned a valid home directory,
 there is no place for the storage and control of files they should own."
-  desc 'rationale', ''
-  desc 'check', "
+  desc  'rationale', ''
+  desc  'check', "
     Verify local interactive users on the system have a home directory assigned.
 
     Check for missing local interactive user home directories with the

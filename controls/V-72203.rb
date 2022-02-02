@@ -7,8 +7,8 @@ compromises and damages incurred during a system compromise.
 
 
   "
-  desc 'rationale', ''
-  desc 'check', "
+  desc  'rationale', ''
+  desc  'check', "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"rmdir\" syscall occur.
 

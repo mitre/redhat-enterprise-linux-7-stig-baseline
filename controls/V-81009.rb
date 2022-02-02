@@ -5,8 +5,8 @@ the nodev option."
 character or block special devices. Executing character or block special
 devices from untrusted file systems increases the opportunity for unprivileged
 users to attain unauthorized administrative access."
-  desc 'rationale', ''
-  desc 'check', "
+  desc  'rationale', ''
+  desc  'check', "
     Verify that the \"nodev\" option is configured for /dev/shm:
 
 
