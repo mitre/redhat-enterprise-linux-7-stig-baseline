@@ -7,19 +7,19 @@ control 'SV-204414' do
     Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
-  tag 'legacy': ['SV-86541', 'V-71917']
-  desc 'rationale', ''
-  desc 'check', 'The "maxclassrepeat" option sets the maximum number of allowed same consecutive characters in the
+  tag 'rationale': ''
+  tag 'check': 'The "maxclassrepeat" option sets the maximum number of allowed same consecutive characters in the
     same class in the new password.
     Check for the value of the "maxclassrepeat" option in "/etc/security/pwquality.conf" with the following command:
     $ sudo grep maxclassrepeat /etc/security/pwquality.conf
     maxclassrepeat = 4
     If the value of "maxclassrepeat" is set to "0", more than "4" or is commented out, this is a finding.'
-  desc 'fix', 'Configure the operating system to require the change of the number of repeating characters of the same
+  tag 'fix': 'Configure the operating system to require the change of the number of repeating characters of the same
     character class when passwords are changed by setting the "maxclassrepeat" option.
     Add the following line to "/etc/security/pwquality.conf" conf (or modify the line to have the required value):
     maxclassrepeat = 4'
   impact 0.5
+  tag 'legacy': ['SV-86541', 'V-71917']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000072-GPOS-00040'
   tag 'gid': 'V-204414'

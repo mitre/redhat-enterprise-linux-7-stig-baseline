@@ -12,9 +12,8 @@ control 'SV-204441' do
     2) Accesses that occur through authorized use of group authenticators without individual authentication.
     Organizations may require unique identification of individuals in group accounts (e.g., shared privilege accounts)
     or for detailed accountability of individual activity.'
-  tag 'legacy': ['V-71965', 'SV-86589']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system requires multifactor authentication to uniquely identify organizational
+  tag  'rationale': ''
+  tag 'check': 'Verify the operating system requires multifactor authentication to uniquely identify organizational
     users using multifactor authentication.
     Check to see if smartcard authentication is enforced on the system:
     # authconfig --test | grep "pam_pkcs11 is enabled"
@@ -24,7 +23,7 @@ control 'SV-204441' do
     # authconfig --test | grep "smartcard module"
     If "smartcard module" is blank, ask the administrator to indicate the AO-approved multifactor authentication in use
     and the configuration to support it. If there is no evidence of multifactor authentication, this is a finding.'
-  desc 'fix', 'Configure the operating system to require individuals to be authenticated with a multifactor
+  tag 'fix': 'Configure the operating system to require individuals to be authenticated with a multifactor
     authenticator.
     Enable smartcard logons with the following commands:
     # authconfig --enablesmartcard --smartcardaction=0 --update
@@ -32,6 +31,7 @@ control 'SV-204441' do
     Modify the "/etc/pam_pkcs11/pkcs11_eventmgr.conf" file to uncomment the following line:
     #/usr/X11R6/bin/xscreensaver-command -lock
     Modify the "/etc/pam_pkcs11/pam_pkcs11.conf" file to use the cackey module if required.'
+  tag 'legacy': ['V-71965', 'SV-86589']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000104-GPOS-00051'
   tag 'satisfies': ['SRG-OS-000104-GPOS-00051', 'SRG-OS-000106-GPOS-00053', 'SRG-OS-000107-GPOS-00054',
@@ -47,7 +47,9 @@ control 'SV-204441' do
   if smart_card_status.eql?('enabled')
     impact 0.5
     describe command('authconfig --test | grep -i smartcard') do
-      its('stdout') { should match(/use\sonly\ssmartcard\sfor\slogin\sis\s#{smart_card_status}/) }
+      its('stdout') do
+        should match(/use\sonly\ssmartcard\sfor\slogin\sis\s#{smart_card_status}/)
+      end
       its('stdout') { should match(/smartcard\smodule\s=\s".+"/) }
       its('stdout') { should match(/smartcard\sremoval\saction\s=\s".+"/) }
     end

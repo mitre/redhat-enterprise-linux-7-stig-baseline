@@ -3,9 +3,8 @@ control 'SV-204498' do
     configured to verify Access Control Lists (ACLs).'
   desc 'ACLs can provide permissions beyond those permitted through the file mode and must be verified by file
     integrity tools.'
-  tag 'legacy': ['SV-86693', 'V-72069']
-  desc 'rationale', ''
-  desc 'check', 'Verify the file integrity tool is configured to verify ACLs.
+  tag 'rationale': ''
+  tag 'check': 'Verify the file integrity tool is configured to verify ACLs.
     Check to see if Advanced Intrusion Detection Environment (AIDE) is installed on the system with the following
     command:
     # yum list installed aide
@@ -23,9 +22,10 @@ control 'SV-204498' do
     /sbin All # apply the same custom rule to the files in sbin
     If the "acl" rule is not being used on all uncommented selection lines in the "/etc/aide.conf" file, or ACLs are not
     being checked by another file integrity tool, this is a finding.'
-  desc 'fix', 'Configure the file integrity tool to check file and directory ACLs.
+  tag 'fix': 'Configure the file integrity tool to check file and directory ACLs.
     If AIDE is installed, ensure the "acl" rule is present on all uncommented file and directory selection lists.'
   impact 0.3
+  tag 'legacy': ['SV-86693', 'V-72069']
   tag 'severity': 'low'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204498'
@@ -40,8 +40,12 @@ control 'SV-204498' do
   end
 
   findings = []
-  aide_conf.where { !selection_line.start_with? '!' }.entries.each do |selection|
-    findings.append(selection.selection_line) unless selection.rules.include? 'acl'
+  aide_conf.where do
+    !selection_line.start_with? '!'
+  end.entries.each do |selection|
+    unless selection.rules.include? 'acl'
+      findings.append(selection.selection_line)
+    end
   end
 
   describe "List of monitored files/directories without 'acl' rule" do

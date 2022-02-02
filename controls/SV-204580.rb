@@ -22,9 +22,8 @@ control 'SV-204580' do
     monitoring of the content of privileged communications, or work product, related to personal representation or
     services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are
     private and confidential. See User Agreement for details."'
-  tag 'legacy': ['V-72225', 'SV-86849']
-  desc 'rationale', ''
-  desc 'check', 'Verify any publicly accessible connection to the operating system displays the Standard Mandatory
+  tag 'rationale': ''
+  tag 'check': 'Verify any publicly accessible connection to the operating system displays the Standard Mandatory
     DoD Notice and Consent Banner before granting access to the system.
     Check for the location of the banner file being used with the following command:
     # grep -i banner /etc/ssh/sshd_config
@@ -51,7 +50,7 @@ control 'SV-204580' do
     If the system does not display a graphical logon banner or the banner does not match the Standard Mandatory DoD
     Notice and Consent Banner, this is a finding.
     If the text in the file does not match the Standard Mandatory DoD Notice and Consent Banner, this is a finding.'
-  desc 'fix', 'Configure the operating system to display the Standard Mandatory DoD Notice and Consent Banner before
+  tag 'fix': 'Configure the operating system to display the Standard Mandatory DoD Notice and Consent Banner before
     granting access to the system via the ssh.
     Edit the "/etc/ssh/sshd_config" file to uncomment the banner keyword and configure it to point to a file that will
     contain the logon banner (this file may be named differently or be in a different location if using a version of SSH
@@ -75,14 +74,17 @@ control 'SV-204580' do
     private and confidential. See User Agreement for details."
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
+  tag 'legacy': ['V-72225', 'SV-86849']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000023-GPOS-00006'
-  tag 'satisfies': ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007', 'SRG-OS-000228-GPOS-00088']
+  tag 'satisfies': ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007',
+                    'SRG-OS-000228-GPOS-00088']
   tag 'gid': 'V-204580'
   tag 'rid': 'SV-204580r603261_rule'
   tag 'stig_id': 'RHEL-07-040170'
   tag 'fix_id': 'F-4704r297486_fix'
-  tag 'cci': ['CCI-000048', 'CCI-000050', 'CCI-001384', 'CCI-001385', 'CCI-001386', 'CCI-001387', 'CCI-001388']
+  tag 'cci': ['CCI-000048', 'CCI-000050', 'CCI-001384', 'CCI-001385',
+              'CCI-001386', 'CCI-001387', 'CCI-001388']
   tag nist: ['AC-8 a', 'AC-8 b', 'AC-8 c 1', 'AC-8 c 2', 'AC-8 c 2', "AC-8 c
 2", 'AC-8 c 3']
 
@@ -118,12 +120,15 @@ control 'SV-204580' do
     end
 
     # Banner property provides a path to a file and it exists.
-    next unless !banner_file.nil? && banner_file.match(/none/i).nil? && file(banner_file).exist?
+    unless !banner_file.nil? && banner_file.match(/none/i).nil? && file(banner_file).exist?
+      next
+    end
 
     describe.one do
       banner = file(banner_file).content.gsub(/[\r\n\s]/, '')
       clean_banner = banner_message_text_ral.gsub(/[\r\n\s]/, '')
-      clean_banner_limited = banner_message_text_ral_limited.gsub(/[\r\n\s]/, '')
+      clean_banner_limited = banner_message_text_ral_limited.gsub(/[\r\n\s]/,
+                                                                  '')
 
       describe 'The SSHD Banner is set to the standard banner and has the correct text' do
         subject { banner }

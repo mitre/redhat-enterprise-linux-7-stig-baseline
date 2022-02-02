@@ -7,20 +7,20 @@ control 'SV-204408' do
     Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
-  tag 'legacy': ['SV-86529', 'V-71905']
-  desc 'rationale', ''
-  desc 'check', 'Note: The value to require a number of lower-case characters to be set is expressed as a negative
+  tag 'rationale': ''
+  tag 'check': 'Note: The value to require a number of lower-case characters to be set is expressed as a negative
     number in "/etc/security/pwquality.conf".
     Check the value for "lcredit" in "/etc/security/pwquality.conf" with the following command:
     # grep lcredit /etc/security/pwquality.conf
     lcredit = -1
     If the value of "lcredit" is not set to a negative value, this is a finding.'
-  desc 'fix', 'Configure the system to require at least one lower-case character when creating or changing a
+  tag 'fix': 'Configure the system to require at least one lower-case character when creating or changing a
     password.
     Add or modify the following line
     in "/etc/security/pwquality.conf":
     lcredit = -1'
   impact 0.5
+  tag 'legacy': ['SV-86529', 'V-71905']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000070-GPOS-00038'
   tag 'gid': 'V-204408'

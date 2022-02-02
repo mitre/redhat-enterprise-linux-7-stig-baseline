@@ -6,19 +6,19 @@ control 'SV-204564' do
     responsible for one.
     Audit records can be generated from various components within the information system (e.g., module or policy
     filter).'
-  tag 'legacy': ['SV-86821', 'V-72197']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system must generate audit records for all account creations, modifications,
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system must generate audit records for all account creations, modifications,
     disabling, and termination events that affect "/etc/passwd".
     Check the auditing rules in "/etc/audit/audit.rules" with the following command:
     # grep /etc/passwd /etc/audit/audit.rules
     -w /etc/passwd -p wa -k identity
     If the command does not return a line, or the line is commented out, this is a finding.'
-  desc 'fix', 'Configure the operating system to generate audit records for all account creations, modifications,
+  tag 'fix': 'Configure the operating system to generate audit records for all account creations, modifications,
     disabling, and termination events that affect "/etc/passwd".
     Add or update the following rule "/etc/audit/rules.d/audit.rules":
     -w /etc/passwd -p wa -k identity
     The audit daemon must be restarted for the changes to take effect.'
+  tag 'legacy': ['SV-86821', 'V-72197']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000004-GPOS-00004'
   tag 'satisfies': ['SRG-OS-000004-GPOS-00004', 'SRG-OS-000239-GPOS-00089', 'SRG-OS-000240-GPOS-00090',

@@ -5,17 +5,17 @@ control 'SV-204481' do
     privileges. This option must be used for mounting any file system not containing approved "setuid" and "setguid"
     files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain
     unauthorized administrative access.'
-  tag 'legacy': ['SV-86667', 'V-72043']
-  desc 'rationale', ''
-  desc 'check', 'Verify file systems that are used for removable media are mounted with the "nosuid" option.
+  tag 'rationale': ''
+  tag 'check': 'Verify file systems that are used for removable media are mounted with the "nosuid" option.
     Check the file systems that are mounted at boot time with the following command:
     # more /etc/fstab
     UUID=2bc871e4-e2a3-4f29-9ece-3be60c835222 /mnt/usbflash vfat noauto,owner,ro,nosuid 0 0
     If a file system found in "/etc/fstab" refers to removable media and it does not have the "nosuid" option set, this
     is a finding.'
-  desc 'fix', 'Configure the "/etc/fstab" to use the "nosuid" option on file systems that are associated with
+  tag 'fix': 'Configure the "/etc/fstab" to use the "nosuid" option on file systems that are associated with
     removable media.'
   impact 0.5
+  tag 'legacy': ['SV-86667', 'V-72043']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204481'
@@ -36,7 +36,9 @@ control 'SV-204481' do
         end
       else
         describe "File system \"#{file_sys_line['file_system_type']}\" does not correspond to removable media." do
-          subject { non_removable_media_fs.to_s.include?(file_sys_line['file_system_type']) }
+          subject do
+            non_removable_media_fs.to_s.include?(file_sys_line['file_system_type'])
+          end
           it { should eq true }
         end
       end

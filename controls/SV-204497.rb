@@ -6,9 +6,8 @@ control 'SV-204497' do
   desc 'Use of weak or untested encryption algorithms undermines the purposes of using encryption to protect data.
     The operating system must implement cryptographic modules adhering to the higher standards approved by the federal
     government since this provides assurance they have been tested and validated.'
-  tag 'legacy': ['SV-86691', 'V-72067']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system implements DoD-approved encryption to protect the confidentiality of
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system implements DoD-approved encryption to protect the confidentiality of
     remote access sessions.
     Check to see if the "dracut-fips" package is installed with the following command:
     # yum list installed dracut-fips
@@ -29,7 +28,7 @@ control 'SV-204497' do
     Verify the file /etc/system-fips exists.
     # ls -l /etc/system-fips
     If this file does not exist, this is a finding.'
-  desc 'fix', 'Configure the operating system to implement DoD-approved encryption by installing the dracut-fips
+  tag 'fix': 'Configure the operating system to implement DoD-approved encryption by installing the dracut-fips
     package.
     To enable strict FIPS compliance, the fips=1 kernel option needs to be added to the kernel command line during
     system installation so key generation is done with FIPS-approved algorithms and continuous monitoring tests in
@@ -69,6 +68,7 @@ control 'SV-204497' do
     # touch /etc/ system-fips
     Reboot the system for the changes to take effect.'
   impact 0.7
+  tag 'legacy': ['SV-86691', 'V-72067']
   tag 'severity': 'high'
   tag 'gtitle': 'SRG-OS-000033-GPOS-00014'
   tag 'satisfies': ['SRG-OS-000033-GPOS-00014', 'SRG-OS-000185-GPOS-00079', 'SRG-OS-000396-GPOS-00176',
@@ -84,10 +84,12 @@ control 'SV-204497' do
     it { should be_installed }
   end
 
-  all_args = command('grubby --info=ALL | grep "^args=" | sed "s/^args=//g"')
-             .stdout.strip.split("\n")
-             .map { |s| s.sub(/^"(.*)"$/, '\1') } # strip outer quotes if they exist
-
+  all_args = # strip outer quotes if they exist
+    command('grubby --info=ALL | grep "^args=" | sed "s/^args=//g"')
+    .stdout.strip.split("\n")
+    .map do |s|
+      s.sub(/^"(.*)"$/, '\1')
+    end
   all_args.each do |args|
     describe args do
       it { should match(/\bfips=1\b/) }

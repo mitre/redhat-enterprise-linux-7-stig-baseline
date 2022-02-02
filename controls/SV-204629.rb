@@ -2,9 +2,8 @@ control 'SV-204629' do
   title 'The Red Hat Enterprise Linux operating system must not have unauthorized IP tunnels configured.'
   desc 'IP tunneling mechanisms can be used to bypass network filtering. If tunneling is required, it must be
     documented with the Information System Security Officer (ISSO).'
-  tag 'legacy': ['V-72317', 'SV-86941']
-  desc 'rationale', ''
-  desc 'check', 'Verify the system does not have unauthorized IP tunnels configured.
+  tag 'rationale': ''
+  tag 'check': 'Verify the system does not have unauthorized IP tunnels configured.
     Check to see if "libreswan" is installed with the following command:
     # yum list installed libreswan
     libreswan.x86-64 3.20-5.el7_4
@@ -19,7 +18,8 @@ control 'SV-204629' do
     If there are indications that a "conn" parameter is configured for a tunnel, ask the System Administrator if the
     tunnel is documented with the ISSO.
     If "libreswan" is installed, "IPsec" is active, and an undocumented tunnel is active, this is a finding.'
-  desc 'fix', 'Remove all unapproved tunnels from the system, or document them with the ISSO.'
+  tag 'fix': 'Remove all unapproved tunnels from the system, or document them with the ISSO.'
+  tag 'legacy': ['V-72317', 'SV-86941']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204629'
@@ -45,13 +45,23 @@ control 'SV-204629' do
       to_process.concat(
         command("grep -E '^\\s*include\\s+' #{in_process} | sed 's/^[[:space:]]*include[[:space:]]*//g'")
           .stdout.strip.split(/\s*\n+\s*/)
-          .map { |f| f.start_with?('/') ? f : File.join(File.dirname(in_process), f) }
+          .map do |f|
+          if f.start_with?('/')
+            f
+          else
+            File.join(
+              File.dirname(in_process), f
+            )
+          end
+        end
           .map do |f|
             dir = f.sub(%r{[^/]*[*?\[].*$}, '') # gets the longest ancestor path which doesn't contain wildcards
             command("find #{dir} -wholename '#{f}'").stdout.strip.split("\n")
           end
           .flatten
-          .select { |f| file(f).file? }
+          .select do |f|
+          file(f).file?
+        end
       )
     end
 

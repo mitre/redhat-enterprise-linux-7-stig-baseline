@@ -6,19 +6,19 @@ control 'SV-204558' do
     When a user logs on, the auid is set to the uid of the account that is being authenticated. Daemons are not user
     sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals
     4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
-  tag 'legacy': ['V-72185', 'SV-86809']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
     "pam_timestamp_check" command occur.
     Check the auditing rules in "/etc/audit/audit.rules" with the following command:
     # grep -iw "/usr/sbin/pam_timestamp_check" /etc/audit/audit.rules
     -a always,exit -F path=/usr/sbin/pam_timestamp_check -F auid>=1000 -F auid!=unset -k privileged-pam
     If the command does not return any output, this is a finding.'
-  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
+  tag 'fix': 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
     the "pam_timestamp_check" command occur.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F path=/usr/sbin/pam_timestamp_check -F auid>=1000 -F auid!=unset -k privileged-pam
     The audit daemon must be restarted for the changes to take effect.'
+  tag 'legacy': ['V-72185', 'SV-86809']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000471-GPOS-00215'
   tag 'gid': 'V-204558'

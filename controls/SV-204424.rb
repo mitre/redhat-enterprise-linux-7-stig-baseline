@@ -3,19 +3,19 @@ control 'SV-204424' do
     passwords.'
   desc 'If an account has an empty password, anyone could log on and run commands with the privileges of that
     account. Accounts with empty passwords should never be used in operational environments.'
-  tag 'legacy': ['V-71937', 'SV-86561']
-  desc 'rationale', ''
-  desc 'check', 'To verify that null passwords cannot be used, run the following command:
+  tag 'rationale': ''
+  tag 'check': 'To verify that null passwords cannot be used, run the following command:
     # grep nullok /etc/pam.d/system-auth /etc/pam.d/password-auth
     If this produces any output, it may be possible to log on with accounts with empty passwords.
     If null passwords can be used, this is a finding.'
-  desc 'fix', 'If an account is configured for password authentication but does not have an assigned password, it may
+  tag 'fix': 'If an account is configured for password authentication but does not have an assigned password, it may
     be possible to log on to the account without authenticating.
     Remove any instances of the "nullok" option in "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" to prevent
     logons with empty passwords.
     Note: Manual changes to the listed files may be overwritten by the "authconfig" program. The "authconfig" program
     should not be used to update the configurations listed in this requirement.'
   impact 0.7
+  tag 'legacy': ['V-71937', 'SV-86561']
   tag 'severity': 'high'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204424'
@@ -31,7 +31,9 @@ control 'SV-204424' do
 
   pam_file_list.each do |pam_file|
     describe pam(pam_file) do
-      its('lines') { should match_pam_rule('.* .* pam_unix.so').all_without_args('nullok') }
+      its('lines') do
+        should match_pam_rule('.* .* pam_unix.so').all_without_args('nullok')
+      end
     end
   end
 end

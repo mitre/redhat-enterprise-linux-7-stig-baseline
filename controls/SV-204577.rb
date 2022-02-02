@@ -13,7 +13,6 @@ control 'SV-204577' do
     organizational requirements, providing only essential capabilities and limiting the use of ports, protocols, and/or
     services to only those required, authorized, and approved to conduct official business or to address authorized
     quality of life issues.'
-  tag 'legacy': ['V-72219', 'SV-86843']
   desc 'rationale', ''
   desc 'check', 'Inspect the firewall configuration and running services to verify that it is configured to prohibit
     or restrict the use of functions, ports, protocols, and/or services that are unnecessary or prohibited.
@@ -35,6 +34,7 @@ control 'SV-204577' do
   desc 'fix', "Update the host's firewall settings and/or running services to comply with the PPSM CLSA for the site
     or program and the PPSM CAL."
   impact 0.5
+  tag 'legacy': ['V-72219', 'SV-86843']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000096-GPOS-00050'
   tag 'satisfies': ['SRG-OS-000096-GPOS-00050', 'SRG-OS-000297-GPOS-00115']

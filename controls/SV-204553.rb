@@ -8,20 +8,20 @@ control 'SV-204553' do
     When a user logs on, the auid is set to the uid of the account that is being authenticated. Daemons are not user
     sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals
     4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
-  tag 'legacy': ['V-72173', 'SV-86797']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
     "umount" command occur.
     Check that the following system call is being audited by performing the following series of commands to check the
     file system rules in "/etc/audit/audit.rules":
     # grep -iw "/usr/bin/umount" /etc/audit/audit.rules
     -a always,exit -F path=/usr/bin/umount -F auid>=1000 -F auid!=unset -k privileged-mount
     If the command does not return any output, this is a finding.'
-  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
+  tag 'fix': 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
     the "umount" command occur.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F path=/usr/bin/umount -F auid>=1000 -F auid!=unset -k privileged-mount
     The audit daemon must be restarted for the changes to take effect.'
+  tag 'legacy': ['V-72173', 'SV-86797']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000042-GPOS-00020'
   tag 'satisfies': ['SRG-OS-000042-GPOS-00020', 'SRG-OS-000392-GPOS-00172']

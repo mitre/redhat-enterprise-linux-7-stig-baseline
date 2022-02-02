@@ -42,10 +42,10 @@ control 'SV-204459' do
     If the operating system is in non-compliance with the Information Assurance
 Vulnerability Management (IAVM) process, this is a finding.
   "
-  tag 'legacy': ['SV-86623', 'V-71999']
-  desc 'fix', 'Install the operating system patches or updated packages available from Red Hat within 30 days or
+  tag 'fix': 'Install the operating system patches or updated packages available from Red Hat within 30 days or
     sooner as local policy dictates.'
   impact 0.5
+  tag 'legacy': ['SV-86623', 'V-71999']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204459'

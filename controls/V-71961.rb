@@ -7,8 +7,8 @@ boots into single-user or maintenance mode, anyone who invokes single-user or
 maintenance mode is granted privileged access to all files on the system. GRUB
 2 is the default boot loader for RHEL 7 and is designed to require a password
 to boot into single-user mode or make modifications to the boot menu."
-  desc 'rationale', ''
-  desc 'check', "
+  tag  'rationale': ''
+  tag  'check': "
     For systems that use UEFI, this is Not Applicable.
     For systems that are running RHEL 7.2 or newer, this is Not Applicable.
 
@@ -24,7 +24,7 @@ a finding.
 
     If the \"superusers-account\" is not set to \"root\", this is a finding.
   "
-  desc 'fix', "
+  tag 'fix': "
     Configure the system to encrypt the boot password for root.
 
     Generate an encrypted grub2 password for root with the following command:
@@ -113,7 +113,9 @@ commands:
       # If there is an environment variable in the configuration file check that it is set with correct values by looking
       # in user.cfg files.
       env_vars = env_vars.map { |env_var| env_var.gsub(/[${}]/, '') }
-      present_user_boot_files = grub_user_boot_files.select { |user_boot_file| file(user_boot_file).exist? }
+      present_user_boot_files = grub_user_boot_files.select do |user_boot_file|
+        file(user_boot_file).exist?
+      end
       describe 'grub2 user configuration files for the superuser should be present if they set an environment variable' do
         subject { present_user_boot_files }
         its('length') { is_expected.to be >= 1 }

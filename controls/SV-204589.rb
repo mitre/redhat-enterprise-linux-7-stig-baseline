@@ -10,15 +10,14 @@ control 'SV-204589' do
     application level if multiple application sessions are using a single operating system-level network connection.
     This does not mean that the operating system terminates all sessions or network access; it only ends the inactive
     session and releases the resources associated with that session.'
-  tag 'legacy': ['SV-86865', 'V-72241']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system automatically terminates a user session after inactivity time-outs have
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system automatically terminates a user session after inactivity time-outs have
     expired.
     Check for the value of the "ClientAliveCountMax" keyword with the following command:
     # grep -i clientalivecount /etc/ssh/sshd_config
     ClientAliveCountMax 0
     If "ClientAliveCountMax" is not set to "0", this is a finding.'
-  desc 'fix', 'Configure the operating system to terminate automatically a user session after inactivity time-outs
+  tag 'fix': 'Configure the operating system to terminate automatically a user session after inactivity time-outs
     have expired or at shutdown.
     Add the following line (or modify the line to have the required value) to the "/etc/ssh/sshd_config" file (this file
     may be named differently or be in a different location if using a version of SSH that is provided by a third-party
@@ -26,6 +25,7 @@ control 'SV-204589' do
     ClientAliveCountMax 0
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
+  tag 'legacy': ['SV-86865', 'V-72241']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000163-GPOS-00072'
   tag 'satisfies': ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000279-GPOS-00109']

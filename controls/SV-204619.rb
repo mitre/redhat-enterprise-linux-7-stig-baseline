@@ -2,9 +2,8 @@ control 'SV-204619' do
   title 'The Red Hat Enterprise Linux operating system must be configured to prevent unrestricted mail relaying.'
   desc 'If unrestricted mail relaying is permitted, unauthorized senders could use this host as a mail relay for the
     purpose of sending spam or other unauthorized activity.'
-  tag 'legacy': ['SV-86921', 'V-72297']
-  desc 'rationale', ''
-  desc 'check', 'Verify the system is configured to prevent unrestricted mail relaying.
+  tag 'rationale': ''
+  tag 'check': 'Verify the system is configured to prevent unrestricted mail relaying.
     Determine if "postfix" is installed with the following commands:
     # yum list installed postfix
     postfix-2.6.6-6.el7.x86_64.rpm
@@ -15,10 +14,11 @@ control 'SV-204619' do
     smtpd_client_restrictions = permit_mynetworks, reject
     If the "smtpd_client_restrictions" parameter contains any entries other than "permit_mynetworks" and "reject", this
     is a finding.'
-  desc 'fix', %q(If "postfix" is installed, modify the "/etc/postfix/main.cf" file to restrict client connections to
+  tag 'fix': %q(If "postfix" is installed, modify the "/etc/postfix/main.cf" file to restrict client connections to
     the local network with the following command:
     # postconf -e 'smtpd_client_restrictions = permit_mynetworks,reject')
   impact 0.5
+  tag 'legacy': ['SV-86921', 'V-72297']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204619'
@@ -32,16 +32,24 @@ control 'SV-204619' do
   if package('postfix').installed?
     describe.one do
       describe command('postconf -n smtpd_client_restrictions') do
-        its('stdout.strip') { should match(/^smtpd_client_restrictions\s+=\s+permit_mynetworks,\s*reject\s*$/) }
+        its('stdout.strip') do
+          should match(/^smtpd_client_restrictions\s+=\s+permit_mynetworks,\s*reject\s*$/)
+        end
       end
       describe command('postconf -n smtpd_client_restrictions') do
-        its('stdout.strip') { should match(/^smtpd_client_restrictions\s+=\s+permit_mynetworks\s*$/) }
+        its('stdout.strip') do
+          should match(/^smtpd_client_restrictions\s+=\s+permit_mynetworks\s*$/)
+        end
       end
       describe command('postconf -n smtpd_client_restrictions') do
-        its('stdout.strip') { should match(/^smtpd_client_restrictions\s+=\s+reject\s*$/) }
+        its('stdout.strip') do
+          should match(/^smtpd_client_restrictions\s+=\s+reject\s*$/)
+        end
       end
       describe command('postconf -n smtpd_client_restrictions') do
-        its('stdout.strip') { should match(/^smtpd_client_restrictions\s+=\s+reject,\s*permit_mynetworks\s*$/) }
+        its('stdout.strip') do
+          should match(/^smtpd_client_restrictions\s+=\s+reject,\s*permit_mynetworks\s*$/)
+        end
       end
     end
   end

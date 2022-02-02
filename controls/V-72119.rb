@@ -11,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  desc 'rationale', ''
-  desc 'check', "
+  tag  'rationale': ''
+  tag  'check': "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"fremovexattr\" syscall occur.
 
@@ -30,7 +30,7 @@ auid!=4294967295 -k perm_mod
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"fremovexattr\" syscall, this is a finding.
   "
-  desc 'fix', "
+  tag 'fix': "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"fremovexattr\" syscall occur.
 

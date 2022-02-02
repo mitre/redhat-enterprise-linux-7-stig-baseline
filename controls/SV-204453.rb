@@ -8,21 +8,21 @@ control 'SV-204453' do
     intrusion detection parameters.
     This requirement applies to operating systems performing security function verification/testing and/or systems and
     environments that require this functionality.'
-  tag 'legacy': ['V-71989', 'SV-86613']
-  desc 'rationale', ''
-  desc 'check', 'Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL) in
+  tag 'rationale': ''
+  tag 'check': 'Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL) in
     conjunction with SELinux.
     Verify the operating system verifies correct operation of all security functions.
     Check if "SELinux" is active and in "Enforcing" mode with the following command:
     # getenforce
     Enforcing
     If "SELinux" is not active and not in "Enforcing" mode, this is a finding.'
-  desc 'fix', 'Configure the operating system to verify correct operation of all security functions.
+  tag 'fix': 'Configure the operating system to verify correct operation of all security functions.
     Set the "SELinux" status and the "Enforcing" mode by modifying the "/etc/selinux/config" file to have the following
     line:
     SELINUX=enforcing
     A reboot is required for the changes to take effect.'
   impact 0.5
+  tag 'legacy': ['V-71989', 'SV-86613']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000445-GPOS-00199'
   tag 'gid': 'V-204453'

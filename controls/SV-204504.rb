@@ -11,9 +11,8 @@ control 'SV-204504' do
     This requirement applies to each audit data storage repository (i.e., distinct information system component where
     audit records are stored), the centralized audit storage capacity of organizations (i.e., all audit data storage
     repositories combined), or both.'
-  tag 'legacy': ['V-72081', 'SV-86705']
-  desc 'rationale', ''
-  desc 'check', 'Confirm the audit configuration regarding how auditing processing failures are handled.
+  tag 'rationale': ''
+  tag 'check': 'Confirm the audit configuration regarding how auditing processing failures are handled.
     Check to see what level "auditctl" is set to with following command:
     # auditctl -s | grep -i "fail"
     failure 2
@@ -24,7 +23,7 @@ control 'SV-204504' do
     If the "failure" setting is not set, this should be upgraded to a CAT I finding.
     If the "failure" setting is set to "1" but the availability concern is not documented or there is no monitoring of
     the kernel log, this should be downgraded to a CAT III finding.'
-  desc 'fix', 'Configure the operating system to shut down in the event of an audit processing failure.
+  tag 'fix': 'Configure the operating system to shut down in the event of an audit processing failure.
     Add or correct the option to shut down the operating system with the following command:
     # auditctl -f 2
     Edit the "/etc/audit/rules.d/audit.rules" file and add the following line:
@@ -37,6 +36,7 @@ control 'SV-204504' do
     -f 1
     Kernel log monitoring must also be configured to properly alert designated staff.
     The audit daemon must be restarted for the changes to take effect.'
+  tag 'legacy': ['V-72081', 'SV-86705']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000046-GPOS-00022'
   tag 'satisfies': ['SRG-OS-000046-GPOS-00022', 'SRG-OS-000047-GPOS-00023']

@@ -7,19 +7,19 @@ control 'SV-204411' do
     Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
-  tag 'legacy': ['V-71911', 'SV-86535']
-  desc 'rationale', ''
-  desc 'check', 'The "difok" option sets the number of characters in a password that must not be present in the old
+  tag 'rationale': ''
+  tag 'check': 'The "difok" option sets the number of characters in a password that must not be present in the old
     password.
     Check for the value of the "difok" option in "/etc/security/pwquality.conf" with the following command:
     # grep difok /etc/security/pwquality.conf
     difok = 8
     If the value of "difok" is set to less than "8", this is a finding.'
-  desc 'fix', 'Configure the operating system to require the change of at least eight of the total number of
+  tag 'fix': 'Configure the operating system to require the change of at least eight of the total number of
     characters when passwords are changed by setting the "difok" option.
     Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):
     difok = 8'
   impact 0.5
+  tag 'legacy': ['V-71911', 'SV-86535']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000072-GPOS-00040'
   tag 'gid': 'V-204411'

@@ -3,9 +3,8 @@ control 'SV-204628' do
     system access to specific hosts and services.'
   desc 'If the systems access control program is not configured with appropriate rules for allowing and denying
     access to system network resources, services may be accessible to unauthorized hosts.'
-  tag 'legacy': ['SV-86939', 'V-72315']
-  desc 'rationale', ''
-  desc 'check', %q{If the "firewalld" package is not installed, ask the System Administrator (SA) if another firewall
+  tag 'rationale': ''
+  tag 'check': %q{If the "firewalld" package is not installed, ask the System Administrator (SA) if another firewall
     application (such as iptables) is installed. If an application firewall is not installed, this is a finding.
     Verify the system's access control program is configured to grant or deny system access to specific hosts.
     Check to see if "firewalld" is active with the following command:
@@ -40,11 +39,12 @@ control 'SV-204628' do
     denies access to specific hosts or services.
     If "firewalld" is active and is not configured to grant access to specific hosts or "tcpwrappers" is not configured
     to grant or deny access to specific hosts, this is a finding.}
-  desc 'fix', 'If "firewalld" is installed and active on the system, configure rules for allowing specific services
+  tag 'fix': 'If "firewalld" is installed and active on the system, configure rules for allowing specific services
     and hosts.
     If "firewalld" is not "active", enable "tcpwrappers" by configuring "/etc/hosts.allow" and "/etc/hosts.deny" to
     allow or deny access to specific hosts.'
   impact 0.5
+  tag 'legacy': ['SV-86939', 'V-72315']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
   tag 'gid': 'V-204628'

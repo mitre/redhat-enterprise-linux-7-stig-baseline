@@ -11,9 +11,8 @@ control 'SV-204587' do
     application level if multiple application sessions are using a single operating system-level network connection.
     This does not mean that the operating system terminates all sessions or network access; it only ends the inactive
     session and releases the resources associated with that session.'
-  tag 'legacy': ['V-72237', 'SV-86861']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system automatically terminates a user session after inactivity time-outs have
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system automatically terminates a user session after inactivity time-outs have
     expired.
     Check for the value of the "ClientAliveInterval" keyword with the following command:
     # grep -iw clientaliveinterval /etc/ssh/sshd_config
@@ -21,7 +20,7 @@ control 'SV-204587' do
     If "ClientAliveInterval" is not configured, commented out, or has a value of "0", this is a finding.
     If "ClientAliveInterval" has a value that is greater than "600" and is not documented with the Information System
     Security Officer (ISSO) as an operational requirement, this is a finding.'
-  desc 'fix', 'Configure the operating system to automatically terminate a user session after inactivity time-outs
+  tag 'fix': 'Configure the operating system to automatically terminate a user session after inactivity time-outs
     have expired or at shutdown.
     Add the following line (or modify the line to have the required value) to the "/etc/ssh/sshd_config" file (this file
     may be named differently or be in a different location if using a version of SSH that is provided by a third-party
@@ -29,6 +28,7 @@ control 'SV-204587' do
     ClientAliveInterval 600
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
+  tag 'legacy': ['V-72237', 'SV-86861']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000163-GPOS-00072'
   tag 'satisfies': ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000279-GPOS-00109']

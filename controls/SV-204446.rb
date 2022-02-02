@@ -8,9 +8,8 @@ control 'SV-204446' do
     could ultimately affect the security state of the operating system. The operating system's Information Management
     Officer (IMO)/Information System Security Officer (ISSO) and System Administrators (SAs) must be notified via email
     and/or monitoring system trap when there is an unauthorized modification of a configuration item."
-  tag 'legacy': ['V-71975', 'SV-86599']
-  desc 'rationale', ''
-  desc 'check', 'Verify the operating system notifies designated personnel if baseline configurations are changed in
+  tag 'rationale': ''
+  tag 'check': 'Verify the operating system notifies designated personnel if baseline configurations are changed in
     an unauthorized manner.
     Note: A file integrity tool other than Advanced Intrusion Detection Environment (AIDE) may be used, but the tool
     must be executed and notify specified individuals via email or an alert.
@@ -32,7 +31,7 @@ control 'SV-204446' do
     #!/bin/bash
     /usr/sbin/aide --check | /bin/mail -s "$HOSTNAME - Daily aide integrity check run" root@sysname.mil
     If the file integrity application does not notify designated personnel of changes, this is a finding.'
-  desc 'fix', 'Configure the operating system to notify designated personnel if baseline configurations are changed
+  tag 'fix': 'Configure the operating system to notify designated personnel if baseline configurations are changed
     in an unauthorized manner. The AIDE tool can be configured to email designated personnel with the use of the cron
     system.
     The following example output is generic. It will set cron to run AIDE daily and to send email at the completion of
@@ -40,6 +39,7 @@ control 'SV-204446' do
     # more /etc/cron.daily/aide
     /usr/sbin/aide --check | /bin/mail -s "$HOSTNAME - Daily aide integrity check run" root@sysname.mil'
   impact 0.5
+  tag 'legacy': ['V-71975', 'SV-86599']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000363-GPOS-00150'
   tag 'gid': 'V-204446'
@@ -61,7 +61,9 @@ control 'SV-204446' do
     describe file("/etc/cron.weekly/#{file_integrity_tool}") do
       its('content') { should match %r{/bin/mail} }
     end
-    describe crontab('root').where { command =~ /#{file_integrity_tool}/ } do
+    describe crontab('root').where {
+               command =~ /#{file_integrity_tool}/
+             } do
       its('commands.flatten') { should include(match %r{/bin/mail}) }
     end
     if file("/etc/cron.d/#{file_integrity_tool}").exist?

@@ -13,9 +13,8 @@ control 'SV-204531' do
     system. Therefore, it is very important to use syscall rules only when absolutely necessary since these affect
     performance. The more rules, the bigger the performance hit. The performance can be helped, however, by combining
     syscalls into one rule whenever possible.'
-  tag 'legacy': ['SV-86749', 'V-72125']
-  desc 'rationale', ''
-  desc 'check', %q(Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
+  tag 'rationale': ''
+  tag 'check': %q(Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
     "creat", "open", "openat", "open_by_handle_at", "truncate", and "ftruncate" syscalls.
     Check the file system rules in "/etc/audit/audit.rules" with the following commands:
     # grep 'open\|truncate\|creat' /etc/audit/audit.rules
@@ -31,7 +30,7 @@ control 'SV-204531' do
     "truncate", and "ftruncate" syscalls, this is a finding.
     If the output does not produce rules containing "-F exit=-EPERM", this is a finding.
     If the output does not produce rules containing "-F exit=-EACCES", this is a finding.)
-  desc 'fix', 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
+  tag 'fix': 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
     the "creat", "open", "openat", "open_by_handle_at", "truncate", and "ftruncate" syscalls.
     Add or update the following rules in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F arch=b32 -S creat,open,openat,open_by_handle_at,truncate,ftruncate -F exit=-EPERM -F auid>=1000 -F
@@ -44,6 +43,7 @@ control 'SV-204531' do
     -F auid!=unset -k access
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
+  tag 'legacy': ['SV-86749', 'V-72125']
   tag 'severity': 'medium'
   tag 'gtitle': 'SRG-OS-000064-GPOS-00033'
   tag 'satisfies': ['SRG-OS-000064-GPOS-00033', 'SRG-OS-000458-GPOS-00203', 'SRG-OS-000461-GPOS-00205',
