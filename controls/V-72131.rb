@@ -42,7 +42,7 @@ a finding.
     If the output does not produce rules containing \"-F exit=-EACCES\", this
 is a finding.
   "
-  tag  'fix': "
+  tag 'fix': "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"truncate\" syscall occur.
 

@@ -23,7 +23,7 @@ daemon will not off-load the logs from the system being audited.
     If the \"active\" setting is not set to \"yes\", or the line is commented
 out, this is a finding.
   "
-  tag  'fix': "
+  tag 'fix': "
     Edit the /etc/audisp/plugins.d/au-remote.conf file and change the value of
 \"active\" to \"yes\".
 

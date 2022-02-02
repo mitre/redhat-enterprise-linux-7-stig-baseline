@@ -24,7 +24,7 @@ a finding.
 
     If the \"superusers-account\" is not set to \"root\", this is a finding.
   "
-  tag  'fix': "
+  tag 'fix': "
     Configure the system to encrypt the boot password for root.
 
     Generate an encrypted grub2 password for root with the following command:
@@ -113,7 +113,9 @@ commands:
       # If there is an environment variable in the configuration file check that it is set with correct values by looking
       # in user.cfg files.
       env_vars = env_vars.map { |env_var| env_var.gsub(/[${}]/, '') }
-      present_user_boot_files = grub_user_boot_files.select { |user_boot_file| file(user_boot_file).exist? }
+      present_user_boot_files = grub_user_boot_files.select do |user_boot_file|
+        file(user_boot_file).exist?
+      end
       describe 'grub2 user configuration files for the superuser should be present if they set an environment variable' do
         subject { present_user_boot_files }
         its('length') { is_expected.to be >= 1 }

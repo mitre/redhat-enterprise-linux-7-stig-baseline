@@ -26,7 +26,7 @@ delete
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"rename\" syscall, this is a finding.
   "
-  tag  'fix': "
+  tag 'fix': "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"rename\" syscall occur.
 
