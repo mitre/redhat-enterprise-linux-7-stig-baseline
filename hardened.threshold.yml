@@ -1,3 +1,4 @@
 ---
-compliance.min: 80
-errors.total: 0
+compliance.min: 60
+error.total.max: 0
+failed.critical.max: 0
