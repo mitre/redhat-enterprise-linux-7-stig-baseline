@@ -4,7 +4,7 @@ platforms:
 
 driver:
   name: ec2
-  instance_type: c5.large
+  instance_type: t2.large
   ebs_optimized: true
   block_device_mappings:
     - device_name: /dev/sda1
@@ -21,7 +21,6 @@ driver:
   security_group_ids: <%= ENV['SECURITY_GROUP_IDS'] %>
   region: <%= ENV['AWS_REGION'] %>
   subnet_id: <%= ENV['SUBNET_ID'] %>
-  instance_type: t2.large
   associate_public_ip: true
   
 
