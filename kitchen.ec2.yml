@@ -4,6 +4,14 @@ platforms:
 
 driver:
   name: ec2
+  instance_type: c5.large
+  ebs_optimized: true
+  block_device_mappings:
+    - device_name: /dev/sda1
+      ebs:
+        delete_on_termination: true
+        volume_size: 30
+        volume_type: gp2
   aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
   # aws_access_key: "<%= ENV['AWS_ACCESS_KEY_ID'] %>"
   # aws_secret_key: "<%= ENV['AWS_SECRET_ACCESS_KEY'] %>"
