@@ -19,8 +19,8 @@ driver:
 
 transport:
   name: ssh
-  # username: ec2-user
-  # ssh_key: ./ssh_key
+  username: ec2-user
+  ssh_key: ./ssh_key
   connection_timeout: 10
   connection_retries: 5
 
