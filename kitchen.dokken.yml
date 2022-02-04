@@ -3,7 +3,7 @@ provisioner:
   name: dummy
 
 platforms:
-  - name: rhel7-ubi
+  - name: rhel7
     driver:
       name: dokken
       pull_platform_image: false
@@ -16,6 +16,8 @@ driver:
 verifier:
   input_files:
     - dokken.inputs.yml
+  reporter:
+    - json:reports/raw/ubi-%{suite}-%{platform}.json
 
 suites:
   - name: vanilla      

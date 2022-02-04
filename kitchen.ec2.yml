@@ -1,6 +1,6 @@
 ---
 platforms:
-  - name: rhel-7
+  - name: rhel7
 
 driver:
   name: ec2
@@ -33,6 +33,8 @@ transport:
 verifier:
   input_files:
     - ec2.inputs.yml
+  reporter:
+    - json:reports/raw/ec2-%{suite}-%{platform}.json
 
 lifecycle:
   post_create:
@@ -52,6 +54,7 @@ suites:
     driver:
       image_id: <%= ENV['AMI_ID'] %>
     provisioner:
+      
       name: ansible_playbook
       playbook: test/ansible/rhel7STIG-ansible/vanilla.yml
     
