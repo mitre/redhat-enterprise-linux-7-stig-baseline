@@ -56,10 +56,10 @@ kitchen-exec-container:
   variables:
     KITCHEN_LOCAL_YAML: 'kitchen.dokken.yml'
 
-kitchen-exec-ec2:
-  extends: .ci:stage:kitchen-exec:inspec
-  variables:
-    KITCHEN_LOCAL_YAML: 'kitchen.ec2.yml'
+# kitchen-exec-ec2:
+#   extends: .ci:stage:kitchen-exec:inspec
+#   variables:
+#     KITCHEN_LOCAL_YAML: 'kitchen.ec2.yml'
 
 verify:
   extends: .ci:stage:saf:verify
