@@ -4,9 +4,6 @@ platforms:
 
 driver:
   name: ec2
-  image_search:
-    owner-id: "219670896067"
-    name: rhel7/images/*/RHEL7*
   instance_type: t2.large
   aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
   user_data: ./user_data.sh
@@ -46,11 +43,19 @@ lifecycle:
 
 suites:
   - name: vanilla
+    driver:
+      image_search:
+        owner-id: "219670896067"
+        name: rhel7/images/*/RHEL-7*
     provisioner:
       name: ansible_playbook
       playbook: test/ansible/rhel7STIG-ansible/vanilla.yml
     
   - name: hardened
+    driver:
+      image_search:
+        owner-id: "219670896067"
+        name: rhel7/images/*/RHEL-7*
     provisioner:
       name: ansible_playbook
       playbook: test/ansible/rhel7STIG-ansible/site.yml
