@@ -4,29 +4,28 @@ platforms:
 
 driver:
   name: ec2
-  instance_type: t2.large
   aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
+  # aws_access_key: "<%= ENV['AWS_ACCESS_KEY_ID'] %>"
+  # aws_secret_key: "<%= ENV['AWS_SECRET_ACCESS_KEY'] %>"
   user_data: ./user_data.sh
   tags:
     POC: <%= ENV['POC_TAG'] %>
   security_group_ids: <%= ENV['SECURITY_GROUP_IDS'] %>
   region: <%= ENV['AWS_REGION'] %>
   subnet_id: <%= ENV['SUBNET_ID'] %>
+  instance_type: t2.large
   associate_public_ip: true
-  
 
 transport:
   name: ssh
-  username: <%= ENV['AWS_EC2_USER'] %>
-  ssh_key: <%= ENV['AWS_EC2_SSH_KEY'] %>
+  username: ec2-user
+  ssh_key: ./ssh_key
   connection_timeout: 10
   connection_retries: 5
 
 verifier:
   input_files:
     - ec2.inputs.yml
-  reporter:
-    - json:reports/raw/ec2-%{suite}-%{platform}.json
 
 lifecycle:
   post_create:
@@ -44,18 +43,14 @@ lifecycle:
 suites:
   - name: vanilla
     driver:
-      image_search:
-        owner-id: "219670896067"
-        name: rhel7/images/*/RHEL-7*
+      image_id: <%= ENV['AMI_ID'] %>
     provisioner:
       name: ansible_playbook
       playbook: test/ansible/rhel7STIG-ansible/vanilla.yml
-    
+
   - name: hardened
     driver:
-      image_search:
-        owner-id: "219670896067"
-        name: rhel7/images/*/RHEL-7*
+      image_id: <%= ENV['AMI_ID'] %>
     provisioner:
       name: ansible_playbook
       playbook: test/ansible/rhel7STIG-ansible/site.yml
