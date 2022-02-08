@@ -64,7 +64,7 @@ kitchen-exec-ec2:
 verify:
   extends: .ci:stage:saf:verify
   dependencies:
-    - kitchen-exec-container
+    - kitchen-exec-ec2
 
 .publish:
   extends: .ci:stage:publish:inspec:artifacts
