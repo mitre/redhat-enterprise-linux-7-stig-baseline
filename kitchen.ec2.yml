@@ -1,11 +1,10 @@
 ---
 platforms:
-  - name: rhel7
+  - name: rhel-7
 
 driver:
   name: ec2
   instance_type: t2.large
-  ebs_optimized: true
   aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
   user_data: ./user_data.sh
   tags:
@@ -44,16 +43,11 @@ lifecycle:
 
 suites:
   - name: vanilla
-    driver:
-      image_id: <%= ENV['AMI_ID'] %>
     provisioner:
-      
       name: ansible_playbook
       playbook: test/ansible/rhel7STIG-ansible/vanilla.yml
     
   - name: hardened
-    driver:
-      image_id: <%= ENV['AMI_ID'] %>
     provisioner:
       name: ansible_playbook
       playbook: test/ansible/rhel7STIG-ansible/site.yml
