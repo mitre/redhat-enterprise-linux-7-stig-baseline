@@ -4,6 +4,11 @@ platforms:
 
 driver:
   name: ec2
+  block_device_mappings:
+  - device_name: /dev/xvda
+    ebs:
+      volume_size: 30
+      delete_on_termination: true
   aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
   # aws_access_key: "<%= ENV['AWS_ACCESS_KEY_ID'] %>"
   # aws_secret_key: "<%= ENV['AWS_SECRET_ACCESS_KEY'] %>"
