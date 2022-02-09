@@ -24,7 +24,7 @@ a finding.
 
     If the \"superusers-account\" is not set to \"root\", this is a finding.
   "
-  tag 'fix': "
+  desc 'fix', "
     Configure the system to encrypt the boot password for root.
 
     Generate an encrypted grub2 password for root with the following command:

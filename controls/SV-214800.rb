@@ -5,8 +5,8 @@ control 'SV-214800' do
     malicious behavior, which can provide additional agility in reacting to network threats. These tools also often
     include a reporting capability to provide network awareness of the system, which may not otherwise exist in an
     organization's systems management regime."
-  tag 'rationale': ''
-  tag 'check': 'Per OPORD 16-0080, the preferred endpoint security tool is McAfee Endpoint Security for Linux (ENSL)
+  desc 'rationale', ''
+  desc 'check', 'Per OPORD 16-0080, the preferred endpoint security tool is McAfee Endpoint Security for Linux (ENSL)
     in conjunction with SELinux.
     Procedure:
     Check that the following package has been installed:
@@ -15,7 +15,7 @@ control 'SV-214800' do
     Verify that the daemon is running:
     # ps -ef | grep -i mfetpd
     If the daemon is not running, this is a finding.'
-  tag 'fix': 'Install and enable the latest McAfee ENSLTP package.'
+  desc 'fix', 'Install and enable the latest McAfee ENSLTP package.'
   impact 0.5
   tag 'legacy': ['V-92255', 'SV-102357']
   tag 'severity': 'medium'

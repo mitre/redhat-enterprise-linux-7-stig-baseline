@@ -3,8 +3,8 @@ control 'SV-204491' do
     is group-owned by root.'
   desc 'If the group owner of the "cron.allow" file is not set to root, sensitive information could be viewed or
     edited by unauthorized users.'
-  tag 'rationale': ''
-  tag 'check': 'Verify that the "cron.allow" file is group-owned by root.
+  desc 'rationale', ''
+  desc 'check', 'Verify that the "cron.allow" file is group-owned by root.
     Check the group owner of the "cron.allow" file with the following command:
     # ls -al /etc/cron.allow
     -rw------- 1 root root 6 Mar  5  2011 /etc/cron.allow

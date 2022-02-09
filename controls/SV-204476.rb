@@ -3,8 +3,8 @@ control 'SV-204476' do
     have mode 0740 or less permissive.'
   desc "Local initialization files are used to configure the user's shell environment upon logon. Malicious
     modification of these files could compromise accounts upon logon."
-  tag 'rationale': ''
-  tag 'check': 'Verify that all local initialization files have a mode of "0740" or less permissive.
+  desc 'rationale', ''
+  desc 'check', 'Verify that all local initialization files have a mode of "0740" or less permissive.
     Check the mode on all local initialization files with the following command:
     Note: The example will be for the "smithj" user, who has a home directory of "/home/smithj".
     # ls -al /home/smithj/.[^.]* | more

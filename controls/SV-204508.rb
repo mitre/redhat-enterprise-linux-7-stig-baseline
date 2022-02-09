@@ -6,8 +6,8 @@ control 'SV-204508' do
     One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon.  When
     audit logs are not labeled before they are sent to a central log server, the audit data will not be able to be
     analyzed and tied back to the correct system.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the audisp daemon is configured to label all off-loaded audit logs:
+  desc 'rationale', ''
+  desc 'check', 'Verify the audisp daemon is configured to label all off-loaded audit logs:
     # grep "name_format" /etc/audisp/audispd.conf
     name_format = hostname
     If the "name_format" option is not "hostname", "fqd", or "numeric", or the line is commented out, ask the System
@@ -15,7 +15,7 @@ control 'SV-204508' do
     if the logs are labeled appropriately.
     If there is no evidence that the system is configured to off-load audit logs to a different system or storage media,
     or if the configuration does not appropriately label logs before they are off-loaded, this is a finding.'
-  tag 'fix': 'Edit the /etc/audisp/audispd.conf file and add or update the "name_format" option:
+  desc 'fix', 'Edit the /etc/audisp/audispd.conf file and add or update the "name_format" option:
     name_format = hostname
     The audit daemon must be restarted for changes to take effect:
     # service auditd restart'

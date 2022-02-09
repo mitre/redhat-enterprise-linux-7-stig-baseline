@@ -7,8 +7,8 @@ control 'SV-204403' do
     The ability to enable/disable a session lock is given to the user by default. Disabling the user's ability to
     disengage the graphical user interface session lock provides the assurance that all sessions will lock after the
     specified period of time."
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system prevents a user from overriding the screensaver idle-activation-enabled
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system prevents a user from overriding the screensaver idle-activation-enabled
     setting for the graphical user interface.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable. The screen program must be
     installed to lock sessions on the console.
@@ -21,7 +21,7 @@ control 'SV-204403' do
     # grep -i idle-activation-enabled /etc/dconf/db/local.d/locks/*
     /org/gnome/desktop/screensaver/idle-activation-enabled
     If the command does not return a result, this is a finding.'
-  tag 'fix': 'Configure the operating system to prevent a user from overriding a screensaver lock after a 15-minute
+  desc 'fix', 'Configure the operating system to prevent a user from overriding a screensaver lock after a 15-minute
     period of inactivity for graphical user interfaces.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
     command:

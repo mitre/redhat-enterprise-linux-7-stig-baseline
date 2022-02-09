@@ -4,8 +4,8 @@ control 'SV-204615' do
   desc "ICMP redirect messages are used by routers to inform hosts that a more direct route exists for a particular
     destination. These messages modify the host's route table and are unauthenticated. An illicit ICMP redirect message
     could result in a man-in-the-middle attack."
-  tag 'rationale': ''
-  tag 'check': %q(Verify the system ignores IPv4 ICMP redirect messages.
+  desc 'rationale', ''
+  desc 'check', %q(Verify the system ignores IPv4 ICMP redirect messages.
     # grep 'net.ipv4.conf.all.accept_redirects' /etc/sysctl.conf /etc/sysctl.d/*
     If " net.ipv4.conf.all.accept_redirects " is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/
     directory, is commented out, or does not have a value of "0", this is a finding.

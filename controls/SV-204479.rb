@@ -3,8 +3,8 @@ control 'SV-204479' do
     correctly labeled to prevent unauthorized modification.'
   desc 'If an unauthorized or modified device is allowed to exist on the system, there is the possibility the system
     may perform unintended or unauthorized operations.'
-  tag 'rationale': ''
-  tag 'check': %q{Verify that all system device files are correctly labeled to prevent unauthorized modification.
+  desc 'rationale', ''
+  desc 'check', %q{Verify that all system device files are correctly labeled to prevent unauthorized modification.
     List all device files on the system that are incorrectly labeled with the following commands:
     Note: Device files are normally found under "/dev", but applications may place device files in other directories and
     may necessitate a search of the entire system.

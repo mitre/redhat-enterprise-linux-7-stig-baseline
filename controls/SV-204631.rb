@@ -16,7 +16,7 @@ control 'SV-204631' do
     of an organizational user (e.g., VPN, proxy capability). This does not apply to authentication for the purpose of
     configuring the device itself (management).'
 
-  tag 'check': 'Verify the operating system has the packages required for multifactor authentication installed.
+  desc 'check', 'Verify the operating system has the packages required for multifactor authentication installed.
     Check for the presence of the packages required to support multifactor authentication with the following commands:
     # yum list installed pam_pkcs11
     pam_pkcs11-0.6.2-14.el7.noarch.rpm

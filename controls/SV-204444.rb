@@ -7,8 +7,8 @@ control 'SV-204444' do
     administering cryptographic key management activities. Non-privileged users are individuals who do not possess
     appropriate authorizations. Circumventing intrusion detection and prevention mechanisms or malicious code protection
     mechanisms are examples of privileged functions that require protection from non-privileged users.'
-  tag 'rationale': ''
-  tag 'check': 'Note: Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL)
+  desc 'rationale', ''
+  desc 'check', 'Note: Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL)
     in conjunction with SELinux.
     Verify the operating system prevents non-privileged users from executing privileged functions to include disabling,
     circumventing, or altering implemented security safeguards/countermeasures.
@@ -28,7 +28,7 @@ control 'SV-204444' do
     requirement with the ISSO, this is a finding.
     If administrator accounts are mapped to the "sysadm_u" SELinux user and are documented as an operational requirement
     with the ISSO, this can be downgraded to a CAT III.'
-  tag 'fix': 'Configure the operating system to prevent non-privileged users from executing privileged functions to
+  desc 'fix', 'Configure the operating system to prevent non-privileged users from executing privileged functions to
     include disabling, circumventing, or altering implemented security safeguards/countermeasures.
     Use the following command to map a new user to the "staff_u" SELinux user:
     $ sudo semanage login -a -s staff_u <username>

@@ -4,8 +4,8 @@ control 'SV-204625' do
   desc 'Routing protocol daemons are typically used on routers to exchange network topology information with other
     routers. If this software is used when not required, system network information may be unnecessarily transmitted
     across the network.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the system is not performing packet forwarding, unless the system is a router.
+  desc 'rationale', ''
+  desc 'check', 'Verify the system is not performing packet forwarding, unless the system is a router.
     # grep net.ipv4.ip_forward /etc/sysctl.conf /etc/sysctl.d/*
     net.ipv4.ip_forward = 0
     If "net.ipv4.ip_forward" is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/ directory, is

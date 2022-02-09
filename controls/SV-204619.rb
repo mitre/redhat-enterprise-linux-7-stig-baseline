@@ -2,8 +2,8 @@ control 'SV-204619' do
   title 'The Red Hat Enterprise Linux operating system must be configured to prevent unrestricted mail relaying.'
   desc 'If unrestricted mail relaying is permitted, unauthorized senders could use this host as a mail relay for the
     purpose of sending spam or other unauthorized activity.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the system is configured to prevent unrestricted mail relaying.
+  desc 'rationale', ''
+  desc 'check', 'Verify the system is configured to prevent unrestricted mail relaying.
     Determine if "postfix" is installed with the following commands:
     # yum list installed postfix
     postfix-2.6.6-6.el7.x86_64.rpm
@@ -14,7 +14,7 @@ control 'SV-204619' do
     smtpd_client_restrictions = permit_mynetworks, reject
     If the "smtpd_client_restrictions" parameter contains any entries other than "permit_mynetworks" and "reject", this
     is a finding.'
-  tag 'fix': %q(If "postfix" is installed, modify the "/etc/postfix/main.cf" file to restrict client connections to
+  desc 'fix', %q(If "postfix" is installed, modify the "/etc/postfix/main.cf" file to restrict client connections to
     the local network with the following command:
     # postconf -e 'smtpd_client_restrictions = permit_mynetworks,reject')
   impact 0.5

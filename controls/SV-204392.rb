@@ -3,8 +3,8 @@ control 'SV-204392' do
     and group membership of system files and commands match the vendor values.'
   desc 'Discretionary access control is weakened if a user or group has access permissions to system files and
     directories greater than the default.'
-  tag 'rationale': ''
-  tag 'check': %q{Verify the file permissions, ownership, and group membership of system files and commands match the
+  desc 'rationale', ''
+  desc 'check', %q{Verify the file permissions, ownership, and group membership of system files and commands match the
     vendor values.
     Check the default file permissions, ownership, and group membership of system files and commands with the following
     command:

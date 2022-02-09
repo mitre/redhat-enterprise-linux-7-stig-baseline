@@ -6,8 +6,8 @@ control 'SV-214799' do
     Cryptographic mechanisms used for protecting the integrity of information include, for example, signed hash
     functions using asymmetric cryptography enabling distribution of the public key to verify the hash information while
     maintaining the confidentiality of the key used to generate the hash.'
-  tag 'rationale': ''
-  tag 'check': %q{Verify the cryptographic hash of system files and commands match the vendor values.
+  desc 'rationale', ''
+  desc 'check', %q{Verify the cryptographic hash of system files and commands match the vendor values.
     Check the cryptographic hash of system files and commands with the following command:
     Note: System configuration files (indicated by a "c" in the second column) are expected to change over time. Unusual
     modifications should be investigated through the system audit log.

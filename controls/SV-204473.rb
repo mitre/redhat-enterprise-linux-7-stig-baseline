@@ -3,8 +3,8 @@ control 'SV-204473' do
     contained in local interactive user home directories have a mode of 0750 or less permissive.'
   desc 'If a local interactive user files have excessive permissions, unintended users may be able to access or
     modify them.'
-  tag 'rationale': ''
-  tag 'check': 'Verify all files and directories contained in a local interactive user home directory, excluding
+  desc 'rationale', ''
+  desc 'check', 'Verify all files and directories contained in a local interactive user home directory, excluding
     local initialization files, have a mode of "0750".
     Check the mode of all non-initialization files in a local interactive user home directory with the following
     command:

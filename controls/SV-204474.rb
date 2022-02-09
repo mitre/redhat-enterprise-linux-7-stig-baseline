@@ -3,8 +3,8 @@ control 'SV-204474' do
     interactive users are owned by the home directory user or root.'
   desc "Local initialization files are used to configure the user's shell environment upon logon. Malicious
     modification of these files could compromise accounts upon logon."
-  tag 'rationale': ''
-  tag 'check': %q{Verify the local initialization files of all local interactive users are owned by that user.
+  desc 'rationale', ''
+  desc 'check', %q{Verify the local initialization files of all local interactive users are owned by that user.
     Check the home directory assignment for all non-privileged users on the system with the following command:
     Note: The example will be for the smithj user, who has a home directory of "/home/smithj".
     # awk -F: '($3>=1000)&&($7 !~ /nologin/){print $1, $3, $6}' /etc/passwd

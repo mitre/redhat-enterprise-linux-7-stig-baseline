@@ -5,8 +5,8 @@ control 'SV-204609' do
     different path than configured on the router, which can be used to bypass network security measures. This
     requirement applies only to the forwarding of source-routed traffic, such as when IPv4 forwarding is enabled and the
     system is functioning as a router.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the system does not accept IPv4 source-routed packets.
+  desc 'rationale', ''
+  desc 'check', 'Verify the system does not accept IPv4 source-routed packets.
     # grep net.ipv4.conf.all.accept_source_route /etc/sysctl.conf /etc/sysctl.d/*
     net.ipv4.conf.all.accept_source_route = 0
     If " net.ipv4.conf.all.accept_source_route " is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/

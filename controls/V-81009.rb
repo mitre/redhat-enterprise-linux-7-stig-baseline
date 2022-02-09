@@ -22,7 +22,7 @@ a finding.
 
     If no results are returned, this is a finding.
   "
-  tag 'fix': "Configure the system so that /dev/shm is mounted with the
+  desc 'fix', "Configure the system so that /dev/shm is mounted with the
 \"nodev\" option."
   impact 0.3
   tag severity: nil

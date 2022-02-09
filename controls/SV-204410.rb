@@ -7,8 +7,8 @@ control 'SV-204410' do
     Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system enforces password complexity by requiring that at least one special
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system enforces password complexity by requiring that at least one special
     character be used.
     Note: The value to require a number of special characters to be set is expressed as a negative number in
     "/etc/security/pwquality.conf".
@@ -16,7 +16,7 @@ control 'SV-204410' do
     # grep ocredit /etc/security/pwquality.conf
     ocredit=-1
     If the value of "ocredit" is not set to a negative value, this is a finding.'
-  tag 'fix': 'Configure the operating system to enforce password complexity by requiring that at least one special
+  desc 'fix', 'Configure the operating system to enforce password complexity by requiring that at least one special
     character be used by setting the "ocredit" option.
     Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):
     ocredit = -1'

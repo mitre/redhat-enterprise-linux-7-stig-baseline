@@ -42,7 +42,7 @@ control 'SV-204459' do
     If the operating system is in non-compliance with the Information Assurance
 Vulnerability Management (IAVM) process, this is a finding.
   "
-  tag 'fix': 'Install the operating system patches or updated packages available from Red Hat within 30 days or
+  desc 'fix', 'Install the operating system patches or updated packages available from Red Hat within 30 days or
     sooner as local policy dictates.'
   impact 0.5
   tag 'legacy': ['SV-86623', 'V-71999']
