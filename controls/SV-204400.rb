@@ -7,8 +7,8 @@ control 'SV-204400' do
     operating systems need to be able to identify when a user's session has idled and take action to initiate the
     session lock.
     The session lock is implemented at the point where session activity can be determined and/or controlled."
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system prevents a user from overriding session idle delay after a 15-minute
+  tag rationale: ''
+  tag check: 'Verify the operating system prevents a user from overriding session idle delay after a 15-minute
     period of inactivity for graphical user interfaces.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable. The screen program must be
     installed to lock sessions on the console.
@@ -21,7 +21,7 @@ control 'SV-204400' do
     # grep -i idle-delay /etc/dconf/db/local.d/locks/*
     /org/gnome/desktop/session/idle-delay
     If the command does not return a result, this is a finding.'
-  tag 'fix': 'Configure the operating system to prevent a user from overriding a session lock after a 15-minute
+  tag fix: 'Configure the operating system to prevent a user from overriding a session lock after a 15-minute
     period of inactivity for graphical user interfaces.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
     command:
@@ -31,24 +31,24 @@ control 'SV-204400' do
     Add the setting to lock the session idle delay:
     /org/gnome/desktop/session/idle-delay'
   impact 0.5
-  tag 'legacy': ['V-73157', 'SV-87809']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000029-GPOS-00010'
-  tag 'gid': 'V-204400'
-  tag 'rid': 'SV-204400r603261_rule'
-  tag 'stig_id': 'RHEL-07-010082'
-  tag 'fix_id': 'F-4524r88393_fix'
-  tag 'cci': ['CCI-000057']
+  tag legacy: %w{V-73157 SV-87809}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000029-GPOS-00010'
+  tag gid: 'V-204400'
+  tag rid: 'SV-204400r603261_rule'
+  tag stig_id: 'RHEL-07-010082'
+  tag fix_id: 'F-4524r88393_fix'
+  tag cci: ['CCI-000057']
   tag nist: ['AC-11 a']
 
   if package('gnome-desktop3').installed?

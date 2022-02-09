@@ -3,8 +3,8 @@ control 'SV-204474' do
     interactive users are owned by the home directory user or root.'
   desc "Local initialization files are used to configure the user's shell environment upon logon. Malicious
     modification of these files could compromise accounts upon logon."
-  tag 'rationale': ''
-  tag 'check': %q{Verify the local initialization files of all local interactive users are owned by that user.
+  tag rationale: ''
+  tag check: %q{Verify the local initialization files of all local interactive users are owned by that user.
     Check the home directory assignment for all non-privileged users on the system with the following command:
     Note: The example will be for the smithj user, who has a home directory of "/home/smithj".
     # awk -F: '($3>=1000)&&($7 !~ /nologin/){print $1, $3, $6}' /etc/passwd
@@ -17,29 +17,29 @@ control 'SV-204474' do
     -rwxr-xr-x 1 smithj users 497 Jan 6 2007 .login
     -rwxr-xr-x 1 smithj users 886 Jan 6 2007 .something
     If all local interactive user's initialization files are not owned by that user or root, this is a finding.}
-  tag 'fix': 'Set the owner of the local initialization files for interactive users to either the directory owner or
+  tag fix: 'Set the owner of the local initialization files for interactive users to either the directory owner or
     root with the following command:
     Note: The example will be for the smithj user, who has a home directory of "/home/smithj".
     # chown smithj /home/smithj/.[^.]*'
   impact 0.5
-  tag 'legacy': ['V-72029', 'SV-86653']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204474'
-  tag 'rid': 'SV-204474r603834_rule'
-  tag 'stig_id': 'RHEL-07-020690'
-  tag 'fix_id': 'F-4598r462464_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: %w{V-72029 SV-86653}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204474'
+  tag rid: 'SV-204474r603834_rule'
+  tag stig_id: 'RHEL-07-020690'
+  tag fix_id: 'F-4598r462464_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
@@ -48,7 +48,7 @@ control 'SV-204474' do
   ignore_shells = non_interactive_shells.join('|')
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid.zero?) }.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
     findings += command("find #{user_info.home} -name '.*' -not -user #{user_info.username} -a -not -user root").stdout.split("\n")

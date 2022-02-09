@@ -11,8 +11,8 @@ control 'SV-204486' do
     option must be used for mounting any file system not containing approved "setuid" and "setguid" files. Executing
     files from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized
     administrative access.'
-  tag 'rationale': ''
-  tag 'check': 'Verify that the "nodev","nosuid", and "noexec" options are configured for /dev/shm:
+  tag rationale: ''
+  tag check: 'Verify that the "nodev","nosuid", and "noexec" options are configured for /dev/shm:
     # cat /etc/fstab | grep /dev/shm
     tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0
     If results are returned and the "nodev", "nosuid", or "noexec" options are missing, this is a finding.
@@ -20,28 +20,28 @@ control 'SV-204486' do
     # mount | grep /dev/shm
     tmpfs on /dev/shm type tmpfs (rw,nodev,nosuid,noexec,seclabel)
     If /dev/shm is mounted without secure options "nodev", "nosuid", and "noexec", this is a finding.'
-  tag 'fix': 'Configure the system so that /dev/shm is mounted with the "nodev", "nosuid", and "noexec" options by
+  tag fix: 'Configure the system so that /dev/shm is mounted with the "nodev", "nosuid", and "noexec" options by
     adding /modifying the /etc/fstab with the following line:
     tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0'
   impact 0.3
-  tag 'legacy': ['SV-95725', 'V-81013']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'low'
-  tag 'gtitle': 'SRG-OS-000368-GPOS-00154'
-  tag 'gid': 'V-204486'
-  tag 'rid': 'SV-204486r603261_rule'
-  tag 'stig_id': 'RHEL-07-021024'
-  tag 'fix_id': 'F-4610r462553_fix'
-  tag 'cci': ['CCI-001764']
+  tag legacy: %w{SV-95725 V-81013}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'low'
+  tag gtitle: 'SRG-OS-000368-GPOS-00154'
+  tag gid: 'V-204486'
+  tag rid: 'SV-204486r603261_rule'
+  tag stig_id: 'RHEL-07-021024'
+  tag fix_id: 'F-4610r462553_fix'
+  tag cci: ['CCI-001764']
   tag nist: ['CM-7 (2)']
 
   describe mount('/dev/shm') do

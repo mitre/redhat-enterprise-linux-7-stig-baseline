@@ -6,38 +6,38 @@ control 'SV-204426' do
     unauthorized access to their user account has been obtained.
     Operating systems need to track periods of inactivity and disable application identifiers after 35 days of
     inactivity.'
-  tag 'rationale': ''
-  tag 'check': 'If passwords are not being used for authentication, this is Not Applicable.
+  tag rationale: ''
+  tag check: 'If passwords are not being used for authentication, this is Not Applicable.
     Verify the operating system disables account identifiers (individuals, groups, roles, and devices) after the
     password expires with the following command:
     # grep -i inactive /etc/default/useradd
     INACTIVE=35
     If "INACTIVE" is set to "-1", a value greater than "35", is commented out, or is not defined, this is a finding.'
-  tag 'fix': 'Configure the operating system to disable account identifiers (individuals, groups, roles, and
+  tag fix: 'Configure the operating system to disable account identifiers (individuals, groups, roles, and
     devices) 35 days after the password expires.
     Add the following line to "/etc/default/useradd" (or modify the line to have the required value):
     INACTIVE=35
     DoD recommendation is 35 days, but a lower value is acceptable. The value "-1" will disable this feature, and "0"
     will disable the account immediately after the password expires.'
   impact 0.5
-  tag 'legacy': ['SV-86565', 'V-71941']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000118-GPOS-00060'
-  tag 'gid': 'V-204426'
-  tag 'rid': 'SV-204426r809190_rule'
-  tag 'stig_id': 'RHEL-07-010310'
-  tag 'fix_id': 'F-4550r809189_fix'
-  tag 'cci': ['CCI-000795']
+  tag legacy: %w{SV-86565 V-71941}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000118-GPOS-00060'
+  tag gid: 'V-204426'
+  tag rid: 'SV-204426r809190_rule'
+  tag stig_id: 'RHEL-07-010310'
+  tag fix_id: 'F-4550r809189_fix'
+  tag cci: ['CCI-000795']
   tag nist: ['IA-4 e']
 
   days_of_inactivity = input('days_of_inactivity')

@@ -8,8 +8,8 @@ control 'SV-204454' do
     intrusion detection parameters.
     This requirement applies to operating systems performing security function verification/testing and/or systems and
     environments that require this functionality.'
-  tag 'rationale': ''
-  tag 'check': %q{Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL) in
+  tag rationale: ''
+  tag check: %q{Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL) in
     conjunction with SELinux.
     Verify the operating system verifies correct operation of all security functions.
     Check if "SELinux" is active and is enforcing the targeted policy with the following command:
@@ -28,30 +28,30 @@ control 'SV-204454' do
     # grep -i "selinuxtype" /etc/selinux/config | grep -v '^#'
     SELINUXTYPE = targeted
     If no results are returned or "SELINUXTYPE" is not set to "targeted", this is a finding.}
-  tag 'fix': 'Configure the operating system to verify correct operation of all security functions.
+  tag fix: 'Configure the operating system to verify correct operation of all security functions.
     Set the "SELinuxtype" to the "targeted" policy by modifying the "/etc/selinux/config" file to have the following
     line:
     SELINUXTYPE=targeted
     A reboot is required for the changes to take effect.'
   impact 0.5
-  tag 'legacy': ['V-71991', 'SV-86615']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000445-GPOS-00199'
-  tag 'gid': 'V-204454'
-  tag 'rid': 'SV-204454r754748_rule'
-  tag 'stig_id': 'RHEL-07-020220'
-  tag 'fix_id': 'F-36307r602631_fix'
-  tag 'cci': ['CCI-002165', 'CCI-002696']
+  tag legacy: %w{V-71991 SV-86615}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000445-GPOS-00199'
+  tag gid: 'V-204454'
+  tag rid: 'SV-204454r754748_rule'
+  tag stig_id: 'RHEL-07-020220'
+  tag fix_id: 'F-36307r602631_fix'
+  tag cci: %w{CCI-002165 CCI-002696}
   tag nist: ['AC-3 (4)', 'SI-6 a']
 
   describe.one do

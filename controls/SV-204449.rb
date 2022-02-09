@@ -1,8 +1,8 @@
 control 'SV-204449' do
   title 'The Red Hat Enterprise Linux operating system must be configured to disable USB mass storage.'
   desc 'USB mass storage permits easy introduction of unknown devices, thereby facilitating malicious activity.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system disables the ability to load the USB Storage kernel module.
+  tag rationale: ''
+  tag check: 'Verify the operating system disables the ability to load the USB Storage kernel module.
     # grep -r usb-storage /etc/modprobe.d/* | grep -i "/bin/true" | grep -v "^#"
     install usb-storage /bin/true
     If the command does not return any output, or the line is commented out, and use of USB Storage is not documented
@@ -14,7 +14,7 @@ control 'SV-204449' do
     If the command does not return any output or the output is not "blacklist usb-storage", and use of USB storage
     devices is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is
     a finding.'
-  tag 'fix': 'Configure the operating system to disable the ability to use the USB Storage kernel module.
+  tag fix: 'Configure the operating system to disable the ability to use the USB Storage kernel module.
     Create a file under "/etc/modprobe.d" with the following command:
     # touch /etc/modprobe.d/usb-storage.conf
     Add the following line to the created file:
@@ -24,25 +24,25 @@ control 'SV-204449' do
     Add or update the line:
     blacklist usb-storage'
   impact 0.5
-  tag 'legacy': ['SV-86607', 'V-71983']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000114-GPOS-00059'
-  tag 'satisfies': ['SRG-OS-000114-GPOS-00059', 'SRG-OS-000378-GPOS-00163', 'SRG-OS-000480-GPOS-00227']
-  tag 'gid': 'V-204449'
-  tag 'rid': 'SV-204449r603261_rule'
-  tag 'stig_id': 'RHEL-07-020100'
-  tag 'fix_id': 'F-4573r462538_fix'
-  tag 'cci': ['CCI-000366', 'CCI-000778', 'CCI-001958']
+  tag legacy: %w{SV-86607 V-71983}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000114-GPOS-00059'
+  tag satisfies: %w{SRG-OS-000114-GPOS-00059 SRG-OS-000378-GPOS-00163 SRG-OS-000480-GPOS-00227}
+  tag gid: 'V-204449'
+  tag rid: 'SV-204449r603261_rule'
+  tag stig_id: 'RHEL-07-020100'
+  tag fix_id: 'F-4573r462538_fix'
+  tag cci: %w{CCI-000366 CCI-000778 CCI-001958}
   tag nist: ['CM-6 b', 'IA-3', 'IA-3']
 
   if input('data_loss_prevention_installed')

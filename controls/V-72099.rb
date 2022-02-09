@@ -11,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"fchown\" syscall occur.
 
@@ -30,7 +30,7 @@ perm_mod
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"fchown\" syscall, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":
 
     -a always,exit -F arch=b32 -S fchown -F auid>=1000 -F auid!=4294967295 -k
@@ -44,13 +44,13 @@ perm_mod
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000064-GPOS-00033'
-  tag satisfies: ['SRG-OS-000064-GPOS-00033', 'SRG-OS-000392-GPOS-00172',
-                  'SRG-OS-000458-GPOS-00203', 'SRG-OS-000474-GPOS-00219']
+  tag satisfies: %w{SRG-OS-000064-GPOS-00033 SRG-OS-000392-GPOS-00172
+                    SRG-OS-000458-GPOS-00203 SRG-OS-000474-GPOS-00219}
   tag gid: 'V-72099'
   tag rid: 'SV-86723r5_rule'
   tag stig_id: 'RHEL-07-030380'
   tag fix_id: 'F-78451r8_fix'
-  tag cci: ['CCI-000126', 'CCI-000172']
+  tag cci: %w{CCI-000126 CCI-000172}
   tag nist: ['AU-2 d', 'AU-12 c']
 
   describe auditd.syscall('fchown').where { arch == 'b32' } do

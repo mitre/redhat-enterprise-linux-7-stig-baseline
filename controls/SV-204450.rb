@@ -2,8 +2,8 @@ control 'SV-204450' do
   title 'The Red Hat Enterprise Linux operating system must be configured so that the Datagram Congestion Control
     Protocol (DCCP) kernel module is disabled unless required.'
   desc 'Disabling DCCP protects the system against exploitation of any flaws in the protocol implementation.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system disables the ability to load the DCCP kernel module.
+  tag rationale: ''
+  tag check: 'Verify the operating system disables the ability to load the DCCP kernel module.
     # grep -r dccp /etc/modprobe.d/* | grep -i "/bin/true" | grep -v "^#"
     install dccp /bin/true
     If the command does not return any output, or the line is commented out, and use of DCCP is not documented with the
@@ -15,7 +15,7 @@ control 'SV-204450' do
     If the command does not return any output or the output is not "blacklist dccp", and use of the dccp kernel module
     is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a
     finding.'
-  tag 'fix': 'Configure the operating system to disable the ability to use the DCCP kernel module.
+  tag fix: 'Configure the operating system to disable the ability to use the DCCP kernel module.
     Create a file under "/etc/modprobe.d" with the following command:
     # touch /etc/modprobe.d/dccp.conf
     Add the following line to the created file:
@@ -25,24 +25,24 @@ control 'SV-204450' do
     Add or update the line:
     blacklist dccp'
   impact 0.5
-  tag 'legacy': ['V-77821', 'SV-92517']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000378-GPOS-00163'
-  tag 'gid': 'V-204450'
-  tag 'rid': 'SV-204450r603261_rule'
-  tag 'stig_id': 'RHEL-07-020101'
-  tag 'fix_id': 'F-4574r88543_fix'
-  tag 'cci': ['CCI-001958']
+  tag legacy: %w{V-77821 SV-92517}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000378-GPOS-00163'
+  tag gid: 'V-204450'
+  tag rid: 'SV-204450r603261_rule'
+  tag stig_id: 'RHEL-07-020101'
+  tag fix_id: 'F-4574r88543_fix'
+  tag cci: ['CCI-001958']
   tag nist: ['IA-3']
 
   describe kernel_module('dccp') do

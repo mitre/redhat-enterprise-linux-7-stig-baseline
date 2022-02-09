@@ -14,42 +14,47 @@ control 'SV-204632' do
     This requirement only applies to components where this is specific to the function of the device or has the concept
     of an organizational user (e.g., VPN, proxy capability). This does not apply to authentication for the purpose of
     configuring the device itself (management).'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system implements multifactor authentication for remote access to privileged
+  tag rationale: ''
+  tag check: 'Verify the operating system implements multifactor authentication for remote access to privileged
     accounts via pluggable authentication modules (PAM).
     Check the "/etc/sssd/sssd.conf" file for the authentication services that are being used with the following command:
     # grep services /etc/sssd/sssd.conf /etc/sssd/conf.d/*.conf
     services = nss, pam
     If the "pam" service is not present on all "services" lines, this is a finding.'
-  tag 'fix': 'Configure the operating system to implement multifactor authentication for remote access to privileged
+  tag fix: 'Configure the operating system to implement multifactor authentication for remote access to privileged
     accounts via pluggable authentication modules (PAM).
     Modify all of the services lines in "/etc/sssd/sssd.conf" or in configuration files found under "/etc/sssd/conf.d"
     to include pam.'
 
   impact 0.5
-  tag 'legacy': ['V-72427', 'SV-87051']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000375-GPOS-00160'
-  tag 'satisfies': ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']
-  tag 'gid': 'V-204632'
-  tag 'rid': 'SV-204632r603261_rule'
-  tag 'stig_id': 'RHEL-07-041002'
-  tag 'fix_id': 'F-4756r89089_fix'
-  tag 'cci': ['CCI-001948', 'CCI-001953', 'CCI-001954']
+  tag legacy: %w{V-72427 SV-87051}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000375-GPOS-00160'
+  tag satisfies: %w{SRG-OS-000375-GPOS-00160 SRG-OS-000375-GPOS-00161 SRG-OS-000375-GPOS-00162}
+  tag gid: 'V-204632'
+  tag rid: 'SV-204632r603261_rule'
+  tag stig_id: 'RHEL-07-041002'
+  tag fix_id: 'F-4756r89089_fix'
+  tag cci: %w{CCI-001948 CCI-001953 CCI-001954}
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
 
   if package('sssd').installed?
-    if !(sssd_files = command('find /etc/sssd -name *.conf').stdout.split("\n")).empty?
+    if (sssd_files = command('find /etc/sssd -name *.conf').stdout.split("\n")).empty?
+      describe 'The set of SSSD configuration files' do
+        subject { sssd_files.to_a }
+        it { should_not be_empty }
+      end
+    else
       sssd_files.each do |file|
         next unless package('sssd').installed?
 
@@ -65,11 +70,6 @@ control 'SV-204632' do
             end
           end
         end
-      end
-    else
-      describe 'The set of SSSD configuration files' do
-        subject { sssd_files.to_a }
-        it { should_not be_empty }
       end
     end
   else

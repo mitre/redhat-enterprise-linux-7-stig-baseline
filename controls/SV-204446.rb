@@ -8,8 +8,8 @@ control 'SV-204446' do
     could ultimately affect the security state of the operating system. The operating system's Information Management
     Officer (IMO)/Information System Security Officer (ISSO) and System Administrators (SAs) must be notified via email
     and/or monitoring system trap when there is an unauthorized modification of a configuration item."
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system notifies designated personnel if baseline configurations are changed in
+  tag rationale: ''
+  tag check: 'Verify the operating system notifies designated personnel if baseline configurations are changed in
     an unauthorized manner.
     Note: A file integrity tool other than Advanced Intrusion Detection Environment (AIDE) may be used, but the tool
     must be executed and notify specified individuals via email or an alert.
@@ -31,7 +31,7 @@ control 'SV-204446' do
     #!/bin/bash
     /usr/sbin/aide --check | /bin/mail -s "$HOSTNAME - Daily aide integrity check run" root@sysname.mil
     If the file integrity application does not notify designated personnel of changes, this is a finding.'
-  tag 'fix': 'Configure the operating system to notify designated personnel if baseline configurations are changed
+  tag fix: 'Configure the operating system to notify designated personnel if baseline configurations are changed
     in an unauthorized manner. The AIDE tool can be configured to email designated personnel with the use of the cron
     system.
     The following example output is generic. It will set cron to run AIDE daily and to send email at the completion of
@@ -39,24 +39,24 @@ control 'SV-204446' do
     # more /etc/cron.daily/aide
     /usr/sbin/aide --check | /bin/mail -s "$HOSTNAME - Daily aide integrity check run" root@sysname.mil'
   impact 0.5
-  tag 'legacy': ['V-71975', 'SV-86599']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000363-GPOS-00150'
-  tag 'gid': 'V-204446'
-  tag 'rid': 'SV-204446r603261_rule'
-  tag 'stig_id': 'RHEL-07-020040'
-  tag 'fix_id': 'F-36305r602625_fix'
-  tag 'cci': ['CCI-001744']
+  tag legacy: %w{V-71975 SV-86599}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000363-GPOS-00150'
+  tag gid: 'V-204446'
+  tag rid: 'SV-204446r603261_rule'
+  tag stig_id: 'RHEL-07-020040'
+  tag fix_id: 'F-36305r602625_fix'
+  tag cci: ['CCI-001744']
   tag nist: ['CM-3 (5)']
 
   file_integrity_tool = input('file_integrity_tool')

@@ -5,8 +5,8 @@ control 'SV-204482' do
     privileges. This option must be used for mounting any file system not containing approved "setuid" and "setguid"
     files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain
     unauthorized administrative access.'
-  tag 'rationale': ''
-  tag 'check': 'Verify file systems that are being NFS imported are configured with the "nosuid" option.
+  tag rationale: ''
+  tag check: 'Verify file systems that are being NFS imported are configured with the "nosuid" option.
     Find the file system(s) that contain the directories being exported with the following command:
     # more /etc/fstab | grep nfs
     UUID=e06097bb-cfcd-437b-9e4d-a691f5662a7d /store nfs rw,nosuid 0 0
@@ -15,27 +15,27 @@ control 'SV-204482' do
     Verify the NFS is mounted with the "nosuid" option:
     # mount | grep nfs | grep nosuid
     If no results are returned, this is a finding.'
-  tag 'fix': 'Configure the "/etc/fstab" to use the "nosuid" option on file systems that are being imported via
+  tag fix: 'Configure the "/etc/fstab" to use the "nosuid" option on file systems that are being imported via
     NFS.'
   impact 0.5
-  tag 'legacy': ['SV-86669', 'V-72045']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204482'
-  tag 'rid': 'SV-204482r603261_rule'
-  tag 'stig_id': 'RHEL-07-021020'
-  tag 'fix_id': 'F-4606r88639_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: %w{SV-86669 V-72045}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204482'
+  tag rid: 'SV-204482r603261_rule'
+  tag stig_id: 'RHEL-07-021020'
+  tag fix_id: 'F-4606r88639_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   nfs_systems = etc_fstab.nfs_file_systems.entries

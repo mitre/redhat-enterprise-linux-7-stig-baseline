@@ -7,36 +7,36 @@ control 'SV-204411' do
     Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
-  tag 'rationale': ''
-  tag 'check': 'The "difok" option sets the number of characters in a password that must not be present in the old
+  tag rationale: ''
+  tag check: 'The "difok" option sets the number of characters in a password that must not be present in the old
     password.
     Check for the value of the "difok" option in "/etc/security/pwquality.conf" with the following command:
     # grep difok /etc/security/pwquality.conf
     difok = 8
     If the value of "difok" is set to less than "8", this is a finding.'
-  tag 'fix': 'Configure the operating system to require the change of at least eight of the total number of
+  tag fix: 'Configure the operating system to require the change of at least eight of the total number of
     characters when passwords are changed by setting the "difok" option.
     Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):
     difok = 8'
   impact 0.5
-  tag 'legacy': ['V-71911', 'SV-86535']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000072-GPOS-00040'
-  tag 'gid': 'V-204411'
-  tag 'rid': 'SV-204411r603261_rule'
-  tag 'stig_id': 'RHEL-07-010160'
-  tag 'fix_id': 'F-4535r88426_fix'
-  tag 'cci': ['CCI-000195']
+  tag legacy: %w{V-71911 SV-86535}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000072-GPOS-00040'
+  tag gid: 'V-204411'
+  tag rid: 'SV-204411r603261_rule'
+  tag stig_id: 'RHEL-07-010160'
+  tag fix_id: 'F-4535r88426_fix'
+  tag cci: ['CCI-000195']
   tag nist: ['IA-5 (1) (b)']
 
   difok = input('difok')

@@ -13,8 +13,8 @@ control 'SV-204577' do
     organizational requirements, providing only essential capabilities and limiting the use of ports, protocols, and/or
     services to only those required, authorized, and approved to conduct official business or to address authorized
     quality of life issues.'
-  tag 'rationale': ''
-  tag 'check': 'Inspect the firewall configuration and running services to verify that it is configured to prohibit
+  tag rationale: ''
+  tag check: 'Inspect the firewall configuration and running services to verify that it is configured to prohibit
     or restrict the use of functions, ports, protocols, and/or services that are unnecessary or prohibited.
     Check which services are currently active with the following command:
     # firewall-cmd --list-all
@@ -31,28 +31,28 @@ control 'SV-204577' do
     the PPSM CLSA.
     If there are additional ports, protocols, or services that are not in the PPSM CLSA, or there are ports, protocols,
     or services that are prohibited by the PPSM Category Assurance List (CAL), this is a finding.'
-  tag 'fix': "Update the host's firewall settings and/or running services to comply with the PPSM CLSA for the site
+  tag fix: "Update the host's firewall settings and/or running services to comply with the PPSM CLSA for the site
     or program and the PPSM CAL."
   impact 0.5
-  tag 'legacy': ['V-72219', 'SV-86843']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000096-GPOS-00050'
-  tag 'satisfies': ['SRG-OS-000096-GPOS-00050', 'SRG-OS-000297-GPOS-00115']
-  tag 'gid': 'V-204577'
-  tag 'rid': 'SV-204577r603261_rule'
-  tag 'stig_id': 'RHEL-07-040100'
-  tag 'fix_id': 'F-4701r88924_fix'
-  tag 'cci': ['CCI-000382', 'CCI-002314']
+  tag legacy: %w{V-72219 SV-86843}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000096-GPOS-00050'
+  tag satisfies: %w{SRG-OS-000096-GPOS-00050 SRG-OS-000297-GPOS-00115}
+  tag gid: 'V-204577'
+  tag rid: 'SV-204577r603261_rule'
+  tag stig_id: 'RHEL-07-040100'
+  tag fix_id: 'F-4701r88924_fix'
+  tag cci: %w{CCI-000382 CCI-002314}
   tag nist: ['CM-7 b', 'AC-17 (1)']
 
   firewalld_services_deny = input('firewalld_services_deny')
@@ -85,29 +85,29 @@ control 'SV-204577' do
         zone_services = firewalld_services_deny[zone.to_sym]
         zone_ports = firewalld_ports_deny[zone.to_sym]
 
-        if !zone_services.nil?
+        if zone_services.nil?
+          describe "Services for zone '#{zone}' are not specified. Check 'firewalld_services_deny' input." do
+            subject { zone_services.nil? }
+            it { should be false }
+          end
+        else
           describe firewalld do
             zone_services.each do |serv|
               it { should_not have_service_enabled_in_zone(serv, zone) }
             end
           end
-        else
-          describe "Services for zone '#{zone}' are not specified. Check 'firewalld_services_deny' input." do
-            subject { zone_services.nil? }
-            it { should be false }
-          end
         end
 
-        if !zone_ports.nil?
+        if zone_ports.nil?
+          describe "Ports for zone '#{zone}' are not specified. Check 'firewalld_ports_deny' input." do
+            subject { zone_ports.nil? }
+            it { should be false }
+          end
+        else
           describe firewalld do
             zone_ports.each do |port|
               it { should_not have_port_enabled_in_zone(port, zone) }
             end
-          end
-        else
-          describe "Ports for zone '#{zone}' are not specified. Check 'firewalld_ports_deny' input." do
-            subject { zone_ports.nil? }
-            it { should be false }
           end
         end
       else

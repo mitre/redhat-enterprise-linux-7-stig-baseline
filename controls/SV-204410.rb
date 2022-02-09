@@ -7,8 +7,8 @@ control 'SV-204410' do
     Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system enforces password complexity by requiring that at least one special
+  tag rationale: ''
+  tag check: 'Verify the operating system enforces password complexity by requiring that at least one special
     character be used.
     Note: The value to require a number of special characters to be set is expressed as a negative number in
     "/etc/security/pwquality.conf".
@@ -16,32 +16,32 @@ control 'SV-204410' do
     # grep ocredit /etc/security/pwquality.conf
     ocredit=-1
     If the value of "ocredit" is not set to a negative value, this is a finding.'
-  tag 'fix': 'Configure the operating system to enforce password complexity by requiring that at least one special
+  tag fix: 'Configure the operating system to enforce password complexity by requiring that at least one special
     character be used by setting the "ocredit" option.
     Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):
     ocredit = -1'
   impact 0.5
-  tag 'legacy': ['SV-86533', 'V-71909']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000266-GPOS-00101'
-  tag 'gid': 'V-204410'
-  tag 'rid': 'SV-204410r603261_rule'
-  tag 'stig_id': 'RHEL-07-010150'
-  tag 'fix_id': 'F-4534r88423_fix'
-  tag 'cci': ['CCI-001619']
+  tag legacy: %w{SV-86533 V-71909}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000266-GPOS-00101'
+  tag gid: 'V-204410'
+  tag rid: 'SV-204410r603261_rule'
+  tag stig_id: 'RHEL-07-010150'
+  tag fix_id: 'F-4534r88423_fix'
+  tag cci: ['CCI-001619']
   tag nist: ['IA-5 (1) (a)']
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('ocredit.to_i') { should cmp < 0 }
+    its('ocredit.to_i') { should cmp.negative? }
   end
 end

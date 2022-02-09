@@ -7,8 +7,8 @@ control 'SV-204444' do
     administering cryptographic key management activities. Non-privileged users are individuals who do not possess
     appropriate authorizations. Circumventing intrusion detection and prevention mechanisms or malicious code protection
     mechanisms are examples of privileged functions that require protection from non-privileged users.'
-  tag 'rationale': ''
-  tag 'check': 'Note: Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL)
+  tag rationale: ''
+  tag check: 'Note: Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL)
     in conjunction with SELinux.
     Verify the operating system prevents non-privileged users from executing privileged functions to include disabling,
     circumventing, or altering implemented security safeguards/countermeasures.
@@ -28,7 +28,7 @@ control 'SV-204444' do
     requirement with the ISSO, this is a finding.
     If administrator accounts are mapped to the "sysadm_u" SELinux user and are documented as an operational requirement
     with the ISSO, this can be downgraded to a CAT III.'
-  tag 'fix': 'Configure the operating system to prevent non-privileged users from executing privileged functions to
+  tag fix: 'Configure the operating system to prevent non-privileged users from executing privileged functions to
     include disabling, circumventing, or altering implemented security safeguards/countermeasures.
     Use the following command to map a new user to the "staff_u" SELinux user:
     $ sudo semanage login -a -s staff_u <username>
@@ -39,24 +39,24 @@ control 'SV-204444' do
     Use the following command to map an existing user to the "user_u" SELinux user:
     $ sudo semanage login -m -s user_u <username>'
   impact 0.5
-  tag 'legacy': ['SV-86595', 'V-71971']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000324-GPOS-00125'
-  tag 'gid': 'V-204444'
-  tag 'rid': 'SV-204444r792826_rule'
-  tag 'stig_id': 'RHEL-07-020020'
-  tag 'fix_id': 'F-4568r792825_fix'
-  tag 'cci': ['CCI-002165', 'CCI-002235']
+  tag legacy: %w{SV-86595 V-71971}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000324-GPOS-00125'
+  tag gid: 'V-204444'
+  tag rid: 'SV-204444r792826_rule'
+  tag stig_id: 'RHEL-07-020020'
+  tag fix_id: 'F-4568r792825_fix'
+  tag cci: %w{CCI-002165 CCI-002235}
   tag nist: ['AC-3 (4)', 'AC-6 (10)']
 
   admin_logins = input('admin_logins')
@@ -90,10 +90,10 @@ control 'SV-204444' do
       it { expect(seusers).to_not be_empty }
     end
 
-    users_to_ignore = [
-      'root',
-      'system_u'
-    ]
+    users_to_ignore = %w{
+      root
+      system_u
+    }
 
     seusers.each do |user, context|
       next if users_to_ignore.include?(user)
@@ -103,18 +103,18 @@ control 'SV-204444' do
           let(:valid_users) { ['user_u'] }
         elsif admin_logins.include?(user)
           let(:valid_users) do
-            [
-              'sysadm_u',
-              'staff_u'
-            ]
+            %w{
+              sysadm_u
+              staff_u
+            }
           end
         else
           let(:valid_users) do
-            [
-              'user_u',
-              'guest_u',
-              'xguest_u'
-            ]
+            %w{
+              user_u
+              guest_u
+              xguest_u
+            }
           end
         end
 

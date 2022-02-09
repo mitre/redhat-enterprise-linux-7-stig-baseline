@@ -3,32 +3,32 @@ control 'SV-204607' do
   desc 'The shosts.equiv files are used to configure host-based authentication for the system via SSH. Host-based
     authentication is not sufficient for preventing unauthorized access to the system, as it does not require
     interactive identification and authentication of a connection request, or for the use of two-factor authentication.'
-  tag 'rationale': ''
-  tag 'check': 'Verify there are no "shosts.equiv" files on the system.
+  tag rationale: ''
+  tag check: 'Verify there are no "shosts.equiv" files on the system.
     Check the system for the existence of these files with the following command:
     # find / -name shosts.equiv
     If any "shosts.equiv" files are found on the system, this is a finding.'
-  tag 'fix': 'Remove any found "shosts.equiv" files from the system.
+  tag fix: 'Remove any found "shosts.equiv" files from the system.
     # rm /[path]/[to]/[file]/shosts.equiv'
   impact 0.7
-  tag 'legacy': ['SV-86903', 'V-72279']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'high'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204607'
-  tag 'rid': 'SV-204607r603261_rule'
-  tag 'stig_id': 'RHEL-07-040550'
-  tag 'fix_id': 'F-4731r89014_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: %w{SV-86903 V-72279}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'high'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204607'
+  tag rid: 'SV-204607r603261_rule'
+  tag stig_id: 'RHEL-07-040550'
+  tag fix_id: 'F-4731r89014_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   describe command('find / -xdev -xautofs -name shosts.equiv') do

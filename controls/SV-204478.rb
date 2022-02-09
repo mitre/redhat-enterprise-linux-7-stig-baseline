@@ -13,8 +13,8 @@ files or otherwise compromise the system at the user level. If the system is
 compromised at the user level, it is easier to elevate privileges to eventually
 compromise the system at the root and network level."
   end
-  tag 'rationale': ''
-  tag 'check': %q(Verify that local initialization files do not execute world-writable programs.
+  tag rationale: ''
+  tag check: %q(Verify that local initialization files do not execute world-writable programs.
     Check the system for world-writable files with the following command:
     # find / -xdev -perm -002 -type f -exec ls -ld {} \; | more
     For all files listed, check for their presence in the local initialization files with the following commands:
@@ -22,27 +22,27 @@ compromise the system at the root and network level."
     directory.
     # grep <file> /home/*/.*
     If any local initialization files are found to reference world-writable files, this is a finding.)
-  tag 'fix': 'Set the mode on files being executed by the local initialization files with the following command:
+  tag fix: 'Set the mode on files being executed by the local initialization files with the following command:
     # chmod 0755 <file>'
   impact 0.5
-  tag 'legacy': ['SV-86661', 'V-72037']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204478'
-  tag 'rid': 'SV-204478r603261_rule'
-  tag 'stig_id': 'RHEL-07-020730'
-  tag 'fix_id': 'F-4602r88627_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: %w{SV-86661 V-72037}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204478'
+  tag rid: 'SV-204478r603261_rule'
+  tag stig_id: 'RHEL-07-020730'
+  tag fix_id: 'F-4602r88627_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
@@ -60,7 +60,7 @@ compromise the system at the root and network level."
 
     # Get home directory for users with UID >= 1000 or UID == 0 and support interactive logins.
     dotfiles = Set[]
-    u = users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid == 0) }.entries
+    u = users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid.zero?) }.entries
     # For each user, build and execute a find command that identifies initialization files
     # in a user's home directory.
     u.each do |user|
@@ -83,7 +83,7 @@ compromise the system at the root and network level."
       end
 
       ww_chunked.append('') if ww_chunked[-1].length + "\n".length + item.length > PATTERN_FILE_MAX_LENGTH
-      ww_chunked[-1] += "\n" + item # This will leave an extra newline at the beginning of chunks
+      ww_chunked[-1] += "\n#{item}" # This will leave an extra newline at the beginning of chunks
     end
     ww_chunked = ww_chunked.map(&:strip) # This gets rid of the beginning newlines
     if ww_chunked[0] == ''
@@ -96,7 +96,7 @@ compromise the system at the root and network level."
       dotfile = dotfile.strip
       ww_chunked.each do |ww_pattern_file|
         count = command("grep -c -f <(echo \"#{ww_pattern_file}\") \"#{dotfile}\"").stdout.strip.to_i
-        findings << dotfile if count > 0
+        findings << dotfile if count.positive?
       end
     end
     describe 'Local initialization files that are found to reference world-writable files' do

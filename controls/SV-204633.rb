@@ -40,17 +40,17 @@ authentication.
     Modify all of the \"cert_policy\" lines in
 \"/etc/pam_pkcs11/pam_pkcs11.conf\" to include \"ocsp_on\".
   "
-  tag 'legacy': ['V-72433', 'SV-87057']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'check': 'Verify the operating system implements certificate status checking for PKI authentication.
+  tag legacy: %w{V-72433 SV-87057}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag check: 'Verify the operating system implements certificate status checking for PKI authentication.
     Check to see if Online Certificate Status Protocol (OCSP) is enabled on the system with the following command:
     # grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf | grep -v "^#"
     cert_policy = ca, ocsp_on, signature;
@@ -59,17 +59,17 @@ authentication.
     There should be at least three lines returned.
     If "ocsp_on" is not present in all uncommented "cert_policy" lines in "/etc/pam_pkcs11/pam_pkcs11.conf", this is a
     finding.'
-  tag 'fix': 'Configure the operating system to do certificate status checking for PKI authentication.
+  tag fix: 'Configure the operating system to do certificate status checking for PKI authentication.
     Modify all of the "cert_policy" lines in "/etc/pam_pkcs11/pam_pkcs11.conf" to include "ocsp_on".'
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000375-GPOS-00160'
-  tag 'satisfies': ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']
-  tag 'gid': 'V-204633'
-  tag 'rid': 'SV-204633r603261_rule'
-  tag 'stig_id': 'RHEL-07-041003'
-  tag 'fix_id': 'F-4757r89092_fix'
-  tag 'cci': ['CCI-001948', 'CCI-001953', 'CCI-001954']
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000375-GPOS-00160'
+  tag satisfies: %w{SRG-OS-000375-GPOS-00160 SRG-OS-000375-GPOS-00161 SRG-OS-000375-GPOS-00162}
+  tag gid: 'V-204633'
+  tag rid: 'SV-204633r603261_rule'
+  tag stig_id: 'RHEL-07-041003'
+  tag fix_id: 'F-4757r89092_fix'
+  tag cci: %w{CCI-001948 CCI-001953 CCI-001954}
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
 
   smart_card_status = input('smart_card_status')
@@ -77,11 +77,12 @@ authentication.
   if smart_card_status.eql?('enabled')
     impact 0.5
     if (pam_file = file('/etc/pam_pkcs11/pam_pkcs11.conf')).exist?
-      cert_policy_lines = if pam_file.content.nil?
-                            []
-                          else
-                            pam_file.content.lines.grep(/^(?!.+#).*cert_policy/i)
-                          end
+      cert_policy_lines =
+        if pam_file.content.nil?
+          []
+        else
+          pam_file.content.lines.grep(/^(?!.+#).*cert_policy/i)
+        end
       if cert_policy_lines.length < 3
         describe 'should contain at least 3 cert policy lines' do
           subject { cert_policy_lines.length }

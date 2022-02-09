@@ -6,8 +6,8 @@ control 'SV-204506' do
     One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon.
     Without the configuration of the "au-remote" plugin, the audisp-remote daemon will not off load the logs from the
     system being audited.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the "au-remote" plugin is configured to always off-load audit logs using the audisp-remote
+  tag rationale: ''
+  tag check: 'Verify the "au-remote" plugin is configured to always off-load audit logs using the audisp-remote
     daemon:
     # cat /etc/audisp/plugins.d/au-remote.conf | grep -v "^#"
     active = yes
@@ -20,32 +20,32 @@ control 'SV-204506' do
     audit logs are off-loaded to a different system or storage media.
     If there is no evidence that the system is configured to off-load audit logs to a different system or storage media,
     this is a finding.'
-  tag 'fix': 'Edit the /etc/audisp/plugins.d/au-remote.conf file and add or update the following values:
+  tag fix: 'Edit the /etc/audisp/plugins.d/au-remote.conf file and add or update the following values:
     direction = out
     path = /sbin/audisp-remote
     type = always
     The audit daemon must be restarted for changes to take effect:
     # service auditd restart'
   impact 0.5
-  tag 'legacy': ['SV-95729', 'V-81017']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000342-GPOS-00133'
-  tag 'satisfies': ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
-  tag 'gid': 'V-204506'
-  tag 'rid': 'SV-204506r603261_rule'
-  tag 'stig_id': 'RHEL-07-030201'
-  tag 'fix_id': 'F-4630r462470_fix'
-  tag 'cci': ['CCI-001851']
+  tag legacy: %w{SV-95729 V-81017}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000342-GPOS-00133'
+  tag satisfies: %w{SRG-OS-000342-GPOS-00133 SRG-OS-000479-GPOS-00224}
+  tag gid: 'V-204506'
+  tag rid: 'SV-204506r603261_rule'
+  tag stig_id: 'RHEL-07-030201'
+  tag fix_id: 'F-4630r462470_fix'
+  tag cci: ['CCI-001851']
   tag nist: ['AU-4 (1)']
 
   test_file = '/etc/audisp/plugins.d/au-remote.conf'

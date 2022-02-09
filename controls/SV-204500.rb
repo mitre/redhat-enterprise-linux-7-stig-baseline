@@ -6,8 +6,8 @@ control 'SV-204500' do
     Red Hat Enterprise Linux operating system installation media ships with an optional file integrity tool called
     Advanced Intrusion Detection Environment (AIDE). AIDE is highly configurable at install time. This requirement
     assumes the "aide.conf" file is under the "/etc" directory.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the file integrity tool is configured to use FIPS 140-2-approved cryptographic hashes for
+  tag rationale: ''
+  tag check: 'Verify the file integrity tool is configured to use FIPS 140-2-approved cryptographic hashes for
     validating file contents and directories.
     Check to see if AIDE is installed on the system with the following command:
     # yum list installed aide
@@ -27,29 +27,29 @@ control 'SV-204500' do
     If the "sha512" rule is not being used on all uncommented selection lines in the "/etc/aide.conf" file, or another
     file integrity tool is not using FIPS 140-2-approved cryptographic hashes for validating file contents and
     directories, this is a finding.'
-  tag 'fix': 'Configure the file integrity tool to use FIPS 140-2 cryptographic hashes for validating file and
+  tag fix: 'Configure the file integrity tool to use FIPS 140-2 cryptographic hashes for validating file and
     directory contents.
     If AIDE is installed, ensure the "sha512" rule is present on all uncommented file and directory selection lists.
     Exclude any log files, or files expected to change frequently, to reduce unnecessary notifications.'
   impact 0.5
-  tag 'legacy': ['SV-86697', 'V-72073']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204500'
-  tag 'rid': 'SV-204500r792831_rule'
-  tag 'stig_id': 'RHEL-07-021620'
-  tag 'fix_id': 'F-4624r792830_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: %w{SV-86697 V-72073}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204500'
+  tag rid: 'SV-204500r792831_rule'
+  tag stig_id: 'RHEL-07-021620'
+  tag fix_id: 'F-4624r792830_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   describe package('aide') do
@@ -58,9 +58,10 @@ control 'SV-204500' do
 
   exclude_patterns = input('aide_exclude_patterns')
 
-  findings = aide_conf.where do
-    !selection_line.start_with?('!') && !exclude_patterns.include?(selection_line) && !rules.include?('sha512')
-  end
+  findings =
+    aide_conf.where do
+      !selection_line.start_with?('!') && !exclude_patterns.include?(selection_line) && !rules.include?('sha512')
+    end
 
   describe "List of monitored files/directories without 'sha512' rule" do
     subject { findings.selection_lines }

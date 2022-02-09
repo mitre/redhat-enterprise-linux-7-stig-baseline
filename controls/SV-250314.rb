@@ -9,7 +9,7 @@ control 'SV-250314' do
   tag rid: 'SV-250314r809217_rule'
   tag stig_id: 'RHEL-07-020023'
   tag fix_id: 'F-53702r792848_fix'
-  tag cci: ['CCI-002165', 'CCI-002235']
+  tag cci: %w{CCI-002165 CCI-002235}
   tag legacy: []
   tag false_negatives: ''
   tag false_positives: ''

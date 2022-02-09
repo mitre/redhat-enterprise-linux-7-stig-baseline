@@ -5,8 +5,8 @@ control 'SV-204483' do
     mounting any file system not containing approved binary files as they may be incompatible. Executing files from
     untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative
     access.'
-  tag 'rationale': ''
-  tag 'check': 'Verify file systems that are being NFS imported are configured with the "noexec" option.
+  tag rationale: ''
+  tag check: 'Verify file systems that are being NFS imported are configured with the "noexec" option.
     Find the file system(s) that contain the directories being imported with the following command:
     # more /etc/fstab | grep nfs
     UUID=e06097bb-cfcd-437b-9e4d-a691f5662a7d /store nfs rw,noexec 0 0
@@ -17,27 +17,27 @@ control 'SV-204483' do
     # mount | grep nfs | grep noexec
     If no results are returned and use of NFS imported binaries is not documented with the Information System Security
     Officer (ISSO) as an operational requirement, this is a finding.'
-  tag 'fix': 'Configure the "/etc/fstab" to use the "noexec" option on file systems that are being imported via
+  tag fix: 'Configure the "/etc/fstab" to use the "noexec" option on file systems that are being imported via
     NFS.'
   impact 0.5
-  tag 'legacy': ['SV-87813', 'V-73161']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204483'
-  tag 'rid': 'SV-204483r603261_rule'
-  tag 'stig_id': 'RHEL-07-021021'
-  tag 'fix_id': 'F-4607r88642_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: %w{SV-87813 V-73161}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204483'
+  tag rid: 'SV-204483r603261_rule'
+  tag stig_id: 'RHEL-07-021021'
+  tag fix_id: 'F-4607r88642_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   nfs_systems = etc_fstab.nfs_file_systems.entries

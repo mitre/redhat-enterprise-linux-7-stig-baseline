@@ -4,33 +4,33 @@ control 'SV-204405' do
   desc 'Pluggable authentication modules (PAM) allow for a modular approach to integrating authentication methods.
     PAM operates in a top-down processing model and if the modules are not listed in the correct order, an important
     security function could be bypassed if stack entries are not centralized.'
-  tag 'rationale': ''
-  tag 'check': 'Verify that /etc/pam.d/passwd is configured to use /etc/pam.d/system-auth when changing passwords:
+  tag rationale: ''
+  tag check: 'Verify that /etc/pam.d/passwd is configured to use /etc/pam.d/system-auth when changing passwords:
     # cat /etc/pam.d/passwd | grep -i substack | grep -i system-auth
     password     substack     system-auth
     If no results are returned, the line is commented out, this is a finding.'
-  tag 'fix': 'Configure PAM to utilize /etc/pam.d/system-auth when changing passwords.
+  tag fix: 'Configure PAM to utilize /etc/pam.d/system-auth when changing passwords.
     Add the following line to "/etc/pam.d/passwd" (or modify the line to have the required value):
     password     substack    system-auth'
   impact 0.5
-  tag 'legacy': ['SV-95715', 'V-81003']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000069-GPOS-00037'
-  tag 'gid': 'V-204405'
-  tag 'rid': 'SV-204405r603261_rule'
-  tag 'stig_id': 'RHEL-07-010118'
-  tag 'fix_id': 'F-4529r88408_fix'
-  tag 'cci': ['CCI-000192']
+  tag legacy: %w{SV-95715 V-81003}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000069-GPOS-00037'
+  tag gid: 'V-204405'
+  tag rid: 'SV-204405r603261_rule'
+  tag stig_id: 'RHEL-07-010118'
+  tag fix_id: 'F-4529r88408_fix'
+  tag cci: ['CCI-000192']
   tag nist: ['IA-5 (1) (a)']
 
   # Get the content of /etc/pam.d/passwd as an array

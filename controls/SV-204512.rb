@@ -4,8 +4,8 @@ control 'SV-204512' do
   desc 'Taking appropriate action when there is an error sending audit records to a remote system will minimize the
     possibility of losing audit records.
     One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the action the operating system takes if there is an error sending audit records to a remote
+  tag rationale: ''
+  tag check: 'Verify the action the operating system takes if there is an error sending audit records to a remote
     system.
     Check the action that takes place if there is an error sending audit records to a remote system with the following
     command:
@@ -17,33 +17,33 @@ control 'SV-204512' do
     If there is no evidence that the system is configured to off-load audit logs to a different system or storage media,
     or if the configuration does not take appropriate action if there is an error sending audit records to the remote
     system, this is a finding.'
-  tag 'fix': 'Configure the action the operating system takes if there is an error sending audit records to a remote
+  tag fix: 'Configure the action the operating system takes if there is an error sending audit records to a remote
     system.
     Uncomment the "network_failure_action" option in "/etc/audisp/audisp-remote.conf" and set it to "syslog", "single",
     or "halt".
     network_failure_action = syslog'
   impact 0.5
-  tag 'legacy': ['V-73163', 'SV-87815']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000342-GPOS-00133'
-  tag 'gid': 'V-204512'
-  tag 'rid': 'SV-204512r603261_rule'
-  tag 'stig_id': 'RHEL-07-030321'
-  tag 'fix_id': 'F-36315r602655_fix'
-  tag 'cci': ['CCI-001851']
+  tag legacy: %w{V-73163 SV-87815}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000342-GPOS-00133'
+  tag gid: 'V-204512'
+  tag rid: 'SV-204512r603261_rule'
+  tag stig_id: 'RHEL-07-030321'
+  tag fix_id: 'F-36315r602655_fix'
+  tag cci: ['CCI-001851']
   tag nist: ['AU-4 (1)']
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('network_failure_action'.to_s) { should be_in ['syslog', 'single', 'halt'] }
+    its('network_failure_action'.to_s) { should be_in %w{syslog single halt} }
   end
 end

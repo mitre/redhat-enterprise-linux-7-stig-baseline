@@ -4,8 +4,8 @@ control 'SV-204415' do
   desc 'Passwords need to be protected at all times, and encryption is the standard method for protecting passwords.
     If passwords are not encrypted, they can be plainly read (i.e., clear text) and easily compromised. Passwords
     encrypted with a weak algorithm are no more protected than if they are kept in plain text.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the PAM system service is configured to store only encrypted representations of passwords.
+  tag rationale: ''
+  tag check: 'Verify the PAM system service is configured to store only encrypted representations of passwords.
     The strength of encryption that must be used to hash passwords for all accounts is SHA512.
     Check that the system is configured to create SHA512 hashed passwords with the following command:
     # grep password /etc/pam.d/system-auth /etc/pam.d/password-auth
@@ -14,7 +14,7 @@ control 'SV-204415' do
     /etc/pam.d/password-auth:password    sufficient    pam_unix.so sha512 shadow try_first_pass use_authtok
     If the "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" configuration files allow for password hashes other
     than SHA512 to be used, this is a finding.'
-  tag 'fix': 'Configure the operating system to store only SHA512 encrypted representations of passwords.
+  tag fix: 'Configure the operating system to store only SHA512 encrypted representations of passwords.
     Add the following line in "/etc/pam.d/system-auth":
     pam_unix.so sha512 shadow try_first_pass use_authtok
     Add the following line in "/etc/pam.d/password-auth":
@@ -22,24 +22,24 @@ control 'SV-204415' do
     Note: Manual changes to the listed files may be overwritten by the "authconfig" program. The "authconfig" program
     should not be used to update the configurations listed in this requirement.'
   impact 0.5
-  tag 'legacy': ['V-71919', 'SV-86543']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000073-GPOS-00041'
-  tag 'gid': 'V-204415'
-  tag 'rid': 'SV-204415r603261_rule'
-  tag 'stig_id': 'RHEL-07-010200'
-  tag 'fix_id': 'F-4539r88438_fix'
-  tag 'cci': ['CCI-000196']
+  tag legacy: %w{V-71919 SV-86543}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000073-GPOS-00041'
+  tag gid: 'V-204415'
+  tag rid: 'SV-204415r603261_rule'
+  tag stig_id: 'RHEL-07-010200'
+  tag fix_id: 'F-4539r88438_fix'
+  tag cci: ['CCI-000196']
   tag nist: ['IA-5 (1) (c)']
 
   describe pam('/etc/pam.d/system-auth') do

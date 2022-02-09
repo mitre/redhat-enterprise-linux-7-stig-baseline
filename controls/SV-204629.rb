@@ -2,8 +2,8 @@ control 'SV-204629' do
   title 'The Red Hat Enterprise Linux operating system must not have unauthorized IP tunnels configured.'
   desc 'IP tunneling mechanisms can be used to bypass network filtering. If tunneling is required, it must be
     documented with the Information System Security Officer (ISSO).'
-  tag 'rationale': ''
-  tag 'check': 'Verify the system does not have unauthorized IP tunnels configured.
+  tag rationale: ''
+  tag check: 'Verify the system does not have unauthorized IP tunnels configured.
     Check to see if "libreswan" is installed with the following command:
     # yum list installed libreswan
     libreswan.x86-64 3.20-5.el7_4
@@ -18,25 +18,25 @@ control 'SV-204629' do
     If there are indications that a "conn" parameter is configured for a tunnel, ask the System Administrator if the
     tunnel is documented with the ISSO.
     If "libreswan" is installed, "IPsec" is active, and an undocumented tunnel is active, this is a finding.'
-  tag 'fix': 'Remove all unapproved tunnels from the system, or document them with the ISSO.'
-  tag 'legacy': ['V-72317', 'SV-86941']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204629'
-  tag 'rid': 'SV-204629r603261_rule'
-  tag 'stig_id': 'RHEL-07-040820'
-  tag 'fix_id': 'F-4753r89080_fix'
-  tag 'cci': ['CCI-000366']
+  tag fix: 'Remove all unapproved tunnels from the system, or document them with the ISSO.'
+  tag legacy: %w{V-72317 SV-86941}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204629'
+  tag rid: 'SV-204629r603261_rule'
+  tag stig_id: 'RHEL-07-040820'
+  tag fix_id: 'F-4753r89080_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   approved_tunnels = input('approved_tunnels')
@@ -61,7 +61,7 @@ control 'SV-204629' do
             command("find #{dir} -wholename '#{f}'").stdout.strip.split("\n")
           end
           .flatten
-          .select { |f| file(f).file? }
+          .select { |f| file(f).file? },
       )
     end
 

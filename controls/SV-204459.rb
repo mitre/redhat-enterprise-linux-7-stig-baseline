@@ -42,20 +42,20 @@ control 'SV-204459' do
     If the operating system is in non-compliance with the Information Assurance
 Vulnerability Management (IAVM) process, this is a finding.
   "
-  tag 'fix': 'Install the operating system patches or updated packages available from Red Hat within 30 days or
+  tag fix: 'Install the operating system patches or updated packages available from Red Hat within 30 days or
     sooner as local policy dictates.'
   impact 0.5
-  tag 'legacy': ['SV-86623', 'V-71999']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'check': 'Verify the operating system security patches and updates are installed and up to date. Updates are
+  tag legacy: %w{SV-86623 V-71999}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag check: 'Verify the operating system security patches and updates are installed and up to date. Updates are
     required to be applied with a frequency determined by the site or Program Management Office (PMO).
     Obtain the list of available package security updates from Red Hat. The URL for updates is
     https://rhn.redhat.com/errata/. It is important to note that updates provided by Red Hat may not be present on the
@@ -76,14 +76,14 @@ Vulnerability Management (IAVM) process, this is a finding.
     CYBERCOM.
     If the operating system is in non-compliance with the Information Assurance Vulnerability Management (IAVM) process,
     this is a finding.'
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204459'
-  tag 'rid': 'SV-204459r603261_rule'
-  tag 'stig_id': 'RHEL-07-020260'
-  tag 'fix_id': 'F-4583r88570_fix'
-  tag 'cci': ['CCI-000366']
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204459'
+  tag rid: 'SV-204459r603261_rule'
+  tag stig_id: 'RHEL-07-020260'
+  tag fix_id: 'F-4583r88570_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   if input('disconnected_system')

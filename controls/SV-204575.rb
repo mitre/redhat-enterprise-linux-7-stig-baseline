@@ -6,8 +6,8 @@ control 'SV-204575' do
     introduce misleading information in to the system's logs, or could fill the system's storage leading to a Denial of
     Service.
     If the system is intended to be a log aggregation server its use must be documented with the ISSO."
-  tag 'rationale': ''
-  tag 'check': 'Verify that the system is not accepting "rsyslog" messages from other systems unless it is
+  tag rationale: ''
+  tag check: 'Verify that the system is not accepting "rsyslog" messages from other systems unless it is
     documented as a log aggregation server.
     Check the configuration of "rsyslog" with the following command:
     # grep imtcp /etc/rsyslog.conf
@@ -19,27 +19,27 @@ control 'SV-204575' do
     If any of the above modules are being loaded in the "/etc/rsyslog.conf" file, ask to see the documentation for the
     system being used for log aggregation.
     If the documentation does not exist, or does not specify the server as a log aggregation system, this is a finding.'
-  tag 'fix': 'Modify the "/etc/rsyslog.conf" file to remove the "ModLoad imtcp", "ModLoad imudp", and "ModLoad
+  tag fix: 'Modify the "/etc/rsyslog.conf" file to remove the "ModLoad imtcp", "ModLoad imudp", and "ModLoad
     imrelp" configuration lines, or document the system as being used for log aggregation.'
   impact 0.5
-  tag 'legacy': ['SV-86835', 'V-72211']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204575'
-  tag 'rid': 'SV-204575r603261_rule'
-  tag 'stig_id': 'RHEL-07-031010'
-  tag 'fix_id': 'F-4699r88918_fix'
-  tag 'cci': ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813', 'CCI-001814']
+  tag legacy: %w{SV-86835 V-72211}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204575'
+  tag rid: 'SV-204575r603261_rule'
+  tag stig_id: 'RHEL-07-031010'
+  tag fix_id: 'F-4699r88918_fix'
+  tag cci: %w{CCI-000318 CCI-000368 CCI-001812 CCI-001813 CCI-001814}
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
 
   log_aggregation_server = input('log_aggregation_server')

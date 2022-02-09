@@ -13,8 +13,8 @@ control 'SV-204448' do
     trusted vendor. Self-signed certificates are disallowed by this requirement. The operating system should not have to
     verify the software again. This requirement does not mandate DoD certificates for this purpose; however, the
     certificate used to verify the software must be from an approved CA.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system prevents the installation of patches, service packs, device drivers, or
+  tag rationale: ''
+  tag check: 'Verify the operating system prevents the installation of patches, service packs, device drivers, or
     operating system components of local packages without verification that they have been digitally signed using a
     certificate that is recognized and approved by the organization.
     Check that yum verifies the signature of local packages prior to install with the following command:
@@ -24,28 +24,28 @@ control 'SV-204448' do
     how the signatures of local packages and other operating system components are verified.
     If there is no process to validate the signatures of local packages that is approved by the organization, this is a
     finding.'
-  tag 'fix': 'Configure the operating system to verify the signature of local packages prior to install by setting
+  tag fix: 'Configure the operating system to verify the signature of local packages prior to install by setting
     the following option in the "/etc/yum.conf" file:
     localpkg_gpgcheck=1'
   impact 0.7
-  tag 'legacy': ['V-71979', 'SV-86603']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'high'
-  tag 'gtitle': 'SRG-OS-000366-GPOS-00153'
-  tag 'gid': 'V-204448'
-  tag 'rid': 'SV-204448r603261_rule'
-  tag 'stig_id': 'RHEL-07-020060'
-  tag 'fix_id': 'F-4572r88537_fix'
-  tag 'cci': ['CCI-001749']
+  tag legacy: %w{V-71979 SV-86603}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'high'
+  tag gtitle: 'SRG-OS-000366-GPOS-00153'
+  tag gid: 'V-204448'
+  tag rid: 'SV-204448r603261_rule'
+  tag stig_id: 'RHEL-07-020060'
+  tag fix_id: 'F-4572r88537_fix'
+  tag cci: ['CCI-001749']
   tag nist: ['CM-5 (3)']
 
   yum_conf = '/etc/yum.conf'

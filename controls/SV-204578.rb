@@ -11,8 +11,8 @@ control 'SV-204578' do
     The system will attempt to use the first cipher presented by the client that matches the server list. Listing the
     values "strongest to weakest" is a method to ensure the use of the strongest cipher available to secure the SSH
     connection.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system uses mechanisms meeting the requirements of applicable federal laws,
+  tag rationale: ''
+  tag check: 'Verify the operating system uses mechanisms meeting the requirements of applicable federal laws,
     Executive orders, directives, policies, regulations, standards, and guidance for authentication to a cryptographic
     module.
     The location of the "sshd_config" file may vary if a different daemon is in use.
@@ -21,33 +21,33 @@ control 'SV-204578' do
     Ciphers aes256-ctr,aes192-ctr,aes128-ctr
     If any ciphers other than "aes256-ctr", "aes192-ctr", or "aes128-ctr" are listed, the order differs from the example
     above, the "Ciphers" keyword is missing, or the returned line is commented out, this is a finding.'
-  tag 'fix': 'Configure SSH to use FIPS 140-2 approved cryptographic algorithms.
+  tag fix: 'Configure SSH to use FIPS 140-2 approved cryptographic algorithms.
     Add the following line (or modify the line to have the required value) to the "/etc/ssh/sshd_config" file (this file
     may be named differently or be in a different location if using a version of SSH that is provided by a third-party
     vendor).
     Ciphers aes256-ctr,aes192-ctr,aes128-ctr
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
-  tag 'legacy': ['V-72221', 'SV-86845']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000033-GPOS-00014'
-  tag 'satisfies': ['SRG-OS-000033-GPOS-00014', 'SRG-OS-000120-GPOS-00061', 'SRG-OS-000125-GPOS-00065',
-                    'SRG-OS-000250-GPOS-00093', 'SRG-OS-000393-GPOS-00173']
-  tag 'gid': 'V-204578'
-  tag 'rid': 'SV-204578r744116_rule'
-  tag 'stig_id': 'RHEL-07-040110'
-  tag 'fix_id': 'F-4702r622306_fix'
-  tag 'cci': ['CCI-000068', 'CCI-000366', 'CCI-000803']
+  tag legacy: %w{V-72221 SV-86845}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000033-GPOS-00014'
+  tag satisfies: %w{SRG-OS-000033-GPOS-00014 SRG-OS-000120-GPOS-00061 SRG-OS-000125-GPOS-00065
+                    SRG-OS-000250-GPOS-00093 SRG-OS-000393-GPOS-00173}
+  tag gid: 'V-204578'
+  tag rid: 'SV-204578r744116_rule'
+  tag stig_id: 'RHEL-07-040110'
+  tag fix_id: 'F-4702r622306_fix'
+  tag cci: %w{CCI-000068 CCI-000366 CCI-000803}
   tag nist: ['AC-17 (2)', 'CM-6 b', 'IA-7']
 
   @ciphers_array = inspec.sshd_config.params['ciphers']
@@ -55,6 +55,6 @@ control 'SV-204578' do
   @ciphers_array = @ciphers_array.first.split(',') unless @ciphers_array.nil?
 
   describe @ciphers_array do
-    it { should be_in ['aes128-ctr', 'aes192-ctr', 'aes256-ctr'] }
+    it { should be_in %w{aes128-ctr aes192-ctr aes256-ctr} }
   end
 end

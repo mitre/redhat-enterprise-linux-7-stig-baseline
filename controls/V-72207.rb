@@ -7,8 +7,8 @@ compromises and damages incurred during a system compromise.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"unlinkat\" syscall occur.
 
@@ -26,7 +26,7 @@ delete
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"unlinkat\" syscall, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"unlinkat\" syscall occur.
 
@@ -43,13 +43,13 @@ delete
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000466-GPOS-00210'
-  tag satisfies: ['SRG-OS-000466-GPOS-00210', 'SRG-OS-000467-GPOS-00210',
-                  'SRG-OS-000468-GPOS-00212', 'SRG-OS-000392-GPOS-00172']
+  tag satisfies: %w{SRG-OS-000466-GPOS-00210 SRG-OS-000467-GPOS-00210
+                    SRG-OS-000468-GPOS-00212 SRG-OS-000392-GPOS-00172}
   tag gid: 'V-72207'
   tag rid: 'SV-86831r5_rule'
   tag stig_id: 'RHEL-07-030920'
   tag fix_id: 'F-78561r10_fix'
-  tag cci: ['CCI-000172', 'CCI-002884']
+  tag cci: %w{CCI-000172 CCI-002884}
   tag nist: ['AU-12 c', 'MA-4 (1) (a)']
 
   describe auditd.syscall('unlinkat').where { arch == 'b32' } do

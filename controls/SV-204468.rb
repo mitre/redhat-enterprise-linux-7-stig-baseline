@@ -3,8 +3,8 @@ control 'SV-204468' do
     directories have mode 0750 or less permissive.'
   desc 'Excessive permissions on local interactive user home directories may allow unauthorized access to user files
     by other users.'
-  tag 'rationale': ''
-  tag 'check': %q{Verify the assigned home directory of all local interactive users has a mode of "0750" or less
+  tag rationale: ''
+  tag check: %q{Verify the assigned home directory of all local interactive users has a mode of "0750" or less
     permissive.
     Check the home directory assignment for all non-privileged users on the system with the following command:
     Note: This may miss interactive users that have been assigned a privileged User Identifier (UID). Evidence of
@@ -12,29 +12,29 @@ control 'SV-204468' do
     # ls -ld $(awk -F: '($3>=1000)&&($7 !~ /nologin/){print $6}' /etc/passwd)
     -rwxr-x--- 1 smithj users  18 Mar  5 17:06 /home/smithj
     If home directories referenced in "/etc/passwd" do not have a mode of "0750" or less permissive, this is a finding.}
-  tag 'fix': %q(Change the mode of interactive user's home directories to "0750". To change the mode of a local
+  tag fix: %q{Change the mode of interactive user's home directories to "0750". To change the mode of a local
     interactive user's home directory, use the following command:
     Note: The example will be for the user "smithj".
-    # chmod 0750 /home/smithj)
+    # chmod 0750 /home/smithj}
   impact 0.5
-  tag 'legacy': ['SV-86641', 'V-72017']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204468'
-  tag 'rid': 'SV-204468r603828_rule'
-  tag 'stig_id': 'RHEL-07-020630'
-  tag 'fix_id': 'F-4592r88597_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: %w{SV-86641 V-72017}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204468'
+  tag rid: 'SV-204468r603828_rule'
+  tag stig_id: 'RHEL-07-020630'
+  tag fix_id: 'F-4592r88597_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
@@ -46,7 +46,7 @@ control 'SV-204468' do
   uid_min = 1000 if uid_min.nil?
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid.zero?) }.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
     findings += command("find #{user_info.home} -maxdepth 0 -perm /027").stdout.split("\n")

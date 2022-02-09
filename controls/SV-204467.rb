@@ -7,8 +7,8 @@ control 'SV-204467' do
     access to the / directory as the current working directory upon logon. This could create a Denial of Service because
     the user would not be able to access their logon configuration files, and it may give them visibility to system
     files they normally would not be able to access.'
-  tag 'rationale': ''
-  tag 'check': %q{Verify local interactive users on the system have a home directory assigned and the directory
+  tag rationale: ''
+  tag check: %q{Verify local interactive users on the system have a home directory assigned and the directory
     exists.
     Check the home directory assignment for all local interactive non-privileged users on the system with the following
     command:
@@ -21,7 +21,7 @@ control 'SV-204467' do
     user 'smithj': directory '/home/smithj' does not exist
     If any home directories referenced in "/etc/passwd" are returned as not defined, or if any interactive users do not
     have a home directory assigned, this is a finding.}
-  tag 'fix': 'Create home directories to all local interactive users that currently do not have a home directory
+  tag fix: 'Create home directories to all local interactive users that currently do not have a home directory
     assigned. Use the following commands to create the user home directory assigned in "/etc/ passwd":
     Note: The example will be for the user smithj, who has a home directory of "/home/smithj", a UID of "smithj", and a
     Group Identifier (GID) of "users" assigned in "/etc/passwd".
@@ -30,24 +30,24 @@ control 'SV-204467' do
     # chgrp users /home/smithj
     # chmod 0750 /home/smithj'
   impact 0.5
-  tag 'legacy': ['V-72015', 'SV-86639']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204467'
-  tag 'rid': 'SV-204467r603826_rule'
-  tag 'stig_id': 'RHEL-07-020620'
-  tag 'fix_id': 'F-4591r462550_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: %w{V-72015 SV-86639}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204467'
+  tag rid: 'SV-204467r603826_rule'
+  tag stig_id: 'RHEL-07-020620'
+  tag fix_id: 'F-4591r462550_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
@@ -58,7 +58,7 @@ control 'SV-204467' do
   uid_min = login_defs.read_params['UID_MIN'].to_i
   uid_min = 1000 if uid_min.nil?
 
-  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid.zero?) }.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
     describe directory(user_info.home) do

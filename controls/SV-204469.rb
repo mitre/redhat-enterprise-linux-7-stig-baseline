@@ -3,35 +3,35 @@ control 'SV-204469' do
     directories are owned by their respective users.'
   desc "If a local interactive user does not own their home directory, unauthorized users could access or modify the
     user's files, and the users may not be able to access their own files."
-  tag 'rationale': ''
-  tag 'check': %q{Verify the assigned home directory of all local interactive users on the system exists.
+  tag rationale: ''
+  tag check: %q{Verify the assigned home directory of all local interactive users on the system exists.
     Check the home directory assignment for all local interactive users on the system with the following command:
     # ls -ld $(awk -F: '($3>=1000)&&($7 !~ /nologin/){print $6}' /etc/passwd)
     -rwxr-x--- 1 smithj users 18 Mar 5 17:06 /home/smithj
     If any home directories referenced in "/etc/passwd" are not owned by the interactive user, this is a finding.}
-  tag 'fix': %q(Change the owner of a local interactive user's home directories to that owner. To change the owner of
+  tag fix: %q{Change the owner of a local interactive user's home directories to that owner. To change the owner of
     a local interactive user's home directory, use the following command:
     Note: The example will be for the user smithj, who has a home directory of "/home/smithj".
-    # chown smithj /home/smithj)
+    # chown smithj /home/smithj}
   impact 0.5
-  tag 'legacy': ['SV-86643', 'V-72019']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204469'
-  tag 'rid': 'SV-204469r603830_rule'
-  tag 'stig_id': 'RHEL-07-020640'
-  tag 'fix_id': 'F-4593r88600_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: %w{SV-86643 V-72019}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204469'
+  tag rid: 'SV-204469r603830_rule'
+  tag stig_id: 'RHEL-07-020640'
+  tag fix_id: 'F-4593r88600_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
@@ -43,7 +43,7 @@ control 'SV-204469' do
   uid_min = 1000 if uid_min.nil?
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid.zero?) }.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
     describe directory(user_info.home) do

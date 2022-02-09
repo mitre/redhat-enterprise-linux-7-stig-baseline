@@ -12,8 +12,8 @@ daemon will not off-load the logs from the system being audited.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the \"au-remote\" plugin is active on the system:
 
     # grep \"active\" /etc/audisp/plugins.d/au-remote.conf
@@ -23,7 +23,7 @@ daemon will not off-load the logs from the system being audited.
     If the \"active\" setting is not set to \"yes\", or the line is commented
 out, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Edit the /etc/audisp/plugins.d/au-remote.conf file and change the value of
 \"active\" to \"yes\".
 
@@ -34,7 +34,7 @@ out, this is a finding.
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
-  tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
+  tag satisfies: %w{SRG-OS-000342-GPOS-00133 SRG-OS-000479-GPOS-00224}
   tag gid: 'V-81015'
   tag rid: 'SV-95727r1_rule'
   tag stig_id: 'RHEL-07-030200'

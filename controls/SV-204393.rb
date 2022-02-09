@@ -22,15 +22,15 @@ control 'SV-204393' do
     monitoring of the content of privileged communications, or work product, related to personal representation or
     services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are
     private and confidential. See User Agreement for details."'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system displays the Standard Mandatory DoD Notice and Consent Banner before
+  tag rationale: ''
+  tag check: 'Verify the operating system displays the Standard Mandatory DoD Notice and Consent Banner before
     granting access to the operating system via a graphical user logon.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
     Check to see if the operating system displays a banner at the logon screen with the following command:
     # grep banner-message-enable /etc/dconf/db/local.d/*
     banner-message-enable=true
     If "banner-message-enable" is set to "false" or is missing, this is a finding.'
-  tag 'fix': 'Configure the operating system to display the Standard Mandatory DoD Notice and Consent Banner before
+  tag fix: 'Configure the operating system to display the Standard Mandatory DoD Notice and Consent Banner before
     granting access to the system.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
     Create a database to contain the system-wide graphical user logon settings (if it does not already exist) with the
@@ -43,25 +43,25 @@ control 'SV-204393' do
     # dconf update
     Users must log out and back in again before the system-wide settings take effect.'
   impact 0.5
-  tag 'legacy': ['V-71859', 'SV-86483']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000023-GPOS-00006'
-  tag 'satisfies': ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007', 'SRG-OS-000228-GPOS-00088']
-  tag 'gid': 'V-204393'
-  tag 'rid': 'SV-204393r603261_rule'
-  tag 'stig_id': 'RHEL-07-010030'
-  tag 'fix_id': 'F-4517r88372_fix'
-  tag 'cci': ['CCI-000048']
+  tag legacy: %w{V-71859 SV-86483}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000023-GPOS-00006'
+  tag satisfies: %w{SRG-OS-000023-GPOS-00006 SRG-OS-000024-GPOS-00007 SRG-OS-000228-GPOS-00088}
+  tag gid: 'V-204393'
+  tag rid: 'SV-204393r603261_rule'
+  tag stig_id: 'RHEL-07-010030'
+  tag fix_id: 'F-4517r88372_fix'
+  tag cci: ['CCI-000048']
   tag nist: ['AC-8 a']
 
   if package('gnome-desktop3').installed?

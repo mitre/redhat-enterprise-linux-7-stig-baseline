@@ -5,14 +5,14 @@ control 'SV-204429' do
     authorization.
     When operating systems provide the capability to escalate a functional capability, it is critical the user
     re-authenticate.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system requires users to supply a password for privilege escalation.
+  tag rationale: ''
+  tag check: 'Verify the operating system requires users to supply a password for privilege escalation.
     Check the configuration of the "/etc/sudoers" and "/etc/sudoers.d/*" files with the following command:
     # grep -i nopasswd /etc/sudoers /etc/sudoers.d/*
     If any occurrences of "NOPASSWD" are returned from the command and have not been documented with the Information
     System Security Officer (ISSO) as an organizationally defined administrative group utilizing MFA, this is a
     finding.'
-  tag 'fix': 'Configure the operating system to require users to supply a password for privilege escalation.
+  tag fix: 'Configure the operating system to require users to supply a password for privilege escalation.
     Check the configuration of the "/etc/sudoers" file with the following command:
     # visudo
     Remove any occurrences of "NOPASSWD" tags in the file.
@@ -20,25 +20,25 @@ control 'SV-204429' do
     # grep -i nopasswd /etc/sudoers.d/*
     Remove any occurrences of "NOPASSWD" tags in the file.'
   impact 0.5
-  tag 'legacy': ['V-71947', 'SV-86571']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000373-GPOS-00156'
-  tag 'satisfies': ['SRG-OS-000373-GPOS-00156', 'SRG-OS-000373-GPOS-00157', 'SRG-OS-000373-GPOS-00158']
-  tag 'gid': 'V-204429'
-  tag 'rid': 'SV-204429r603261_rule'
-  tag 'stig_id': 'RHEL-07-010340'
-  tag 'fix_id': 'F-36303r602619_fix'
-  tag 'cci': ['CCI-002038']
+  tag legacy: %w{V-71947 SV-86571}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000373-GPOS-00156'
+  tag satisfies: %w{SRG-OS-000373-GPOS-00156 SRG-OS-000373-GPOS-00157 SRG-OS-000373-GPOS-00158}
+  tag gid: 'V-204429'
+  tag rid: 'SV-204429r603261_rule'
+  tag stig_id: 'RHEL-07-010340'
+  tag fix_id: 'F-36303r602619_fix'
+  tag cci: ['CCI-002038']
   tag nist: ['IA-11']
 
   processed = []
@@ -54,20 +54,20 @@ control 'SV-204429' do
       to_process.concat(
         command("find #{in_process} -maxdepth 1 -mindepth 1")
           .stdout.strip.split("\n")
-          .select { |f| file(f).file? }
+          .select { |f| file(f).file? },
       )
     elsif file(in_process).file?
       to_process.concat(
         command("grep -E '#include\\s+' #{in_process} | sed 's/.*#include[[:space:]]*//g'")
           .stdout.strip.split("\n")
           .map { |f| f.start_with?('/') ? f : File.join(File.dirname(in_process), f) }
-          .select { |f| file(f).exist? }
+          .select { |f| file(f).exist? },
       )
       to_process.concat(
         command("grep -E '#includedir\\s+' #{in_process} | sed 's/.*#includedir[[:space:]]*//g'")
           .stdout.strip.split("\n")
           .map { |f| f.start_with?('/') ? f : File.join(File.dirname(in_process), f) }
-          .select { |f| file(f).exist? }
+          .select { |f| file(f).exist? },
       )
     end
   end

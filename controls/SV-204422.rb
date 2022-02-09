@@ -5,39 +5,39 @@ control 'SV-204422' do
     guessing and brute-force attacks. If the information system or application allows the user to consecutively reuse
     their password when that password has exceeded its defined lifetime, the end result is a password that is not
     changed per policy requirements.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system prohibits password reuse for a minimum of five generations.
+  tag rationale: ''
+  tag check: 'Verify the operating system prohibits password reuse for a minimum of five generations.
     Check for the value of the "remember" argument in "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" with the
     following command:
     # grep -i remember /etc/pam.d/system-auth /etc/pam.d/password-auth
     password    requisite     pam_pwhistory.so use_authtok remember=5 retry=3
     If the line containing the "pam_pwhistory.so" line does not have the "remember" module argument set, is commented
     out, or the value of the "remember" module argument is set to less than "5", this is a finding.'
-  tag 'fix': 'Configure the operating system to prohibit password reuse for a minimum of five generations.
+  tag fix: 'Configure the operating system to prohibit password reuse for a minimum of five generations.
     Add the following line in "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" (or modify the line to have the
     required value):
     password    requisite     pam_pwhistory.so use_authtok remember=5 retry=3
     Note: Manual changes to the listed files may be overwritten by the "authconfig" program. The "authconfig" program
     should not be used to update the configurations listed in this requirement.'
   impact 0.5
-  tag 'legacy': ['V-71933', 'SV-86557']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000077-GPOS-00045'
-  tag 'gid': 'V-204422'
-  tag 'rid': 'SV-204422r603261_rule'
-  tag 'stig_id': 'RHEL-07-010270'
-  tag 'fix_id': 'F-4546r88459_fix'
-  tag 'cci': ['CCI-000200']
+  tag legacy: %w{V-71933 SV-86557}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000077-GPOS-00045'
+  tag gid: 'V-204422'
+  tag rid: 'SV-204422r603261_rule'
+  tag stig_id: 'RHEL-07-010270'
+  tag fix_id: 'F-4546r88459_fix'
+  tag cci: ['CCI-000200']
   tag nist: ['IA-5 (1) (e)']
 
   min_reuse_generations = input('min_reuse_generations')

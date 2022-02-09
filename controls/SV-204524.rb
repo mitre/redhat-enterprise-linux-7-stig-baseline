@@ -13,8 +13,8 @@ control 'SV-204524' do
     system. Therefore, it is very important to use syscall rules only when absolutely necessary since these affect
     performance. The more rules, the bigger the performance hit. The performance can be helped, however, by combining
     syscalls into one rule whenever possible.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
+  tag rationale: ''
+  tag check: 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
     "setxattr", "fsetxattr", "lsetxattr", "removexattr", "fremovexattr", and "lremovexattr" syscalls.
     Check the file system rules in "/etc/audit/audit.rules" with the following commands:
     # grep xattr /etc/audit/audit.rules
@@ -24,7 +24,7 @@ control 'SV-204524' do
     auid!=unset -k perm_mod
     If both the "b32" and "b64" audit rules are not defined for the "setxattr", "fsetxattr", "lsetxattr", "removexattr",
     "fremovexattr", and "lremovexattr" syscalls, this is a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
+  tag fix: 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
     the "setxattr", "fsetxattr", "lsetxattr", "removexattr", "fremovexattr", and "lremovexattr" syscalls.
     Add or update the following rules in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F arch=b32 -S setxattr,fsetxattr,lsetxattr,removexattr,fremovexattr,lremovexattr -F auid>=1000 -F
@@ -33,25 +33,25 @@ control 'SV-204524' do
     auid!=unset -k perm_mod
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
-  tag 'legacy': ['SV-86735', 'V-72111']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000458-GPOS-00203'
-  tag 'satisfies': ['SRG-OS-000458-GPOS-00203', 'SRG-OS-000392-GPOS-00172', 'SRG-OS-000064-GPOS-00033']
-  tag 'gid': 'V-204524'
-  tag 'rid': 'SV-204524r809775_rule'
-  tag 'stig_id': 'RHEL-07-030440'
-  tag 'fix_id': 'F-4648r809774_fix'
-  tag 'cci': ['CCI-000172']
+  tag legacy: %w{SV-86735 V-72111}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000458-GPOS-00203'
+  tag satisfies: %w{SRG-OS-000458-GPOS-00203 SRG-OS-000392-GPOS-00172 SRG-OS-000064-GPOS-00033}
+  tag gid: 'V-204524'
+  tag rid: 'SV-204524r809775_rule'
+  tag stig_id: 'RHEL-07-030440'
+  tag fix_id: 'F-4648r809774_fix'
+  tag cci: ['CCI-000172']
   tag nist: ['AU-12 c']
 
   describe auditd.syscall('setxattr').where { arch == 'b32' } do

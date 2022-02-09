@@ -4,8 +4,8 @@ control 'SV-204610' do
   desc 'Enabling reverse path filtering drops packets with source addresses that should not have been able to be
     received on the interface they were received on. It should not be used on systems which are routers for complicated
     networks, but is helpful for end hosts and routers serving small networks.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the system uses a reverse-path filter for IPv4:
+  tag rationale: ''
+  tag check: 'Verify the system uses a reverse-path filter for IPv4:
     # grep net.ipv4.conf.all.rp_filter /etc/sysctl.conf /etc/sysctl.d/*
     net.ipv4.conf.all.rp_filter = 1
     If "net.ipv4.conf.all.rp_filter" is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/ directory,
@@ -14,30 +14,30 @@ control 'SV-204610' do
     # /sbin/sysctl -a | grep net.ipv4.conf.all.rp_filter
     net.ipv4.conf.all.rp_filter = 1
     If the returned line does not have a value of "1", this is a finding.'
-  tag 'fix': 'Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" or
+  tag fix: 'Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" or
     a configuration file in the /etc/sysctl.d/ directory (or modify the line to have the required value):
     net.ipv4.conf.all.rp_filter = 1
     Issue the following command to make the changes take effect:
     # sysctl --system'
   impact 0.5
-  tag 'legacy': ['V-92251', 'SV-102353']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204610'
-  tag 'rid': 'SV-204610r603261_rule'
-  tag 'stig_id': 'RHEL-07-040611'
-  tag 'fix_id': 'F-4734r89023_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: %w{V-92251 SV-102353}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204610'
+  tag rid: 'SV-204610r603261_rule'
+  tag stig_id: 'RHEL-07-040611'
+  tag fix_id: 'F-4734r89023_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   describe kernel_parameter('net.ipv4.conf.all.rp_filter') do

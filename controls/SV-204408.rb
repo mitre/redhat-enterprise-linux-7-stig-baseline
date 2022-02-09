@@ -7,40 +7,40 @@ control 'SV-204408' do
     Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
-  tag 'rationale': ''
-  tag 'check': 'Note: The value to require a number of lower-case characters to be set is expressed as a negative
+  tag rationale: ''
+  tag check: 'Note: The value to require a number of lower-case characters to be set is expressed as a negative
     number in "/etc/security/pwquality.conf".
     Check the value for "lcredit" in "/etc/security/pwquality.conf" with the following command:
     # grep lcredit /etc/security/pwquality.conf
     lcredit = -1
     If the value of "lcredit" is not set to a negative value, this is a finding.'
-  tag 'fix': 'Configure the system to require at least one lower-case character when creating or changing a
+  tag fix: 'Configure the system to require at least one lower-case character when creating or changing a
     password.
     Add or modify the following line
     in "/etc/security/pwquality.conf":
     lcredit = -1'
   impact 0.5
-  tag 'legacy': ['SV-86529', 'V-71905']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000070-GPOS-00038'
-  tag 'gid': 'V-204408'
-  tag 'rid': 'SV-204408r603261_rule'
-  tag 'stig_id': 'RHEL-07-010130'
-  tag 'fix_id': 'F-4532r88417_fix'
-  tag 'cci': ['CCI-000193']
+  tag legacy: %w{SV-86529 V-71905}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000070-GPOS-00038'
+  tag gid: 'V-204408'
+  tag rid: 'SV-204408r603261_rule'
+  tag stig_id: 'RHEL-07-010130'
+  tag fix_id: 'F-4532r88417_fix'
+  tag cci: ['CCI-000193']
   tag nist: ['IA-5 (1) (a)']
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('lcredit.to_i') { should cmp < 0 }
+    its('lcredit.to_i') { should cmp.negative? }
   end
 end

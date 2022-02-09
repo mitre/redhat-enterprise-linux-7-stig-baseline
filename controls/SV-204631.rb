@@ -16,36 +16,36 @@ control 'SV-204631' do
     of an organizational user (e.g., VPN, proxy capability). This does not apply to authentication for the purpose of
     configuring the device itself (management).'
 
-  tag 'check': 'Verify the operating system has the packages required for multifactor authentication installed.
+  tag check: 'Verify the operating system has the packages required for multifactor authentication installed.
     Check for the presence of the packages required to support multifactor authentication with the following commands:
     # yum list installed pam_pkcs11
     pam_pkcs11-0.6.2-14.el7.noarch.rpm
     If the "pam_pkcs11" package is not installed, this is a finding.'
 
-  tag 'fix': 'Configure the operating system to implement multifactor authentication by installing the required
+  tag fix: 'Configure the operating system to implement multifactor authentication by installing the required
     packages.
     Install the pam_pkcs11 package with the following command:
     # yum install pam_pkcs11'
 
-  tag 'legacy': ['SV-87041', 'V-72417']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000375-GPOS-00160'
-  tag 'satisfies': ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']
-  tag 'gid': 'V-204631'
-  tag 'rid': 'SV-204631r603261_rule'
-  tag 'stig_id': 'RHEL-07-041001'
-  tag 'fix_id': 'F-4755r462473_fix'
-  tag 'cci': ['CCI-001948', 'CCI-001953', 'CCI-001954']
+  tag legacy: %w{SV-87041 V-72417}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000375-GPOS-00160'
+  tag satisfies: %w{SRG-OS-000375-GPOS-00160 SRG-OS-000375-GPOS-00161 SRG-OS-000375-GPOS-00162}
+  tag gid: 'V-204631'
+  tag rid: 'SV-204631r603261_rule'
+  tag stig_id: 'RHEL-07-041001'
+  tag fix_id: 'F-4755r462473_fix'
+  tag cci: %w{CCI-001948 CCI-001953 CCI-001954}
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
 
   mfa_pkg_list = input('mfa_pkg_list')

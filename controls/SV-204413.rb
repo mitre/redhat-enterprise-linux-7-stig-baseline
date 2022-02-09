@@ -7,36 +7,36 @@ control 'SV-204413' do
     Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
-  tag 'rationale': ''
-  tag 'check': 'The "maxrepeat" option sets the maximum number of allowed same consecutive characters in a new
+  tag rationale: ''
+  tag check: 'The "maxrepeat" option sets the maximum number of allowed same consecutive characters in a new
     password.
     Check for the value of the "maxrepeat" option in "/etc/security/pwquality.conf" with the following command:
     # grep maxrepeat /etc/security/pwquality.conf
     maxrepeat = 3
     If the value of "maxrepeat" is set to more than "3", this is a finding.'
-  tag 'fix': 'Configure the operating system to require the change of the number of repeating consecutive characters
+  tag fix: 'Configure the operating system to require the change of the number of repeating consecutive characters
     when passwords are changed by setting the "maxrepeat" option.
     Add the following line to "/etc/security/pwquality.conf conf" (or modify the line to have the required value):
     maxrepeat = 3'
   impact 0.5
-  tag 'legacy': ['SV-86539', 'V-71915']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000072-GPOS-00040'
-  tag 'gid': 'V-204413'
-  tag 'rid': 'SV-204413r603261_rule'
-  tag 'stig_id': 'RHEL-07-010180'
-  tag 'fix_id': 'F-4537r88432_fix'
-  tag 'cci': ['CCI-000195']
+  tag legacy: %w{SV-86539 V-71915}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000072-GPOS-00040'
+  tag gid: 'V-204413'
+  tag rid: 'SV-204413r603261_rule'
+  tag stig_id: 'RHEL-07-010180'
+  tag fix_id: 'F-4537r88432_fix'
+  tag cci: ['CCI-000195']
   tag nist: ['IA-5 (1) (b)']
 
   describe parse_config_file('/etc/security/pwquality.conf') do

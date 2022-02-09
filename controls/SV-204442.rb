@@ -9,32 +9,32 @@ control 'SV-204442' do
     The rsh-server service provides an unencrypted remote access service that does not provide for the confidentiality
     and integrity of user passwords or the remote session and has very weak authentication.
     If a privileged user were to log on using this service, the privileged user password could be compromised.'
-  tag 'rationale': ''
-  tag 'check': 'Check to see if the rsh-server package is installed with the following command:
+  tag rationale: ''
+  tag check: 'Check to see if the rsh-server package is installed with the following command:
     # yum list installed rsh-server
     If the rsh-server package is installed, this is a finding.'
-  tag 'fix': 'Configure the operating system to disable non-essential capabilities by removing the rsh-server
+  tag fix: 'Configure the operating system to disable non-essential capabilities by removing the rsh-server
     package from the system with the following command:
     # yum remove rsh-server'
   impact 0.7
-  tag 'legacy': ['V-71967', 'SV-86591']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'high'
-  tag 'gtitle': 'SRG-OS-000095-GPOS-00049'
-  tag 'gid': 'V-204442'
-  tag 'rid': 'SV-204442r603261_rule'
-  tag 'stig_id': 'RHEL-07-020000'
-  tag 'fix_id': 'F-4566r88519_fix'
-  tag 'cci': ['CCI-000381']
+  tag legacy: %w{V-71967 SV-86591}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'high'
+  tag gtitle: 'SRG-OS-000095-GPOS-00049'
+  tag gid: 'V-204442'
+  tag rid: 'SV-204442r603261_rule'
+  tag stig_id: 'RHEL-07-020000'
+  tag fix_id: 'F-4566r88519_fix'
+  tag cci: ['CCI-000381']
   tag nist: ['CM-7 a']
 
   describe package('rsh-server') do

@@ -2,8 +2,8 @@ control 'SV-204489' do
   title 'The Red Hat Enterprise Linux operating system must have cron logging implemented.'
   desc 'Cron logging can be used to trace the successful or unsuccessful execution of cron jobs. It can also be used
     to spot intrusions into the use of the cron facility by unauthorized and malicious users.'
-  tag 'rationale': ''
-  tag 'check': 'Verify that "rsyslog" is configured to log cron events.
+  tag rationale: ''
+  tag check: 'Verify that "rsyslog" is configured to log cron events.
     Check the configuration of "/etc/rsyslog.conf" or "/etc/rsyslog.d/*.conf" files for the cron facility with the
     following command:
     Note: If another logging package is used, substitute the utility configuration file for "/etc/rsyslog.conf" or
@@ -15,30 +15,30 @@ control 'SV-204489' do
     Look for the following entry:
     *.* /var/log/messages
     If "rsyslog" is not logging messages for the cron facility or all facilities, this is a finding.'
-  tag 'fix': 'Configure "rsyslog" to log all cron messages by adding or updating the following line to
+  tag fix: 'Configure "rsyslog" to log all cron messages by adding or updating the following line to
     "/etc/rsyslog.conf" or a configuration file in the /etc/rsyslog.d/ directory:
     cron.* /var/log/cron
     The rsyslog daemon must be restarted for the changes to take effect:
     $ sudo systemctl restart rsyslog.service'
   impact 0.5
-  tag 'legacy': ['V-72051', 'SV-86675']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204489'
-  tag 'rid': 'SV-204489r744109_rule'
-  tag 'stig_id': 'RHEL-07-021100'
-  tag 'fix_id': 'F-4613r744108_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: %w{V-72051 SV-86675}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204489'
+  tag rid: 'SV-204489r744109_rule'
+  tag stig_id: 'RHEL-07-021100'
+  tag fix_id: 'F-4613r744108_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   log_pkg_path = input('log_pkg_path')

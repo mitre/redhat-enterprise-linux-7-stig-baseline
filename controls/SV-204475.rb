@@ -3,8 +3,8 @@ control 'SV-204475' do
     local interactive users are be group-owned by the users primary group or root.'
   desc "Local initialization files for interactive users are used to configure the user's shell environment upon
     logon. Malicious modification of these files could compromise accounts upon logon."
-  tag 'rationale': ''
-  tag 'check': %q{Verify the local initialization files of all local interactive users are group-owned by that user's
+  tag rationale: ''
+  tag check: %q{Verify the local initialization files of all local interactive users are group-owned by that user's
     primary Group Identifier (GID).
     Check the home directory assignment for all non-privileged users on the system with the following command:
     Note: The example will be for the smithj user, who has a home directory of "/home/smithj" and a primary group of
@@ -22,30 +22,30 @@ control 'SV-204475' do
     -rwxr-xr-x 1 smithj users 886 Jan 6 2007 .something
     If all local interactive user's initialization files are not group-owned by that user's primary GID, this is a
     finding.}
-  tag 'fix': %q(Change the group owner of a local interactive user's files to the group found in "/etc/passwd" for the
+  tag fix: %q{Change the group owner of a local interactive user's files to the group found in "/etc/passwd" for the
     user. To change the group owner of a local interactive user's home directory, use the following command:
     Note: The example will be for the user smithj, who has a home directory of "/home/smithj", and has a primary group
     of users.
-    # chgrp users /home/smithj/.[^.]*)
+    # chgrp users /home/smithj/.[^.]*}
   impact 0.5
-  tag 'legacy': ['V-72031', 'SV-86655']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204475'
-  tag 'rid': 'SV-204475r603836_rule'
-  tag 'stig_id': 'RHEL-07-020700'
-  tag 'fix_id': 'F-4599r88618_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: %w{V-72031 SV-86655}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204475'
+  tag rid: 'SV-204475r603836_rule'
+  tag stig_id: 'RHEL-07-020700'
+  tag fix_id: 'F-4599r88618_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
@@ -54,10 +54,10 @@ control 'SV-204475' do
   ignore_shells = non_interactive_shells.join('|')
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid.zero?) }.entries.each do |user_info|
     findings += command("find #{user_info.home} -name '.*' -not -gid #{user_info.gid} -not -group root").stdout.split("\n")
   end
   describe findings do
-    its('length') { should == 0 }
+    its('length') { should.zero? }
   end
 end

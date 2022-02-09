@@ -9,8 +9,8 @@ control 'SV-204603' do
     multiple system clocks and systems connected over a network.
     Organizations should consider endpoints that may not have regular access to the authoritative time server (e.g.,
     mobile, teleworking, and tactical endpoints).'
-  tag 'rationale': ''
-  tag 'check': 'Check to see if NTP is running in continuous mode:
+  tag rationale: ''
+  tag check: 'Check to see if NTP is running in continuous mode:
     # ps -ef | grep ntp
     If NTP is not running, check to see if "chronyd" is running in continuous mode:
     # ps -ef | grep chronyd
@@ -29,7 +29,7 @@ control 'SV-204603' do
     # grep maxpoll /etc/chrony.conf
     server 0.rhel.pool.ntp.org iburst maxpoll 16
     If the option is not set or the line is commented out, this is a finding.'
-  tag 'fix': 'Edit the "/etc/ntp.conf" or "/etc/chrony.conf" file and add or update an entry to define "maxpoll" to
+  tag fix: 'Edit the "/etc/ntp.conf" or "/etc/chrony.conf" file and add or update an entry to define "maxpoll" to
     "16" as follows:
     server 0.rhel.pool.ntp.org iburst maxpoll 16
     If NTP was running and "maxpoll" was updated, the NTP service must be restarted:
@@ -41,25 +41,25 @@ control 'SV-204603' do
     If "chronyd" was not running, it must be started:
     # systemctl start chronyd.service'
   impact 0.5
-  tag 'legacy': ['V-72269', 'SV-86893']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000355-GPOS-00143'
-  tag 'satisfies': ['SRG-OS-000355-GPOS-00143', 'SRG-OS-000356-GPOS-00144']
-  tag 'gid': 'V-204603'
-  tag 'rid': 'SV-204603r809230_rule'
-  tag 'stig_id': 'RHEL-07-040500'
-  tag 'fix_id': 'F-4727r809210_fix'
-  tag 'cci': ['CCI-001891', 'CCI-002046']
+  tag legacy: %w{V-72269 SV-86893}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000355-GPOS-00143'
+  tag satisfies: %w{SRG-OS-000355-GPOS-00143 SRG-OS-000356-GPOS-00144}
+  tag gid: 'V-204603'
+  tag rid: 'SV-204603r809230_rule'
+  tag stig_id: 'RHEL-07-040500'
+  tag fix_id: 'F-4727r809210_fix'
+  tag cci: %w{CCI-001891 CCI-002046}
   tag nist: ['AU-8 (1) (a)', 'AU-8 (1) (b)']
 
   # Either ntpd or chronyd should be running
@@ -76,9 +76,10 @@ control 'SV-204603' do
   if service('ntpd').installed?
     time_service = service('ntpd')
     time_sources = ntp_conf('/etc/ntp.conf').server
-    max_poll_values = time_sources.map do |val|
-      val.match?(/.*maxpoll.*/) ? val.gsub(/.*maxpoll\s+(\d+)(\s+.*|$)/, '\1').to_i : 99
-    end
+    max_poll_values =
+      time_sources.map do |val|
+        val.match?(/.*maxpoll.*/) ? val.gsub(/.*maxpoll\s+(\d+)(\s+.*|$)/, '\1').to_i : 99
+      end
     ntpdate_crons = command('grep -l "ntpd -q" /etc/cron.daily/*').stdout.strip.lines
 
     describe 'ntpd time sources list' do
@@ -103,9 +104,10 @@ control 'SV-204603' do
   if service('chronyd').installed?
     time_service = service('chronyd')
     time_sources = ntp_conf('/etc/chrony.conf').server
-    max_poll_values = time_sources.map do |val|
-      val.match?(/.*maxpoll.*/) ? val.gsub(/.*maxpoll\s+(\d+)(\s+.*|$)/, '\1').to_i : 99
-    end
+    max_poll_values =
+      time_sources.map do |val|
+        val.match?(/.*maxpoll.*/) ? val.gsub(/.*maxpoll\s+(\d+)(\s+.*|$)/, '\1').to_i : 99
+      end
 
     describe 'chronyd time sources list' do
       subject { time_sources }

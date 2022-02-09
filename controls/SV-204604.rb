@@ -2,8 +2,8 @@ control 'SV-204604' do
   title 'The Red Hat Enterprise Linux operating system must enable an application firewall, if available.'
   desc 'Firewalls protect computers from network attacks by blocking or limiting access to open network ports.
     Application firewalls limit which applications are allowed to communicate over the network.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system enabled an application firewall.
+  tag rationale: ''
+  tag check: 'Verify the operating system enabled an application firewall.
     Check to see if "firewalld" is installed with the following command:
     # yum list installed firewalld
     firewalld-0.3.9-11.el7.noarch.rpm
@@ -20,31 +20,31 @@ control 'SV-204604' do
     # firewall-cmd --state
     running
     If "firewalld" does not show a state of "running", this is a finding.'
-  tag 'fix': %q(Ensure the operating system's application firewall is enabled.
+  tag fix: %q{Ensure the operating system's application firewall is enabled.
     Install the "firewalld" package, if it is not on the system, with the following command:
     # yum install firewalld
     Start the firewall via "systemctl" with the following command:
-    # systemctl start firewalld)
+    # systemctl start firewalld}
   impact 0.5
-  tag 'legacy': ['SV-86897', 'V-72273']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'satisfies': ['SRG-OS-000480-GPOS-00227', 'SRG-OS-000480-GPOS-00231', 'SRG-OS-000480-GPOS-00232']
-  tag 'gid': 'V-204604'
-  tag 'rid': 'SV-204604r603261_rule'
-  tag 'stig_id': 'RHEL-07-040520'
-  tag 'fix_id': 'F-4728r89005_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: %w{SV-86897 V-72273}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag satisfies: %w{SRG-OS-000480-GPOS-00227 SRG-OS-000480-GPOS-00231 SRG-OS-000480-GPOS-00232}
+  tag gid: 'V-204604'
+  tag rid: 'SV-204604r603261_rule'
+  tag stig_id: 'RHEL-07-040520'
+  tag fix_id: 'F-4728r89005_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
 
   describe.one do

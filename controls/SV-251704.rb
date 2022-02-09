@@ -4,7 +4,7 @@ control 'SV-251704' do
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000373-GPOS-00156'
-  tag satisfies: ['SRG-OS-000373-GPOS-00156', 'SRG-OS-000373-GPOS-00157', 'SRG-OS-000373-GPOS-00158']
+  tag satisfies: %w{SRG-OS-000373-GPOS-00156 SRG-OS-000373-GPOS-00157 SRG-OS-000373-GPOS-00158}
   tag gid: 'V-251704'
   tag rid: 'SV-251704r809568_rule'
   tag stig_id: 'RHEL-07-010344'

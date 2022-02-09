@@ -7,15 +7,15 @@ control 'SV-204402' do
     operating systems need to be able to identify when a user's session has idled and take action to initiate the
     session lock.
     The session lock is implemented at the point where session activity can be determined and/or controlled."
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system initiates a session lock after a 15-minute period of inactivity for
+  tag rationale: ''
+  tag check: 'Verify the operating system initiates a session lock after a 15-minute period of inactivity for
     graphical user interfaces. The screen program must be installed to lock sessions on the console.
     Note: If the system does not have a Graphical User Interface installed, this requirement is Not Applicable.
     Check for the session lock settings with the following commands:
     # grep -i idle-activation-enabled /etc/dconf/db/local.d/*
     idle-activation-enabled=true
     If "idle-activation-enabled" is not set to "true", this is a finding.'
-  tag 'fix': 'Configure the operating system to initiate a session lock after a 15-minute period of inactivity for
+  tag fix: 'Configure the operating system to initiate a session lock after a 15-minute period of inactivity for
     graphical user interfaces.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
     command:
@@ -27,24 +27,24 @@ control 'SV-204402' do
     # dconf update
     Users must log out and back in again before the system-wide settings take effect.'
   impact 0.5
-  tag 'legacy': ['V-71899', 'SV-86523']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000029-GPOS-00010'
-  tag 'gid': 'V-204402'
-  tag 'rid': 'SV-204402r603261_rule'
-  tag 'stig_id': 'RHEL-07-010100'
-  tag 'fix_id': 'F-4526r88399_fix'
-  tag 'cci': ['CCI-000057']
+  tag legacy: %w{V-71899 SV-86523}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000029-GPOS-00010'
+  tag gid: 'V-204402'
+  tag rid: 'SV-204402r603261_rule'
+  tag stig_id: 'RHEL-07-010100'
+  tag fix_id: 'F-4526r88399_fix'
+  tag cci: ['CCI-000057']
   tag nist: ['AC-11 a']
 
   if package('gnome-desktop3').installed?

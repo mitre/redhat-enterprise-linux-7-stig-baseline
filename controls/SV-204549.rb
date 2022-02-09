@@ -6,8 +6,8 @@ control 'SV-204549' do
     At a minimum, the organization must audit the full-text recording of privileged access commands. The organization
     must maintain audit trails in sufficient detail to reconstruct events to determine the cause and impact of
     compromise.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records when successful/unsuccessful attempts to access
+  tag rationale: ''
+  tag check: 'Verify the operating system generates audit records when successful/unsuccessful attempts to access
     the "/etc/sudoers" file and files in the "/etc/sudoers.d/" directory.
     Check for modification of the following files being audited by performing the following commands to check the file
     system rules in "/etc/audit/audit.rules":
@@ -16,32 +16,32 @@ control 'SV-204549' do
     # grep -i "/etc/sudoers.d/" /etc/audit/audit.rules
     -w /etc/sudoers.d/ -p wa -k privileged-actions
     If the commands do not return output that match the examples, this is a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records when successful/unsuccessful attempts to
+  tag fix: 'Configure the operating system to generate audit records when successful/unsuccessful attempts to
     access the "/etc/sudoers" file and files in the "/etc/sudoers.d/" directory.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -w /etc/sudoers -p wa -k privileged-actions
     -w /etc/sudoers.d/ -p wa -k privileged-actions
     The audit daemon must be restarted for the changes to take effect.'
-  tag 'legacy': ['V-72163', 'SV-86787']
-  tag 'false_negatives': ''
-  tag 'false_positives': ''
-  tag 'documentable': false
-  tag 'mitigations': ''
-  tag 'potential_impacts': ''
-  tag 'third_party_tools': ''
-  tag 'mitigation_controls': ''
-  tag 'responsibility': ''
-  tag 'ia_controls': ''
-  tag 'severity_override_guidance': ''
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000037-GPOS-00015'
-  tag 'satisfies': ['SRG-OS-000037-GPOS-00015', 'SRG-OS-000042-GPOS-00020', 'SRG-OS-000392-GPOS-00172',
-                    'SRG-OS-000462-GPOS-00206', 'SRG-OS-000471-GPOS-00215']
-  tag 'gid': 'V-204549'
-  tag 'rid': 'SV-204549r603261_rule'
-  tag 'stig_id': 'RHEL-07-030700'
-  tag 'fix_id': 'F-4673r88840_fix'
-  tag 'cci': ['CCI-000130', 'CCI-000135', 'CCI-000172', 'CCI-002884']
+  tag legacy: %w{V-72163 SV-86787}
+  tag false_negatives: ''
+  tag false_positives: ''
+  tag documentable: false
+  tag mitigations: ''
+  tag potential_impacts: ''
+  tag third_party_tools: ''
+  tag mitigation_controls: ''
+  tag responsibility: ''
+  tag ia_controls: ''
+  tag severity_override_guidance: ''
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000037-GPOS-00015'
+  tag satisfies: %w{SRG-OS-000037-GPOS-00015 SRG-OS-000042-GPOS-00020 SRG-OS-000392-GPOS-00172
+                    SRG-OS-000462-GPOS-00206 SRG-OS-000471-GPOS-00215}
+  tag gid: 'V-204549'
+  tag rid: 'SV-204549r603261_rule'
+  tag stig_id: 'RHEL-07-030700'
+  tag fix_id: 'F-4673r88840_fix'
+  tag cci: %w{CCI-000130 CCI-000135 CCI-000172 CCI-002884}
   tag nist: ['AU-3', 'AU-3 (1)', 'AU-12 c', 'MA-4 (1) (a)']
 
   audit_files = ['/etc/sudoers', '/etc/sudoers.d']
