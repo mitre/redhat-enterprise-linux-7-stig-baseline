@@ -4,14 +4,13 @@ provisioner:
 
 platforms:
   - name: rhel7
-    driver:
-      name: dokken
-      pull_platform_image: false
-    transport:
-      name: dokken
 
 driver:
-  name: dummy
+  name: dokken
+  pull_platform_image: false
+
+transport:
+  name: dokken
 
 verifier:
   input_files:
