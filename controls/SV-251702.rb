@@ -11,16 +11,15 @@ control 'SV-251702' do
   tag fix_id: 'F-55093r809219_fix'
   tag cci: ['CCI-000366']
   tag legacy: []
-  tag false_negatives: ''
-  tag false_positives: ''
-  tag documentable: false
-  tag mitigations: ''
-  tag severity_override_guidance: ''
-  tag potential_impacts: ''
-  tag third_party_tools: ''
-  tag mitigation_controls: ''
-  tag responsibility: ''
-  tag ia_controls: ''
   tag check: "Check the \"/etc/shadow\" file for blank passwords with the following command:\n\n$ sudo awk -F: '!$2 {print $1}' /etc/shadow\n\nIf the command returns any results, this is a finding."
   tag fix: "Configure all accounts on the system to have a password or lock the account with the following commands:\n\nPerform a password reset:\n$ sudo passwd [username]\nLock an account:\n$ sudo passwd -l [username]"
+
+  empty_pw_users = shadow.where { password == '' }.users
+
+  describe 'Passwords in /etc/shadow' do
+    it 'should not be empty' do
+      message = "Users with empty passwords: #{empty_pw_users.join(', ')}"
+      expect(empty_pw_users).to be_empty, message
+    end
+  end
 end
