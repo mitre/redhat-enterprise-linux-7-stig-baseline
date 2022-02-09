@@ -5,8 +5,8 @@ modification."
   desc  "If an unauthorized or modified device is allowed to exist on the
 system, there is the possibility the system may perform unintended or
 unauthorized operations."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify that all system device files are correctly labeled to prevent
 unauthorized modification.
 
@@ -32,7 +32,7 @@ are not a finding.
     If there is output from either of these commands, other than already noted,
 this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Run the following command to determine which package owns the device file:
 
     # rpm -qf <filename>
@@ -53,8 +53,8 @@ command:
   tag rid: 'SV-86663r2_rule'
   tag stig_id: 'RHEL-07-020900'
   tag fix_id: 'F-78391r1_fix'
-  tag cci: ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813',
-            'CCI-001814']
+  tag cci: %w{CCI-000318 CCI-000368 CCI-001812 CCI-001813
+              CCI-001814}
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
 
   virtual_machine = input('virtual_machine')

@@ -4,8 +4,8 @@ that all local interactive user home directories have mode 0750 or less
 permissive."
   desc  "Excessive permissions on local interactive user home directories may
 allow unauthorized access to user files by other users."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the assigned home directory of all local interactive users has a
 mode of \"0750\" or less permissive.
 
@@ -22,7 +22,7 @@ number of log files containing system logon information.
     If home directories referenced in \"/etc/passwd\" do not have a mode of
 \"0750\" or less permissive, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Change the mode of interactive user's home directories to \"0750\". To
 change the mode of a local interactive user's home directory, use the following
 command:
@@ -50,7 +50,7 @@ command:
   uid_min = 1000 if uid_min.nil?
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid.zero?) }.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
     findings += command("find #{user_info.home} -maxdepth 0 -perm /027").stdout.split("\n")

@@ -28,8 +28,8 @@ control 'V-72427' do
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system implements multifactor authentication for
     remote access to privileged accounts via pluggable authentication modules (PAM).
 
@@ -43,7 +43,7 @@ control 'V-72427' do
         If the \"pam\" service is not present on all \"services\" lines, this is a
     finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to implement multifactor authentication for
     remote access to privileged accounts via pluggable authentication modules (PAM).
 
@@ -53,17 +53,22 @@ control 'V-72427' do
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000375-GPOS-00160'
-  tag satisfies: ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000375-GPOS-00161',
-                  'SRG-OS-000375-GPOS-00162']
+  tag satisfies: %w{SRG-OS-000375-GPOS-00160 SRG-OS-000375-GPOS-00161
+                    SRG-OS-000375-GPOS-00162}
   tag gid: 'V-72427'
   tag rid: 'SV-87051r4_rule'
   tag stig_id: 'RHEL-07-041002'
   tag fix_id: 'F-78779r3_fix'
-  tag cci: ['CCI-001948', 'CCI-001953', 'CCI-001954']
+  tag cci: %w{CCI-001948 CCI-001953 CCI-001954}
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
 
   if package('sssd').installed?
-    if !(sssd_files = command('find /etc/sssd -name *.conf').stdout.split("\n")).empty?
+    if (sssd_files = command('find /etc/sssd -name *.conf').stdout.split("\n")).empty?
+      describe 'The set of SSSD configuration files' do
+        subject { sssd_files.to_a }
+        it { should_not be_empty }
+      end
+    else
       sssd_files.each do |file|
         next unless package('sssd').installed?
 
@@ -79,11 +84,6 @@ control 'V-72427' do
             end
           end
         end
-      end
-    else
-      describe 'The set of SSSD configuration files' do
-        subject { sssd_files.to_a }
-        it { should_not be_empty }
       end
     end
   else

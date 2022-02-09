@@ -9,8 +9,8 @@ capability, it is critical the user reauthenticate.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system requires users to reauthenticate for privilege
 escalation.
 
@@ -22,7 +22,7 @@ files with the following command:
     If any uncommented line is found with a \"!authenticate\" tag, this is a
 finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to require users to reauthenticate for
 privilege escalation.
 
@@ -41,8 +41,8 @@ following command:
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000373-GPOS-00156'
-  tag satisfies: ['SRG-OS-000373-GPOS-00156', 'SRG-OS-000373-GPOS-00157',
-                  'SRG-OS-000373-GPOS-00158']
+  tag satisfies: %w{SRG-OS-000373-GPOS-00156 SRG-OS-000373-GPOS-00157
+                    SRG-OS-000373-GPOS-00158}
   tag gid: 'V-71949'
   tag rid: 'SV-86573r3_rule'
   tag stig_id: 'RHEL-07-010350'

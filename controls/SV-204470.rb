@@ -6,8 +6,8 @@ directory owners primary group."
 directory is not the same as the primary GID of the user, this would allow
 unauthorized access to the user's files, and users that share the same group
 may not be able to access files that they legitimately should."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the assigned home directory of all local interactive users is
 group-owned by that user's primary GID.
 
@@ -27,7 +27,7 @@ system with the following command:
     If the user home directory referenced in \"/etc/passwd\" is not group-owned
 by that user's primary GID, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Change the group owner of a local interactive user's home directory to the
 group found in \"/etc/passwd\". To change the group owner of a local
 interactive user's home directory, use the following command:
@@ -56,7 +56,7 @@ of \"/home/smithj\", and has a primary group of users.
   uid_min = 1000 if uid_min.nil?
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid.zero?) }.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
     findings += command("find #{user_info.home} -maxdepth 0 -not -gid #{user_info.gid}").stdout.split("\n")

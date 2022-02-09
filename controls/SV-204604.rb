@@ -7,8 +7,8 @@ applications are allowed to communicate over the network.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system enabled an application firewall.
 
     Check to see if \"firewalld\" is installed with the following command:
@@ -40,7 +40,7 @@ is a finding.
 
     If \"firewalld\" does not show a state of \"running\", this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Ensure the operating system's application firewall is enabled.
 
     Install the \"firewalld\" package, if it is not on the system, with the
@@ -55,8 +55,8 @@ following command:
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag satisfies: ['SRG-OS-000480-GPOS-00227', 'SRG-OS-000480-GPOS-00231',
-                  'SRG-OS-000480-GPOS-00232']
+  tag satisfies: %w{SRG-OS-000480-GPOS-00227 SRG-OS-000480-GPOS-00231
+                    SRG-OS-000480-GPOS-00232}
   tag gid: 'V-72273'
   tag rid: 'SV-86897r2_rule'
   tag stig_id: 'RHEL-07-040520'

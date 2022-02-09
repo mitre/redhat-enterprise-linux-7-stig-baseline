@@ -13,8 +13,8 @@ correct system.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the audisp daemon is configured to label all off-loaded audit logs:
 
     # grep \"name_format\" /etc/audisp/audispd.conf
@@ -24,7 +24,7 @@ correct system.
     If the \"name_format\" option is not \"hostname\", \"fqd\", or \"numeric\",
 or the line is commented out, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Edit the /etc/audisp/audispd.conf file and add or update the
 \"name_format\" option:
 
@@ -37,7 +37,7 @@ or the line is commented out, this is a finding.
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
-  tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
+  tag satisfies: %w{SRG-OS-000342-GPOS-00133 SRG-OS-000479-GPOS-00224}
   tag gid: 'V-81021'
   tag rid: 'SV-95733r1_rule'
   tag stig_id: 'RHEL-07-030211'

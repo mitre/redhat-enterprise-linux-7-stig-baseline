@@ -3,8 +3,8 @@ control 'V-71953' do
 unattended or automatic logon to the system via a graphical user interface."
   desc  "Failure to restrict system access to authenticated users negatively
 impacts operating system security."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system does not allow an unattended or automatic logon
 to the system via a graphical user interface.
 
@@ -20,7 +20,7 @@ Applicable.
     If the value of \"AutomaticLoginEnable\" is not set to \"false\", this is a
 finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to not allow an unattended or automatic
 logon to the system via a graphical user interface.
 

@@ -11,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"create_module\" syscall occur.
 
@@ -28,7 +28,7 @@ command:
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"create_module\" syscall, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"create_module\" syscall occur.
 
@@ -43,7 +43,7 @@ successful/unsuccessful attempts to use the \"create_module\" syscall occur.
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000471-GPOS-00216'
-  tag satisfies: ['SRG-OS-000471-GPOS-00216', 'SRG-OS-000477-GPOS-00222']
+  tag satisfies: %w{SRG-OS-000471-GPOS-00216 SRG-OS-000477-GPOS-00222}
   tag gid: 'V-78999'
   tag rid: 'SV-93705r3_rule'
   tag stig_id: 'RHEL-07-030819'

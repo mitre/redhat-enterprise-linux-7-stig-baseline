@@ -13,8 +13,8 @@ appropriate authorizations. Circumventing intrusion detection and prevention
 mechanisms or malicious code protection mechanisms are examples of privileged
 functions that require protection from non-privileged users.
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     If an HBSS or HIPS is active on the system, this is Not Applicable.
 
     Verify the operating system prevents non-privileged users from executing
@@ -41,7 +41,7 @@ role.
 
     If they are not mapped in this way, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to prevent non-privileged users from
 executing privileged functions to include disabling, circumventing, or altering
 implemented security safeguards/countermeasures.
@@ -77,7 +77,7 @@ implemented security safeguards/countermeasures.
   tag rid: 'SV-86595r2_rule'
   tag stig_id: 'RHEL-07-020020'
   tag fix_id: 'F-78323r1_fix'
-  tag cci: ['CCI-002165', 'CCI-002235']
+  tag cci: %w{CCI-002165 CCI-002235}
   tag nist: ['AC-3 (4)', 'AC-6 (10)']
 
   admin_logins = input('admin_logins')
@@ -111,10 +111,10 @@ implemented security safeguards/countermeasures.
       it { expect(seusers).to_not be_empty }
     end
 
-    users_to_ignore = [
-      'root',
-      'system_u'
-    ]
+    users_to_ignore = %w{
+      root
+      system_u
+    }
 
     seusers.each do |user, context|
       next if users_to_ignore.include?(user)
@@ -124,18 +124,18 @@ implemented security safeguards/countermeasures.
           let(:valid_users) { ['user_u'] }
         elsif admin_logins.include?(user)
           let(:valid_users) do
-            [
-              'sysadm_u',
-              'staff_u'
-            ]
+            %w{
+              sysadm_u
+              staff_u
+            }
           end
         else
           let(:valid_users) do
-            [
-              'user_u',
-              'guest_u',
-              'xguest_u'
-            ]
+            %w{
+              user_u
+              guest_u
+              xguest_u
+            }
           end
         end
 

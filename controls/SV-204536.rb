@@ -11,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"semanage\" command occur.
 
@@ -26,7 +26,7 @@ command:
 
     If the command does not return any output, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"semanage\" command occur.
 
@@ -39,13 +39,13 @@ successful/unsuccessful attempts to use the \"semanage\" command occur.
   "
   tag severity: nil
   tag gtitle: 'SRG-OS-000392-GPOS-00172'
-  tag satisfies: ['SRG-OS-000392-GPOS-00172', 'SRG-OS-000463-GPOS-00207',
-                  'SRG-OS-000465-GPOS-00209']
+  tag satisfies: %w{SRG-OS-000392-GPOS-00172 SRG-OS-000463-GPOS-00207
+                    SRG-OS-000465-GPOS-00209}
   tag gid: 'V-72135'
   tag rid: 'SV-86759r4_rule'
   tag stig_id: 'RHEL-07-030560'
   tag fix_id: 'F-78487r5_fix'
-  tag cci: ['CCI-000172', 'CCI-002884']
+  tag cci: %w{CCI-000172 CCI-002884}
   tag nist: ['AU-12 c', 'MA-4 (1) (a)']
 
   audit_file = '/usr/sbin/semanage'

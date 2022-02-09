@@ -10,8 +10,8 @@ storage capacity.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system encrypts audit records off-loaded onto a
 different system or media from the system being audited.
 
@@ -27,7 +27,7 @@ logs are off-loaded to a different system or media.
     If there is no evidence that the transfer of the audit logs being
 off-loaded to another system or media is encrypted, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to encrypt the transfer of off-loaded audit
 records onto a different system or media from the system being audited.
 
@@ -39,7 +39,7 @@ and set it with the following line:
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
-  tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
+  tag satisfies: %w{SRG-OS-000342-GPOS-00133 SRG-OS-000479-GPOS-00224}
   tag gid: 'V-72085'
   tag rid: 'SV-86709r2_rule'
   tag stig_id: 'RHEL-07-030310'

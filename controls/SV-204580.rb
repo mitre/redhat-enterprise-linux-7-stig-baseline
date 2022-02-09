@@ -43,8 +43,8 @@ Agreement for details.\"
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify any publicly accessible connection to the operating system displays
 the Standard Mandatory DoD Notice and Consent Banner before granting access to
 the system.
@@ -96,7 +96,7 @@ finding.
     If the text in the file does not match the Standard Mandatory DoD Notice
 and Consent Banner, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to display the Standard Mandatory DoD Notice
 and Consent Banner before granting access to the system via the ssh.
 
@@ -141,14 +141,14 @@ Agreement for details.\"
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000023-GPOS-00006'
-  tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007',
-                  'SRG-OS-000228-GPOS-00088']
+  tag satisfies: %w{SRG-OS-000023-GPOS-00006 SRG-OS-000024-GPOS-00007
+                    SRG-OS-000228-GPOS-00088}
   tag gid: 'V-72225'
   tag rid: 'SV-86849r4_rule'
   tag stig_id: 'RHEL-07-040170'
   tag fix_id: 'F-78579r4_fix'
-  tag cci: ['CCI-000048', 'CCI-000050', 'CCI-001384', 'CCI-001385',
-            'CCI-001386', 'CCI-001387', 'CCI-001388']
+  tag cci: %w{CCI-000048 CCI-000050 CCI-001384 CCI-001385
+              CCI-001386 CCI-001387 CCI-001388}
   tag nist: ['AC-8 a', 'AC-8 b', 'AC-8 c 1', 'AC-8 c 2', 'AC-8 c 2', "AC-8 c
 2", 'AC-8 c 3']
 

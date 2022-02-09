@@ -13,15 +13,15 @@ daily basis.
     If the system processes inbound SMTP mail, the virus scanner must be
 configured to scan all received mail.
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify an anti-virus solution is installed on the system. The anti-virus
 solution may be bundled with an approved host-based security solution.
 
     If there is no anti-virus solution installed on the system, this is a
 finding.
   "
-  tag 'fix': 'Install an antivirus solution on the system.'
+  tag fix: 'Install an antivirus solution on the system.'
   impact 0.7
   tag severity: nil
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
@@ -34,7 +34,15 @@ finding.
 
   custom_antivirus = input('custom_antivirus')
 
-  if !custom_antivirus
+  if custom_antivirus
+    # Allow user to provide a description of their AV solution
+    # for documentation.
+    custom_antivirus_description = input('custom_antivirus_description')
+    describe "Antivirus: #{custom_antivirus_description}" do
+      subject { custom_antivirus_description }
+      it { should_not cmp 'None' }
+    end
+  else
     describe.one do
       describe service('nails') do
         it { should be_running }
@@ -45,14 +53,6 @@ finding.
       describe service('ds_agent') do
         it { should be_running }
       end
-    end
-  else
-    # Allow user to provide a description of their AV solution
-    # for documentation.
-    custom_antivirus_description = input('custom_antivirus_description')
-    describe "Antivirus: #{custom_antivirus_description}" do
-      subject { custom_antivirus_description }
-      it { should_not cmp 'None' }
     end
   end
 end

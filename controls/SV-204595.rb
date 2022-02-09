@@ -5,8 +5,8 @@ that the SSH daemon is configured to only use Message Authentication Codes
   desc  "DoD information systems are required to use FIPS 140-2 approved
 cryptographic hash functions. The only SSHv2 hash algorithm meeting this
 requirement is SHA."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the SSH daemon is configured to only use MACs employing FIPS
 140-2-approved ciphers.
 
@@ -23,7 +23,7 @@ hashes.
     If any ciphers other than \"hmac-sha2-256\" or \"hmac-sha2-512\" are listed
 or the returned line is commented out, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Edit the \"/etc/ssh/sshd_config\" file to uncomment or add the line for the
 \"MACs\" keyword and set its value to \"hmac-sha2-256\" and/or
 \"hmac-sha2-512\" (this file may be named differently or be in a different
@@ -55,7 +55,7 @@ location if using a version of SSH that is provided by a third-party vendor):
   else
     @macs.first.split(',').each do |mac|
       describe mac do
-        it { should be_in ['hmac-sha2-256', 'hmac-sha2-512'] }
+        it { should be_in %w{hmac-sha2-256 hmac-sha2-512} }
       end
     end
   end

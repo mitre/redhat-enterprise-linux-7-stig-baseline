@@ -5,8 +5,8 @@ group-owned by the users primary group or root."
   desc  "Local initialization files for interactive users are used to configure
 the user's shell environment upon logon. Malicious modification of these files
 could compromise accounts upon logon."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the local initialization files of all local interactive users are
 group-owned by that user's primary Group Identifier (GID).
 
@@ -38,7 +38,7 @@ with the following command:
     If all local interactive user's initialization files are not group-owned by
 that user's primary GID, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Change the group owner of a local interactive user's files to the group
 found in \"/etc/passwd\" for the user. To change the group owner of a local
 interactive user's home directory, use the following command:
@@ -64,10 +64,10 @@ interactive user's home directory, use the following command:
   ignore_shells = non_interactive_shells.join('|')
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid.zero?) }.entries.each do |user_info|
     findings += command("find #{user_info.home} -name '.*' -not -gid #{user_info.gid} -not -group root").stdout.split("\n")
   end
   describe findings do
-    its('length') { should == 0 }
+    its('length') { should.zero? }
   end
 end

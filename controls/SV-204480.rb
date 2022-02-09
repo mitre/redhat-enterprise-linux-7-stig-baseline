@@ -7,8 +7,8 @@ and setgid files with owner privileges. This option must be used for mounting
 any file system not containing approved setuid and setguid files. Executing
 files from untrusted file systems increases the opportunity for unprivileged
 users to attain unauthorized administrative access."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify file systems that contain user home directories are mounted with the
 \"nosuid\" option.
 
@@ -34,7 +34,7 @@ rw,relatime,discard,data=ordered,nosuid 0 2
     If a file system found in \"/etc/fstab\" refers to the user home directory
 file system and it does not have the \"nosuid\" option set, this is a finding.
   "
-  tag 'fix': "Configure the \"/etc/fstab\" to use the \"nosuid\" option on
+  tag fix: "Configure the \"/etc/fstab\" to use the \"nosuid\" option on
 file systems that contain user home directories."
   impact 0.5
   tag severity: nil

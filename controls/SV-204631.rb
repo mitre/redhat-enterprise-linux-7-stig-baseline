@@ -26,7 +26,7 @@ control 'V-72417' do
         proxy capability). This does not apply to authentication for the purpose of
         configuring the device itself (management)."
 
-  tag 'check': "
+  tag check: "
         Verify the operating system has the packages required for multifactor
         authentication installed.
 
@@ -42,7 +42,7 @@ control 'V-72417' do
         If the \"esc\" and \"pam_pkcs11\" packages are not installed, this is a
         finding."
 
-  tag 'fix': "
+  tag fix: "
         Configure the operating system to implement multifactor authentication by
         installing the required packages.
 
@@ -53,12 +53,12 @@ control 'V-72417' do
 
   tag severity: nil
   tag gtitle: 'SRG-OS-000375-GPOS-00160'
-  tag satisfies: ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']
+  tag satisfies: %w{SRG-OS-000375-GPOS-00160 SRG-OS-000375-GPOS-00161 SRG-OS-000375-GPOS-00162}
   tag gid: 'V-72417'
   tag rid: 'SV-87041r4_rule'
   tag stig_id: 'RHEL-07-041001'
   tag fix_id: 'F-78769r4_fix'
-  tag cci: ['CCI-001948', 'CCI-001953', 'CCI-001954']
+  tag cci: %w{CCI-001948 CCI-001953 CCI-001954}
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
 
   mfa_pkg_list = input('mfa_pkg_list')

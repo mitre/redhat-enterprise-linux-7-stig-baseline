@@ -14,8 +14,8 @@ Officer (IMO)/Information System Security Officer (ISSO) and System
 Administrators (SAs) must be notified via email and/or monitoring system trap
 when there is an unauthorized modification of a configuration item.
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system routinely checks the baseline configuration for
 unauthorized changes.
 
@@ -49,7 +49,7 @@ system, use the following command:
 controlling the execution of the file integrity application does not exist,
 this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the file integrity tool to run automatically on the system at
 least weekly. The following example output is generic. It will set cron to run
 AIDE daily, but other file integrity tools may be used:
@@ -77,7 +77,8 @@ check run\" root@sysname.mil
     it { should be_installed }
   end
 
-  if file_integrity_interval == 'monthly'
+  case file_integrity_interval
+  when 'monthly'
     describe.one do
       describe file("/etc/cron.daily/#{file_integrity_tool}") do
         it { should exist }
@@ -107,7 +108,7 @@ check run\" root@sysname.mil
         its('months') { should cmp '*' }
       end
     end
-  elsif file_integrity_interval == 'weekly'
+  when 'weekly'
     describe.one do
       describe file("/etc/cron.daily/#{file_integrity_tool}") do
         it { should exist }
@@ -126,7 +127,7 @@ check run\" root@sysname.mil
         its('months') { should cmp '*' }
       end
     end
-  elsif file_integrity_interval == 'daily'
+  when 'daily'
     describe.one do
       describe file("/etc/cron.daily/#{file_integrity_tool}") do
         it { should exist }

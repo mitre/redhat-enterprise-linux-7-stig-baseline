@@ -6,8 +6,8 @@ messages from being accepted."
 direct route exists for a particular destination. These messages modify the
 host's route table and are unauthenticated. An illicit ICMP redirect message
 could result in a man-in-the-middle attack."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the system will not accept IPv4 ICMP redirect messages.
 
     # grep 'net.ipv4.conf.default.accept_redirects' /etc/sysctl.conf
@@ -25,7 +25,7 @@ does not have a value of \"0\", this is a finding.
 
     If the returned line does not have a value of \"0\", this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Set the system to not accept IPv4 ICMP redirect messages by adding the
 following line to \"/etc/sysctl.conf\" or a configuration file in the
 /etc/sysctl.d/ directory (or modify the line to have the required value):

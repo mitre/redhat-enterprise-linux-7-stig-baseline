@@ -24,8 +24,8 @@ accounts) or for detailed accountability of individual activity.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system requires multifactor authentication to uniquely
 identify organizational users using multifactor authentication.
 
@@ -43,7 +43,7 @@ identify organizational users using multifactor authentication.
 
     If \"smartcard module\" is blank, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to require individuals to be authenticated
 with a multifactor authenticator.
 
@@ -62,10 +62,10 @@ module if required.
   "
   tag severity: nil
   tag gtitle: 'SRG-OS-000104-GPOS-00051'
-  tag satisfies: ['SRG-OS-000104-GPOS-00051', 'SRG-OS-000106-GPOS-00053',
-                  'SRG-OS-000107-GPOS-00054', 'SRG-OS-000109-GPOS-00056',
-                  'SRG-OS-000108-GPOS-00055', 'SRG-OS-000108-GPOS-00057',
-                  'SRG-OS-000108-GPOS-00058']
+  tag satisfies: %w{SRG-OS-000104-GPOS-00051 SRG-OS-000106-GPOS-00053
+                    SRG-OS-000107-GPOS-00054 SRG-OS-000109-GPOS-00056
+                    SRG-OS-000108-GPOS-00055 SRG-OS-000108-GPOS-00057
+                    SRG-OS-000108-GPOS-00058}
   tag gid: 'V-71965'
   tag rid: 'SV-86589r2_rule'
   tag stig_id: 'RHEL-07-010500'

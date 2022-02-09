@@ -6,8 +6,8 @@ Therefore, passwords need to be changed periodically. If the operating system
 does not limit the lifetime of passwords and force users to change their
 passwords, there is the risk that the operating system passwords could be
 compromised."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Check whether the maximum time period for existing passwords is restricted
 to 60 days.
 
@@ -17,7 +17,7 @@ to 60 days.
 this is a finding.
 
   "
-  tag 'fix': "
+  tag fix: "
     Configure non-compliant accounts to enforce a 60-day maximum password
 lifetime restriction.
 

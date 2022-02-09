@@ -8,8 +8,8 @@ brute-forcing, is reduced. Limits are imposed by locking the account.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Check that the system locks an account for a minimum of 15 minutes after
 three unsuccessful logon attempts within a period of 15 minutes with the
 following command:
@@ -71,7 +71,7 @@ to a value less than \"900\" on both \"auth\" lines with the
     If any line referencing the \"pam_faillock.so\" module is commented out,
 this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to lock an account for the maximum period
 when three unsuccessful logon attempts in 15 minutes are made.
 
@@ -93,12 +93,12 @@ the configurations listed in this requirement.
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000329-GPOS-00128'
-  tag satisfies: ['SRG-OS-000329-GPOS-00128', 'SRG-OS-000021-GPOS-00005']
+  tag satisfies: %w{SRG-OS-000329-GPOS-00128 SRG-OS-000021-GPOS-00005}
   tag gid: 'V-71943'
   tag rid: 'SV-86567r5_rule'
   tag stig_id: 'RHEL-07-010320'
   tag fix_id: 'F-78295r5_fix'
-  tag cci: ['CCI-000044', 'CCI-002236', 'CCI-002237', 'CCI-002238']
+  tag cci: %w{CCI-000044 CCI-002236 CCI-002237 CCI-002238}
   tag nist: ['AC-7 a', 'AC-7 b', 'AC-7 b', 'AC-7 b']
 
   describe pam('/etc/pam.d/password-auth') do

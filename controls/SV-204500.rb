@@ -5,8 +5,8 @@ hashes for validating file contents and directories."
   desc  "File integrity tools use cryptographic hashes for verifying file
 contents and directories have not been altered. These hashes must be FIPS 140-2
 approved cryptographic hashes."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the file integrity tool is configured to use FIPS 140-2 approved
 cryptographic hashes for validating file contents and directories.
 
@@ -47,7 +47,7 @@ in the \"/etc/aide.conf\" file, or another file integrity tool is not using
 FIPS 140-2 approved cryptographic hashes for validating file contents and
 directories, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the file integrity tool to use FIPS 140-2 cryptographic hashes
 for validating file and directory contents.
 
@@ -70,9 +70,10 @@ uncommented file and directory selection lists.
 
   exclude_patterns = input('aide_exclude_patterns')
 
-  findings = aide_conf.where do
-    !selection_line.start_with?('!') && !exclude_patterns.include?(selection_line) && !rules.include?('sha512')
-  end
+  findings =
+    aide_conf.where do
+      !selection_line.start_with?('!') && !exclude_patterns.include?(selection_line) && !rules.include?('sha512')
+    end
 
   describe "List of monitored files/directories without 'sha512' rule" do
     subject { findings.selection_lines }

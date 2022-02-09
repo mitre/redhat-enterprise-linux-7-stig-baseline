@@ -11,8 +11,8 @@ when a user's session has idled and take action to initiate the session lock.
     The session lock is implemented at the point where session activity can be
 determined and/or controlled.
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system initiates a session lock a for graphical user
 interfaces when the screensaver is activated.
 
@@ -29,7 +29,7 @@ screensaver is activated with the following command:
     If the \"lock-delay\" setting is missing, or is not set to \"5\" or less,
 this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to initiate a session lock for graphical
 user interfaces when a screensaver is activated.
 

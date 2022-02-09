@@ -11,8 +11,8 @@ compromise.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"mount\" command and syscall occur.
 
@@ -35,7 +35,7 @@ privileged-mount
     If all uses of the \"mount\" command are not being audited, this is a
 finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"mount\" command and syscall occur.
 
@@ -53,12 +53,12 @@ privileged-mount
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000042-GPOS-00020'
-  tag satisfies: ['SRG-OS-000042-GPOS-00020', 'SRG-OS-000392-GPOS-00172']
+  tag satisfies: %w{SRG-OS-000042-GPOS-00020 SRG-OS-000392-GPOS-00172}
   tag gid: 'V-72171'
   tag rid: 'SV-86795r7_rule'
   tag stig_id: 'RHEL-07-030740'
   tag fix_id: 'F-78525r9_fix'
-  tag cci: ['CCI-000135', 'CCI-002884']
+  tag cci: %w{CCI-000135 CCI-002884}
   tag nist: ['AU-3 (1)', 'MA-4 (1) (a)']
 
   describe auditd.syscall('mount').where { arch == 'b32' } do

@@ -11,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"ftruncate\" syscall occur.
 
@@ -42,7 +42,7 @@ a finding.
     If the output does not produce rules containing \"-F exit=-EACCES\", this
 is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"ftruncate\" syscall occur.
 
@@ -65,13 +65,13 @@ auid!=4294967295 -k access
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000064-GPOS-00033'
-  tag satisfies: ['SRG-OS-000064-GPOS-00033', 'SRG-OS-000458-GPOS-00203',
-                  'SRG-OS-000461-GPOS-00205', 'SRG-OS-000392-GPOS-00172']
+  tag satisfies: %w{SRG-OS-000064-GPOS-00033 SRG-OS-000458-GPOS-00203
+                    SRG-OS-000461-GPOS-00205 SRG-OS-000392-GPOS-00172}
   tag gid: 'V-72133'
   tag rid: 'SV-86757r5_rule'
   tag stig_id: 'RHEL-07-030550'
   tag fix_id: 'F-78485r8_fix'
-  tag cci: ['CCI-000172', 'CCI-002884']
+  tag cci: %w{CCI-000172 CCI-002884}
   tag nist: ['AU-12 c', 'MA-4 (1) (a)']
 
   describe auditd.syscall('ftruncate').where { arch == 'b32' } do

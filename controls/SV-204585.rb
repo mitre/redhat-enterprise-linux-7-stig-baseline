@@ -20,8 +20,8 @@ have to be employed, and vice versa.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Check to see if sshd is installed with the following command:
 
     # yum list installed \\*ssh\\*
@@ -31,7 +31,7 @@ have to be employed, and vice versa.
 
     If the \"SSH server\" package is not installed, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Install SSH packages onto the host with the following commands:
 
     # yum install openssh-server.x86_64
@@ -39,13 +39,13 @@ have to be employed, and vice versa.
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000423-GPOS-00187'
-  tag satisfies: ['SRG-OS-000423-GPOS-00187', 'SRG-OS-000424-GPOS-00188',
-                  'SRG-OS-000425-GPOS-00189', 'SRG-OS-000426-GPOS-00190']
+  tag satisfies: %w{SRG-OS-000423-GPOS-00187 SRG-OS-000424-GPOS-00188
+                    SRG-OS-000425-GPOS-00189 SRG-OS-000426-GPOS-00190}
   tag gid: 'V-72233'
   tag rid: 'SV-86857r3_rule'
   tag stig_id: 'RHEL-07-040300'
   tag fix_id: 'F-78587r3_fix'
-  tag cci: ['CCI-002418', 'CCI-002420', 'CCI-002421', 'CCI-002422']
+  tag cci: %w{CCI-002418 CCI-002420 CCI-002421 CCI-002422}
   tag nist: ['SC-8', 'SC-8 (2)', 'SC-8 (1)', 'SC-8 (2)']
 
   describe package('openssh-server') do

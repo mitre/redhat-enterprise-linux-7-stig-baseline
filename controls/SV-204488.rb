@@ -7,8 +7,8 @@ umask can be represented as a four-digit number, the first digit representing
 special access modes is typically ignored or required to be \"0\". This
 requirement applies to the globally configured system defaults and the local
 interactive user defaults for each account on the system."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify that the default umask for all local interactive users is \"077\".
 
     Identify the locations of all local interactive user home directories by
@@ -26,7 +26,7 @@ directories in the \"/home\" directory.
 umask statement that has a value less restrictive than \"077\", this is a
 finding.
   "
-  tag 'fix': "
+  tag fix: "
     Remove the umask statement from all local interactive user's initialization
 files.
 
@@ -44,8 +44,8 @@ environment variables.
   tag rid: 'SV-86673r2_rule'
   tag stig_id: 'RHEL-07-021040'
   tag fix_id: 'F-78401r3_fix'
-  tag cci: ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813',
-            'CCI-001814']
+  tag cci: %w{CCI-000318 CCI-000368 CCI-001812 CCI-001813
+              CCI-001814}
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
 
   non_interactive_shells = input('non_interactive_shells')
@@ -66,7 +66,7 @@ environment variables.
     uid_min = uid_min_val[0].to_i unless uid_min_val.empty?
   end
 
-  interactive_users = users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries
+  interactive_users = users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid.zero?) }.entries
 
   # For each user, build and execute a find command that identifies initialization files
   # in a user's home directory.
@@ -74,12 +74,12 @@ environment variables.
     # Only check if the home directory is local
     is_local = command("df -l #{u.home}").exit_status
 
-    if is_local == 0
+    if is_local.zero?
       # Get user's initialization files
       dotfiles += command("find #{u.home} -xdev -maxdepth 2 ( -name '.*' ! -name '.bash_history' ) -type f").stdout.split("\n")
 
       # Get user's umask
-      umasks.store(u.username, command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
+      umasks.store(u.username, command("su -c 'umask' -l #{u.username}").stdout.chomp)
 
       # Check all local initialization files to see whether or not they are less restrictive than 077.
       dotfiles.each do |df|

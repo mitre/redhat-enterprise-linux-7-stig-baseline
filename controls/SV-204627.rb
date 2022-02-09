@@ -8,8 +8,8 @@ system and the network and use the information to potentially compromise the
 integrity of the system or network(s). It is highly recommended that SNMP
 version 3 user authentication and message encryption be used in place of the
 version 2 community strings."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify that a system using SNMP is not using default community strings.
 
     Check to see if the \"/etc/snmp/snmpd.conf\" file exists with the following
@@ -28,7 +28,7 @@ following commands:
 
     If either of these commands returns any output, this is a finding.
   "
-  tag 'fix': "If the \"/etc/snmp/snmpd.conf\" file exists, modify any lines
+  tag fix: "If the \"/etc/snmp/snmpd.conf\" file exists, modify any lines
 that contain a community string value of \"public\" or \"private\" to another
 string value."
 
@@ -56,20 +56,20 @@ string value."
         to_process.concat(
           command("find #{in_process} -maxdepth 1 -mindepth 1 -name '*.conf'")
             .stdout.strip.split("\n")
-            .select { |f| file(f).file? }
+            .select { |f| file(f).file? },
         )
       elsif file(in_process).file?
         to_process.concat(
           command("grep -E '^\\s*includeFile\\s+' #{in_process} | sed 's/^[[:space:]]*includeFile[[:space:]]*//g'")
             .stdout.strip.split(/\n+/)
             .map { |f| f.start_with?('/') ? f : File.join(File.dirname(in_process), f) }
-            .select { |f| file(f).file? }
+            .select { |f| file(f).file? },
         )
         to_process.concat(
           command("grep -E '^\\s*includeDir\\s+' #{in_process} | sed 's/^[[:space:]]*includeDir[[:space:]]*//g'")
             .stdout.strip.split(/\n+/)
             .map { |f| f.start_with?('/') ? f : File.join('/', f) } # relative dirs are treated as absolute
-            .select { |f| file(f).directory? }
+            .select { |f| file(f).directory? },
         )
       end
     end

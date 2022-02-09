@@ -43,8 +43,8 @@ Agreement for details.\"
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system displays the Standard Mandatory DoD Notice and
 Consent Banner before granting access to the operating system via a command
 line user logon.
@@ -89,7 +89,7 @@ this is a finding.
     If the text in the \"/etc/issue\" file does not match the Standard
 Mandatory DoD Notice and Consent Banner, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to display the Standard Mandatory DoD Notice
 and Consent Banner before granting access to the system via the command line by
 editing the \"/etc/issue\" file.
@@ -126,7 +126,7 @@ Agreement for details.\"
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000023-GPOS-00006'
-  tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007']
+  tag satisfies: %w{SRG-OS-000023-GPOS-00006 SRG-OS-000024-GPOS-00007}
   tag gid: 'V-71863'
   tag rid: 'SV-86487r3_rule'
   tag stig_id: 'RHEL-07-010050'

@@ -7,8 +7,8 @@ being imported via Network File System (NFS)."
 for mounting any file system not containing approved \"setuid\" and \"setguid\"
 files. Executing files from untrusted file systems increases the opportunity
 for unprivileged users to attain unauthorized administrative access."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify file systems that are being NFS imported are configured with the
 \"nosuid\" option.
 
@@ -27,7 +27,7 @@ the \"nosuid\" option set, this is a finding.
     # mount | grep nfs | grep nosuid
     If no results are returned, this is a finding.
   "
-  tag 'fix': "Configure the \"/etc/fstab\" to use the \"nosuid\" option on
+  tag fix: "Configure the \"/etc/fstab\" to use the \"nosuid\" option on
 file systems that are being imported via NFS."
   impact 0.5
   tag severity: nil

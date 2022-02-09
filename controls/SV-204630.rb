@@ -6,8 +6,8 @@ routers forward the packet along a different path than configured on the
 router, which can be used to bypass network security measures. This requirement
 applies only to the forwarding of source-routed traffic, such as when IPv6
 forwarding is enabled and the system is functioning as a router."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     If IPv6 is not enabled, the key will not exist, and this is Not Applicable.
 
     Verify the system does not accept IPv6 source-routed packets.
@@ -29,7 +29,7 @@ with the following command:
 
     If the returned lines do not have a value of \"0\", this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Set the system to the required kernel parameter, if IPv6 is enabled, by
 adding the following line to \"/etc/sysctl.conf\" or a configuration file in
 the /etc/sysctl.d/ directory (or modify the line to have the required value):

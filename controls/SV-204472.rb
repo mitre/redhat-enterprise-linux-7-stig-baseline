@@ -5,8 +5,8 @@ directories are group-owned by a group of which the home directory owner is a
 member."
   desc  "If a local interactive user's files are group-owned by a group of
 which the user is not a member, unintended users may be able to access them."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify all files and directories in a local interactive user home directory
 are group-owned by a group the user is a member of.
 
@@ -32,7 +32,7 @@ following command:
     If the user is not a member of a group that group owns file(s) in a local
 interactive user's home directory, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Change the group of a local interactive user's files and directories to a
 group that the interactive user is a member of. To change the group owner of a
 local interactive user's files and directories, use the following command:
@@ -61,7 +61,7 @@ local interactive user's files and directories, use the following command:
   uid_min = 1000 if uid_min.nil?
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid.zero?) }.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
     find_args = ''

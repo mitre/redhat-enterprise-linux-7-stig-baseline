@@ -12,8 +12,8 @@ to the central log server.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the audisp daemon is configured to take an appropriate action when
 the internal queue is full:
 
@@ -24,7 +24,7 @@ the internal queue is full:
     If the \"overflow_action\" option is not \"syslog\", \"single\", or
 \"halt\", or the line is commented out, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Edit the /etc/audisp/audispd.conf file and add or update the
 \"overflow_action\" option:
 
@@ -37,7 +37,7 @@ the internal queue is full:
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
-  tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
+  tag satisfies: %w{SRG-OS-000342-GPOS-00133 SRG-OS-000479-GPOS-00224}
   tag gid: 'V-81019'
   tag rid: 'SV-95731r1_rule'
   tag stig_id: 'RHEL-07-030210'

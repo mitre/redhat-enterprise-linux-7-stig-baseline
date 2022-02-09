@@ -4,8 +4,8 @@ that all files and directories contained in local interactive user home
 directories have a mode of 0750 or less permissive."
   desc  "If a local interactive user files have excessive permissions,
 unintended users may be able to access or modify them."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify all files and directories contained in a local interactive user home
 directory, excluding local initialization files, have a mode of \"0750\".
 
@@ -25,7 +25,7 @@ of \"/home/smithj\".
     If any files are found with a mode more permissive than \"0750\", this is a
 finding.
   "
-  tag 'fix': "
+  tag fix: "
     Set the mode on files and directories in the local interactive user home
 directory with the following command:
 
@@ -50,7 +50,7 @@ directory with the following command:
   ignore_shells = non_interactive_shells.join('|')
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid.zero?) }.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
     findings += command("find #{user_info.home} -xdev ! -name '.*' -perm /027 ! -type l").stdout.split("\n")

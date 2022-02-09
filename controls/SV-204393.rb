@@ -44,8 +44,8 @@ Agreement for details.\"
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system displays the Standard Mandatory DoD Notice and
 Consent Banner before granting access to the operating system via a graphical
 user logon.
@@ -62,7 +62,7 @@ with the following command:
     If \"banner-message-enable\" is set to \"false\" or is missing, this is a
 finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to display the Standard Mandatory DoD Notice
 and Consent Banner before granting access to the system.
 
@@ -90,8 +90,8 @@ effect.
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000023-GPOS-00006'
-  tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007',
-                  'SRG-OS-000228-GPOS-00088']
+  tag satisfies: %w{SRG-OS-000023-GPOS-00006 SRG-OS-000024-GPOS-00007
+                    SRG-OS-000228-GPOS-00088}
   tag gid: 'V-71859'
   tag rid: 'SV-86483r4_rule'
   tag stig_id: 'RHEL-07-010030'

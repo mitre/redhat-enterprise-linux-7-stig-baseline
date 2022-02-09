@@ -5,8 +5,8 @@ media to be used as the boot loader unless approved."
 configured to use removable media as the boot loader. If removable media is
 designed to be used as the boot loader, the requirement must be documented with
 the Information System Security Officer (ISSO)."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the system is not configured to use a boot loader on removable media.
 
     Note: GRUB 2 reads its configuration from the \"/boot/grub2/grub.cfg\" file
@@ -36,7 +36,7 @@ menu entry with the following commands:
 documentation does not exist approving the alternate configuration, this is a
 finding.
   "
-  tag 'fix': "Remove alternate methods of booting the system from removable
+  tag fix: "Remove alternate methods of booting the system from removable
 media or document the configuration to boot from removable media with the ISSO."
   impact 0.5
   tag severity: nil
@@ -45,17 +45,18 @@ media or document the configuration to boot from removable media with the ISSO."
   tag rid: 'SV-86699r2_rule'
   tag stig_id: 'RHEL-07-021700'
   tag fix_id: 'F-78427r1_fix'
-  tag cci: ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813',
-            'CCI-001814']
+  tag cci: %w{CCI-000318 CCI-000368 CCI-001812 CCI-001813
+              CCI-001814}
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
 
   roots = command('grubby --info=ALL | grep "^root=" | sed "s/^root=//g"')
           .stdout.strip.split("\n")
 
-  blocks = roots.map do |root|
-    root_file = file(root)
-    root_file.symlink? ? root_file.link_path : root_file.path
-  end
+  blocks =
+    roots.map do |root|
+      root_file = file(root)
+      root_file.symlink? ? root_file.link_path : root_file.path
+    end
 
   blocks.each do |block|
     block_file = file(block)

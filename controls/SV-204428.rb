@@ -8,8 +8,8 @@ forcing, is reduced. Limits are imposed by locking the account.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system automatically locks the root account until it
 is released by an administrator when three unsuccessful logon attempts in 15
 minutes are made.
@@ -36,7 +36,7 @@ fail_interval=900 unlock_time=900
 \"pam_faillock.so\" module, is commented out, or is missing from a line, this
 is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to lock automatically the root account until
 the locked account is released by an administrator when three unsuccessful
 logon attempts in 15 minutes are made.
@@ -59,7 +59,7 @@ the configurations listed in this requirement.
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000329-GPOS-00128'
-  tag satisfies: ['SRG-OS-000329-GPOS-00128', 'SRG-OS-000021-GPOS-00005']
+  tag satisfies: %w{SRG-OS-000329-GPOS-00128 SRG-OS-000021-GPOS-00005}
   tag gid: 'V-71945'
   tag rid: 'SV-86569r4_rule'
   tag stig_id: 'RHEL-07-010330'
@@ -70,7 +70,7 @@ the configurations listed in this requirement.
   required_lines = [
     'auth required pam_faillock.so even_deny_root',
     'auth sufficient pam_unix.so try_first_pass',
-    'auth [default=die] pam_faillock.so even_deny_root'
+    'auth [default=die] pam_faillock.so even_deny_root',
   ]
 
   describe pam('/etc/pam.d/password-auth') do

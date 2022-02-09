@@ -5,8 +5,8 @@ users."
   desc  "If a local interactive user does not own their home directory,
 unauthorized users could access or modify the user's files, and the users may
 not be able to access their own files."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the assigned home directory of all local interactive users on the
 system exists.
 
@@ -20,7 +20,7 @@ system with the following command:
     If any home directories referenced in \"/etc/passwd\" are not owned by the
 interactive user, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Change the owner of a local interactive user's home directories to that
 owner. To change the owner of a local interactive user's home directory, use
 the following command:
@@ -49,7 +49,7 @@ the following command:
   uid_min = 1000 if uid_min.nil?
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid.zero?) }.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
     describe directory(user_info.home) do

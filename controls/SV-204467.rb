@@ -7,8 +7,8 @@ exist, the user may be given access to the / directory as the current working
 directory upon logon. This could create a Denial of Service because the user
 would not be able to access their logon configuration files, and it may give
 them visibility to system files they normally would not be able to access."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the assigned home directory of all local interactive users on the
 system exists.
 
@@ -31,7 +31,7 @@ containing system logon information.
     If any home directories referenced in \"/etc/passwd\" are returned as not
 defined, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Create home directories to all local interactive users that currently do
 not have a home directory assigned. Use the following commands to create the
 user home directory assigned in \"/etc/ passwd\":
@@ -63,7 +63,7 @@ user home directory assigned in \"/etc/ passwd\":
   uid_min = login_defs.read_params['UID_MIN'].to_i
   uid_min = 1000 if uid_min.nil?
 
-  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid.zero?) }.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
     describe directory(user_info.home) do

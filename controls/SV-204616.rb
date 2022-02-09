@@ -6,8 +6,8 @@ Message Protocol (ICMP) redirects by default."
 direct route exists for a particular destination. These messages contain
 information from the system's route table, possibly revealing portions of the
 network topology."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the system does not allow interfaces to perform IPv4 ICMP redirects
 by default.
 
@@ -27,7 +27,7 @@ variables with the following command:
 
     If the returned line does not have a value of \"0\", this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the system to not allow interfaces to perform IPv4 ICMP redirects
 by default.
 

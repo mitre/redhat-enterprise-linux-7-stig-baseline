@@ -18,8 +18,8 @@ system-level network connection. This does not mean that the operating system
 terminates all sessions or network access; it only ends the inactive session
 and releases the resources associated with that session.
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system terminates all network connections associated
 with a communications session at the end of the session or based on inactivity.
 
@@ -37,7 +37,7 @@ with a communications session at the end of the session or based on inactivity.
 /etc/profile.d/ directory to enforce session termination after inactivity, this
 is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to terminate all network connections
 associated with a communications session at the end of the session or after a
 period of inactivity.
@@ -58,8 +58,8 @@ period of inactivity.
   tag rid: 'SV-86847r4_rule'
   tag stig_id: 'RHEL-07-040160'
   tag fix_id: 'F-78577r5_fix'
-  tag cci: ['CCI-001133', 'CCI-002361']
-  tag nist: ['SC-10', 'AC-12']
+  tag cci: %w{CCI-001133 CCI-002361}
+  tag nist: %w{SC-10 AC-12}
 
   system_activity_timeout = input('system_activity_timeout')
 

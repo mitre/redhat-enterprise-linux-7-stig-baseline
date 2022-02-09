@@ -10,8 +10,8 @@ responsible for one.
     Audit records can be generated from various components within the
 information system (e.g., module or policy filter).
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system must generate audit records for all account
 creations, modifications, disabling, and termination events that affect
 \"/etc/gshadow\".
@@ -26,7 +26,7 @@ command:
     If the command does not return a line, or the line is commented out, this
 is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to generate audit records for all account
 creations, modifications, disabling, and termination events that affect
 \"/etc/gshadow\".
@@ -43,7 +43,7 @@ creations, modifications, disabling, and termination events that affect
   tag rid: 'SV-87819r4_rule'
   tag stig_id: 'RHEL-07-030872'
   tag fix_id: 'F-79613r3_fix'
-  tag cci: ['CCI-000018', 'CCI-000172', 'CCI-001403', 'CCI-002130']
+  tag cci: %w{CCI-000018 CCI-000172 CCI-001403 CCI-002130}
   tag nist: ['AC-2 (4)', 'AU-12 c', 'AC-2 (4)', 'AC-2 (4)']
 
   audit_file = '/etc/gshadow'

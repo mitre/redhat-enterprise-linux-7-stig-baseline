@@ -10,8 +10,8 @@ include, for example, signed hash functions using asymmetric cryptography
 enabling distribution of the public key to verify the hash information while
 maintaining the confidentiality of the key used to generate the hash.
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     If LDAP is not being utilized, this requirement is Not Applicable.
 
     Verify the operating system implements cryptography to protect the
@@ -49,7 +49,7 @@ trusted CA certificate.
     If this file does not exist, or the option is commented out or missing,
 this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to implement cryptography to protect the
 integrity of LDAP remote access sessions.
 

@@ -12,8 +12,8 @@ The setting is normally reserved for directories used by the system and by
 users for temporary file storage, (e.g., /tmp), and for directories requiring
 global read/write access.
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify all world-writable directories are group-owned by root, sys, bin, or
 an application group.
 
@@ -30,7 +30,7 @@ XFS is used as an example.
     If any world-writable directories are not owned by root, sys, bin, or an
 application group associated with the directory, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Change the group of the world-writable directories to root with the
 following command:
 
@@ -56,9 +56,9 @@ following command:
   end
 
   ww_dirs.to_a.each do |curr_dir|
-    dir_arr = curr_dir.split(' ')
+    dir_arr = curr_dir.split
     describe file(dir_arr.last) do
-      its('group') { should be_in ['root', 'sys', 'bin'] + application_groups }
+      its('group') { should be_in %w{root sys bin} + application_groups }
     end
   end
 end

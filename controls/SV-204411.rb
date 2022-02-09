@@ -12,8 +12,8 @@ takes to crack a password. The more complex the password, the greater the
 number of possible combinations that need to be tested before the password is
 compromised.
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     The \"difok\" option sets the number of characters in a password that must
 not be present in the old password.
 
@@ -25,7 +25,7 @@ not be present in the old password.
 
     If the value of \"difok\" is set to less than \"8\", this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to require the change of at least eight of
 the total number of characters when passwords are changed by setting the
 \"difok\" option.

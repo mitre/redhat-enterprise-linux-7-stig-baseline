@@ -5,8 +5,8 @@ unnecessary accounts."
 opportunities for system compromise. Unnecessary accounts include user accounts
 for individuals not requiring access to the system and application accounts for
 applications not installed on the system."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify all accounts on the system are assigned to an active system,
 application, or user account.
 
@@ -32,7 +32,7 @@ they do not support authorized system functions.
 accounts that do not support an authorized system function are present, this is
 a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the system so all accounts on the system are assigned to an
 active system, application, or user account.
 

@@ -11,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system generates audit records when successful account
 access events occur.
 
@@ -25,7 +25,7 @@ following commands:
 
     If the command does not return any output, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to generate audit records when successful
 account access events occur.
 
@@ -37,13 +37,13 @@ account access events occur.
   "
   tag severity: nil
   tag gtitle: 'SRG-OS-000392-GPOS-00172'
-  tag satisfies: ['SRG-OS-000392-GPOS-00172', 'SRG-OS-000470-GPOS-00214',
-                  'SRG-OS-000473-GPOS-00218']
+  tag satisfies: %w{SRG-OS-000392-GPOS-00172 SRG-OS-000470-GPOS-00214
+                    SRG-OS-000473-GPOS-00218}
   tag gid: 'V-72147'
   tag rid: 'SV-86771r3_rule'
   tag stig_id: 'RHEL-07-030620'
   tag fix_id: 'F-78499r3_fix'
-  tag cci: ['CCI-000126', 'CCI-000172', 'CCI-002884']
+  tag cci: %w{CCI-000126 CCI-000172 CCI-002884}
   tag nist: ['AU-2 d', 'AU-12 c', 'MA-4 (1) (a)']
 
   audit_file = '/var/log/lastlog'

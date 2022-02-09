@@ -11,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"kmod\" command occur.
 
@@ -25,7 +25,7 @@ command:
 
     If the command does not return any output, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"kmod\" command occur.
 
@@ -37,7 +37,7 @@ successful/unsuccessful attempts to use the \"kmod\" command occur.
   "
   tag severity: nil
   tag gtitle: 'SRG-OS-000471-GPOS-00216'
-  tag satisfies: ['SRG-OS-000471-GPOS-00216', 'SRG-OS-000477-GPOS-00222']
+  tag satisfies: %w{SRG-OS-000471-GPOS-00216 SRG-OS-000477-GPOS-00222}
   tag gid: 'V-72191'
   tag rid: 'SV-86815r5_rule'
   tag stig_id: 'RHEL-07-030840'

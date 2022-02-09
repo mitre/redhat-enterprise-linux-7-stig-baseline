@@ -20,8 +20,8 @@ storage repositories combined), or both.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Confirm the audit configuration regarding how auditing processing failures
 are handled.
 
@@ -46,7 +46,7 @@ this is a CAT II finding.
 not documented or there is no monitoring of the kernel log, this is a CAT III
 finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to shut down in the event of an audit
 processing failure.
 
@@ -77,7 +77,7 @@ staff.
   "
   tag severity: nil
   tag gtitle: 'SRG-OS-000046-GPOS-00022'
-  tag satisfies: ['SRG-OS-000046-GPOS-00022', 'SRG-OS-000047-GPOS-00023']
+  tag satisfies: %w{SRG-OS-000046-GPOS-00022 SRG-OS-000047-GPOS-00023}
   tag gid: 'V-72081'
   tag rid: 'SV-86705r4_rule'
   tag stig_id: 'RHEL-07-030010'
@@ -95,13 +95,13 @@ staff.
     impact 0.5
   end
 
-  if !monitor_kernel_log
+  if monitor_kernel_log
     describe auditd.status['failure'] do
-      it { should match(/^2$/) }
+      it { should match(/^(1|2)$/) }
     end
   else
     describe auditd.status['failure'] do
-      it { should match(/^(1|2)$/) }
+      it { should match(/^2$/) }
     end
   end
 end

@@ -7,8 +7,8 @@ immediate root access to the system.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Check the version of the operating system with the following command:
 
     # cat /etc/redhat-release
@@ -27,7 +27,7 @@ the following command:
     If any protocol line other than \"Protocol 2\" is uncommented, this is a
 finding.
   "
-  tag 'fix': "
+  tag fix: "
     Remove all Protocol lines that reference version \"1\" in
 \"/etc/ssh/sshd_config\" (this file may be named differently or be in a
 different location if using a version of SSH that is provided by a third-party
@@ -40,12 +40,12 @@ vendor). The \"Protocol\" line must be as follows:
   impact 0.7
   tag severity: nil
   tag gtitle: 'SRG-OS-000074-GPOS-00042'
-  tag satisfies: ['SRG-OS-000074-GPOS-00042', 'SRG-OS-000480-GPOS-00227']
+  tag satisfies: %w{SRG-OS-000074-GPOS-00042 SRG-OS-000480-GPOS-00227}
   tag gid: 'V-72251'
   tag rid: 'SV-86875r4_rule'
   tag stig_id: 'RHEL-07-040390'
   tag fix_id: 'F-78605r2_fix'
-  tag cci: ['CCI-000197', 'CCI-000366']
+  tag cci: %w{CCI-000197 CCI-000366}
   tag nist: ['IA-5 (1) (c)', 'CM-6 b']
 
   if os.release.to_f >= 7.4

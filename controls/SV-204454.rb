@@ -14,8 +14,8 @@ events to be audited, and setting intrusion detection parameters.
 verification/testing and/or systems and environments that require this
 functionality.
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     If an HBSS or HIPS is active on the system, this is Not Applicable.
 
     Verify the operating system verifies correct operation of all security
@@ -56,7 +56,7 @@ the following command:
     If no results are returned or \"SELINUXTYPE\" is not set to \"targeted\",
 this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to verify correct operation of all security
 functions.
 
@@ -74,7 +74,7 @@ functions.
   tag rid: 'SV-86615r5_rule'
   tag stig_id: 'RHEL-07-020220'
   tag fix_id: 'F-78343r2_fix'
-  tag cci: ['CCI-002165', 'CCI-002696']
+  tag cci: %w{CCI-002165 CCI-002696}
   tag nist: ['AC-3 (4)', 'SI-6 a']
 
   describe.one do

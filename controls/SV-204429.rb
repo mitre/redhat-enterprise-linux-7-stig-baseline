@@ -9,8 +9,8 @@ capability, it is critical the user re-authenticate.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     If passwords are not being used for authentication, this is Not Applicable.
 
     Verify the operating system requires users to supply a password for
@@ -23,7 +23,7 @@ files with the following command:
 
     If any uncommented line is found with a \"NOPASSWD\" tag, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to require users to supply a password for
 privilege escalation.
 
@@ -42,8 +42,8 @@ command:
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000373-GPOS-00156'
-  tag satisfies: ['SRG-OS-000373-GPOS-00156', 'SRG-OS-000373-GPOS-00157',
-                  'SRG-OS-000373-GPOS-00158']
+  tag satisfies: %w{SRG-OS-000373-GPOS-00156 SRG-OS-000373-GPOS-00157
+                    SRG-OS-000373-GPOS-00158}
   tag gid: 'V-71947'
   tag rid: 'SV-86571r3_rule'
   tag stig_id: 'RHEL-07-010340'
@@ -64,20 +64,20 @@ command:
       to_process.concat(
         command("find #{in_process} -maxdepth 1 -mindepth 1")
           .stdout.strip.split("\n")
-          .select { |f| file(f).file? }
+          .select { |f| file(f).file? },
       )
     elsif file(in_process).file?
       to_process.concat(
         command("grep -E '#include\\s+' #{in_process} | sed 's/.*#include[[:space:]]*//g'")
           .stdout.strip.split("\n")
           .map { |f| f.start_with?('/') ? f : File.join(File.dirname(in_process), f) }
-          .select { |f| file(f).exist? }
+          .select { |f| file(f).exist? },
       )
       to_process.concat(
         command("grep -E '#includedir\\s+' #{in_process} | sed 's/.*#includedir[[:space:]]*//g'")
           .stdout.strip.split("\n")
           .map { |f| f.start_with?('/') ? f : File.join(File.dirname(in_process), f) }
-          .select { |f| file(f).exist? }
+          .select { |f| file(f).exist? },
       )
     end
   end

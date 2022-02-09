@@ -6,8 +6,8 @@ record storage capacity is reached."
   desc  "If security personnel are not notified immediately when the threshold
 for the repository maximum audit record storage capacity is reached, they are
 unable to expand the audit record storage capacity before records are lost."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system immediately notifies the SA and ISSO (at a
 minimum) via email when the allocated audit record storage volume reaches 75
 percent of the repository maximum audit record storage capacity.
@@ -22,7 +22,7 @@ command:
     If the value of the \"space_left_action\" keyword is not set to \"email\",
 this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to immediately notify the SA and ISSO (at a
 minimum) when the threshold for the repository maximum audit record storage
 capacity is reached.

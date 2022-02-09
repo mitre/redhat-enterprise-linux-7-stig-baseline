@@ -12,8 +12,8 @@ daemon will not off load the logs from the system being audited.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the \"au-remote\" plugin is configured to always off-load audit logs
 using the audisp-remote daemon:
 
@@ -34,7 +34,7 @@ is commented out, this is a finding.
     If the \"type\" setting is not set to \"always\", or the line is commented
 out, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Edit the /etc/audisp/plugins.d/au-remote.conf file and add or update the
 following values:
 
@@ -49,7 +49,7 @@ following values:
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
-  tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
+  tag satisfies: %w{SRG-OS-000342-GPOS-00133 SRG-OS-000479-GPOS-00224}
   tag gid: 'V-81017'
   tag rid: 'SV-95729r1_rule'
   tag stig_id: 'RHEL-07-030201'

@@ -4,8 +4,8 @@ that the audit system takes appropriate action when the audit storage volume is
 full."
   desc  "Taking appropriate action in case of a filled audit storage volume
 will minimize the possibility of losing audit records."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the action the operating system takes if the disk the audit records
 are written to becomes full.
 
@@ -18,7 +18,7 @@ server, use the following command:
     If the value of the \"disk_full_action\" option is not \"syslog\",
 \"single\", or \"halt\", or the line is commented out, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the action the operating system takes if the disk the audit
 records are written to becomes full.
 
@@ -39,11 +39,11 @@ records are written to becomes full.
   tag nist: ['AU-4 (1)']
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('disk_full_action'.to_s) { should be_in ['syslog', 'single', 'halt'] }
+    its('disk_full_action'.to_s) { should be_in %w{syslog single halt} }
   end
 
   # Test matches ./inspec-profiles/controls/V-73163.rb
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('network_failure_action'.to_s) { should be_in ['syslog', 'single', 'halt'] }
+    its('network_failure_action'.to_s) { should be_in %w{syslog single halt} }
   end
 end

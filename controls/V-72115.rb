@@ -11,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"lsetxattr\" syscall occur.
 
@@ -30,7 +30,7 @@ following commands:
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"lsetxattr\" syscall, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"lsetxattr\" syscall occur.
 
@@ -47,8 +47,8 @@ successful/unsuccessful attempts to use the \"lsetxattr\" syscall occur.
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000458-GPOS-00203'
-  tag satisfies: ['SRG-OS-000458-GPOS-00203', 'SRG-OS-000392-GPOS-00172',
-                  'SRG-OS-000064-GPOS-00033']
+  tag satisfies: %w{SRG-OS-000458-GPOS-00203 SRG-OS-000392-GPOS-00172
+                    SRG-OS-000064-GPOS-00033}
   tag gid: 'V-72115'
   tag rid: 'SV-86739r5_rule'
   tag stig_id: 'RHEL-07-030460'

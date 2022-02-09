@@ -11,8 +11,8 @@ compromise.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"su\" command occur.
 
@@ -26,7 +26,7 @@ privileged-priv_change
 
     If the command does not return any output, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"su\" command occur.
 
@@ -39,14 +39,14 @@ privileged-priv_change
   "
   tag severity: nil
   tag gtitle: 'SRG-OS-000037-GPOS-00015'
-  tag satisfies: ['SRG-OS-000037-GPOS-00015', 'SRG-OS-000042-GPOS-00020',
-                  'SRG-OS-000392-GPOS-00172', 'SRG-OS-000462-GPOS-00206',
-                  'SRG-OS-000471-GPOS-00215']
+  tag satisfies: %w{SRG-OS-000037-GPOS-00015 SRG-OS-000042-GPOS-00020
+                    SRG-OS-000392-GPOS-00172 SRG-OS-000462-GPOS-00206
+                    SRG-OS-000471-GPOS-00215}
   tag gid: 'V-72159'
   tag rid: 'SV-86783r5_rule'
   tag stig_id: 'RHEL-07-030680'
   tag fix_id: 'F-78511r6_fix'
-  tag cci: ['CCI-000130', 'CCI-000135', 'CCI-000172', 'CCI-002884']
+  tag cci: %w{CCI-000130 CCI-000135 CCI-000172 CCI-002884}
   tag nist: ['AU-3', 'AU-3 (1)', 'AU-12 c', 'MA-4 (1) (a)']
 
   audit_file = '/usr/bin/su'

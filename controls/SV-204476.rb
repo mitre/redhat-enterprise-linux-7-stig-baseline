@@ -4,8 +4,8 @@ that all local initialization files have mode 0740 or less permissive."
   desc  "Local initialization files are used to configure the user's shell
 environment upon logon. Malicious modification of these files could compromise
 accounts upon logon."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify that all local initialization files have a mode of \"0740\" or less
 permissive.
 
@@ -23,7 +23,7 @@ of \"/home/smithj\".
     If any local initialization files have a mode more permissive than
 \"0740\", this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Set the mode of the local initialization files to \"0740\" with the
 following command:
 
@@ -48,7 +48,7 @@ of \"/home/smithj\".
   ignore_shells = non_interactive_shells.join('|')
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid.zero?) }.entries.each do |user_info|
     findings += command("find #{user_info.home} -xdev -maxdepth 1 -name '.*' -type f -perm /037").stdout.split("\n")
   end
   describe findings do

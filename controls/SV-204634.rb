@@ -8,8 +8,8 @@ wireless access point (AP), allowing validated systems to connect to the
 malicious AP and enabling the attacker to monitor and record network traffic.
 These malicious APs can also serve to create a man-in-the-middle attack or be
 used to create a denial of service to valid network resources."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify that there are no wireless interfaces configured on the system.
 
     This is N/A for systems that do not have wireless network adapters.
@@ -27,7 +27,7 @@ command:
 documented with the Information System Security Officer (ISSO), this is a
 finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the system to disable all wireless network interfaces with the
 following command:
 
@@ -40,7 +40,7 @@ following command:
   tag rid: 'SV-87829r2_rule'
   tag stig_id: 'RHEL-07-041010'
   tag fix_id: 'F-79623r1_fix'
-  tag cci: ['CCI-001443', 'CCI-001444', 'CCI-002418']
+  tag cci: %w{CCI-001443 CCI-001444 CCI-002418}
   tag nist: ['AC-18 (1)', 'AC-18 (1)', 'SC-8']
 
   describe command('nmcli device') do

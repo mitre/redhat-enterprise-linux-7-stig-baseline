@@ -18,8 +18,8 @@ and releases the resources associated with that session.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system automatically terminates a user session after
 inactivity time-outs have expired.
 
@@ -31,7 +31,7 @@ following command:
 
     If \"ClientAliveCountMax\" is not set to \"0\", this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to terminate automatically a user session
 after inactivity time-outs have expired or at shutdown.
 
@@ -47,13 +47,13 @@ third-party vendor):
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000163-GPOS-00072'
-  tag satisfies: ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000279-GPOS-00109']
+  tag satisfies: %w{SRG-OS-000163-GPOS-00072 SRG-OS-000279-GPOS-00109}
   tag gid: 'V-72241'
   tag rid: 'SV-86865r4_rule'
   tag stig_id: 'RHEL-07-040340'
   tag fix_id: 'F-78595r4_fix'
-  tag cci: ['CCI-001133', 'CCI-002361']
-  tag nist: ['SC-10', 'AC-12']
+  tag cci: %w{CCI-001133 CCI-002361}
+  tag nist: %w{SC-10 AC-12}
 
   if os.release.to_f >= 7.4
     impact 0.0

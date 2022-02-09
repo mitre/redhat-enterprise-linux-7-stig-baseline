@@ -12,8 +12,8 @@ takes to crack a password. The more complex the password, the greater the
 number of possible combinations that need to be tested before the password is
 compromised.
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Note: The value to require a number of numeric characters to be set is
 expressed as a negative number in \"/etc/security/pwquality.conf\".
 
@@ -26,7 +26,7 @@ the following command:
     If the value of \"dcredit\" is not set to a negative value, this is a
 finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to enforce password complexity by requiring
 that at least one numeric character be used by setting the \"dcredit\" option.
 
@@ -46,6 +46,6 @@ to have the required value):
   tag nist: ['IA-5 (1) (a)']
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('dcredit.to_i') { should cmp < 0 }
+    its('dcredit.to_i') { should cmp.negative? }
   end
 end

@@ -11,8 +11,8 @@ it takes to crack a password. Use of more characters in a password helps to
 exponentially increase the time and/or resources required to compromise the
 password.
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system enforces a minimum 15-character password
 length. The \"minlen\" option sets the minimum number of characters in a new
 password.
@@ -26,7 +26,7 @@ password.
     If the command does not return a \"minlen\" value of 15 or greater, this is
 a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure operating system to enforce a minimum 15-character password
 length.
 

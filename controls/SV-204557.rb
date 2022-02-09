@@ -10,8 +10,8 @@ detail to reconstruct events to determine the cause and impact of compromise.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"crontab\" command occur.
 
@@ -25,7 +25,7 @@ following command to check the file system rules in \"/etc/audit/audit.rules\":
 
     If the command does not return any output, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"crontab\" command occur.
 
@@ -38,13 +38,13 @@ successful/unsuccessful attempts to use the \"crontab\" command occur.
   "
   tag severity: nil
   tag gtitle: 'SRG-OS-000042-GPOS-00020'
-  tag satisfies: ['SRG-OS-000042-GPOS-00020', 'SRG-OS-000392-GPOS-00172',
-                  'SRG-OS-000471-GPOS-00215']
+  tag satisfies: %w{SRG-OS-000042-GPOS-00020 SRG-OS-000392-GPOS-00172
+                    SRG-OS-000471-GPOS-00215}
   tag gid: 'V-72183'
   tag rid: 'SV-86807r3_rule'
   tag stig_id: 'RHEL-07-030800'
   tag fix_id: 'F-78537r4_fix'
-  tag cci: ['CCI-000135', 'CCI-000172', 'CCI-002884']
+  tag cci: %w{CCI-000135 CCI-000172 CCI-002884}
   tag nist: ['AU-3 (1)', 'AU-12 c', 'MA-4 (1) (a)']
 
   audit_file = '/usr/bin/crontab'

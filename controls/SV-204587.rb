@@ -19,8 +19,8 @@ and releases the resources associated with that session.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system automatically terminates a user session after
 inactivity time-outs have expired.
 
@@ -38,7 +38,7 @@ of \"0\", this is a finding.
 not documented with the Information System Security Officer (ISSO) as an
 operational requirement, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to automatically terminate a user session
 after inactivity time-outs have expired or at shutdown.
 
@@ -54,13 +54,13 @@ third-party vendor):
   impact 0.5
   tag severity: nil
   tag gtitle: 'SRG-OS-000163-GPOS-00072'
-  tag satisfies: ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000279-GPOS-00109']
+  tag satisfies: %w{SRG-OS-000163-GPOS-00072 SRG-OS-000279-GPOS-00109}
   tag gid: 'V-72237'
   tag rid: 'SV-86861r4_rule'
   tag stig_id: 'RHEL-07-040320'
   tag fix_id: 'F-78591r2_fix'
-  tag cci: ['CCI-001133', 'CCI-002361']
-  tag nist: ['SC-10', 'AC-12']
+  tag cci: %w{CCI-001133 CCI-002361}
+  tag nist: %w{SC-10 AC-12}
 
   client_alive_interval = input('client_alive_interval')
 

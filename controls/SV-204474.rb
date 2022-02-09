@@ -5,8 +5,8 @@ directory user or root."
   desc  "Local initialization files are used to configure the user's shell
 environment upon logon. Malicious modification of these files could compromise
 accounts upon logon."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the local initialization files of all local interactive users are
 group-owned by that user's primary Group Identifier (GID).
 
@@ -38,7 +38,7 @@ with the following command:
     If all local interactive user's initialization files are not group-owned by
 that user's primary GID, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Set the owner of the local initialization files for interactive users to
 either the directory owner or root with the following command:
 
@@ -63,7 +63,7 @@ either the directory owner or root with the following command:
   ignore_shells = non_interactive_shells.join('|')
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid.zero?) }.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
     findings += command("find #{user_info.home} -name '.*' -not -user #{user_info.username} -a -not -user root").stdout.split("\n")

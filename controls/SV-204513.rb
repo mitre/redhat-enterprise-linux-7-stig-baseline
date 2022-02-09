@@ -6,8 +6,8 @@ the repository maximum audit record storage capacity."
   desc  "If security personnel are not notified immediately when storage volume
 reaches 75 percent utilization, they are unable to plan for audit record
 storage capacity expansion."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system initiates an action to notify the SA and ISSO
 (at a minimum) when allocated audit record storage volume reaches 75 percent of
 the repository maximum audit record storage capacity.
@@ -41,7 +41,7 @@ percent of the repository maximum audit record storage capacity is reached:
     If the value of the \"space_left\" keyword is not set to 25 percent of the
 total partition size, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to initiate an action to notify the SA and
 ISSO (at a minimum) when allocated audit record storage volume reaches 75
 percent of the repository maximum audit record storage capacity.
@@ -72,7 +72,7 @@ to 25 percent of the partition size.
   if (f = file(audit_log_dir = command("dirname #{auditd_conf.log_file}").stdout.strip)).directory?
     # Fetch partition sizes in 1K blocks for consistency
     partition_info = command("df -B 1K #{audit_log_dir}").stdout.split("\n")
-    partition_sz_arr = partition_info.last.gsub(/\s+/m, ' ').strip.split(' ')
+    partition_sz_arr = partition_info.last.gsub(/\s+/m, ' ').strip.split
 
     # Get partition size
     partition_sz = partition_sz_arr[1]

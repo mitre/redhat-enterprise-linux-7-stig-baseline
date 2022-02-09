@@ -7,8 +7,8 @@ provide additional agility in reacting to network threats. These tools also
 often include a reporting capability to provide network awareness of the
 system, which may not otherwise exist in an organization's systems management
 regime."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Ask the SA or ISSO if a host-based intrusion detection application is
 loaded on the system. Per OPORD 16-0080, the preferred intrusion detection
 system is McAfee HBSS available through the U.S. Cyber Command (USCYBERCOM).
@@ -45,7 +45,7 @@ finding.
     If no host-based intrusion detection system is installed and running on the
 system, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Install and enable the latest McAfee HIPS package, available from
 USCYBERCOM.
 
@@ -65,14 +65,7 @@ with the Authorizing Official.
 
   custom_hips = input('custom_hips')
 
-  if !custom_hips
-    describe package('MFEhiplsm') do
-      it { should be_installed }
-    end
-    describe processes(/hipclient/) do
-      it { should exist }
-    end
-  else
+  if custom_hips
     # Special case for SELinux
     sel_mode = command('getenforce').stdout.strip
     custom_hips_daemon = input('custom_hips_daemon')
@@ -87,6 +80,13 @@ with the Authorizing Official.
         it { should exist }
         its('count') { should be < max_daemon_processes }
       end
+    end
+  else
+    describe package('MFEhiplsm') do
+      it { should be_installed }
+    end
+    describe processes(/hipclient/) do
+      it { should exist }
     end
   end
 end

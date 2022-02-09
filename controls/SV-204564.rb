@@ -12,8 +12,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify the operating system must generate audit records for all account
 creations, modifications, disabling, and termination events that affect
 \"/etc/passwd\".
@@ -28,7 +28,7 @@ command:
     If the command does not return a line, or the line is commented out, this
 is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Configure the operating system to generate audit records for all account
 creations, modifications, disabling, and termination events that affect
 \"/etc/passwd\".
@@ -41,14 +41,14 @@ creations, modifications, disabling, and termination events that affect
   "
   tag severity: nil
   tag gtitle: 'SRG-OS-000004-GPOS-00004'
-  tag satisfies: ['SRG-OS-000004-GPOS-00004', 'SRG-OS-000239-GPOS-00089',
-                  'SRG-OS-000240-GPOS-00090', 'SRG-OS-000241-GPOS-00091',
-                  'SRG-OS-000303-GPOS-00120', 'SRG-OS-000476-GPOS-00221']
+  tag satisfies: %w{SRG-OS-000004-GPOS-00004 SRG-OS-000239-GPOS-00089
+                    SRG-OS-000240-GPOS-00090 SRG-OS-000241-GPOS-00091
+                    SRG-OS-000303-GPOS-00120 SRG-OS-000476-GPOS-00221}
   tag gid: 'V-72197'
   tag rid: 'SV-86821r5_rule'
   tag stig_id: 'RHEL-07-030870'
   tag fix_id: 'F-78551r4_fix'
-  tag cci: ['CCI-000018', 'CCI-000172', 'CCI-001403', 'CCI-002130']
+  tag cci: %w{CCI-000018 CCI-000172 CCI-001403 CCI-002130}
   tag nist: ['AC-2 (4)', 'AU-12 c', 'AC-2 (4)', 'AC-2 (4)']
 
   audit_file = '/etc/passwd'

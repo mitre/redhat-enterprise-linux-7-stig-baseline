@@ -5,8 +5,8 @@ directories are owned by the owner of the home directory."
   desc  "If local interactive users do not own the files in their directories,
 unauthorized users may be able to access them. Additionally, if files are not
 owned by the user, this could be an indication of system compromise."
-  tag 'rationale': ''
-  tag 'check': "
+  tag rationale: ''
+  tag check: "
     Verify all files and directories in a local interactive user's home
 directory are owned by the user.
 
@@ -24,7 +24,7 @@ of \"/home/smithj\".
     If any files are found with an owner different than the home directory
 user, this is a finding.
   "
-  tag 'fix': "
+  tag fix: "
     Change the owner of a local interactive user's files and directories to
 that owner. To change the owner of a local interactive user's files and
 directories, use the following command:
@@ -53,7 +53,7 @@ directories, use the following command:
   uid_min = 1000 if uid_min.nil?
 
   findings = Set[]
-  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid.zero?) }.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
     findings += command("find #{user_info.home} -xdev -xautofs -not -user #{user_info.username}").stdout.split("\n")
