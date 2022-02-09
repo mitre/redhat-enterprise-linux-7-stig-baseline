@@ -1,0 +1,6 @@
+- hosts: localhost
+  gather_facts: no
+  become: yes
+  roles:
+    - vanilla
+    - rhel7STIG
