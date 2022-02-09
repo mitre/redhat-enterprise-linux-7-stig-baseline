@@ -15,12 +15,12 @@ driver:
 
 verifier:
   input_files:
-    - dokken.inputs.yml
+    - container.inputs.yml
   reporter:
-    - json:reports/raw/ubi-%{suite}-%{platform}.json
+    - json:reports/raw/container-%{suite}-%{platform}.json
 
 suites:
-  - name: vanilla      
+  - name: vanilla
     driver:
       image: <%= ENV['VANILLA_CONTAINER_IMAGE'] %>
   - name: hardened
