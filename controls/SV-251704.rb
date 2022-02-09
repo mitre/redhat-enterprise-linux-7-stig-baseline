@@ -12,16 +12,10 @@ control 'SV-251704' do
   tag fix_id: 'F-55095r809567_fix'
   tag cci: ['CCI-002038']
   tag legacy: []
-  tag false_negatives: ''
-  tag false_positives: ''
-  tag documentable: false
-  tag mitigations: ''
-  tag severity_override_guidance: ''
-  tag potential_impacts: ''
-  tag third_party_tools: ''
-  tag mitigation_controls: ''
-  tag responsibility: ''
-  tag ia_controls: ''
   tag check: "Verify the operating system is not be configured to bypass password requirements for privilege escalation.\n\nCheck the configuration of the \"/etc/pam.d/sudo\" file with the following command:\n\n$ sudo grep pam_succeed_if /etc/pam.d/sudo\n\nIf any occurrences of \"pam_succeed_if\" is returned from the command, this is a finding."
   tag fix: "Configure the operating system to require users to supply a password for privilege escalation.\n\nCheck the configuration of the \"/etc/ pam.d/sudo\" file with the following command:\n$ sudo vi /etc/pam.d/sudo\n\nRemove any occurrences of \"pam_succeed_if\" in the file."
+
+  describe parse_config_file('/etc/pam.d/sudo') do
+    its('content') { should_not match /pam_succeed_if/ }
+  end
 end
