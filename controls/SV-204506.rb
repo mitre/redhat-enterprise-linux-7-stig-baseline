@@ -6,8 +6,8 @@ control 'SV-204506' do
     One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon.
     Without the configuration of the "au-remote" plugin, the audisp-remote daemon will not off load the logs from the
     system being audited.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the "au-remote" plugin is configured to always off-load audit logs using the audisp-remote
+  desc 'rationale', ''
+  desc 'check', 'Verify the "au-remote" plugin is configured to always off-load audit logs using the audisp-remote
     daemon:
     # cat /etc/audisp/plugins.d/au-remote.conf | grep -v "^#"
     active = yes
@@ -20,7 +20,7 @@ control 'SV-204506' do
     audit logs are off-loaded to a different system or storage media.
     If there is no evidence that the system is configured to off-load audit logs to a different system or storage media,
     this is a finding.'
-  tag 'fix': 'Edit the /etc/audisp/plugins.d/au-remote.conf file and add or update the following values:
+  desc 'fix', 'Edit the /etc/audisp/plugins.d/au-remote.conf file and add or update the following values:
     direction = out
     path = /sbin/audisp-remote
     type = always

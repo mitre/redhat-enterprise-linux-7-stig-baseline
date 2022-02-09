@@ -13,8 +13,8 @@ control 'SV-204517' do
     system. Therefore, it is very important to use syscall rules only when absolutely necessary since these affect
     performance. The more rules, the bigger the performance hit. The performance can be helped, however, by combining
     syscalls into one rule whenever possible.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
     "chown", "fchown", "fchownat", and "lchown" syscalls.
     Check the file system rules in "/etc/audit/audit.rules" with the following commands:
     # grep chown /etc/audit/audit.rules

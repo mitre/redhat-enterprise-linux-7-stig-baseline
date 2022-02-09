@@ -3,8 +3,8 @@ control 'SV-204613' do
     Internet Control Message Protocol (ICMP) echoes sent to a broadcast address.'
   desc 'Responding to broadcast (ICMP) echoes facilitates network mapping and provides a vector for amplification
     attacks.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the system does not respond to IPv4 ICMP echoes sent to a broadcast address.
+  desc 'rationale', ''
+  desc 'check', 'Verify the system does not respond to IPv4 ICMP echoes sent to a broadcast address.
     # grep net.ipv4.icmp_echo_ignore_broadcasts /etc/sysctl.conf /etc/sysctl.d/*
     If " net.ipv4.icmp_echo_ignore_broadcasts" is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/
     directory, is commented out, or does not have a value of "1", this is a finding.

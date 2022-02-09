@@ -3,8 +3,8 @@ control 'SV-204499' do
     configured to verify extended attributes.'
   desc 'Extended attributes in file systems are used to contain arbitrary data and file metadata with security
     implications.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the file integrity tool is configured to verify extended attributes.
+  desc 'rationale', ''
+  desc 'check', 'Verify the file integrity tool is configured to verify extended attributes.
     Check to see if Advanced Intrusion Detection Environment (AIDE) is installed on the system with the following
     command:
     # yum list installed aide
@@ -22,7 +22,7 @@ control 'SV-204499' do
     /sbin All # apply the same custom rule to the files in sbin
     If the "xattrs" rule is not being used on all uncommented selection lines in the "/etc/aide.conf" file, or extended
     attributes are not being checked by another file integrity tool, this is a finding.'
-  tag 'fix': 'Configure the file integrity tool to check file and directory extended attributes.
+  desc 'fix', 'Configure the file integrity tool to check file and directory extended attributes.
     If AIDE is installed, ensure the "xattrs" rule is present on all uncommented file and directory selection lists.'
   impact 0.3
   tag 'legacy': ['SV-86695', 'V-72071']

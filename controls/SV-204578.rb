@@ -11,8 +11,8 @@ control 'SV-204578' do
     The system will attempt to use the first cipher presented by the client that matches the server list. Listing the
     values "strongest to weakest" is a method to ensure the use of the strongest cipher available to secure the SSH
     connection.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system uses mechanisms meeting the requirements of applicable federal laws,
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system uses mechanisms meeting the requirements of applicable federal laws,
     Executive orders, directives, policies, regulations, standards, and guidance for authentication to a cryptographic
     module.
     The location of the "sshd_config" file may vary if a different daemon is in use.
@@ -21,7 +21,7 @@ control 'SV-204578' do
     Ciphers aes256-ctr,aes192-ctr,aes128-ctr
     If any ciphers other than "aes256-ctr", "aes192-ctr", or "aes128-ctr" are listed, the order differs from the example
     above, the "Ciphers" keyword is missing, or the returned line is commented out, this is a finding.'
-  tag 'fix': 'Configure SSH to use FIPS 140-2 approved cryptographic algorithms.
+  desc 'fix', 'Configure SSH to use FIPS 140-2 approved cryptographic algorithms.
     Add the following line (or modify the line to have the required value) to the "/etc/ssh/sshd_config" file (this file
     may be named differently or be in a different location if using a version of SSH that is provided by a third-party
     vendor).

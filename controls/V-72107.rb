@@ -30,7 +30,7 @@ perm_mod
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"fchmod\" syscall, this is a finding.
   "
-  tag 'fix': "
+  desc 'fix', "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"fchmod\" syscall occur.
 

@@ -13,8 +13,8 @@ files or otherwise compromise the system at the user level. If the system is
 compromised at the user level, it is easier to elevate privileges to eventually
 compromise the system at the root and network level."
   end
-  tag 'rationale': ''
-  tag 'check': %q(Verify that local initialization files do not execute world-writable programs.
+  desc 'rationale', ''
+  desc 'check', %q(Verify that local initialization files do not execute world-writable programs.
     Check the system for world-writable files with the following command:
     # find / -xdev -perm -002 -type f -exec ls -ld {} \; | more
     For all files listed, check for their presence in the local initialization files with the following commands:

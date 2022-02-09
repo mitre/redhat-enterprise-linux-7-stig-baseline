@@ -4,8 +4,8 @@ control 'SV-204611' do
   desc 'Enabling reverse path filtering drops packets with source addresses that should not have been able to be
     received on the interface they were received on. It should not be used on systems which are routers for complicated
     networks, but is helpful for end hosts and routers serving small networks.'
-  tag 'rationale': ''
-  tag 'check': 'Verify the system uses a reverse-path filter for IPv4:
+  desc 'rationale', ''
+  desc 'check', 'Verify the system uses a reverse-path filter for IPv4:
     # grep net.ipv4.conf.default.rp_filter /etc/sysctl.conf /etc/sysctl.d/*
     net.ipv4.conf.default.rp_filter = 1
     If "net.ipv4.conf.default.rp_filter" is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/

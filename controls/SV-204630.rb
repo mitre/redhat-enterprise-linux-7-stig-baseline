@@ -4,8 +4,8 @@ control 'SV-204630' do
     different path than configured on the router, which can be used to bypass network security measures. This
     requirement applies only to the forwarding of source-routed traffic, such as when IPv6 forwarding is enabled and the
     system is functioning as a router.'
-  tag 'rationale': ''
-  tag 'check': 'If IPv6 is not enabled, the key will not exist, and this is Not Applicable.
+  desc 'rationale', ''
+  desc 'check', 'If IPv6 is not enabled, the key will not exist, and this is Not Applicable.
     Verify the system does not accept IPv6 source-routed packets.
     # grep net.ipv6.conf.all.accept_source_route /etc/sysctl.conf /etc/sysctl.d/*
     net.ipv6.conf.all.accept_source_route = 0

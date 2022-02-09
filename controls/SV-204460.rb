@@ -3,8 +3,8 @@ control 'SV-204460' do
   desc 'Accounts providing no operational purpose provide additional opportunities for system compromise.
     Unnecessary accounts include user accounts for individuals not requiring access to the system and application
     accounts for applications not installed on the system.'
-  tag 'rationale': ''
-  tag 'check': 'Verify all accounts on the system are assigned to an active system, application, or user account.
+  desc 'rationale', ''
+  desc 'check', 'Verify all accounts on the system are assigned to an active system, application, or user account.
     Obtain the list of authorized system accounts from the Information System Security Officer (ISSO).
     Check the system accounts on the system with the following command:
     # more /etc/passwd
@@ -20,7 +20,7 @@ control 'SV-204460' do
     functions.
     If the accounts on the system do not match the provided documentation, or accounts that do not support an authorized
     system function are present, this is a finding.'
-  tag 'fix': 'Configure the system so all accounts on the system are assigned to an active system, application, or
+  desc 'fix', 'Configure the system so all accounts on the system are assigned to an active system, application, or
     user account.
     Remove accounts that do not support approved system activities or that allow for a normal user to perform
     administrative-level actions.

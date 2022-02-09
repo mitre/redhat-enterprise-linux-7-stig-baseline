@@ -6,13 +6,13 @@ control 'SV-204540' do
     responsible for one.
     Audit records can be generated from various components within the information system (e.g., module or policy
     filter).'
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records when unsuccessful account access events occur.
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system generates audit records when unsuccessful account access events occur.
     Check the file system rule in "/etc/audit/audit.rules" with the following commands:
     # grep -i /var/run/faillock /etc/audit/audit.rules
     -w /var/run/faillock -p wa -k logins
     If the command does not return any output, this is a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records when unsuccessful account access events
+  desc 'fix', 'Configure the operating system to generate audit records when unsuccessful account access events
     occur.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -w /var/run/faillock -p wa -k logins

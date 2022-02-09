@@ -27,7 +27,7 @@ the following command:
     If any interactive users do not have a home directory assigned, this is a
 finding.
   "
-  tag 'fix': "Assign home directories to all local interactive users that
+  desc 'fix', "Assign home directories to all local interactive users that
 currently do not have a home directory assigned."
   impact 0.5
   tag severity: nil
