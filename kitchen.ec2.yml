@@ -5,8 +5,6 @@ platforms:
 driver:
   name: ec2
   aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
-  # aws_access_key: "<%= ENV['AWS_ACCESS_KEY_ID'] %>"
-  # aws_secret_key: "<%= ENV['AWS_SECRET_ACCESS_KEY'] %>"
   user_data: ./user_data.sh
   tags:
     POC: <%= ENV['POC_TAG'] %>
@@ -18,8 +16,8 @@ driver:
 
 transport:
   name: ssh
-  username: ec2-user
-  ssh_key: ./ssh_key
+  username: <%= ENV['AWS_EC2_USER'] %>
+  ssh_key: <%= ENV['AWS_EC2_SSH_KEY'] %>
   connection_timeout: 10
   connection_retries: 5
 
