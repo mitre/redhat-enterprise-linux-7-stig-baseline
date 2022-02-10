@@ -11,16 +11,39 @@ control 'SV-219059' do
   tag fix_id: 'F-36318r602663_fix'
   tag cci: ['CCI-000366', 'CCI-000778', 'CCI-001958']
   tag legacy: ['V-100023', 'SV-109127']
-  tag false_negatives: ''
-  tag false_positives: ''
-  tag documentable: false
-  tag mitigations: ''
-  tag severity_override_guidance: ''
-  tag potential_impacts: ''
-  tag third_party_tools: ''
-  tag mitigation_controls: ''
-  tag responsibility: ''
-  tag ia_controls: ''
+  tag container: 'N/A'
   tag check: "Note: If the operating system does not have a graphical user interface installed, this requirement is Not Applicable.\n\nVerify the operating system disables the ability to automount devices in a graphical user interface.\n\nNote: The example below is using the database \"local\" for the system, so the path is \"/etc/dconf/db/local.d\". This path must be modified if a database other than \"local\" is being used.\n\nCheck to see if automounter service is disabled with the following commands:\n# cat /etc/dconf/db/local.d/00-No-Automount\n\n[org/gnome/desktop/media-handling]\n\nautomount=false\n\nautomount-open=false\n\nautorun-never=true\n\nIf the output does not match the example above, this is a finding.\n\n# cat /etc/dconf/db/local.d/locks/00-No-Automount\n\n/org/gnome/desktop/media-handling/automount\n\n/org/gnome/desktop/media-handling/automount-open\n\n/org/gnome/desktop/media-handling/autorun-never\n\nIf the output does not match the example, this is a finding."
   tag fix: "Configure the graphical user interface to disable the ability to automount devices.\n\nNote: The example below is using the database \"local\" for the system, so the path is \"/etc/dconf/db/local.d\". This path must be modified if a database other than \"local\" is being used.\n\nCreate or edit the /etc/dconf/db/local.d/00-No-Automount file and add the following:  \n\n[org/gnome/desktop/media-handling]\n\nautomount=false\n\nautomount-open=false\n\nautorun-never=true\n\nCreate or edit the /etc/dconf/db/local.d/locks/00-No-Automount file and add the following:\n/org/gnome/desktop/media-handling/automount\n\n/org/gnome/desktop/media-handling/automount-open\n\n/org/gnome/desktop/media-handling/autorun-never\n\nRun the following command to update the database:\n\n# dconf update"
+
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
+    end
+  else
+    if package('gnome-desktop3').installed?
+
+      options = {
+        assignment_regex: /^\s*([^=]*?)\s*=\s*(.*?)\s*$/
+      }
+
+      describe parse_config_file(input('automount_config'), options) do
+        its('automount') { should cmp 'false' }
+        its('automount-open') { should cmp 'false' }
+        its('autorun-never') { should cmp 'true' }
+      end
+      describe file(input('automount_locks_config')) do
+        its('content') { should match /automount$/ }
+        its('content') { should match /automount-open$/ }
+        its('content') { should match /autorun-never$/ }
+      end
+    else
+      impact 0.0
+      describe 'The system does not have GNOME installed' do
+        skip "The system does not have GNOME installed, this requirement is Not
+        Applicable."
+      end
+    end
+  end
+
 end

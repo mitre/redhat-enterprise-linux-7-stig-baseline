@@ -11,16 +11,19 @@ control 'SV-237633' do
   tag fix_id: 'F-40815r646849_fix'
   tag cci: ['CCI-000366']
   tag legacy: []
-  tag false_negatives: ''
-  tag false_positives: ''
-  tag documentable: false
-  tag mitigations: ''
-  tag severity_override_guidance: ''
-  tag potential_impacts: ''
-  tag third_party_tools: ''
-  tag mitigation_controls: ''
-  tag responsibility: ''
-  tag ia_controls: ''
+  tag container: 'N/A'
   tag check: "Verify the \"sudoers\" file restricts sudo access to authorized personnel.\n$ sudo grep -iw 'ALL' /etc/sudoers /etc/sudoers.d/*\n\nIf the either of the following entries are returned, this is a finding:\nALL     ALL=(ALL) ALL\nALL     ALL=(ALL:ALL) ALL"
   tag fix: "Remove the following entries from the sudoers file:\nALL     ALL=(ALL) ALL\nALL     ALL=(ALL:ALL) ALL"
+
+  if virtualization.system.eql?('docker') && !command("sudo").exist?
+    impact 0.0
+    describe "Control not applicable within a container without sudo enabled" do
+      skip "Control not applicable within a container without sudo enabled"
+    end
+  else
+    describe command("grep -iw 'ALL' /etc/sudoers /etc/sudoers.d/*").stdout do
+      it { should_not match /ALL ALL=\(ALL\) ALL/ }
+      it { should_not match /ALL ALL=\(ALL:ALL\) ALL/ }
+    end
+  end
 end
