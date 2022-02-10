@@ -11,16 +11,18 @@ control 'SV-233307' do
   tag fix_id: 'F-36466r622234_fix'
   tag cci: ['CCI-000366']
   tag legacy: []
-  tag false_negatives: ''
-  tag false_positives: ''
-  tag documentable: false
-  tag mitigations: ''
-  tag severity_override_guidance: ''
-  tag potential_impacts: ''
-  tag third_party_tools: ''
-  tag mitigation_controls: ''
-  tag responsibility: ''
-  tag ia_controls: ''
+  tag container: 'N/A'
   tag check: "Verify the SSH daemon prevents remote hosts from connecting to the proxy display.\n\nCheck the SSH X11UseLocalhost setting with the following command:\n\n# sudo grep -i x11uselocalhost /etc/ssh/sshd_config\nX11UseLocalhost yes\n\nIf the \"X11UseLocalhost\" keyword is set to \"no\", is missing, or is commented out, this is a finding."
   tag fix: "Configure the SSH daemon to prevent remote hosts from connecting to the proxy display.\n\nEdit the \"/etc/ssh/sshd_config\" file to uncomment or add the line for the \"X11UseLocalhost\" keyword and set its value to \"yes\" (this file may be named differently or be in a different location if using a version of SSH that is provided by a third-party vendor):\n\nX11UseLocalhost yes"
+
+  if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
+    impact 0.0
+    describe "Control not applicable - SSH is not installed within containerized RHEL" do
+      skip "Control not applicable - SSH is not installed within containerized RHEL"
+    end
+  else
+    describe sshd_config do
+      its('X11UseLocalhost') { should eq 'yes' }
+    end
+  end
 end

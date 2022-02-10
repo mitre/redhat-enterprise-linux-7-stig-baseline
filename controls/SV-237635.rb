@@ -11,16 +11,19 @@ control 'SV-237635' do
   tag fix_id: 'F-40817r646855_fix'
   tag cci: ['CCI-002038']
   tag legacy: []
-  tag false_negatives: ''
-  tag false_positives: ''
-  tag documentable: false
-  tag mitigations: ''
-  tag severity_override_guidance: ''
-  tag potential_impacts: ''
-  tag third_party_tools: ''
-  tag mitigation_controls: ''
-  tag responsibility: ''
-  tag ia_controls: ''
+  tag container: 'N/A'
   tag check: "Verify the operating system requires re-authentication when using the \"sudo\" command to elevate privileges.\n\n$ sudo grep -i 'timestamp_timeout' /etc/sudoers /etc/sudoers.d/*\n/etc/sudoers:Defaults timestamp_timeout=0\n\nIf results are returned from more than one file location, this is a finding.\n\nIf \"timestamp_timeout\" is set to a negative number, is commented out, or no results are returned, this is a finding."
   tag fix: "Configure the \"sudo\" command to require re-authentication.\nEdit the /etc/sudoers file:\n$ sudo visudo\n\nAdd or modify the following line:\nDefaults timestamp_timeout=[value]\nNote: The \"[value]\" must be a number that is greater than or equal to \"0\"."
+
+  if virtualization.system.eql?('docker') && !command("sudo").exist?
+    impact 0.0
+    describe "Control not applicable within a container without sudo enabled" do
+      skip "Control not applicable within a container without sudo enabled"
+    end
+  else
+    describe command("grep -i 'timestamp_timeout' /etc/sudoers /etc/sudoers.d/*").stdout.strip do
+      it { should match /^[^#].*Defaults timestamp_timeout=\d/ }
+      it { should_not match /\n/ }
+    end
+  end
 end
