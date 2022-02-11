@@ -579,3 +579,15 @@ inputs:
     description: "Full path to locks config file for automount settings"
     type: String
     value: "/etc/dconf/db/local.d/locks/00-No-Automount"
+
+  # SV-204414
+  - name: maxclassrepeat
+    description: "This option sets the maximum number of allowed same consecutive characters in the same class of a new password"
+    type: Numeric
+    value: 4
+
+  #SV-204603
+  - name: maxpoll
+    description: "This option specifies the maximum interval between requests sent to the NTP server as a power of 2 in seconds."
+    type: Numeric
+    value: 16

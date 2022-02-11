@@ -29,12 +29,13 @@ control 'SV-204426' do
   tag 'fix_id': 'F-4550r809189_fix'
   tag 'cci': ['CCI-000795']
   tag nist: ['IA-4 e']
+tag 'host', 'container'
 
   days_of_inactivity = input('days_of_inactivity')
 
   if command("grep 'pam_unix.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'optional'").stdout.empty? && command("grep 'pam_permit.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'required'").stdout.empty?
     describe parse_config_file('/etc/default/useradd') do
-      its('INACTIVE') { should cmp >= 0 }
+      its('INACTIVE') { should_be > 0 }
       its('INACTIVE') { should cmp <= days_of_inactivity }
     end
   else

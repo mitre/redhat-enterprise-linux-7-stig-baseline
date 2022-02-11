@@ -44,15 +44,26 @@ control 'SV-204524' do
   tag 'fix_id': 'F-4648r809774_fix'
   tag 'cci': ['CCI-000172']
   tag nist: ['AU-12 c']
+  tag 'host'
 
-  describe auditd.syscall('setxattr').where { arch == 'b32' } do
-    its('action.uniq') { should eq ['always'] }
-    its('list.uniq') { should eq ['exit'] }
-  end
-  if os.arch == 'x86_64'
-    describe auditd.syscall('setxattr').where { arch == 'b64' } do
-      its('action.uniq') { should eq ['always'] }
-      its('list.uniq') { should eq ['exit'] }
+  audit_syscalls = ['setxattr','fsetxattr','lsetxattr','removexattr','fremovexattr','lremovexattr']
+
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
+    end
+  else
+    audit_syscalls.each do |audit_syscall|
+      describe auditd.syscall(audit_syscall) do
+        its('action.uniq') { should eq ['always'] }
+        its('list.uniq') { should eq ['exit'] }
+        its('arch.uniq') { should include 'b32' }
+        its('arch.uniq') { should include 'b64' }
+        its('fields.flatten') { should include 'auid>=1000' }
+        its('fields.flatten') { should include 'auid!=-1' }
+        its('key.uniq') { should cmp 'perm_mod' }
+      end
     end
   end
 end

@@ -11,7 +11,7 @@ control 'SV-251703' do
   tag fix_id: 'F-55094r809222_fix'
   tag cci: ['CCI-000366']
   tag legacy: []
-  tag container: 'N/A'
+  tag 'host'
   tag check: "Verify the operating system specifies only the default \"include\" directory for the /etc/sudoers file with the following command:\n\n$ sudo grep include /etc/sudoers\n\n#includedir /etc/sudoers.d\n\nIf the results are not \"/etc/sudoers.d\" or additional files or directories are specified, this is a finding.\n\nVerify the operating system does not have nested \"include\" files or directories within the /etc/sudoers.d directory with the following command:\n\n$ sudo grep include /etc/sudoers.d/*\n\nIf results are returned, this is a finding."
   tag fix: "Configure the /etc/sudoers file to only include the /etc/sudoers.d directory.\n\nEdit the /etc/sudoers file with the following command:\n\n$ sudo visudo\n\nAdd or modify the following line:\n#includedir /etc/sudoers.d"
 

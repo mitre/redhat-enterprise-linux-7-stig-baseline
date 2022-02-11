@@ -11,7 +11,7 @@ control 'SV-237634' do
   tag fix_id: 'F-40816r646852_fix'
   tag cci: ['CCI-002227']
   tag legacy: []
-  tag containers: 'N/A'
+  tag 'host'
   tag check: "Verify that the sudoers security policy is configured to use the invoking user's password for privilege escalation.\n\n$ sudo egrep -i '(!rootpw|!targetpw|!runaspw)' /etc/sudoers /etc/sudoers.d/* | grep -v '#'\n\n/etc/sudoers:Defaults !targetpw\n/etc/sudoers:Defaults !rootpw\n/etc/sudoers:Defaults !runaspw\n\nIf no results are returned, this is a finding.\nIf results are returned from more than one file location, this is a finding.\nIf \"Defaults !targetpw\" is not defined, this is a finding.\nIf \"Defaults !rootpw\" is not defined, this is a finding.\nIf \"Defaults !runaspw\" is not defined, this is a finding."
   tag fix: "Define the following in the Defaults section of the /etc/sudoers file or a configuration file in the /etc/sudoers.d/ directory:\nDefaults !targetpw\nDefaults !rootpw\nDefaults !runaspw"
 

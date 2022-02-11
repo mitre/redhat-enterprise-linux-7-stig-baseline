@@ -11,7 +11,7 @@ control 'SV-237633' do
   tag fix_id: 'F-40815r646849_fix'
   tag cci: ['CCI-000366']
   tag legacy: []
-  tag container: 'N/A'
+  tag 'host'
   tag check: "Verify the \"sudoers\" file restricts sudo access to authorized personnel.\n$ sudo grep -iw 'ALL' /etc/sudoers /etc/sudoers.d/*\n\nIf the either of the following entries are returned, this is a finding:\nALL     ALL=(ALL) ALL\nALL     ALL=(ALL:ALL) ALL"
   tag fix: "Remove the following entries from the sudoers file:\nALL     ALL=(ALL) ALL\nALL     ALL=(ALL:ALL) ALL"
 

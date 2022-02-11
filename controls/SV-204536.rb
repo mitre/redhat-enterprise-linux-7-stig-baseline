@@ -31,25 +31,24 @@ control 'SV-204536' do
   tag 'fix_id': 'F-4660r462613_fix'
   tag 'cci': ['CCI-000172', 'CCI-002884']
   tag nist: ['AU-12 c', 'MA-4 (1) (a)']
+  tag 'host'
 
-  audit_file = '/usr/sbin/semanage'
+  audit_files = ['/usr/sbin/semanage']
 
-  if file(audit_file).exist?
-    impact 0.5
-  else
+  if virtualization.system.eql?('docker')
     impact 0.0
-  end
-
-  if file(audit_file).exist?
-    describe auditd.file(audit_file) do
-      its('permissions') { should include ['x'] }
-      its('action') { should_not include 'never' }
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
-  end
-
-  unless file(audit_file).exist?
-    describe "The #{audit_file} file does not exist" do
-      skip "The #{audit_file} file does not exist, this requirement is Not Applicable."
+  else
+    audit_files.each do |audit_file|
+      describe auditd.file(audit_file) do
+        its('action.uniq') { should eq ['always'] }
+        its('list.uniq') { should eq ['exit'] }
+        its('fields.flatten') { should include 'auid>=1000' }
+        its('fields.flatten') { should include 'auid!=-1' }
+        its('key.uniq') { should cmp 'privileged-priv_change' }
+      end
     end
   end
 end
