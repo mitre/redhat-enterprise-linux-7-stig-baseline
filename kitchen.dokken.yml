@@ -4,23 +4,22 @@ provisioner:
 
 platforms:
   - name: rhel7
-    driver:
-      name: dokken
-      pull_platform_image: false
-    transport:
-      name: dokken
 
 driver:
-  name: dummy
+  name: dokken
+  pull_platform_image: false
+
+transport:
+  name: dokken
 
 verifier:
   input_files:
-    - dokken.inputs.yml
+    - container.inputs.yml
   reporter:
-    - json:reports/raw/ubi-%{suite}-%{platform}.json
+    - json:reports/raw/container-%{suite}-%{platform}.json
 
 suites:
-  - name: vanilla      
+  - name: vanilla
     driver:
       image: <%= ENV['VANILLA_CONTAINER_IMAGE'] %>
   - name: hardened
