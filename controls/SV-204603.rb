@@ -51,6 +51,7 @@ control 'SV-204603' do
   tag 'fix_id': 'F-4727r809210_fix'
   tag 'cci': ['CCI-001891', 'CCI-002046']
   tag nist: ['AU-8 (1) (a)', 'AU-8 (1) (b)']
+tag 'host', 'container'
 
   # Either ntpd or chronyd should be running
   describe.one do
@@ -90,7 +91,7 @@ control 'SV-204603' do
       # All time sources must contain valid maxpoll entries
       describe 'ntpd maxpoll values (99=maxpoll absent)' do
         subject { max_poll_values }
-        it { should all be < 17 }
+        it { should all be <= input('maxpoll') }
       end
     end
   end
@@ -115,7 +116,7 @@ control 'SV-204603' do
     # All time sources must contain valid maxpoll entries
     describe 'chronyd maxpoll values (99=maxpoll absent)' do
       subject { max_poll_values }
-      it { should all be < 17 }
+      it { should all be <= input('maxpoll') }
     end
   end
 end

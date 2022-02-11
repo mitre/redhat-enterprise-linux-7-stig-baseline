@@ -30,6 +30,7 @@ control 'SV-204414' do
   tag nist: ['IA-5 (1) (b)']
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('maxclassrepeat.to_i') { should cmp <= 4 }
+    its('maxclassrepeat.to_i') { should cmp <= input('maxclassrepeat') }
+    its('maxclassrepeat.to_i') { should_be > 0 }
   end
 end

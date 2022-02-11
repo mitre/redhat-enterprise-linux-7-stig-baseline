@@ -37,15 +37,26 @@ control 'SV-204572' do
   tag 'fix_id': 'F-4696r809824_fix'
   tag 'cci': ['CCI-000172', 'CCI-002884']
   tag nist: ['AU-12 c', 'MA-4 (1) (a)']
+  tag 'host'
 
-  describe auditd.syscall('unlink').where { arch == 'b32' } do
-    its('action.uniq') { should eq ['always'] }
-    its('list.uniq') { should eq ['exit'] }
-  end
-  if os.arch == 'x86_64'
-    describe auditd.syscall('unlink').where { arch == 'b64' } do
-      its('action.uniq') { should eq ['always'] }
-      its('list.uniq') { should eq ['exit'] }
+  audit_syscalls = ['unlink','unlinkat','rename','renameat','rmdir']
+
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
+    end
+  else
+    audit_syscalls.each do |audit_syscall|
+      describe auditd.syscall(audit_syscall) do
+        its('action.uniq') { should eq ['always'] }
+        its('list.uniq') { should eq ['exit'] }
+        its('arch.uniq') { should include 'b32' }
+        its('arch.uniq') { should include 'b64' }
+        its('fields.flatten') { should include 'auid>=1000' }
+        its('fields.flatten') { should include 'auid!=-1' }
+        its('key.uniq') { should cmp 'delete' }
+      end
     end
   end
 end
