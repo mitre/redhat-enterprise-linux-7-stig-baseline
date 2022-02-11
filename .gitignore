@@ -26,3 +26,15 @@ doc/
 .librarian/
 .tmp/
 reports/
+.github*
+.fixtures*
+.gemrc
+.gitignore
+.rspec*
+CHANGELOG
+Puppet*
+Rake*
+*.csv
+_config*
+inputs.nolong*
+profile.json
