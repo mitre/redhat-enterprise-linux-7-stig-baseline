@@ -4,14 +4,7 @@ platforms:
 
 driver:
   name: ec2
-  block_device_mappings:
-  - device_name: /dev/xvda
-    ebs:
-      volume_size: 30
-      delete_on_termination: true
   aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
-  # aws_access_key: "<%= ENV['AWS_ACCESS_KEY_ID'] %>"
-  # aws_secret_key: "<%= ENV['AWS_SECRET_ACCESS_KEY'] %>"
   user_data: ./user_data.sh
   tags:
     POC: <%= ENV['POC_TAG'] %>
@@ -23,14 +16,16 @@ driver:
 
 transport:
   name: ssh
-  username: ec2-user
-  ssh_key: ./ssh_key
+  username: <%= ENV['AWS_EC2_USER'] %>
+  ssh_key: <%= ENV['AWS_EC2_SSH_KEY'] %>
   connection_timeout: 10
   connection_retries: 5
 
 verifier:
   input_files:
     - ec2.inputs.yml
+  reporter:
+    - json:reports/raw/ec2-%{suite}-%{platform}.json
 
 lifecycle:
   post_create:
@@ -40,14 +35,11 @@ lifecycle:
 
   pre_converge:
     - remote: |
-        echo "checking filesystem storage"
-        df -h
         echo "NOTICE - Updating the ec2-user to keep sudo working"
         sudo chage -d $(( $( date +%s ) / 86400 )) ec2-user
         echo "NOTICE - updating ec2-user sudo config"
         sudo chmod 600 /etc/sudoers && sudo sed -i'' "/ec2-user/d" /etc/sudoers && sudo chmod 400 /etc/sudoers
         
-
 suites:
   - name: vanilla
     driver:
