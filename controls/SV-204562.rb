@@ -30,15 +30,31 @@ control 'SV-204562' do
   tag 'fix_id': 'F-4686r88879_fix'
   tag 'cci': ['CCI-000172']
   tag nist: ['AU-12 c']
+  tag 'host', 'audit'
 
-  describe auditd.syscall('delete_module').where { arch == 'b32' } do
-    its('action.uniq') { should eq ['always'] }
-    its('list.uniq') { should eq ['exit'] }
-  end
-  if os.arch == 'x86_64'
-    describe auditd.syscall('delete_module').where { arch == 'b64' } do
-      its('action.uniq') { should eq ['always'] }
-      its('list.uniq') { should eq ['exit'] }
+  audit_syscalls = ['delete_module']
+
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
+    end
+  else
+    describe "Syscall" do
+      audit_syscalls.each do |audit_syscall|
+        it "#{audit_syscall} is audited properly" do
+          audit_rule = auditd.syscall(audit_syscall)
+          expect(audit_rule).to exist
+          expect(audit_rule.action.uniq).to cmp 'always'
+          expect(audit_rule.list.uniq).to cmp 'exit'
+          if os.arch.match(/64/)
+            expect(audit_rule.arch.uniq).to include('b32', 'b64') 
+          else
+            expect(audit_rule.arch.uniq).to cmp 'b32'
+          end
+          expect(audit_rule.key.uniq).to cmp 'module-change'
+        end
+      end
     end
   end
 end
