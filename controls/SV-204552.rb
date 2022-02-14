@@ -37,21 +37,41 @@ control 'SV-204552' do
   tag 'fix_id': 'F-4676r462652_fix'
   tag 'cci': ['CCI-000135', 'CCI-002884']
   tag nist: ['AU-3 (1)', 'MA-4 (1) (a)']
+  tag 'host', 'audit'
 
-  describe auditd.syscall('mount').where { arch == 'b32' } do
-    its('action.uniq') { should eq ['always'] }
-    its('list.uniq') { should eq ['exit'] }
-  end
+  audit_syscall = 'mount'
+  audit_command = '/usr/bin/mount'
 
-  if os.arch == 'x86_64'
-    describe auditd.syscall('mount').where { arch == 'b64' } do
-      its('action.uniq') { should eq ['always'] }
-      its('list.uniq') { should eq ['exit'] }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
-  end
-
-  describe auditd.path('/usr/bin/mount') do
-    its('action.uniq') { should eq ['always'] }
-    its('list.uniq') { should eq ['exit'] }
+  else
+    describe "Syscall" do
+      it "#{audit_syscall} is audited properly" do
+        audit_rule = auditd.syscall(audit_syscall)
+        expect(audit_rule).to exist
+        expect(audit_rule.action.uniq).to cmp 'always'
+        expect(audit_rule.list.uniq).to cmp 'exit'
+        if os.arch.match(/64/)
+          expect(audit_rule.arch.uniq).to include('b32', 'b64') 
+        else
+          expect(audit_rule.arch.uniq).to cmp 'b32'
+        end
+        expect(audit_rule.fields.flatten).to include('auid>=1000', 'auid!=-1')
+        expect(audit_rule.key.uniq).to cmp 'privileged-mount'
+      end
+    end
+    describe "Command" do
+      it "#{audit_command} is audited properly" do
+        audit_rule = auditd.file(audit_command)
+        expect(audit_rule).to exist
+        expect(audit_rule.action.uniq).to cmp 'always'
+        expect(audit_rule.list.uniq).to cmp 'exit'
+        expect(audit_rule.fields.flatten).to include('auid>=1000', 'auid!=-1')
+        expect(audit_rule.key.uniq).to cmp 'privileged-mount'
+      end
+    end
   end
 end

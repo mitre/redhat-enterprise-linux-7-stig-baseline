@@ -31,7 +31,7 @@ control 'SV-204516' do
   tag 'fix_id': 'F-4640r88741_fix'
   tag 'cci': ['CCI-002234']
   tag nist: ['AC-6 (9)']
-  tag 'host', 'auditd'
+  tag 'host', 'audit'
 
   audit_syscalls = ['execve']
 

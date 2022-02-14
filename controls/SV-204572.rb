@@ -37,7 +37,7 @@ control 'SV-204572' do
   tag 'fix_id': 'F-4696r809824_fix'
   tag 'cci': ['CCI-000172', 'CCI-002884']
   tag nist: ['AU-12 c', 'MA-4 (1) (a)']
-  tag 'host'
+  tag 'host', 'audit'
 
   audit_syscalls = ['unlink','unlinkat','rename','renameat','rmdir']
 
@@ -47,15 +47,21 @@ control 'SV-204572' do
       skip "Control not applicable within a container"
     end
   else
-    audit_syscalls.each do |audit_syscall|
-      describe auditd.syscall(audit_syscall) do
-        its('action.uniq') { should eq ['always'] }
-        its('list.uniq') { should eq ['exit'] }
-        its('arch.uniq') { should include 'b32' }
-        its('arch.uniq') { should include 'b64' }
-        its('fields.flatten') { should include 'auid>=1000' }
-        its('fields.flatten') { should include 'auid!=-1' }
-        its('key.uniq') { should cmp 'delete' }
+    describe "Syscall" do
+      audit_syscalls.each do |audit_syscall|
+        it "#{audit_syscall} is audited properly" do
+          audit_rule = auditd.syscall(audit_syscall)
+          expect(audit_rule).to exist
+          expect(audit_rule.action.uniq).to cmp 'always'
+          expect(audit_rule.list.uniq).to cmp 'exit'
+          if os.arch.match(/64/)
+            expect(audit_rule.arch.uniq).to include('b32', 'b64') 
+          else
+            expect(audit_rule.arch.uniq).to cmp 'b32'
+          end
+          expect(audit_rule.fields.flatten).to include('auid>=1000', 'auid!=-1')
+          expect(audit_rule.key.uniq).to cmp 'delete'
+        end
       end
     end
   end

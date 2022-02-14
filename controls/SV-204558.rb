@@ -27,25 +27,25 @@ control 'SV-204558' do
   tag 'fix_id': 'F-4682r462670_fix'
   tag 'cci': ['CCI-000172']
   tag nist: ['AU-12 c']
+  tag 'host', 'audit'
 
-  audit_file = '/sbin/pam_timestamp_check'
+  audit_command = '/usr/sbin/pam_timestamp_check'
 
-  if file(audit_file).exist?
-    impact 0.5
-  else
+  if virtualization.system.eql?('docker')
     impact 0.0
-  end
-
-  if file(audit_file).exist?
-    describe auditd.file(audit_file) do
-      its('permissions') { should include ['x'] }
-      its('action') { should_not include 'never' }
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
-  end
-
-  unless file(audit_file).exist?
-    describe "The #{audit_file} file does not exist" do
-      skip "The #{audit_file} file does not exist, this requirement is Not Applicable."
+  else
+    describe "Command" do
+      it "#{audit_command} is audited properly" do
+        audit_rule = auditd.file(audit_command)
+        expect(audit_rule).to exist
+        expect(audit_rule.action.uniq).to cmp 'always'
+        expect(audit_rule.list.uniq).to cmp 'exit'
+        expect(audit_rule.fields.flatten).to include('auid>=1000', 'auid!=-1')
+        expect(audit_rule.key.uniq).to cmp 'privileged-pam'
+      end
     end
   end
 end

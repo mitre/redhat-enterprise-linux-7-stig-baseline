@@ -31,25 +31,25 @@ control 'SV-204539' do
   tag 'fix_id': 'F-4663r462622_fix'
   tag 'cci': ['CCI-000172', 'CCI-002884']
   tag nist: ['AU-12 c', 'MA-4 (1) (a)']
+  tag 'host', 'audit'
 
-  audit_file = '/usr/sbin/setfiles'
+  audit_command = '/usr/sbin/setfiles'
 
-  if file(audit_file).exist?
-    impact 0.5
-  else
+  if virtualization.system.eql?('docker')
     impact 0.0
-  end
-
-  if file(audit_file).exist?
-    describe auditd.file(audit_file) do
-      its('permissions') { should include ['x'] }
-      its('action') { should_not include 'never' }
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
-  end
-
-  unless file(audit_file).exist?
-    describe "The #{audit_file} file does not exist" do
-      skip "The #{audit_file} file does not exist, this requirement is Not Applicable."
+  else
+    describe "Command" do
+      it "#{audit_command} is audited properly" do
+        audit_rule = auditd.file(audit_command)
+        expect(audit_rule).to exist
+        expect(audit_rule.action.uniq).to cmp 'always'
+        expect(audit_rule.list.uniq).to cmp 'exit'
+        expect(audit_rule.fields.flatten).to include('auid>=1000', 'auid!=-1')
+        expect(audit_rule.key.uniq).to cmp 'privileged-priv_change'
+      end
     end
   end
 end
