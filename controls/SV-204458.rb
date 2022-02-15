@@ -26,8 +26,21 @@ control 'SV-204458' do
   tag 'fix_id': 'F-4582r462547_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag 'host', 'container'
 
-  describe file('/etc/redhat-release') do
-    its('content') { should match(/Release (6.7*|7.[2-9].*)/i) }
+  release = os.release
+
+  EOMS_DATE = case release
+              when /^7\.6/
+                '31 May 2021'
+              when /^7\.7/
+                '30 August 2021'
+              when /^7\.9/
+                '30 June 2024'
+              end
+
+  describe "The release \"#{release}\" must still be within the support window, ending #{EOMS_DATE}" do
+    subject { Date.today <= Date.parse(EOMS_DATE) }
+    it { should be true }
   end
 end

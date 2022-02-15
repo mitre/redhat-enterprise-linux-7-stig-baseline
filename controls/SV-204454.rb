@@ -43,17 +43,12 @@ control 'SV-204454' do
   tag 'fix_id': 'F-36307r602631_fix'
   tag 'cci': ['CCI-002165', 'CCI-002696']
   tag nist: ['AC-3 (4)', 'SI-6 a']
+  tag 'host', 'selinux'
 
-  describe.one do
-    describe command('sestatus') do
-      its('stdout') do
-        should match(/^Policy\sfrom\sconfigs\sfile:\s+targeted\n?$/)
-      end
-    end
-    describe command('sestatus') do
-      its('stdout') do
-        should match(/^Loaded\spolicy\sname:\s+targeted\n?$/)
-      end
-    end
+  describe command('sestatus') do
+    its('stdout') { should match(/^Loaded\spolicy\sname:\s+targeted\n?$/) }
+  end
+  describe parse_config_file('/etc/selinux/config') do
+    its('SELINUXTYPE') { should eq 'targeted' }
   end
 end

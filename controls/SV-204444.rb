@@ -48,68 +48,55 @@ control 'SV-204444' do
   tag 'fix_id': 'F-4568r792825_fix'
   tag 'cci': ['CCI-002165', 'CCI-002235']
   tag nist: ['AC-3 (4)', 'AC-6 (10)']
+  tag 'host'
 
   admin_logins = input('admin_logins')
 
-  if package('MFEhiplsm').installed? && processes(/hipclient/).exist?
-    impact 0.0
-    describe 'HIPS is active on the system' do
-      skip 'A HIPS process is active on the system, this control is Not Applicable.'
-    end
-  elsif service('cma').installed? && service('cma').enabled?
-    impact 0.0
-    describe 'HBSS is active on the system' do
-      skip 'A HBSS service is active on the system, this control is Not Applicable.'
-    end
-  else
-    impact 0.5
-    describe command('selinuxenabled') do
-      its('exist?') { should be true }
-      its('exit_status') { should eq 0 }
-    end
+  describe command('selinuxenabled') do
+    its('exist?') { should be true }
+    its('exit_status') { should eq 0 }
+  end
 
-    selinux_mode = file('/etc/selinux/config').content.lines
-                                              .grep(/\A\s*SELINUXTYPE=/).last.split('=').last.strip
+  selinux_mode = file('/etc/selinux/config').content.lines
+                                            .grep(/\A\s*SELINUXTYPE=/).last.split('=').last.strip
 
-    seusers = file("/etc/selinux/#{selinux_mode}/seusers").content.lines
-                                                          .grep_v(/(#|\A\s+\Z)/).map(&:strip)
+  seusers = file("/etc/selinux/#{selinux_mode}/seusers").content.lines
+                                                        .grep_v(/(#|\A\s+\Z)/).map(&:strip)
 
-    seusers = seusers.map { |x| x.split(':')[0..1] }
+  seusers = seusers.map { |x| x.split(':')[0..1] }
 
-    describe 'seusers' do
-      it { expect(seusers).to_not be_empty }
-    end
+  describe 'seusers' do
+    it { expect(seusers).to_not be_empty }
+  end
 
-    users_to_ignore = [
-      'root',
-      'system_u'
-    ]
+  users_to_ignore = [
+    'root',
+    'system_u'
+  ]
 
-    seusers.each do |user, context|
-      next if users_to_ignore.include?(user)
+  seusers.each do |user, context|
+    next if users_to_ignore.include?(user)
 
-      describe "SELinux login #{user}" do
-        if user == '__default__'
-          let(:valid_users) { ['user_u'] }
-        elsif admin_logins.include?(user)
-          let(:valid_users) do
-            [
-              'sysadm_u',
-              'staff_u'
-            ]
-          end
-        else
-          let(:valid_users) do
-            [
-              'user_u',
-              'guest_u',
-              'xguest_u'
-            ]
-          end
+    describe "SELinux login #{user}" do
+      if user == '__default__'
+        let(:valid_users) { ['user_u'] }
+      elsif admin_logins.include?(user)
+        let(:valid_users) do
+          [
+            'staff_u'
+          ]
         end
-
-        it { expect(context).to be_in(valid_users) }
+      else
+        let(:valid_users) do
+          [
+            'user_u',
+            'guest_u',
+            'xguest_u'
+          ]
+        end
       end
+
+      it { expect(context).to be_in(valid_users) }
     end
   end
 end

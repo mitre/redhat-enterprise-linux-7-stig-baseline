@@ -31,25 +31,16 @@ control 'SV-204513' do
   tag 'fix_id': 'F-4637r744111_fix'
   tag 'cci': ['CCI-001855']
   tag nist: ['AU-5 (1)']
+  tag 'host', 'container'
 
-  if (f = file(audit_log_dir = command("dirname #{auditd_conf.log_file}").stdout.strip)).directory?
-    # Fetch partition sizes in 1K blocks for consistency
-    partition_info = command("df -B 1K #{audit_log_dir}").stdout.split("\n")
-    partition_sz_arr = partition_info.last.gsub(/\s+/m,
-                                                ' ').strip.split(' ')
-
-    # Get partition size
-    partition_sz = partition_sz_arr[1]
-
-    # Convert to MB and get 25%
-    exp_space_left = partition_sz.to_i / 1024 / 4
-
-    describe auditd_conf do
-      its('space_left.to_i') { should be >= exp_space_left }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
   else
-    describe f.directory? do
-      it { should be true }
+    describe auditd_conf do
+      its('space_left') { should cmp '25%' }
     end
   end
 end

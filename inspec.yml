@@ -42,12 +42,6 @@ inputs:
     type: Boolean
     value: false
 
-  # V-204487
-  - name: application_groups
-    description: Known application groups that are allowed to have world-writeable files or directories
-    type: Array
-    value: []
-
   # V-204624
   - name: x11_enabled
     description: Set to 'true' if X11 is needed on the system.
@@ -498,26 +492,6 @@ inputs:
     # Default of 'None' is used by control code -- DO NOT CHANGE DEFAULT
     value: "None"
 
-  - name: custom_hips
-    description: "Whether an HIPS solution, other than HBSS, is in use."
-    type: Boolean
-    value: false
-
-  - name: custom_hips_description
-    description: "Description of custom HIPS solution, when in use."
-    type: String
-    # [Hopefully] non-existent process name to fail by default -- override
-    # with valid process name
-    value: An6yTr21kC
-
-  - name: max_daemon_processes
-    description: "Restrict the number of returned processes to account
-      for invalid inputs, such as nil(~), that will match all processes
-      while allowing for 3rd party software that may spawn multiple
-      similarly named processes."
-    type: Numeric
-    value: 1
-
   # V-204500
   - name: aide_exclude_patterns
     description: "It is reasonable and advisable to skip checksum on frequently changing files"
@@ -591,3 +565,9 @@ inputs:
     description: "This option specifies the maximum interval between requests sent to the NTP server as a power of 2 in seconds."
     type: Numeric
     value: 16
+
+  #SV-204420
+  - name: pass_max_days
+    description: "Maximum password lifetime restriction for new user accounts"
+    type: Numeric
+    value: 60

@@ -24,10 +24,11 @@ control 'SV-204420' do
   tag 'fix_id': 'F-4544r88453_fix'
   tag 'cci': ['CCI-000199']
   tag nist: ['IA-5 (1) (d)']
+  tag 'host', 'container'
 
   if command("grep 'pam_unix.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'optional'").stdout.empty? && command("grep 'pam_permit.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'required'").stdout.empty?
     describe login_defs do
-      its('PASS_MAX_DAYS.to_i') { should cmp <= 60 }
+      its('PASS_MAX_DAYS.to_i') { should cmp <= input('pass_max_days') }
     end
   else
     impact 0.0

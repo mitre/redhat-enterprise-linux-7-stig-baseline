@@ -28,6 +28,7 @@ control 'SV-204438' do
   tag 'fix_id': 'F-4562r744094_fix'
   tag 'cci': ['CCI-000213']
   tag nist: ['AC-3']
+  tag 'host', 'container'
 
   if file('/sys/firmware/efi').exist?
     impact 0.0
@@ -40,10 +41,6 @@ control 'SV-204438' do
       describe parse_config_file(grub_user_file) do
         its('GRUB2_PASSWORD') { should include 'grub.pbkdf2.sha512' }
       end
-    end
-
-    describe parse_config_file(input('grub_main_cfg')) do
-      its('set superusers') { should cmp '"root"' }
     end
   else
     impact 0.0
