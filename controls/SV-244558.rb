@@ -11,7 +11,7 @@ control 'SV-244558' do
   tag fix_id: 'F-47790r744065_fix'
   tag cci: ['CCI-000213']
   tag legacy: []
-tag 'host', 'container'
+  tag 'host', 'container'
   tag check: "For systems that use BIOS, this is Not Applicable.\n\nFor systems that are running a version of RHEL prior to 7.2, this is Not Applicable.\n\nVerify that a unique name is set as the \"superusers\" account:\n\n$ sudo grep -iw \"superusers\" /boot/efi/EFI/redhat/grub.cfg\n    set superusers=\"[someuniquestringhere]\"\n    export superusers\n\nIf \"superusers\" is identical to any OS account name or is missing a name, this is a finding."
   tag fix: "Configure the system to have a unique name for the grub superusers account.\n\nEdit the /boot/efi/EFI/redhat/grub.cfg file and add or modify the following lines in the \"### BEGIN /etc/grub.d/01_users ###\" section:\n\nset superusers=\"[someuniquestringhere]\"\nexport superusers\npassword_pbkdf2 [someuniquestringhere] ${GRUB2_PASSWORD}"
 

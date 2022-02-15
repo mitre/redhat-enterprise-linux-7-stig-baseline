@@ -27,8 +27,6 @@ verifier:
   reporter:
     - cli
     - json:reports/raw/ec2-%{suite}-%{platform}.json
-  controls:
-    - SV-204516
 
 lifecycle:
   post_create:

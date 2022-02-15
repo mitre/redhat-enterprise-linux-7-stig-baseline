@@ -21,18 +21,25 @@ control 'SV-250312' do
       skip "Control not applicable within a container -- kernel config"
     end
   else
-    describe command('semanage user -l').stdout.strip do
-      it { should eq 
-        'SELinuxUser LabelingPrefix MLS/MCSLevel MLS/MCSRange SELinuxRoles
-        guest_u user s0 s0 guest_r
-        root user s0 s0-s0:c0.c1023 staff_r sysadm_r system_r unconfined_r
-        staff_u user s0 s0-s0:c0.c1023 staff_r sysadm_r
-        sysadm_u user s0 s0-s0:c0.c1023 sysadm_r 
-        system_u user s0 s0-s0:c0.c1023 system_r unconfined_r
-        unconfined_u user s0 s0-s0:c0.c1023 system_r unconfined_r
-        user_u user s0 s0 user_r
-        xguest_u user s0 s0 xguest_r'
-      }
+
+    expected_mapping = {
+      'staff_u' => ['staff_r', 'sysadm_r'],
+      'user_u' => ['user_r']
+    }
+
+    selinux_users = command('semanage user -l').stdout.strip
+
+    describe "SELinux user-role mappings" do
+      expected_mapping.keys.each do |user|
+
+        staff_user_mapping = selinux_users.match(/^#{user}.+\d+\s+(?<roles>.*)$/)
+        staff_user_roles = staff_user_mapping['roles'].split.to_set unless staff_user_mapping.nil?
+
+        it "should set SELinux user \'#{user}\' to only have roles: #{expected_mapping[user].join(' ')}" do
+          expect(staff_user_mapping).not_to be_nil, "No user \'#{user}\'found"
+          expect(staff_user_roles).to eq expected_mapping[user].to_set
+        end
+      end
     end
   end
 end

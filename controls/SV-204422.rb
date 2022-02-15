@@ -29,14 +29,24 @@ control 'SV-204422' do
   tag 'fix_id': 'F-4546r88459_fix'
   tag 'cci': ['CCI-000200']
   tag nist: ['IA-5 (1) (e)']
+  tag 'host', 'container', 'pam'
 
   min_reuse_generations = input('min_reuse_generations')
 
-  describe pam('/etc/pam.d/system-auth') do
-    its('lines') do
-      should match_pam_rule('password (required|requisite|sufficient) pam_(unix|pwhistory).so').any_with_integer_arg(
-        'remember', '>=', min_reuse_generations
-      )
+  describe.one do
+    describe pam('/etc/pam.d/system-auth') do
+      its('lines') do
+        should match_pam_rule('password (required|requisite|sufficient) pam_(unix|pwhistory).so').any_with_integer_arg(
+          'remember', '>=', min_reuse_generations
+        )
+      end
+    end
+    describe pam('/etc/pam.d/password-auth') do
+      its('lines') do
+        should match_pam_rule('password (required|requisite|sufficient) pam_(unix|pwhistory).so').any_with_integer_arg(
+          'remember', '>=', min_reuse_generations
+        )
+      end
     end
   end
 end

@@ -39,24 +39,24 @@ control 'SV-204428' do
   tag 'fix_id': 'F-4552r792820_fix'
   tag 'cci': ['CCI-002238']
   tag nist: ['AC-7 b']
+  tag 'host', 'container', 'pam'
 
-  required_lines = [
-    'auth required pam_faillock.so even_deny_root',
-    'auth sufficient pam_unix.so try_first_pass',
-    'auth [default=die] pam_faillock.so even_deny_root'
-  ]
-
-  describe pam('/etc/pam.d/password-auth') do
-    its('lines') { should match_pam_rules(required_lines) }
-    its('lines') do
-      should match_pam_rule('auth .* pam_faillock.so (preauth|authfail)').all_with_args('even_deny_root')
+  describe.one do
+    describe pam('/etc/pam.d/password-auth') do
+      its('lines') do
+        should match_pam_rule('auth .* pam_faillock.so preauth').all_with_args('even_deny_root')
+      end
+      its('lines') do
+        should match_pam_rule('auth .* pam_faillock.so authfail').all_with_args('even_deny_root')
+      end
     end
-  end
-
-  describe pam('/etc/pam.d/system-auth') do
-    its('lines') { should match_pam_rules(required_lines) }
-    its('lines') do
-      should match_pam_rule('auth .* pam_faillock.so (preauth|authfail)').all_with_args('even_deny_root')
+    describe pam('/etc/pam.d/system-auth') do
+      its('lines') do
+        should match_pam_rule('auth .* pam_faillock.so preauth').all_with_args('even_deny_root')
+      end
+      its('lines') do
+        should match_pam_rule('auth .* pam_faillock.so authfail').all_with_args('even_deny_root')
+      end
     end
   end
 end

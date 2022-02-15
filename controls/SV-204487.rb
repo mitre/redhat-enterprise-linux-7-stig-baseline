@@ -25,24 +25,19 @@ control 'SV-204487' do
   tag 'fix_id': 'F-36308r602634_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-
-  application_groups = input('application_groups')
+  tag 'host', 'container'
 
   ww_dirs = Set[]
   partitions = etc_fstab.params.map do |partition|
-    partition['file_system_type']
+    partition['mount_point']
   end.uniq
   partitions.each do |part|
-    cmd = "find / -perm -002 -xdev -type d -fstype #{part} -exec ls -lLd {} \\;"
+    cmd = "find #{part} -xdev -type d -perm -0002 -gid +999 -print"
     ww_dirs += command(cmd).stdout.split("\n")
   end
-
-  ww_dirs.to_a.each do |curr_dir|
-    dir_arr = curr_dir.split(' ')
-    describe file(dir_arr.last) do
-      its('group') do
-        should be_in ['root', 'sys', 'bin'] + application_groups
-      end
+  describe "List of world-writeable directories not group-owned by a system account" do
+    it "should be empty" do
+      expect(ww_dirs).to be_empty, "Found world-writeable dirs not group-owned by system account: #{ww_dirs.to_a.join(', ')}"
     end
   end
 end
