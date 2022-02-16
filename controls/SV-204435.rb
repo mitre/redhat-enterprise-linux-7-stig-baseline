@@ -13,7 +13,6 @@ control 'SV-204435' do
     value to "no":
     HostbasedAuthentication no
     The SSH service must be restarted for changes to take effect.'
-  x = y
   impact 0.5
   tag 'legacy': ['SV-86583', 'V-71959']
   tag 'severity': 'medium'
@@ -25,10 +24,9 @@ control 'SV-204435' do
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
 
-
-  x = y
-
   describe sshd_config do
     its('HostbasedAuthentication') { should eq 'no' }
   end
 end
+
+

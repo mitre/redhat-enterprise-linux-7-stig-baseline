@@ -30,6 +30,10 @@ control 'SV-214800' do
 
   describe package('mcafeetp') do
     it { should be_installed }
+  end
+  describe service('mfetpd') do
+    it { should be_installed }
+    it { should be_enabled }
     it { should be_running }
   end
 end
