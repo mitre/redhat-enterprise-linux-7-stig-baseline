@@ -74,6 +74,8 @@ control 'SV-204395' do
   tag 'fix_id': 'F-4519r88378_fix'
   tag 'cci': ['CCI-000048']
   tag nist: ['AC-8 a']
+  tag subsystems: ["banner","/etc/issue"]
+  tag 'host', 'container'
 
   banner_message_text_cli = input('banner_message_text_cli')
   banner_message_text_cli_limited = input('banner_message_text_cli_limited')

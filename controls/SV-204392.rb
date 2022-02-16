@@ -47,7 +47,8 @@ following command:
   tag 'fix_id': 'F-36302r646840_fix'
   tag 'cci': ['CCI-001494', 'CCI-001496', 'CCI-002165', 'CCI-002235']
   tag nist: ['AU-9', 'AU-9 (3)', 'AC-3 (4)', 'AC-6 (10)']
-
+  tag subsystems: ["permissions","package","rpm"]
+  tag 'host', 'container'
 
   if input('disable_slow_controls')
     describe "This control consistently takes a long time to run and has been disabled

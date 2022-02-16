@@ -41,6 +41,8 @@ control 'SV-204399' do
   tag 'fix_id': 'F-4523r88390_fix'
   tag 'cci': ['CCI-000057']
   tag nist: ['AC-11 a']
+  tag subsystems: ["gnome3"]
+  tag 'host'
 
   if package('gnome-desktop3').installed?
     describe command('gsettings writable org.gnome.desktop.screensaver lock-delay') do

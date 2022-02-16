@@ -40,6 +40,8 @@ control 'SV-204397' do
   tag 'fix_id': 'F-4521r88384_fix'
   tag 'cci': ['CCI-001948', 'CCI-001953', 'CCI-001954']
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
+  tag subsystems: ["gnome3"]
+  tag 'host'
 
   multifactor_enabled = input('multifactor_enabled')
   dconf_user = input('dconf_user')

@@ -28,6 +28,8 @@ control 'SV-204413' do
   tag 'fix_id': 'F-4537r88432_fix'
   tag 'cci': ['CCI-000195']
   tag nist: ['IA-5 (1) (b)']
+  tag subsystems: ["pam","pwquality","password"]
+  tag 'host', 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
     its('maxrepeat.to_i') { should cmp <= 3 }
