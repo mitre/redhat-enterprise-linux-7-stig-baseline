@@ -26,6 +26,8 @@ control 'SV-204406' do
   tag 'fix_id': 'F-4530r88411_fix'
   tag 'cci': ['CCI-000192']
   tag nist: ['IA-5 (1) (a)']
+  tag subsystems: ["pam","pwquality","password"]
+  tag 'host', 'container'
 
   max_retry = input('max_retry')
 
