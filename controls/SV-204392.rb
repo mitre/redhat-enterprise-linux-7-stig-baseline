@@ -48,7 +48,6 @@ following command:
   tag 'cci': ['CCI-001494', 'CCI-001496', 'CCI-002165', 'CCI-002235']
   tag nist: ['AU-9', 'AU-9 (3)', 'AC-3 (4)', 'AC-6 (10)']
 
-  rpm_verify_perms_except = input('rpm_verify_perms_except')
 
   if input('disable_slow_controls')
     describe "This control consistently takes a long time to run and has been disabled
@@ -58,8 +57,25 @@ following command:
             full accredidation for production."
     end
   else
-    describe command("rpm -Va | grep '^.M' | awk 'NF>1{print $NF}'").stdout.strip.split("\n") do
-      it { should all(be_in(rpm_verify_perms_except)) }
+
+    allowlist = input('rpm_verify_perms_except')
+
+    misconfigured_packages = command('rpm -Va').stdout.split("\n")
+      .select{ |package| package[0..7].match(/M|U|G/) }
+      .map{ |package| package.match(/\S+$/)[0] }
+
+    unless misconfigured_packages.empty?
+      describe "The list of rpm packages with permissions changed from the vendor values" do
+        fail_msg = "Files that have been modified from vendor-approved permissions but are not in the allowlist: #{(misconfigured_packages - allowlist).join(', ')}"
+        it "should all appear in the allowlist" do
+          expect(misconfigured_packages).to all( be_in allowlist ), fail_msg
+        end
+      end
+    else
+      describe "The list of rpm packages with permissions changed from the vendor values" do
+        subject { misconfigured_packages }
+        it { should be_empty }
+      end
     end
   end
 end

@@ -36,15 +36,8 @@ control 'SV-204449' do
   tag 'cci': ['CCI-000366', 'CCI-000778', 'CCI-001958']
   tag nist: ['CM-6 b', 'IA-3', 'IA-3']
 
-  if input('data_loss_prevention_installed')
-    describe kernel_module('usb_storage') do
-      it { should_not be_loaded }
-      it { should be_blacklisted }
-    end
-  else
-    impact 0.0
-    describe 'The system is not using an HBSS with a Device Control Module and a Data Loss Prevention mechanism' do
-      skip 'The system is not using an HBSS with a Device Control Module and a Data Loss Prevention mechanism, this control is Not Applicable.'
-    end
+  describe kernel_module('usb_storage') do
+    it { should_not be_loaded }
+    it { should be_blacklisted }
   end
 end

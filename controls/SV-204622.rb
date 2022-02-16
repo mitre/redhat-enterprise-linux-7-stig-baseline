@@ -35,6 +35,6 @@ control 'SV-204622' do
   tag nist: ['CM-6 b']
 
   describe sshd_config do
-    its('X11Forwarding') { should cmp 'yes' }
+    its('X11Forwarding') { should cmp 'no' }
   end
 end

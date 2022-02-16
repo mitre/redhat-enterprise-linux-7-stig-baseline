@@ -40,11 +40,13 @@ control 'SV-204578' do
   tag 'cci': ['CCI-000068', 'CCI-000366', 'CCI-000803']
   tag nist: ['AC-17 (2)', 'CM-6 b', 'IA-7']
 
-  @ciphers_array = inspec.sshd_config.params['ciphers']
+  ciphers_array = sshd_config.params('ciphers')
 
-  @ciphers_array = @ciphers_array.first.split(',') unless @ciphers_array.nil?
+  ciphers_array = ciphers_array.first.split(',') unless ciphers_array.nil?
 
-  describe @ciphers_array do
-    it { should be_in ['aes128-ctr', 'aes192-ctr', 'aes256-ctr'] }
+  describe "List of encryption algortihms used for SSH connections" do
+    subject { ciphers_array }
+    it { should_not be_nil }
+    it { should eq ['aes256-ctr', 'aes192-ctr', 'aes128-ctr'] }
   end
 end

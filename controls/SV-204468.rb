@@ -41,7 +41,7 @@ control 'SV-204468' do
   end.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
-    findings += command("find #{user_info.home} -maxdepth 0 -perm /027").stdout.split("\n")
+    findings += command("find #{user_info.home} -maxdepth 0 -perm -#{input('home_dir_mode')}").stdout.split("\n")
   end
   describe 'Home directories with excessive permissions' do
     subject { findings.to_a }

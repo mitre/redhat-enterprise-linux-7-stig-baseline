@@ -99,4 +99,8 @@ control 'SV-204497' do
   describe file('/proc/sys/crypto/fips_enabled') do
     its('content.strip') { should cmp 1 }
   end
+
+  describe file('/etc/system-fips') do
+    it { should exist }
+  end
 end
