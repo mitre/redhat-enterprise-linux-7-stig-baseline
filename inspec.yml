@@ -205,9 +205,15 @@ inputs:
 
   # V-204426
   - name: days_of_inactivity
-    description: Number of days
+    description: System setting for number of days an account can stay inactive before deactivation.
     type: Numeric
-    value: 0
+    value: 35
+
+  # V-204426
+  - name: max_days_of_inactivity
+    description: Maximum allowable number of days an account can stay inactive before deactivation.
+    type: Numeric
+    value: 35
 
   # V-204427
   - name: unsuccessful_attempts
@@ -555,8 +561,14 @@ inputs:
     value: "/etc/dconf/db/local.d/locks/00-No-Automount"
 
   # SV-204414
-  - name: maxclassrepeat
-    description: "This option sets the maximum number of allowed same consecutive characters in the same class of a new password"
+  - name: classrepeat
+    description: "Expected system setting for the maximum number of allowed same consecutive characters in the same class of a new password. Maximum of 4"
+    type: Numeric
+    value: 4
+
+  # SV-204414
+  - name: max_classrepeat
+    description: "Maximum allowable value for classrepeat by policy."
     type: Numeric
     value: 4
 
