@@ -84,4 +84,9 @@ control 'SV-204608' do
       it { should cmp >= 2 }
     end
   end
+
+  describe "/etc/resolv.conf should be immutable -- file attributes" do
+    subject { command('lsattr /etc/resolve.conf').stdout }
+    it { should match /i/ }
+  end
 end

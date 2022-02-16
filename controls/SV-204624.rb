@@ -33,17 +33,19 @@ control 'SV-204624' do
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
 
-  x11_enabled = input('x11_enabled')
-
-  unless x11_enabled
-    describe package('xorg-x11-server-common') do
-      it { should_not be_installed }
+  if input('x11-enabled')
+    describe "System default target" do
+      subject { command("systemctl get-default").stdout.strip }
+      it { should eq 'multi-user.target' }
     end
-  end
 
-  if x11_enabled
-    describe package('xorg-x11-server-common') do
-      it { should be_installed }
+    describe "No GUI packages should be installed" do
+      subject { packages(/xorg.*server/) }
+      its('statuses') { should_not cmp 'installed' }
+    end
+  else
+    describe "GUI permitted" do
+      skip "Not applicable -- GUI packages are allowed to be installed on this system"
     end
   end
 end

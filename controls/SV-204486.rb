@@ -34,7 +34,27 @@ control 'SV-204486' do
   tag 'cci': ['CCI-001764']
   tag nist: ['CM-7 (2)']
 
-  describe mount('/dev/shm') do
-    its('options') { should include 'noexec' }
+  if mount('/dev/shm').mounted?
+
+    mount_file = etc_fstab.where { mount_point == '/dev/shm' }
+    mount_command = mount('/dev/shm').file.mounted.stdout
+      .match(/\((.*)\)/)[1].split(',')
+
+    describe "/etc/fstab mount options for /dev/shm" do
+      subject { mount_file }
+      its('mount_options.flatten') { should include 'nodev' }
+      its('mount_options.flatten') { should include 'nosuid' }
+      its('mount_options.flatten') { should include 'noexec' }
+    end
+    describe "mount command options for /dev/shm" do
+      subject{ mount_command }
+      it { should include 'nodev' }
+      it { should include 'nosuid' }
+      it { should include 'noexec' }
+    end
+  else
+    describe mount('/dev/shm') do
+      it { should_not be_mounted }
+    end
   end
 end

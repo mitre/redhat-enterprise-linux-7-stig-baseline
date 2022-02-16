@@ -42,6 +42,7 @@ control 'SV-204506' do
 
   if file(test_file).exist?
     describe parse_config_file(test_file) do
+      its('active') { should match(/yes$/) }
       its('direction') { should match(/out$/) }
       its('path') { should match %r{/sbin/audisp-remote$} }
       its('type') { should match(/always$/) }

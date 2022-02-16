@@ -32,20 +32,19 @@ control 'SV-204595' do
   tag 'cci': ['CCI-001453']
   tag nist: ['AC-17 (2)']
 
-  @macs = inspec.sshd_config.params('macs')
-  if @macs.nil?
+  macs = sshd_config.params('macs')
+  if macs.nil?
     # fail fast
     describe 'The `sshd_config` setting for `MACs`' do
-      subject { @macs }
+      subject { macs }
       it 'should be explicitly set and not commented out' do
         expect(subject).not_to be_nil
       end
     end
   else
-    @macs.first.split(',').each do |mac|
-      describe mac do
-        it { should be_in ['hmac-sha2-256', 'hmac-sha2-512'] }
-      end
+    describe "The list of MACs enabled on the system" do
+      subject { macs }
+      it { should cmp 'hmac-sha2-512,hmac-sha2-256' }
     end
   end
 end

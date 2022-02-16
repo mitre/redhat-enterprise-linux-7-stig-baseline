@@ -571,3 +571,9 @@ inputs:
     description: "Maximum password lifetime restriction for new user accounts"
     type: Numeric
     value: 60
+
+  # SV-204468
+  - name: home_dir_mode
+    description: Maximum mode allowed for user home directories (in octal format)
+    type: Numeric
+    value: 0750
