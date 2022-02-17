@@ -32,7 +32,7 @@ sonarqube-check:
   allow_failure: true
   only:
     - merge_requests
-    - master # or the name of your main branch
+    - main # or the name of your main branch
     - develop
 
 setup:
