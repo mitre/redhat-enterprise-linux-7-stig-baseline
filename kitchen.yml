@@ -1,0 +1,27 @@
+transport:
+  name: ssh
+  max_ssh_sessions: 2
+
+verifier:
+  name: inspec
+  sudo: true
+  reporter:
+      - cli
+      - json:reports/raw/%{suite}-%{platform}.json
+  inspec_tests:
+    - name: RedHat Enterprise Linux 7 STIG
+      path: .
+  load_plugins: true
+
+provisioner:
+  name: ansible_playbook
+  hosts: all
+  require_ansible_repo: true
+  require_chef_for_busser: false
+  require_ruby_for_busser: false
+  ansible_verbose: true
+  roles_path: test/ansible/rhel7STIG-ansible/roles
+
+suites:
+  - name: vanilla
+  - name: hardened
