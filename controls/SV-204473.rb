@@ -34,6 +34,8 @@ directory with the following command:
   tag 'fix_id': 'F-4597r88612_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["home_dirs"]
+  tag 'host','container'
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')
@@ -46,7 +48,7 @@ directory with the following command:
   end.entries.each do |user_info|
     next if exempt_home_users.include?(user_info.username.to_s)
 
-    findings += command("find #{user_info.home} -xdev ! -name '.*' -perm /027 ! -type l").stdout.split("\n")
+    findings += command("find #{user_info.home} -xdev ! -name '.*' -perm -#{input('home_dir_files_mode')} ! -type l").stdout.split("\n")
   end
   describe 'Home directories with excessive permissions' do
     subject { findings.to_a }

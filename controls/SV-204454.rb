@@ -43,12 +43,20 @@ control 'SV-204454' do
   tag 'fix_id': 'F-36307r602631_fix'
   tag 'cci': ['CCI-002165', 'CCI-002696']
   tag nist: ['AC-3 (4)', 'SI-6 a']
-  tag 'host', 'selinux'
+  tag subsystems: ["selinux"]
+  tag 'host'
 
-  describe command('sestatus') do
-    its('stdout') { should match(/^Loaded\spolicy\sname:\s+targeted\n?$/) }
-  end
-  describe parse_config_file('/etc/selinux/config') do
-    its('SELINUXTYPE') { should eq 'targeted' }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - SELinux settings must be handled on host" do
+      skip "Control not applicable - SELinux settings must be handled on host"
+    end
+  else
+    describe command('sestatus') do
+      its('stdout') { should match(/^Loaded\spolicy\sname:\s+targeted\n?$/) }
+    end
+    describe parse_config_file('/etc/selinux/config') do
+      its('SELINUXTYPE') { should eq 'targeted' }
+    end
   end
 end

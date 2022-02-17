@@ -55,6 +55,8 @@ control 'SV-204427' do
   tag 'fix_id': 'F-4551r622287_fix'
   tag 'cci': ['CCI-000044', 'CCI-002236', 'CCI-002237', 'CCI-002238']
   tag nist: ['AC-7 a', 'AC-7 b', 'AC-7 b', 'AC-7 b']
+  tag subsystems: ["pam","faillock"]
+  tag 'host', 'container'
 
   describe pam('/etc/pam.d/password-auth') do
     its('lines') do

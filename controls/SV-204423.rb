@@ -27,6 +27,8 @@ control 'SV-204423' do
   tag 'fix_id': 'F-4547r88462_fix'
   tag 'cci': ['CCI-000205']
   tag nist: ['IA-5 (1) (a)']
+  tag subsystems: ["pam","pwquality","password"]
+  tag 'host', 'container'
 
   min_len = input('min_len')
 

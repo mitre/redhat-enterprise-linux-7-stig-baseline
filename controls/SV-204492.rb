@@ -28,8 +28,18 @@ control 'SV-204492' do
   tag 'fix_id': 'F-4616r88669_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["kdump","kernel"]
+  tag 'host'
 
-  describe systemd_service('kdump.service') do
-    it { should_not be_running }
+
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - Kernel config must be done on the host" do
+      skip "Control not applicable - Kernel config must be done on the host"
+    end
+  else
+    describe systemd_service('kdump.service') do
+      it { should_not be_running }
+    end
   end
 end

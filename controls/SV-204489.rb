@@ -30,6 +30,7 @@ control 'SV-204489' do
   tag 'fix_id': 'F-4613r744108_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["cron","rsyslog"]
   tag 'host', 'container'
 
   log_pkg_path = input('log_pkg_path')

@@ -21,6 +21,8 @@ control 'SV-204443' do
   tag 'fix_id': 'F-4567r88522_fix'
   tag 'cci': ['CCI-000381']
   tag nist: ['CM-7 a']
+  tag subsystems: ["packages"]
+  tag 'host', 'container'
 
   describe package('ypserv') do
     it { should_not be_installed }

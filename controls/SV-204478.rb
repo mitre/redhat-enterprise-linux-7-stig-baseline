@@ -1,18 +1,11 @@
 control 'SV-204478' do
   title 'The Red Hat Enterprise Linux operating system must be configured so that local initialization files do not
     execute world-writable programs.'
-  if input('disable_slow_controls')
-    desc 'If user start-up files execute world-writable programs, especially in unprotected directories, they could be
-    maliciously modified to destroy user files or otherwise compromise the system at the user level. If the system is
-    compromised at the user level, it is easier to elevate privileges to eventually compromise the system at the root
-    and network level.'
-  else
-    desc "If user start-up files execute world-writable programs, especially in
-unprotected directories, they could be maliciously modified to destroy user
-files or otherwise compromise the system at the user level. If the system is
-compromised at the user level, it is easier to elevate privileges to eventually
-compromise the system at the root and network level."
-  end
+  desc "If user start-up files execute world-writable programs, especially in
+    unprotected directories, they could be maliciously modified to destroy user
+    files or otherwise compromise the system at the user level. If the system is
+    compromised at the user level, it is easier to elevate privileges to eventually
+    compromise the system at the root and network level."
   desc 'rationale', ''
   desc 'check', %q(Verify that local initialization files do not execute world-writable programs.
     Check the system for world-writable files with the following command:
@@ -38,6 +31,8 @@ the following command:
   tag 'fix_id': 'F-4602r88627_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["init_files"]
+  tag 'host', 'container'
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')

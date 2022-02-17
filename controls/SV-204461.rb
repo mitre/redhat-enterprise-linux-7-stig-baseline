@@ -21,6 +21,8 @@ control 'SV-204461' do
   tag 'fix_id': 'F-4585r88576_fix'
   tag 'cci': ['CCI-000764']
   tag nist: ['IA-2']
+  tag subsystems: ["accounts"]
+  tag 'host', 'container'
 
   passwd.gids.each do |gid|
     describe etc_group do

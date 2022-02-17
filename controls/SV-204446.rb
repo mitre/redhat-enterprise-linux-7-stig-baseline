@@ -48,6 +48,8 @@ control 'SV-204446' do
   tag 'fix_id': 'F-36305r602625_fix'
   tag 'cci': ['CCI-001744']
   tag nist: ['CM-3 (5)']
+  tag subsystems: ["aide"]
+  tag 'host', 'container'
 
   file_integrity_tool = input('file_integrity_tool')
 

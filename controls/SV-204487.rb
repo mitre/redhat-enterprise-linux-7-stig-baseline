@@ -25,6 +25,7 @@ control 'SV-204487' do
   tag 'fix_id': 'F-36308r602634_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["world_writable","ww_dirs"]
   tag 'host', 'container'
 
   ww_dirs = Set[]

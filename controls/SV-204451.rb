@@ -28,6 +28,8 @@ control 'SV-204451' do
   tag 'fix_id': 'F-4575r88546_fix'
   tag 'cci': ['CCI-000366', 'CCI-000778', 'CCI-001958']
   tag nist: ['CM-6 b', 'IA-3', 'IA-3']
+  tag subsystems: ["file_system","nfs","autofs"]
+  tag 'host', 'container'
 
   describe systemd_service('autofs.service') do
     it { should_not be_running }

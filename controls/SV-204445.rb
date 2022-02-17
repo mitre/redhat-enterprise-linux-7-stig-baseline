@@ -41,6 +41,8 @@ control 'SV-204445' do
   tag 'fix_id': 'F-36304r602622_fix'
   tag 'cci': ['CCI-001744']
   tag nist: ['CM-3 (5)']
+  tag subsystems: ["aide"]
+  tag 'host', 'container'
 
   file_integrity_tool = input('file_integrity_tool')
   file_integrity_interval = input('file_integrity_interval')

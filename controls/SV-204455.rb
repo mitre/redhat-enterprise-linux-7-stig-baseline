@@ -28,9 +28,18 @@ control 'SV-204455' do
   tag 'fix_id': 'F-4579r88558_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["gnome","general"]
+  tag 'host'
 
-  describe systemd_service('ctrl-alt-del.target') do
-    it { should_not be_running }
-    it { should_not be_enabled }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
+    end
+  else
+    describe systemd_service('ctrl-alt-del.target') do
+      it { should_not be_running }
+      it { should_not be_enabled }
+    end
   end
 end

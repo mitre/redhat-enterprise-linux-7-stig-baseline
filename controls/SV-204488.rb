@@ -29,6 +29,8 @@ control 'SV-204488' do
   tag 'cci': ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813',
               'CCI-001814']
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
+  tag subsystems: ["init_files","home_dirs"]
+  tag 'host', 'container'
 
   non_interactive_shells = input('non_interactive_shells')
 
@@ -66,14 +68,14 @@ control 'SV-204488' do
       umasks.store(u.username,
                    command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
 
-      # Check all local initialization files to see whether or not they are less restrictive than 077.
+      # Check all local initialization files to see whether or not they are less restrictive than the input UMASK.
       dotfiles.each do |df|
-        findings += df if file(df).more_permissive_than?('0077')
+        findings += df if file(df).more_permissive_than?(input('max_user_umask'))
       end
 
       # Check umask for all interactive users
       umasks.each do |key, value|
-        max_mode = ('0077').to_i(8)
+        max_mode = (input('max_user_umask')).to_i(8)
         inv_mode = 0o777 ^ max_mode
         umask_findings += key if inv_mode & (value).to_i(8) != 0
       end
@@ -84,13 +86,13 @@ control 'SV-204488' do
     end
   end
 
-  # Report on any interactive files that are less restrictive than 077.
+  # Report on any interactive files that are less restrictive than the input UMASK.
   describe 'No interactive user initialization files with a less restrictive umask were found.' do
     subject { findings.empty? }
     it { should eq true }
   end
 
-  # Report on any interactive users that have a umask less restrictive than 077.
+  # Report on any interactive users that have a umask less restrictive than the input UMASK.
   describe 'No users were found with a less restrictive umask were found.' do
     subject { umask_findings.empty? }
     it { should eq true }

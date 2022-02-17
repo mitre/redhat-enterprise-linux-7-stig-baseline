@@ -42,21 +42,30 @@ control 'SV-204441' do
   tag 'fix_id': 'F-4565r88516_fix'
   tag 'cci': ['CCI-000766']
   tag nist: ['IA-2 (2)']
+  tag subsystems: ["pam","smartcard"]
+  tag 'host'
 
-  smart_card_status = input('smart_card_status')
-  if smart_card_status.eql?('enabled')
-    impact 0.5
-    describe command('authconfig --test | grep -i smartcard') do
-      its('stdout') do
-        should match(/use\sonly\ssmartcard\sfor\slogin\sis\s#{smart_card_status}/)
-      end
-      its('stdout') { should match(/smartcard\smodule\s=\s".+"/) }
-      its('stdout') { should match(/smartcard\sremoval\saction\s=\s".+"/) }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
   else
-    impact 0.0
-    describe 'The system is not smartcard enabled' do
-      skip 'The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.'
+    smart_card_status = input('smart_card_status')
+    if smart_card_status.eql?('enabled')
+      impact 0.5
+      describe command('authconfig --test | grep -i smartcard') do
+        its('stdout') do
+          should match(/use\sonly\ssmartcard\sfor\slogin\sis\s#{smart_card_status}/)
+        end
+        its('stdout') { should match(/smartcard\smodule\s=\s".+"/) }
+        its('stdout') { should match(/smartcard\sremoval\saction\s=\s".+"/) }
+      end
+    else
+      impact 0.0
+      describe 'The system is not smartcard enabled' do
+        skip 'The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.'
+      end
     end
   end
 end

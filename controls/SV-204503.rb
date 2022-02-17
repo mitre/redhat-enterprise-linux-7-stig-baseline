@@ -34,6 +34,8 @@ control 'SV-204503' do
   tag 'fix_id': 'F-36311r602643_fix'
   tag 'cci': ['CCI-000126', 'CCI-000131']
   tag nist: ['AU-2 d', 'AU-3']
+  tag subsystems: ["audit","auditd"]
+  tag 'host'
 
   describe service('auditd') do
     it { should be_running }

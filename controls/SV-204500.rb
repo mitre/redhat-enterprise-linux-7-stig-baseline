@@ -41,6 +41,8 @@ control 'SV-204500' do
   tag 'fix_id': 'F-4624r792830_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["aide"]
+  tag 'host', 'container'
 
   describe package('aide') do
     it { should be_installed }

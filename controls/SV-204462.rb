@@ -21,6 +21,8 @@ control 'SV-204462' do
   tag 'fix_id': 'F-4586r88579_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["accounts"]
+  tag 'host', 'container'
 
   describe passwd.uids(0) do
     its('users') { should cmp 'root' }

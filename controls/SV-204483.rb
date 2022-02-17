@@ -29,17 +29,21 @@ control 'SV-204483' do
   tag 'fix_id': 'F-4607r88642_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["etc_fstab"]
+  tag 'host', 'container'
 
   nfs_systems = etc_fstab.nfs_file_systems.entries
-  if !nfs_systems.nil? and !nfs_systems.empty?
-    nfs_systems.each do |file_system|
-      describe file_system do
+
+  if !nfs_systems.nil? && !nfs_systems.empty?
+    nfs_systems.each do |nfs_system|
+      describe "Network File System mounted on #{nfs_system['mount_point']}" do
+        subject { nfs_system }
         its('mount_options') { should include 'noexec' }
       end
     end
   else
-    describe 'No NFS file systems were found.' do
-      subject { nfs_systems.nil? or nfs_systems.empty? }
+    describe 'No NFS file systems were found' do
+      subject { nfs_systems.nil? || nfs_systems.empty? }
       it { should eq true }
     end
   end

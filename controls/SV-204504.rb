@@ -46,24 +46,33 @@ control 'SV-204504' do
   tag 'fix_id': 'F-4628r462467_fix'
   tag 'cci': ['CCI-000139']
   tag nist: ['AU-5 a']
+  tag subsystems: ["audit","auditd"]
+  tag 'host'
 
-  monitor_kernel_log = input('monitor_kernel_log')
-
-  if auditd.status['failure'].nil?
-    impact 0.5
-  elsif auditd.status['failure'].match?(/^1$/) && !monitor_kernel_log
-    impact 0.3
-  else
-    impact 0.5
-  end
-
-  if !monitor_kernel_log
-    describe auditd.status['failure'] do
-      it { should match(/^2$/) }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - Kernel config must be done on the host" do
+      skip "Control not applicable - Kernel config must be done on the host"
     end
   else
-    describe auditd.status['failure'] do
-      it { should match(/^(1|2)$/) }
+    monitor_kernel_log = input('monitor_kernel_log')
+
+    if auditd.status['failure'].nil?
+      impact 0.5
+    elsif auditd.status['failure'].match?(/^1$/) && !monitor_kernel_log
+      impact 0.3
+    else
+      impact 0.5
+    end
+
+    if !monitor_kernel_log
+      describe auditd.status['failure'] do
+        it { should match(/^2$/) }
+      end
+    else
+      describe auditd.status['failure'] do
+        it { should match(/^(1|2)$/) }
+      end
     end
   end
 end

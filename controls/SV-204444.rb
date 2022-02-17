@@ -48,55 +48,64 @@ control 'SV-204444' do
   tag 'fix_id': 'F-4568r792825_fix'
   tag 'cci': ['CCI-002165', 'CCI-002235']
   tag nist: ['AC-3 (4)', 'AC-6 (10)']
+  tag subsystems: ["selinux"]
   tag 'host'
 
-  admin_logins = input('admin_logins')
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - SELinux settings must be handled on host" do
+      skip "Control not applicable - SELinux settings must be handled on host"
+    end
+  else
 
-  describe command('selinuxenabled') do
-    its('exist?') { should be true }
-    its('exit_status') { should eq 0 }
-  end
+    admin_logins = input('admin_logins')
 
-  selinux_mode = file('/etc/selinux/config').content.lines
-                                            .grep(/\A\s*SELINUXTYPE=/).last.split('=').last.strip
+    describe command('selinuxenabled') do
+      its('exist?') { should be true }
+      its('exit_status') { should eq 0 }
+    end
 
-  seusers = file("/etc/selinux/#{selinux_mode}/seusers").content.lines
-                                                        .grep_v(/(#|\A\s+\Z)/).map(&:strip)
+    selinux_mode = file('/etc/selinux/config').content.lines
+                                              .grep(/\A\s*SELINUXTYPE=/).last.split('=').last.strip
 
-  seusers = seusers.map { |x| x.split(':')[0..1] }
+    seusers = file("/etc/selinux/#{selinux_mode}/seusers").content.lines
+                                                          .grep_v(/(#|\A\s+\Z)/).map(&:strip)
 
-  describe 'seusers' do
-    it { expect(seusers).to_not be_empty }
-  end
+    seusers = seusers.map { |x| x.split(':')[0..1] }
 
-  users_to_ignore = [
-    'root',
-    'system_u'
-  ]
+    describe 'seusers' do
+      it { expect(seusers).to_not be_empty }
+    end
 
-  seusers.each do |user, context|
-    next if users_to_ignore.include?(user)
+    users_to_ignore = [
+      'root',
+      'system_u'
+    ]
 
-    describe "SELinux login #{user}" do
-      if user == '__default__'
-        let(:valid_users) { ['user_u'] }
-      elsif admin_logins.include?(user)
-        let(:valid_users) do
-          [
-            'staff_u'
-          ]
+    seusers.each do |user, context|
+      next if users_to_ignore.include?(user)
+
+      describe "SELinux login #{user}" do
+        if user == '__default__'
+          let(:valid_users) { ['user_u'] }
+        elsif admin_logins.include?(user)
+          let(:valid_users) do
+            [
+              'staff_u'
+            ]
+          end
+        else
+          let(:valid_users) do
+            [
+              'user_u',
+              'guest_u',
+              'xguest_u'
+            ]
+          end
         end
-      else
-        let(:valid_users) do
-          [
-            'user_u',
-            'guest_u',
-            'xguest_u'
-          ]
-        end
+
+        it { expect(context).to be_in(valid_users) }
       end
-
-      it { expect(context).to be_in(valid_users) }
     end
   end
 end

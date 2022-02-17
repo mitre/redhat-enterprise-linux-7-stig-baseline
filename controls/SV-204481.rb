@@ -24,29 +24,38 @@ control 'SV-204481' do
   tag 'fix_id': 'F-4605r88636_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["file_system","removable_media"]
+  tag 'host'
 
-  non_removable_media_fs = input('non_removable_media_fs')
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
+    end
+  else  
+    non_removable_media_fs = input('non_removable_media_fs')
 
-  file_systems = etc_fstab.params
-  if !file_systems.nil? and !file_systems.empty?
-    file_systems.each do |file_sys_line|
-      if !non_removable_media_fs.to_s.include?(file_sys_line['file_system_type'])
-        describe file_sys_line['mount_options'] do
-          it { should include 'nosuid' }
-        end
-      else
-        describe "File system \"#{file_sys_line['file_system_type']}\" does not correspond to removable media." do
-          subject do
-            non_removable_media_fs.to_s.include?(file_sys_line['file_system_type'])
+    file_systems = etc_fstab.params
+    if !file_systems.nil? and !file_systems.empty?
+      file_systems.each do |file_sys_line|
+        if !non_removable_media_fs.to_s.include?(file_sys_line['file_system_type'])
+          describe file_sys_line['mount_options'] do
+            it { should include 'nosuid' }
           end
-          it { should eq true }
+        else
+          describe "File system \"#{file_sys_line['file_system_type']}\" does not correspond to removable media." do
+            subject do
+              non_removable_media_fs.to_s.include?(file_sys_line['file_system_type'])
+            end
+            it { should eq true }
+          end
         end
       end
-    end
-  else
-    describe 'No file systems were found.' do
-      subject { file_systems.nil? }
-      it { should eq true }
+    else
+      describe 'No file systems were found.' do
+        subject { file_systems.nil? }
+        it { should eq true }
+      end
     end
   end
 end

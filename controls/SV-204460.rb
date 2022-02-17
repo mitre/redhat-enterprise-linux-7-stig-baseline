@@ -35,6 +35,8 @@ control 'SV-204460' do
   tag 'fix_id': 'F-4584r88573_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["accounts"]
+  tag 'host', 'container'
 
   known_system_accounts = input('known_system_accounts')
   user_accounts = input('user_accounts')

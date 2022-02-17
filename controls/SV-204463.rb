@@ -22,6 +22,8 @@ control 'SV-204463' do
   tag 'fix_id': 'F-4587r88582_fix'
   tag 'cci': ['CCI-002165']
   tag nist: ['AC-3 (4)']
+  tag subsystems: ["file_system","users","files"]
+  tag 'host', 'container'
 
   command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'')
     .stdout.strip.split("\n").each do |fs|

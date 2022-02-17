@@ -33,6 +33,8 @@ control 'SV-204486' do
   tag 'fix_id': 'F-4610r462553_fix'
   tag 'cci': ['CCI-001764']
   tag nist: ['CM-7 (2)']
+  tag subsystems: ["etc_fstab", "mount"]
+  tag 'host', 'container'
 
   if mount('/dev/shm').mounted?
 

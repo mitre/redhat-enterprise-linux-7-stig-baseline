@@ -33,6 +33,8 @@ control 'SV-204493' do
   tag 'fix_id': 'F-4617r88672_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["home_dirs","file_system"]
+  tag 'host', 'container'
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')
