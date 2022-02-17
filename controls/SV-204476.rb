@@ -31,6 +31,8 @@ of \"/home/smithj\".
   tag 'fix_id': 'F-4600r88621_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["init_files"]
+  tag 'host', 'container'
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')
@@ -41,7 +43,7 @@ of \"/home/smithj\".
   users.where do
     !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)
   end.entries.each do |user_info|
-    findings += command("find #{user_info.home} -xdev -maxdepth 1 -name '.*' -type f -perm /037").stdout.split("\n")
+    findings += command("find #{user_info.home} -xdev -maxdepth 1 -name '.*' -type f -perm -#{input('init_files_mode')}").stdout.split("\n")
   end
   describe findings do
     it { should be_empty }

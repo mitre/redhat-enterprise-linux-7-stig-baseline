@@ -19,8 +19,17 @@ control 'SV-204494' do
   tag 'fix_id': 'F-4618r88675_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["/var","file_system"]
+  tag 'host'
 
-  describe mount('/var') do
-    it { should be_mounted }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
+    end
+  else
+    describe etc_fstab.where { mount_point == '/var/log' } do
+      it { should exist }
+    end
   end
 end

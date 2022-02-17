@@ -37,6 +37,8 @@ control 'SV-204448' do
   tag 'fix_id': 'F-4572r88537_fix'
   tag 'cci': ['CCI-001749']
   tag nist: ['CM-5 (3)']
+  tag subsystems: ["yum"]
+  tag 'host', 'container'
 
   yum_conf = '/etc/yum.conf'
 

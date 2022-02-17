@@ -24,7 +24,8 @@ control 'SV-204424' do
   tag 'fix_id': 'F-4548r88465_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag 'host', 'container', 'pam'
+  tag subsystems: ["pam","password"]
+  tag 'host', 'container'
 
   # Fetch all files under /etc/pam.d excluding '*-ac' files
   # but including symlinks

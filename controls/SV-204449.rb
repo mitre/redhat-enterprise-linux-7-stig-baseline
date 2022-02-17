@@ -35,9 +35,18 @@ control 'SV-204449' do
   tag 'fix_id': 'F-4573r462538_fix'
   tag 'cci': ['CCI-000366', 'CCI-000778', 'CCI-001958']
   tag nist: ['CM-6 b', 'IA-3', 'IA-3']
+  tag subsystems: ["usb","kernel_module"]
+  tag 'host'
 
-  describe kernel_module('usb_storage') do
-    it { should_not be_loaded }
-    it { should be_blacklisted }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - Kernel config must be done on the host" do
+      skip "Control not applicable - Kernel config must be done on the host"
+    end
+  else
+    describe kernel_module('usb_storage') do
+      it { should_not be_loaded }
+      it { should be_blacklisted }
+    end
   end
 end

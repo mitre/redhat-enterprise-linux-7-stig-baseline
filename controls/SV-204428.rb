@@ -39,7 +39,8 @@ control 'SV-204428' do
   tag 'fix_id': 'F-4552r792820_fix'
   tag 'cci': ['CCI-002238']
   tag nist: ['AC-7 b']
-  tag 'host', 'container', 'pam'
+  tag subsystems: ["pam"]
+  tag 'host', 'container'
 
   describe.one do
     describe pam('/etc/pam.d/password-auth') do

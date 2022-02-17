@@ -28,6 +28,7 @@ control 'SV-204440' do
   tag 'fix_id': 'F-4564r744097_fix'
   tag 'cci': ['CCI-000213']
   tag nist: ['AC-3']
+  tag subsystems: ["boot", "uefi"]
 
   if file('/sys/firmware/efi').exist?
     if os[:release] >= '7.2'

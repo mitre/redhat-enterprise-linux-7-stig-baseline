@@ -28,6 +28,7 @@ control 'SV-204438' do
   tag 'fix_id': 'F-4562r744094_fix'
   tag 'cci': ['CCI-000213']
   tag nist: ['AC-3']
+  tag subsystems: ["boot","bios"]
   tag 'host', 'container'
 
   if file('/sys/firmware/efi').exist?

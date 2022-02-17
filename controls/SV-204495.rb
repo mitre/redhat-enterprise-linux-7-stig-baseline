@@ -23,8 +23,19 @@ control 'SV-204495' do
   tag 'fix_id': 'F-4619r88678_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["file_system", "audit"]
+  tag 'host'
 
-  describe mount('/var/log/audit') do
-    it { should be_mounted }
+  audit_data_path = command("dirname #{auditd_conf.log_file}").stdout.strip
+
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
+    end
+  else
+    describe etc_fstab.where { mount_point == audit_data_path } do
+      it { should exist }
+    end
   end
 end

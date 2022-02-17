@@ -26,6 +26,8 @@ control 'SV-204417' do
   tag 'fix_id': 'F-4541r88444_fix'
   tag 'cci': ['CCI-000196']
   tag nist: ['IA-5 (1) (c)']
+  tag subsystems: ["libuser_conf","password"]
+  tag 'host', 'container'
 
   describe command('cat /etc/libuser.conf | grep -i sha512') do
     its('stdout.strip') { should match(/^crypt_style = sha512$/) }

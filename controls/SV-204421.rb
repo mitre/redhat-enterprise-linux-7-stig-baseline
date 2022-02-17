@@ -21,6 +21,8 @@ control 'SV-204421' do
   tag 'fix_id': 'F-4545r88456_fix'
   tag 'cci': ['CCI-000199']
   tag nist: ['IA-5 (1) (d)']
+  tag subsystems: ["password","/etc/shadow"]
+  tag 'host', 'container'
 
   shadow.users.each do |user|
     # filtering on non-system accounts (uid >= 1000)

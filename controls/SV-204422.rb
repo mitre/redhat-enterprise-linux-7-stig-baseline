@@ -29,7 +29,8 @@ control 'SV-204422' do
   tag 'fix_id': 'F-4546r88459_fix'
   tag 'cci': ['CCI-000200']
   tag nist: ['IA-5 (1) (e)']
-  tag 'host', 'container', 'pam'
+  tag subsystems: ["pam","password"]
+  tag 'host', 'container'
 
   min_reuse_generations = input('min_reuse_generations')
 

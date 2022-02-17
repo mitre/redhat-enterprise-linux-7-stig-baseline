@@ -26,6 +26,8 @@ control 'SV-204457' do
   tag 'fix_id': 'F-4581r88564_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["login_defs"]
+  tag 'host', 'container'
 
   if login_defs.read_params['UMASK'].eql?('000')
     impact 0.5

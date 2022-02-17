@@ -26,17 +26,32 @@ control 'SV-204509' do
   tag 'fix_id': 'F-4633r88720_fix'
   tag 'cci': ['CCI-001851']
   tag nist: ['AU-4 (1)']
+  tag subsystems: ["audit","audisp"]
+  tag 'host'
 
-  if file('/etc/audisp/audisp-remote.conf').exist?
-    describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-      its('remote_server'.to_s) { should match(/^\S+$/) }
-      its('remote_server'.to_s) do
-        should_not be_in ['localhost', '127.0.0.1']
-      end
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - audit config must be done on the host" do
+      skip "Control not applicable - audit config must be done on the host"
     end
   else
-    describe "File '/etc/audisp/audisp-remote.conf' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do
-      skip "File '/etc/audisp/audisp-remote.conf' cannot be found. This check must be performed manually"
+    if file('/etc/audisp/audisp-remote.conf').exist?
+      if input('audit_remote_server')
+        describe parse_config_file('/etc/audisp/audisp-remote.conf') do
+          its('remote_server'.to_s) { should cmp input('audit_remote_server') }
+        end
+      else
+        describe parse_config_file('/etc/audisp/audisp-remote.conf') do
+          its('remote_server'.to_s) { should match(/^\S+$/) }
+          its('remote_server'.to_s) do
+            should_not be_in ['localhost', '127.0.0.1']
+          end
+        end
+      end
+    else
+      describe "File '/etc/audisp/audisp-remote.conf' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do
+        skip "File '/etc/audisp/audisp-remote.conf' cannot be found. This check must be performed manually"
+      end
     end
   end
 end

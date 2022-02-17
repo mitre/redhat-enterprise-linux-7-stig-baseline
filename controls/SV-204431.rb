@@ -30,6 +30,8 @@ control 'SV-204431' do
   tag 'fix_id': 'F-4555r88486_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["login_defs"]
+  tag 'host', 'container'
 
   describe login_defs do
     its('FAIL_DELAY.to_i') { should cmp >= 4 }

@@ -32,10 +32,18 @@ control 'SV-204512' do
   tag 'fix_id': 'F-36315r602655_fix'
   tag 'cci': ['CCI-001851']
   tag nist: ['AU-4 (1)']
+  tag subsystems: ["audit","audisp"]
+  tag 'host'
 
-  describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('network_failure_action'.to_s) do
-      should be_in ['syslog', 'single', 'halt']
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - audit config must be done on the host" do
+      skip "Control not applicable - audit config must be done on the host"
+    end
+  else
+    describe parse_config_file('/etc/audisp/audisp-remote.conf') do
+      its('network_failure_action'.to_s) { should cmp input('expected_network_failure_action') }
+      its('network_failure_action'.to_s) { should be_in ['syslog', 'single', 'halt'] }
     end
   end
 end

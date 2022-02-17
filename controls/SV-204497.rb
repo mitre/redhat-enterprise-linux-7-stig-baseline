@@ -79,28 +79,38 @@ control 'SV-204497' do
   tag 'fix_id': 'F-36310r602640_fix'
   tag 'cci': ['CCI-000068', 'CCI-001199', 'CCI-002450', 'CCI-002476']
   tag nist: ['AC-17 (2)', 'SC-28', 'SC-13', 'SC-28 (1)']
+  tag subsystems: ["fips"]
+  tag 'host'
 
-  describe package('dracut-fips') do
-    it { should be_installed }
-  end
 
-  all_args = # strip outer quotes if they exist
-    command('grubby --info=ALL | grep "^args=" | sed "s/^args=//g"')
-    .stdout.strip.split("\n")
-    .map do |s|
-      s.sub(/^"(.*)"$/, '\1')
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - Kernel config for FIPS capability must be done on the host" do
+      skip "Control not applicable - Kernel config for FIPS capability must be done on the host"
     end
-  all_args.each do |args|
-    describe args do
-      it { should match(/\bfips=1\b/) }
+  else
+    describe package('dracut-fips') do
+      it { should be_installed }
     end
-  end
 
-  describe file('/proc/sys/crypto/fips_enabled') do
-    its('content.strip') { should cmp 1 }
-  end
+    all_args = # strip outer quotes if they exist
+      command('grubby --info=ALL | grep "^args=" | sed "s/^args=//g"')
+      .stdout.strip.split("\n")
+      .map do |s|
+        s.sub(/^"(.*)"$/, '\1')
+      end
+    all_args.each do |args|
+      describe args do
+        it { should match(/\bfips=1\b/) }
+      end
+    end
 
-  describe file('/etc/system-fips') do
-    it { should exist }
+    describe file('/proc/sys/crypto/fips_enabled') do
+      its('content.strip') { should cmp 1 }
+    end
+
+    describe file('/etc/system-fips') do
+      it { should exist }
+    end
   end
 end

@@ -30,6 +30,8 @@ control 'SV-204480' do
   tag 'fix_id': 'F-4604r88633_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["home_dirs","file_system"]
+  tag 'host', 'container'
 
   describe mount('/home') do
     its('options') { should include 'nosuid' }

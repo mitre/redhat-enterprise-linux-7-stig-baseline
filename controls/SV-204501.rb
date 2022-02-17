@@ -33,29 +33,38 @@ control 'SV-204501' do
   tag 'cci': ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813',
               'CCI-001814']
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
+  tag subsystems: ["grub", "removable_media"]
+  tag 'host'
 
-  roots = command('grubby --info=ALL | grep "^root=" | sed "s/^root=//g"')
-          .stdout.strip.split("\n")
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
+    end
+  else  
+    roots = command('grubby --info=ALL | grep "^root=" | sed "s/^root=//g"')
+            .stdout.strip.split("\n")
 
-  blocks = roots.map do |root|
-    root_file = file(root)
-    root_file.symlink? ? root_file.link_path : root_file.path
-  end
-
-  blocks.each do |block|
-    block_file = file(block)
-    describe block_file do
-      it { should exist }
-      its('path') { should match %r{^/dev/} }
+    blocks = roots.map do |root|
+      root_file = file(root)
+      root_file.symlink? ? root_file.link_path : root_file.path
     end
 
-    next unless block_file.exist? and block_file.path.match? %r{^/dev/}
+    blocks.each do |block|
+      block_file = file(block)
+      describe block_file do
+        it { should exist }
+        its('path') { should match %r{^/dev/} }
+      end
 
-    removable = ['/sys/block', block.sub(%r{^/dev/}, ''),
-                 'removable'].join('/')
-    describe file(removable) do
-      it { should exist }
-      its('content.strip') { should eq '0' }
+      next unless block_file.exist? and block_file.path.match? %r{^/dev/}
+
+      removable = ['/sys/block', block.sub(%r{^/dev/}, ''),
+                  'removable'].join('/')
+      describe file(removable) do
+        it { should exist }
+        its('content.strip') { should eq '0' }
+      end
     end
   end
 end

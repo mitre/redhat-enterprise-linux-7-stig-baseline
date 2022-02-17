@@ -31,17 +31,18 @@ control 'SV-204511' do
   tag 'fix_id': 'F-36314r602652_fix'
   tag 'cci': ['CCI-001851']
   tag nist: ['AU-4 (1)']
+  tag subsystems: ["audit","audisp"]
+  tag 'host'
 
-  describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('disk_full_action'.to_s) do
-      should be_in ['syslog', 'single', 'halt']
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - audit config must be done on the host" do
+      skip "Control not applicable - audit config must be done on the host"
     end
-  end
-
-  # Test matches ./inspec-profiles/controls/V-73163.rb
-  describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('network_failure_action'.to_s) do
-      should be_in ['syslog', 'single', 'halt']
+  else
+    describe parse_config_file('/etc/audisp/audisp-remote.conf') do
+      its('disk_full_action'.to_s) { should cmp input('expected_disk_full_action') }
+      its('disk_full_action'.to_s) { should be_in ['syslog', 'single', 'halt'] }
     end
   end
 end

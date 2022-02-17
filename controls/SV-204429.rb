@@ -31,66 +31,75 @@ control 'SV-204429' do
   tag 'fix_id': 'F-36303r602619_fix'
   tag 'cci': ['CCI-002038']
   tag nist: ['IA-11']
+  tag subsystems: ["sudo"]
+  tag 'host'
 
-  processed = []
-  to_process = ['/etc/sudoers', '/etc/sudoers.d']
-
-  until to_process.empty?
-    in_process = to_process.pop
-    next if processed.include? in_process
-
-    processed.push in_process
-
-    if file(in_process).directory?
-      to_process.concat(
-        command("find #{in_process} -maxdepth 1 -mindepth 1")
-          .stdout.strip.split("\n")
-          .select { |f| file(f).file? }
-      )
-    elsif file(in_process).file?
-      to_process.concat(
-        command("grep -E '#include\\s+' #{in_process} | sed 's/.*#include[[:space:]]*//g'")
-          .stdout.strip.split("\n")
-          .map do |f|
-          if f.start_with?('/')
-            f
-          else
-            File.join(
-              File.dirname(in_process), f
-            )
-          end
-        end
-          .select do |f|
-          file(f).exist?
-        end
-      )
-      to_process.concat(
-        command("grep -E '#includedir\\s+' #{in_process} | sed 's/.*#includedir[[:space:]]*//g'")
-          .stdout.strip.split("\n")
-          .map do |f|
-          if f.start_with?('/')
-            f
-          else
-            File.join(
-              File.dirname(in_process), f
-            )
-          end
-        end
-          .select do |f|
-          file(f).exist?
-        end
-      )
+  if virtualization.system.eql?('docker') && !command("sudo").exist?
+    impact 0.0
+    describe "Control not applicable within a container without sudo enabled" do
+      skip "Control not applicable within a container without sudo enabled"
     end
-  end
+  else
+    processed = []
+    to_process = ['/etc/sudoers', '/etc/sudoers.d']
 
-  sudoers = processed.select { |f| file(f).file? }
+    until to_process.empty?
+      in_process = to_process.pop
+      next if processed.include? in_process
 
-  sudoers.each do |sudoer|
-    sudo_content = file(sudoer).content.strip.split("\n")
-    nopasswd_lines = sudo_content.select { |l| l.match?(/^[^#].*NOPASSWD/) }
-    describe "#{sudoer} rules containing NOPASSWD" do
-      subject { nopasswd_lines }
-      it { should be_empty }
+      processed.push in_process
+
+      if file(in_process).directory?
+        to_process.concat(
+          command("find #{in_process} -maxdepth 1 -mindepth 1")
+            .stdout.strip.split("\n")
+            .select { |f| file(f).file? }
+        )
+      elsif file(in_process).file?
+        to_process.concat(
+          command("grep -E '#include\\s+' #{in_process} | sed 's/.*#include[[:space:]]*//g'")
+            .stdout.strip.split("\n")
+            .map do |f|
+            if f.start_with?('/')
+              f
+            else
+              File.join(
+                File.dirname(in_process), f
+              )
+            end
+          end
+            .select do |f|
+            file(f).exist?
+          end
+        )
+        to_process.concat(
+          command("grep -E '#includedir\\s+' #{in_process} | sed 's/.*#includedir[[:space:]]*//g'")
+            .stdout.strip.split("\n")
+            .map do |f|
+            if f.start_with?('/')
+              f
+            else
+              File.join(
+                File.dirname(in_process), f
+              )
+            end
+          end
+            .select do |f|
+            file(f).exist?
+          end
+        )
+      end
+    end
+
+    sudoers = processed.select { |f| file(f).file? }
+
+    sudoers.each do |sudoer|
+      sudo_content = file(sudoer).content.strip.split("\n")
+      nopasswd_lines = sudo_content.select { |l| l.match?(/^[^#].*NOPASSWD/) }
+      describe "#{sudoer} rules containing NOPASSWD" do
+        subject { nopasswd_lines }
+        it { should be_empty }
+      end
     end
   end
 end

@@ -39,20 +39,29 @@ command:
   tag 'cci': ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813',
               'CCI-001814']
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
+  tag subsystems: ["system_device","device_files"]
+  tag 'host'
 
-  virtual_machine = input('virtual_machine')
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
+    end
+  else  
+    virtual_machine = input('virtual_machine')
 
-  findings = Set[]
-  findings += command('find / -xdev -context *:device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
-  findings += command('find / -xdev -context *:unlabeled_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
-  findings += command('find / -xdev -context *:vmci_device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
+    findings = Set[]
+    findings += command('find / -xdev -context *:device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
+    findings += command('find / -xdev -context *:unlabeled_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
+    findings += command('find / -xdev -context *:vmci_device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
 
-  describe findings do
-    if virtual_machine
-      its('length') { should cmp 1 }
-      its('first') { should include '/dev/vmci' }
-    else
-      its('length') { should cmp 0 }
+    describe findings do
+      if virtual_machine
+        its('length') { should cmp 1 }
+        its('first') { should include '/dev/vmci' }
+      else
+        its('length') { should cmp 0 }
+      end
     end
   end
 end

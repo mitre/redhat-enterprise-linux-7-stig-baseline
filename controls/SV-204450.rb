@@ -34,9 +34,19 @@ control 'SV-204450' do
   tag 'fix_id': 'F-4574r88543_fix'
   tag 'cci': ['CCI-001958']
   tag nist: ['IA-3']
+  tag subsystems: ["dccp","kernel_module"]
+  tag 'host'
 
-  describe kernel_module('dccp') do
-    it { should_not be_loaded }
-    it { should be_blacklisted }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - Kernel config must be done on the host" do
+      skip "Control not applicable - Kernel config must be done on the host"
+    end
+  else
+
+    describe kernel_module('dccp') do
+      it { should_not be_loaded }
+      it { should be_blacklisted }
+    end
   end
 end
