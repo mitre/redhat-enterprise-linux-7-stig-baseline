@@ -30,25 +30,25 @@ control 'SV-204563' do
   tag 'fix_id': 'F-4687r462673_fix'
   tag 'cci': ['CCI-000172']
   tag nist: ['AU-12 c']
+  tag subsystems: ["audit","auditd","audit_rule"]
+  tag 'host'
 
-  audit_file = '/usr/bin/kmod'
+  audit_command = '/usr/bin/kmod'
 
-  if file(audit_file).exist?
-    impact 0.5
-  else
+  if virtualization.system.eql?('docker')
     impact 0.0
-  end
-
-  if file(audit_file).exist?
-    describe auditd.file(audit_file) do
-      its('permissions') { should include ['x'] }
-      its('action') { should_not include 'never' }
+    describe "Control not applicable - audit config must be done on the host" do
+      skip "Control not applicable - audit config must be done on the host"
     end
-  end
-
-  unless file(audit_file).exist?
-    describe "The #{audit_file} file does not exist" do
-      skip "The #{audit_file} file does not exist, this requirement is Not Applicable."
+  else
+    describe "Command" do
+      it "#{audit_command} is audited properly" do
+        audit_rule = auditd.file(audit_command)
+        expect(audit_rule).to exist
+        expect(audit_rule.key).to cmp 'module-change'
+        expect(audit_rule.permissions.flatten).to cmp 'x'
+        expect(audit_rule.fields.flatten).to include 'auid!=-1'
+      end
     end
   end
 end

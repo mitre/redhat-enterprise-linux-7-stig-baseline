@@ -31,14 +31,15 @@ control 'SV-204553' do
   tag 'fix_id': 'F-4677r462655_fix'
   tag 'cci': ['CCI-000135', 'CCI-002884']
   tag nist: ['AU-3 (1)', 'MA-4 (1) (a)']
-  tag 'host', 'audit'
+  tag subsystems: ["audit","auditd","audit_rule"]
+  tag 'host'
 
   audit_command = '/usr/bin/umount'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable within a container" do
-      skip "Control not applicable within a container"
+    describe "Control not applicable - audit config must be done on the host" do
+      skip "Control not applicable - audit config must be done on the host"
     end
   else
     describe "Command" do

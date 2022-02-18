@@ -40,14 +40,15 @@ control 'SV-204521' do
   tag 'fix_id': 'F-4645r809771_fix'
   tag 'cci': ['CCI-000172']
   tag nist: ['AU-12 c']
-  tag 'host', 'audit'
+  tag subsystems: ["audit","auditd","audit_rule"]
+  tag 'host'
 
   audit_syscalls = ['chmod','fchmod','fchmodat']
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable within a container" do
-      skip "Control not applicable within a container"
+    describe "Control not applicable - audit config must be done on the host" do
+      skip "Control not applicable - audit config must be done on the host"
     end
   else
     describe "Syscall" do
