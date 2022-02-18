@@ -33,39 +33,26 @@ control 'SV-204549' do
   tag 'fix_id': 'F-4673r88840_fix'
   tag 'cci': ['CCI-000130', 'CCI-000135', 'CCI-000172', 'CCI-002884']
   tag nist: ['AU-3', 'AU-3 (1)', 'AU-12 c', 'MA-4 (1) (a)']
+  tag subsystems: ["audit","auditd","audit_rule"]
+  tag 'host'
 
-  audit_files = ['/etc/sudoers', '/etc/sudoers.d']
+  audit_commands = ['/etc/sudoers', '/etc/sudoers.d/']
 
-  if audit_files.any? { |audit_file| file(audit_file).exist? }
-    impact 0.5
-  else
+  if virtualization.system.eql?('docker')
     impact 0.0
-  end
-
-  audit_files.each do |audit_file|
-    if file(audit_file).exist?
-      describe auditd.file(audit_file) do
-        its('permissions') { should_not cmp [] }
-        its('action') { should_not include 'never' }
-      end
+    describe "Control not applicable - audit config must be done on the host" do
+      skip "Control not applicable - audit config must be done on the host"
     end
-
-    # Resource creates data structure including all usages of file
-    perms = auditd.file(audit_file).permissions
-
-    next unless file(audit_file).exist?
-
-    perms.each do |perm|
-      describe perm do
-        it { should include 'w' }
-        it { should include 'a' }
+  else
+    describe "Command" do
+      audit_commands.each do |audit_command|
+        it "#{audit_command} is audited properly" do
+          audit_rule = auditd.file(audit_command)
+          expect(audit_rule).to exist
+          expect(audit_rule.key).to cmp 'privileged-actions'
+          expect(audit_rule.permissions.flatten).to include('w', 'a')
+        end
       end
-    end
-  end
-
-  unless audit_files.any? { |audit_file| file(audit_file).exist? }
-    describe "The #{audit_files} files do not exist" do
-      skip "The #{audit_files} files do not exist, this requirement is Not Applicable."
     end
   end
 end

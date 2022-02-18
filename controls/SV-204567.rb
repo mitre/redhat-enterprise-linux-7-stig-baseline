@@ -27,37 +27,24 @@ control 'SV-204567' do
   tag 'fix_id': 'F-4691r88894_fix'
   tag 'cci': ['CCI-000018', 'CCI-000172', 'CCI-001403', 'CCI-002130']
   tag nist: ['AC-2 (4)', 'AU-12 c', 'AC-2 (4)', 'AC-2 (4)']
+  tag subsystems: ["audit","auditd","audit_rule"]
+  tag 'host'
 
-  audit_file = '/etc/shadow'
+  audit_command = '/etc/shadow'
 
-  if file(audit_file).exist?
-    impact 0.5
-  else
+  if virtualization.system.eql?('docker')
     impact 0.0
-  end
-
-  if file(audit_file).exist?
-    describe auditd.file(audit_file) do
-      its('permissions') { should_not cmp [] }
-      its('action') { should_not include 'never' }
+    describe "Control not applicable - audit config must be done on the host" do
+      skip "Control not applicable - audit config must be done on the host"
     end
-  end
-
-  # Resource creates data structure including all usages of file
-  perms = auditd.file(audit_file).permissions
-
-  if file(audit_file).exist?
-    perms.each do |perm|
-      describe perm do
-        it { should include 'w' }
-        it { should include 'a' }
+  else
+    describe "Command" do
+      it "#{audit_command} is audited properly" do
+        audit_rule = auditd.file(audit_command)
+        expect(audit_rule).to exist
+        expect(audit_rule.key).to cmp 'identity'
+        expect(audit_rule.permissions.flatten).to include('w', 'a')
       end
-    end
-  end
-
-  unless file(audit_file).exist?
-    describe "The #{audit_file} file does not exist" do
-      skip "The #{audit_file} file does not exist, this requirement is Not Applicable."
     end
   end
 end

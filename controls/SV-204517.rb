@@ -45,14 +45,15 @@ perm_mod
   tag 'fix_id': 'F-4641r809192_fix'
   tag 'cci': ['CCI-000126', 'CCI-000172']
   tag nist: ['AU-2 d', 'AU-12 c']
-  tag 'host', 'audit'
+  tag subsystems: ["audit","auditd","audit_rule"]
+  tag 'host'
 
   audit_syscalls = ['chown', 'fchown','fchownat','lchown']
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable within a container" do
-      skip "Control not applicable within a container"
+    describe "Control not applicable - audit config must be done on the host" do
+      skip "Control not applicable - audit config must be done on the host"
     end
   else
     describe "Syscall" do
