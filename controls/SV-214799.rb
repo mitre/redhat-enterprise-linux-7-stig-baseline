@@ -37,6 +37,8 @@ command:
   tag 'fix_id': 'F-15997r192363_fix'
   tag 'cci': ['CCI-001749']
   tag nist: ['CM-5 (3)']
+  tag subsystems: ["rpm","package"]
+  tag 'host', 'container'
 
   rpm_verify_integrity_except = input('rpm_verify_integrity_except')
 

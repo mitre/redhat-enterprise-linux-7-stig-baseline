@@ -50,39 +50,49 @@ authentication.
   tag 'fix_id': 'F-4757r89092_fix'
   tag 'cci': ['CCI-001948', 'CCI-001953', 'CCI-001954']
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
+  tag subsystems: ["pam_pkcs11","pam","pkcs11"]
+  tag 'host'
 
-  smart_card_status = input('smart_card_status')
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
+    end
+  else 
 
-  if smart_card_status.eql?('enabled')
-    impact 0.5
-    if (pam_file = file('/etc/pam_pkcs11/pam_pkcs11.conf')).exist?
-      cert_policy_lines = if pam_file.content.nil?
-                            []
-                          else
-                            pam_file.content.lines.grep(/^(?!.+#).*cert_policy/i)
-                          end
-      if cert_policy_lines.length < 3
-        describe 'should contain at least 3 cert policy lines' do
-          subject { cert_policy_lines.length }
-          it { should >= 3 }
+    smart_card_status = input('smart_card_status')
+
+    if smart_card_status.eql?('enabled')
+      impact 0.5
+      if (pam_file = file('/etc/pam_pkcs11/pam_pkcs11.conf')).exist?
+        cert_policy_lines = if pam_file.content.nil?
+                              []
+                            else
+                              pam_file.content.lines.grep(/^(?!.+#).*cert_policy/i)
+                            end
+        if cert_policy_lines.length < 3
+          describe 'should contain at least 3 cert policy lines' do
+            subject { cert_policy_lines.length }
+            it { should >= 3 }
+          end
+        else
+          describe 'each cert policy line should include oscp_on' do
+            cert_policy_lines.each do |line|
+              subject { line }
+              it { should match(/ocsp_on/i) }
+            end
+          end
         end
       else
-        describe 'each cert policy line should include oscp_on' do
-          cert_policy_lines.each do |line|
-            subject { line }
-            it { should match(/ocsp_on/i) }
-          end
+        describe pam_file do
+          it { should exist }
         end
       end
     else
-      describe pam_file do
-        it { should exist }
+      impact 0.0
+      describe 'The system is not smartcard enabled' do
+        skip 'The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.'
       end
-    end
-  else
-    impact 0.0
-    describe 'The system is not smartcard enabled' do
-      skip 'The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.'
     end
   end
 end

@@ -11,6 +11,7 @@ control 'SV-237635' do
   tag fix_id: 'F-40817r646855_fix'
   tag cci: ['CCI-002038']
   tag legacy: []
+  tag subsystems: ["sudo"]
   tag 'host'
   tag check: "Verify the operating system requires re-authentication when using the \"sudo\" command to elevate privileges.\n\n$ sudo grep -i 'timestamp_timeout' /etc/sudoers /etc/sudoers.d/*\n/etc/sudoers:Defaults timestamp_timeout=0\n\nIf results are returned from more than one file location, this is a finding.\n\nIf \"timestamp_timeout\" is set to a negative number, is commented out, or no results are returned, this is a finding."
   tag fix: "Configure the \"sudo\" command to require re-authentication.\nEdit the /etc/sudoers file:\n$ sudo visudo\n\nAdd or modify the following line:\nDefaults timestamp_timeout=[value]\nNote: The \"[value]\" must be a number that is greater than or equal to \"0\"."

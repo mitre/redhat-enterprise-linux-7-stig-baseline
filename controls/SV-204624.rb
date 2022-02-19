@@ -32,20 +32,29 @@ control 'SV-204624' do
   tag 'fix_id': 'F-36316r646846_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["gui"]
+  tag 'host'
 
-  if input('x11-enabled')
-    describe "System default target" do
-      subject { command("systemctl get-default").stdout.strip }
-      it { should eq 'multi-user.target' }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
     end
+  else 
+    if input('x11-enabled')
+      describe "System default target" do
+        subject { command("systemctl get-default").stdout.strip }
+        it { should eq 'multi-user.target' }
+      end
 
-    describe "No GUI packages should be installed" do
-      subject { packages(/xorg.*server/) }
-      its('statuses') { should_not cmp 'installed' }
-    end
-  else
-    describe "GUI permitted" do
-      skip "Not applicable -- GUI packages are allowed to be installed on this system"
+      describe "No GUI packages should be installed" do
+        subject { packages(/xorg.*server/) }
+        its('statuses') { should_not cmp 'installed' }
+      end
+    else
+      describe "GUI permitted" do
+        skip "Not applicable -- GUI packages are allowed to be installed on this system"
+      end
     end
   end
 end

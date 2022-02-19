@@ -25,6 +25,8 @@ control 'SV-204623' do
   tag 'fix_id': 'F-4747r89062_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["tftp"]
+  tag 'host', 'container'
 
   if package('tftp-server').installed?
     impact 0.5

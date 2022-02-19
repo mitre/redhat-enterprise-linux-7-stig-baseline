@@ -25,13 +25,23 @@ control 'SV-204602' do
   tag 'fix_id': 'F-4726r88999_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["ssh"]
+  tag 'host'
 
-  describe.one do
-    describe sshd_config do
-      its('Compression') { should cmp 'delayed' }
+  if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
+    impact 0.0
+    describe "Control not applicable - SSH is not installed within containerized RHEL" do
+      skip "Control not applicable - SSH is not installed within containerized RHEL"
     end
-    describe sshd_config do
-      its('Compression') { should cmp 'no' }
+  else
+
+    describe.one do
+      describe sshd_config do
+        its('Compression') { should cmp 'delayed' }
+      end
+      describe sshd_config do
+        its('Compression') { should cmp 'no' }
+      end
     end
   end
 end

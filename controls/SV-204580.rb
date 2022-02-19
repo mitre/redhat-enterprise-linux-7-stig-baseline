@@ -87,57 +87,68 @@ control 'SV-204580' do
               'CCI-001386', 'CCI-001387', 'CCI-001388']
   tag nist: ['AC-8 a', 'AC-8 b', 'AC-8 c 1', 'AC-8 c 2', 'AC-8 c 2', "AC-8 c
 2", 'AC-8 c 3']
+  tag subsystems: ["ssh", "banner"]
+  tag 'host'
 
-  banner_message_text_ral = input('banner_message_text_ral')
-  banner_message_text_ral_limited = input('banner_message_text_ral_limited')
-
-  # When Banner is commented, not found, disabled, or the specified file does not exist, this is a finding.
-  banner_files = [sshd_config.banner].flatten
-
-  banner_files.each do |banner_file|
-    # Banner property is commented out.
-    if banner_file.nil?
-      describe 'The SSHD Banner is not set' do
-        subject { banner_file.nil? }
-        it { should be false }
-      end
+  if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
+    impact 0.0
+    describe "Control not applicable - SSH is not installed within containerized RHEL" do
+      skip "Control not applicable - SSH is not installed within containerized RHEL"
     end
+  else
 
-    # Banner property is set to "none"
-    if !banner_file.nil? && !banner_file.match(/none/i).nil?
-      describe 'The SSHD Banner is disabled' do
-        subject { banner_file.match(/none/i).nil? }
-        it { should be true }
-      end
-    end
 
-    # Banner property provides a path to a file, however, it does not exist.
-    if !banner_file.nil? && banner_file.match(/none/i).nil? && !file(banner_file).exist?
-      describe 'The SSHD Banner is set, but, the file does not exist' do
-        subject { file(banner_file).exist? }
-        it { should be true }
-      end
-    end
+    banner_message_text_ral = input('banner_message_text_ral')
+    banner_message_text_ral_limited = input('banner_message_text_ral_limited')
 
-    # Banner property provides a path to a file and it exists.
-    unless !banner_file.nil? && banner_file.match(/none/i).nil? && file(banner_file).exist?
-      next
-    end
+    # When Banner is commented, not found, disabled, or the specified file does not exist, this is a finding.
+    banner_files = [sshd_config.banner].flatten
 
-    describe.one do
-      banner = file(banner_file).content.gsub(/[\r\n\s]/, '')
-      clean_banner = banner_message_text_ral.gsub(/[\r\n\s]/, '')
-      clean_banner_limited = banner_message_text_ral_limited.gsub(/[\r\n\s]/,
-                                                                  '')
-
-      describe 'The SSHD Banner is set to the standard banner and has the correct text' do
-        subject { banner }
-        it { should cmp clean_banner }
+    banner_files.each do |banner_file|
+      # Banner property is commented out.
+      if banner_file.nil?
+        describe 'The SSHD Banner is not set' do
+          subject { banner_file.nil? }
+          it { should be false }
+        end
       end
 
-      describe 'The SSHD Banner is set to the standard limited banner and has the correct text' do
-        subject { banner }
-        it { should cmp clean_banner_limited }
+      # Banner property is set to "none"
+      if !banner_file.nil? && !banner_file.match(/none/i).nil?
+        describe 'The SSHD Banner is disabled' do
+          subject { banner_file.match(/none/i).nil? }
+          it { should be true }
+        end
+      end
+
+      # Banner property provides a path to a file, however, it does not exist.
+      if !banner_file.nil? && banner_file.match(/none/i).nil? && !file(banner_file).exist?
+        describe 'The SSHD Banner is set, but, the file does not exist' do
+          subject { file(banner_file).exist? }
+          it { should be true }
+        end
+      end
+
+      # Banner property provides a path to a file and it exists.
+      unless !banner_file.nil? && banner_file.match(/none/i).nil? && file(banner_file).exist?
+        next
+      end
+
+      describe.one do
+        banner = file(banner_file).content.gsub(/[\r\n\s]/, '')
+        clean_banner = banner_message_text_ral.gsub(/[\r\n\s]/, '')
+        clean_banner_limited = banner_message_text_ral_limited.gsub(/[\r\n\s]/,
+                                                                    '')
+
+        describe 'The SSHD Banner is set to the standard banner and has the correct text' do
+          subject { banner }
+          it { should cmp clean_banner }
+        end
+
+        describe 'The SSHD Banner is set to the standard limited banner and has the correct text' do
+          subject { banner }
+          it { should cmp clean_banner_limited }
+        end
       end
     end
   end

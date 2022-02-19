@@ -53,6 +53,8 @@ control 'SV-204628' do
   tag 'fix_id': 'F-4752r89077_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["iptables","firewall"]
+  tag 'host', 'container'
 
   firewalld_services = input('firewalld_services')
   firewalld_hosts_allow = input('firewalld_hosts_allow')

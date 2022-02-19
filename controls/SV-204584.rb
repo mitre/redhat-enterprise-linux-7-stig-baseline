@@ -30,10 +30,19 @@ control 'SV-204584' do
   tag 'fix_id': 'F-4708r88945_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["aslr","kernel_parameter"]
+  tag 'host'
 
-  randomize_va_space = input('randomize_va_space')
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - Kernel config must be done on the host" do
+      skip "Control not applicable - Kernel config must be done on the host"
+    end
+  else
+    randomize_va_space = input('randomize_va_space')
 
-  describe kernel_parameter('kernel.randomize_va_space') do
-    its('value') { should eq randomize_va_space }
+    describe kernel_parameter('kernel.randomize_va_space') do
+      its('value') { should eq randomize_va_space }
+    end
   end
 end

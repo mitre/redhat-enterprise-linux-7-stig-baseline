@@ -27,34 +27,19 @@ control 'SV-204619' do
   tag 'fix_id': 'F-4743r89050_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["postfix"]
+  tag 'host', 'container'
 
-  # Only permit_mynetworks and reject should be allowed
   if package('postfix').installed?
-    describe.one do
-      describe command('postconf -n smtpd_client_restrictions') do
-        its('stdout.strip') do
-          should match(/^smtpd_client_restrictions\s+=\s+permit_mynetworks,\s*reject\s*$/)
-        end
-      end
-      describe command('postconf -n smtpd_client_restrictions') do
-        its('stdout.strip') do
-          should match(/^smtpd_client_restrictions\s+=\s+permit_mynetworks\s*$/)
-        end
-      end
-      describe command('postconf -n smtpd_client_restrictions') do
-        its('stdout.strip') do
-          should match(/^smtpd_client_restrictions\s+=\s+reject\s*$/)
-        end
-      end
-      describe command('postconf -n smtpd_client_restrictions') do
-        its('stdout.strip') do
-          should match(/^smtpd_client_restrictions\s+=\s+reject,\s*permit_mynetworks\s*$/)
-        end
+    options = { assignment_regex: /^\s*([^=]*?)\s*=\s*(.*?)\s*$/ }
+    pf_config = parse_config_file('/etc/postfix/main.cf', options).params['smtpd_client_restrictions'].split(',')
+
+    describe "Postfix config setting smptd_client_restrictions" do
+      it "should be set to 'permit_mynetworks', 'reject', or both" do
+        expect(pf_config).to all satisfy { |x| ['permit_mynetworks', 'reject'].include?(x) }
       end
     end
-  end
-
-  unless package('postfix').installed?
+  else
     describe 'The `postfix` package is not installed' do
       skip 'The `postfix` package is not installed, this control is Not Applicable'
     end

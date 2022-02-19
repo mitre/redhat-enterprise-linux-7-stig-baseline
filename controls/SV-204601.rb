@@ -25,13 +25,22 @@ control 'SV-204601' do
   tag 'fix_id': 'F-4725r88996_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["ssh"]
+  tag 'host'
 
-  describe.one do
-    describe sshd_config do
-      its('UsePrivilegeSeparation') { should cmp 'sandbox' }
+  if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
+    impact 0.0
+    describe "Control not applicable - SSH is not installed within containerized RHEL" do
+      skip "Control not applicable - SSH is not installed within containerized RHEL"
     end
-    describe sshd_config do
-      its('UsePrivilegeSeparation') { should cmp 'yes' }
+  else
+    describe.one do
+      describe sshd_config do
+        its('UsePrivilegeSeparation') { should cmp 'sandbox' }
+      end
+      describe sshd_config do
+        its('UsePrivilegeSeparation') { should cmp 'yes' }
+      end
     end
   end
 end

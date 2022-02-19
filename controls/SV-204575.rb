@@ -32,20 +32,29 @@ control 'SV-204575' do
   tag 'cci': ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813',
               'CCI-001814']
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
+  tag subsystems: ["rsyslog"]
+  tag 'host'
 
-  log_aggregation_server = input('log_aggregation_server')
-
-  if log_aggregation_server
-    describe file('/etc/rsyslog.conf') do
-      its('content') { should match(/^\$ModLoad\s+imtcp.*\n?$/) }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
   else
-    describe.one do
+    log_aggregation_server = input('log_aggregation_server')
+
+    if log_aggregation_server
       describe file('/etc/rsyslog.conf') do
-        its('content') { should match(/\$ModLoad\s+imtcp.*\n?$/) }
+        its('content') { should match(/^\$ModLoad\s+imtcp.*\n?$/) }
       end
-      describe file('/etc/rsyslog.conf') do
-        its('content') { should_not match(/^\$ModLoad\s+imtcp.*\n?$/) }
+    else
+      describe.one do
+        describe file('/etc/rsyslog.conf') do
+          its('content') { should match(/\$ModLoad\s+imtcp.*\n?$/) }
+        end
+        describe file('/etc/rsyslog.conf') do
+          its('content') { should_not match(/^\$ModLoad\s+imtcp.*\n?$/) }
+        end
       end
     end
   end

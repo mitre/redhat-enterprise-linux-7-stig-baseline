@@ -25,6 +25,8 @@ control 'SV-204618' do
   tag 'fix_id': 'F-4742r89047_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["network","ip_link"]
+  tag 'host', 'container'
 
   describe command('ip link | grep -i promisc') do
     its('stdout.strip') { should match(/^$/) }

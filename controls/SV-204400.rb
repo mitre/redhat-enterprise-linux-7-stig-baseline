@@ -40,7 +40,7 @@ control 'SV-204400' do
   tag 'fix_id': 'F-4524r88393_fix'
   tag 'cci': ['CCI-000057']
   tag nist: ['AC-11 a']
-  tag subsystems: ["gnome3"]
+  tag subsystems: ["gui"]
   tag 'host'
 
   if package('gnome-desktop3').installed?

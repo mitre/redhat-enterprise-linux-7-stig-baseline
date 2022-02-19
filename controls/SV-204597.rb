@@ -23,18 +23,27 @@ control 'SV-204597' do
   tag 'fix_id': 'F-4721r792833_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["ssh"]
+  tag 'host'
 
-  key_files = command("find /etc/ssh -xdev -name '*ssh_host*key'").stdout.split("\n")
-  if !key_files.nil? and !key_files.empty?
-    key_files.each do |keyfile|
-      describe file(keyfile) do
-        it { should_not be_more_permissive_than('0640') }
-      end
+  if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
+    impact 0.0
+    describe "Control not applicable - SSH is not installed within containerized RHEL" do
+      skip "Control not applicable - SSH is not installed within containerized RHEL"
     end
   else
-    describe 'No files have a more permissive mode.' do
-      subject { key_files.nil? or key_files.empty? }
-      it { should eq true }
+    pub_files = command("find #{input('private_host_key_directories').join(' ')} -xdev -name '*ssh_host*key'").stdout.split("\n")
+    if !pub_files.nil? and !pub_files.empty?
+      pub_files.each do |pubfile|
+        describe file(pubfile) do
+          it { should_not be_more_permissive_than(input('private_host_key_file_mode')) }
+        end
+      end
+    else
+      describe 'No public host key files found.' do
+        subject { pub_files.nil? or pub_files.empty? }
+        it { should eq true }
+      end
     end
   end
 end

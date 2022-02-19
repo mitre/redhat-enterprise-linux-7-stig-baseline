@@ -11,6 +11,7 @@ control 'SV-237634' do
   tag fix_id: 'F-40816r646852_fix'
   tag cci: ['CCI-002227']
   tag legacy: []
+  tag subsystems: ["sudo"]
   tag 'host'
   tag check: "Verify that the sudoers security policy is configured to use the invoking user's password for privilege escalation.\n\n$ sudo egrep -i '(!rootpw|!targetpw|!runaspw)' /etc/sudoers /etc/sudoers.d/* | grep -v '#'\n\n/etc/sudoers:Defaults !targetpw\n/etc/sudoers:Defaults !rootpw\n/etc/sudoers:Defaults !runaspw\n\nIf no results are returned, this is a finding.\nIf results are returned from more than one file location, this is a finding.\nIf \"Defaults !targetpw\" is not defined, this is a finding.\nIf \"Defaults !rootpw\" is not defined, this is a finding.\nIf \"Defaults !runaspw\" is not defined, this is a finding."
   tag fix: "Define the following in the Defaults section of the /etc/sudoers file or a configuration file in the /etc/sudoers.d/ directory:\nDefaults !targetpw\nDefaults !rootpw\nDefaults !runaspw"
@@ -23,43 +24,43 @@ control 'SV-237634' do
   else
     sudoers_settings = command("egrep -i '(!rootpw|!targetpw|!runaspw)' /etc/sudoers /etc/sudoers.d/* | grep -v '#'").stdout.strip
     
-    target_match = sudoers_settings.scan(/([^:]+):Defaults\s+!targetpw/).flatten
-    root_match = sudoers_settings.scan(/([^:]+):Defaults\s+!rootpw/).flatten
-    runas_match = sudoers_settings.scan(/([^:]+):Defaults\s+!runaspw/).flatten
+    target_match = sudoers_settings.scan(/^([^:]+):Defaults\s+!targetpw$/).flatten
+    root_match = sudoers_settings.scan(/^([^:]+):Defaults\s+!rootpw$/).flatten
+    runas_match = sudoers_settings.scan(/^([^:]+):Defaults\s+!runaspw$/).flatten
 
     target_match_file = target_match.empty? ? nil : target_match.first
 
-    describe "targetpw flag should be enabled" do
-      subject { target_match }
-      it { should_not be_empty }
+    describe "!targetpw flag" do
+      it "should be set" do
+        expect(target_match).not_to be_empty
+      end
+      it "should be set in exactly one file" do
+        expect(target_match.count).to cmp 1
+      end
     end
-    describe "targetpw flag should be set in exactly one file" do
-      subject { target_match }
-      its('count') { should eq 1 }
+
+    describe "!rootpw flag" do
+      it "should be set" do
+        expect(root_match).not_to be_empty
+      end
+      it "should be set in the same file as targetpw" do
+        expect(root_match.first).to cmp target_match_file
+      end
+      it "should be set in exactly one file" do
+        expect(root_match.count).to cmp 1
+      end
     end
-    describe "rootpw flag should be enabled" do
-      subject { root_match }
-      it { should_not be_empty }
-    end
-    describe "rootpw flag should be set in the same file as targetpw" do
-      subject { root_match }
-      its('first') { should eq target_match_file }
-    end
-    describe "rootpw flag should be set in exactly one file" do
-      subject { root_match }
-      its('count') { should eq 1 }
-    end
-    describe "runaspw flag should be enabled" do
-      subject { runas_match }
-      it { should_not be_empty }
-    end
-    describe "runaspw flag should be set in the same file as targetpw" do
-      subject { runas_match }
-      its('first') { should eq target_match_file }
-    end
-    describe "runaspw flag should be set in exactly one file" do
-      subject { runas_match }
-      its('count') { should eq 1 }
+
+    describe "!runaspw flag" do
+      it "should be set" do
+        expect(runas_match).not_to be_empty
+      end
+      it "should be set in the same file as targetpw" do
+        expect(runas_match.first).to cmp target_match_file
+      end
+      it "should be set in exactly one file" do
+        expect(runas_match.count).to cmp 1
+      end
     end
   end
 end

@@ -31,11 +31,20 @@ control 'SV-204585' do
   tag 'fix_id': 'F-4709r88948_fix'
   tag 'cci': ['CCI-002418', 'CCI-002420', 'CCI-002421', 'CCI-002422']
   tag nist: ['SC-8', 'SC-8 (2)', 'SC-8 (1)', 'SC-8 (2)']
+  tag subsystems: ["ssh"]
+  tag 'host'
 
-  describe package('openssh-server') do
-    it { should be_installed }
-  end
-  describe package('openssh-clients') do
-    it { should be_installed }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - SSH is not installed within containerized RHEL" do
+      skip "Control not applicable - SSH is not installed within containerized RHEL"
+    end
+  else
+    describe package('openssh-server') do
+      it { should be_installed }
+    end
+    describe package('openssh-clients') do
+      it { should be_installed }
+    end
   end
 end

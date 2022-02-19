@@ -42,25 +42,35 @@ control 'SV-204631' do
   tag 'fix_id': 'F-4755r462473_fix'
   tag 'cci': ['CCI-001948', 'CCI-001953', 'CCI-001954']
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
+  tag subsystems: ["MFA","smartcard"]
+  tag 'host'
 
-  mfa_pkg_list = input('mfa_pkg_list')
-  smart_card_status = input('smart_card_status')
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
+    end
+  else 
 
-  if smart_card_status.eql?('disabled')
-    impact 0.5
-    describe 'The system is not smartcard enabled thus this control is Not Applicable' do
-      skip 'The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.'
-    end
-  elsif mfa_pkg_list.empty?
-    describe 'The required Smartcard packages have not beed defined, plese define them in your `inputs`.' do
-      subject { mfa_pkg_list }
-      it { should_not be_empty }
-    end
-  else
-    mfa_pkg_list.each do |pkg|
-      describe 'The package' do
-        subject { package(pkg.to_s) }
-        it { should be_installed }
+    mfa_pkg_list = input('mfa_pkg_list')
+    smart_card_status = input('smart_card_status')
+
+    if smart_card_status.eql?('disabled')
+      impact 0.5
+      describe 'The system is not smartcard enabled thus this control is Not Applicable' do
+        skip 'The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.'
+      end
+    elsif mfa_pkg_list.empty?
+      describe 'The required Smartcard packages have not beed defined, plese define them in your `inputs`.' do
+        subject { mfa_pkg_list }
+        it { should_not be_empty }
+      end
+    else
+      mfa_pkg_list.each do |pkg|
+        describe 'The package' do
+          subject { package(pkg.to_s) }
+          it { should be_installed }
+        end
       end
     end
   end
