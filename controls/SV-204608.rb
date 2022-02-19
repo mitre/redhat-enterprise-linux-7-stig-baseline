@@ -45,6 +45,8 @@ control 'SV-204608' do
   tag 'fix_id': 'F-4732r89017_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["dns","resolv"]
+  tag 'host', 'container'
 
   dns_in_host_line = parse_config_file('/etc/nsswitch.conf',
                                        {

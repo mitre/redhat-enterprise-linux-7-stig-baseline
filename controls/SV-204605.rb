@@ -23,6 +23,8 @@ control 'SV-204605' do
   tag 'fix_id': 'F-4729r89008_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["pam","lastlog","ssh"]
+  tag 'host', 'container'
 
   describe pam('/etc/pam.d/postlogin') do
     its('lines') do
@@ -30,14 +32,15 @@ control 'SV-204605' do
     end
   end
 
-  describe.one do
-    describe sshd_config do
-      its('PrintLastLog') { should cmp 'yes' }
-    end
-
-    describe pam('/etc/pam.d/postlogin') do
-      its('lines') do
-        should match_pam_rule('session .* pam_lastlog.so showfailed').all_without_args('silent')
+  unless virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
+    describe.one do
+      describe sshd_config do
+        its('PrintLastLog') { should cmp 'yes' }
+      end
+      describe pam('/etc/pam.d/postlogin') do
+        its('lines') do
+          should match_pam_rule('session .* pam_lastlog.so showfailed').all_without_args('silent')
+        end
       end
     end
   end

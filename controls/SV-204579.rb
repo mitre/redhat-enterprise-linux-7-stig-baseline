@@ -34,6 +34,8 @@ control 'SV-204579' do
   tag 'fix_id': 'F-4703r646843_fix'
   tag 'cci': ['CCI-001133', 'CCI-002361']
   tag nist: ['SC-10', 'AC-12']
+  tag subsystems: ["user_profile"]
+  tag 'host', 'container'
 
   system_activity_timeout = input('system_activity_timeout')
 

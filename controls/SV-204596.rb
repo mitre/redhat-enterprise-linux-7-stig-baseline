@@ -25,22 +25,27 @@ control 'SV-204596' do
   tag 'fix_id': 'F-4720r88981_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["ssh"]
+  tag 'host'
 
-  pub_files = command("find /etc/ssh -xdev -name '*.pub' -perm /133").stdout.split("\n")
-  if !pub_files.nil? and !pub_files.empty?
-    pub_files.each do |pubfile|
-      describe file(pubfile) do
-        it { should_not be_executable.by('owner') }
-        it { should_not be_executable.by('group') }
-        it { should_not be_writable.by('group') }
-        it { should_not be_executable.by('others') }
-        it { should_not be_writable.by('others') }
-      end
+  if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
+    impact 0.0
+    describe "Control not applicable - SSH is not installed within containerized RHEL" do
+      skip "Control not applicable - SSH is not installed within containerized RHEL"
     end
   else
-    describe 'No files have a more permissive mode.' do
-      subject { pub_files.nil? or pub_files.empty? }
-      it { should eq true }
+    pub_files = command("find #{input('public_host_key_directories').join(' ')} -xdev -name '*.pub'").stdout.split("\n")
+    if !pub_files.nil? and !pub_files.empty?
+      pub_files.each do |pubfile|
+        describe file(pubfile) do
+          it { should_not be_more_permissive_than(input('public_host_key_file_mode')) }
+        end
+      end
+    else
+      describe 'No public host key files found.' do
+        subject { pub_files.nil? or pub_files.empty? }
+        it { should eq true }
+      end
     end
   end
 end

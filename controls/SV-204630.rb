@@ -36,14 +36,23 @@ the /etc/sysctl.d/ directory (or modify the line to have the required value):
   tag 'fix_id': 'F-4754r89083_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["kernel_parameter", "ipv6"]
+  tag 'host', 'container'
 
-  describe.one do
-    describe kernel_parameter('net.ipv6.conf.all.accept_source_route') do
-      its('value') { should eq 0 }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - Kernel config must be done on the host" do
+      skip "Control not applicable - Kernel config must be done on the host"
     end
-    # If IPv6 is disabled in the kernel it will return NIL
-    describe kernel_parameter('net.ipv6.conf.all.accept_source_route') do
-      its('value') { should eq nil }
+  else
+    describe.one do
+      describe kernel_parameter('net.ipv6.conf.all.accept_source_route') do
+        its('value') { should eq 0 }
+      end
+      # If IPv6 is disabled in the kernel it will return NIL
+      describe kernel_parameter('net.ipv6.conf.all.accept_source_route') do
+        its('value') { should eq nil }
+      end
     end
   end
 end

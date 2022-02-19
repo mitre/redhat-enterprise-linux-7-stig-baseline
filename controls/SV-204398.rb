@@ -38,7 +38,7 @@ control 'SV-204398' do
   tag 'fix_id': 'F-4522r88387_fix'
   tag 'cci': ['CCI-000057']
   tag nist: ['AC-11 a']
-  tag subsystems: ["gnome","screensaver","session","lock"]
+  tag subsystems: ["gui","screensaver","session","lock"]
   tag 'host'
 
   if package('gnome-desktop3').installed?

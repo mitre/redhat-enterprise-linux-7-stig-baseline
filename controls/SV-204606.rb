@@ -21,8 +21,17 @@ control 'SV-204606' do
   tag 'fix_id': 'F-4730r89011_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["ssh"]
+  tag 'host', 'container'
 
-  describe command("find / -xdev -xautofs -name '*.shosts'") do
-    its('stdout.strip') { should be_empty }
+  if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
+    impact 0.0
+    describe "Control not applicable - SSH is not installed within containerized RHEL" do
+      skip "Control not applicable - SSH is not installed within containerized RHEL"
+    end
+  else
+    describe command("find / -xdev -xautofs -name '*.shosts'") do
+      its('stdout.strip') { should be_empty }
+    end
   end
 end

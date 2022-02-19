@@ -81,8 +81,6 @@ control 'SV-204497' do
   tag nist: ['AC-17 (2)', 'SC-28', 'SC-13', 'SC-28 (1)']
   tag subsystems: ["fips"]
   tag 'host'
-
-
   if virtualization.system.eql?('docker')
     impact 0.0
     describe "Control not applicable - Kernel config for FIPS capability must be done on the host" do

@@ -38,67 +38,77 @@ control 'SV-204583' do
   tag 'fix_id': 'F-4707r88942_fix'
   tag 'cci': ['CCI-001453']
   tag nist: ['AC-17 (2)']
+  tag subsystems: ["sssd","ldap"]
+  tag 'host'
 
-  sssd_id_ldap_enabled = (package('sssd').installed? and
-    !command('grep "^\s*id_provider\s*=\s*ldap" /etc/sssd/sssd.conf').stdout.strip.empty?)
-
-  sssd_ldap_enabled = (package('sssd').installed? and
-    !command('grep "^\s*[a-z]*_provider\s*=\s*ldap" /etc/sssd/sssd.conf').stdout.strip.empty?)
-
-  pam_ldap_enabled = !command('grep "^[^#]*pam_ldap\.so" /etc/pam.d/*').stdout.strip.empty?
-
-  unless sssd_id_ldap_enabled or sssd_ldap_enabled or pam_ldap_enabled
+  if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0
-    describe 'LDAP not enabled' do
-      skip 'LDAP not enabled using any known mechanisms, this control is Not Applicable.'
+    describe "Control not applicable - SSH is not installed within containerized RHEL" do
+      skip "Control not applicable - SSH is not installed within containerized RHEL"
     end
-  end
+  else
 
-  if sssd_id_ldap_enabled
-    ldap_id_use_start_tls = command('grep ldap_id_use_start_tls /etc/sssd/sssd.conf')
-    describe ldap_id_use_start_tls do
-      its('stdout.strip') do
-        should match(/^ldap_id_use_start_tls\s*=\s*true$/)
+    sssd_id_ldap_enabled = (package('sssd').installed? and
+      !command('grep "^\s*id_provider\s*=\s*ldap" /etc/sssd/sssd.conf').stdout.strip.empty?)
+
+    sssd_ldap_enabled = (package('sssd').installed? and
+      !command('grep "^\s*[a-z]*_provider\s*=\s*ldap" /etc/sssd/sssd.conf').stdout.strip.empty?)
+
+    pam_ldap_enabled = !command('grep "^[^#]*pam_ldap\.so" /etc/pam.d/*').stdout.strip.empty?
+
+    unless sssd_id_ldap_enabled or sssd_ldap_enabled or pam_ldap_enabled
+      impact 0.0
+      describe 'LDAP not enabled' do
+        skip 'LDAP not enabled using any known mechanisms, this control is Not Applicable.'
       end
     end
 
-    ldap_id_use_start_tls.stdout.strip.each_line do |line|
-      describe line do
-        it { should match(/^ldap_id_use_start_tls\s*=\s*true$/) }
+    if sssd_id_ldap_enabled
+      ldap_id_use_start_tls = command('grep ldap_id_use_start_tls /etc/sssd/sssd.conf')
+      describe ldap_id_use_start_tls do
+        its('stdout.strip') do
+          should match(/^ldap_id_use_start_tls\s*=\s*true$/)
+        end
+      end
+
+      ldap_id_use_start_tls.stdout.strip.each_line do |line|
+        describe line do
+          it { should match(/^ldap_id_use_start_tls\s*=\s*true$/) }
+        end
       end
     end
-  end
 
-  if sssd_ldap_enabled
-    ldap_tls_cacert = command('grep -i ldap_tls_cacert /etc/sssd/sssd.conf')
-                      .stdout.strip.scan(/^ldap_tls_cacert\s*=\s*(.*)/).last
+    if sssd_ldap_enabled
+      ldap_tls_cacert = command('grep -i ldap_tls_cacert /etc/sssd/sssd.conf')
+                        .stdout.strip.scan(/^ldap_tls_cacert\s*=\s*(.*)/).last
 
-    describe 'ldap_tls_cacert' do
-      subject { ldap_tls_cacert }
-      it { should_not eq nil }
-    end
+      describe 'ldap_tls_cacert' do
+        subject { ldap_tls_cacert }
+        it { should_not eq nil }
+      end
 
-    unless ldap_tls_cacert.nil?
-      describe file(ldap_tls_cacert.last) do
-        it { should exist }
-        it { should be_file }
+      unless ldap_tls_cacert.nil?
+        describe file(ldap_tls_cacert.last) do
+          it { should exist }
+          it { should be_file }
+        end
       end
     end
-  end
 
-  if pam_ldap_enabled
-    tls_cacertfile = command('grep -i tls_cacertfile /etc/pam_ldap.conf')
-                     .stdout.strip.scan(/^tls_cacertfile\s+(.*)/).last
+    if pam_ldap_enabled
+      tls_cacertfile = command('grep -i tls_cacertfile /etc/pam_ldap.conf')
+                      .stdout.strip.scan(/^tls_cacertfile\s+(.*)/).last
 
-    describe 'tls_cacertfile' do
-      subject { tls_cacertfile }
-      it { should_not eq nil }
-    end
+      describe 'tls_cacertfile' do
+        subject { tls_cacertfile }
+        it { should_not eq nil }
+      end
 
-    unless tls_cacertfile.nil?
-      describe file(tls_cacertfile.last) do
-        it { should exist }
-        it { should be_file }
+      unless tls_cacertfile.nil?
+        describe file(tls_cacertfile.last) do
+          it { should exist }
+          it { should be_file }
+        end
       end
     end
   end

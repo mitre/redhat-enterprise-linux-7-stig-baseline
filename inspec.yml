@@ -247,9 +247,15 @@ inputs:
     type: Numeric
     value: 600
 
-  # V-204587
-  - name: client_alive_interval
-    description: Client alive interval (time in seconds).
+  # SV-204587
+  - name: expected_client_alive_interval
+    description: Expected specific value of the client alive interval (time in seconds).
+    type: Numeric
+    value: 600
+
+  # SV-204587
+  - name: max_client_alive_interval
+    description: Maximum allowed client alive interval (time in seconds).
     type: Numeric
     value: 600
 
@@ -587,26 +593,26 @@ inputs:
   # SV-204468
   - name: home_dir_mode
     description: Maximum mode allowed for user home directories (in octal format)
-    type: Numeric
-    value: 0750
+    type: String
+    value: "0750"
 
   # SV-204473
   - name: home_dir_files_mode
     description: Maximum mode allowed for files contained within user home directories (in octal format)
-    type: Numeric
-    value: 0750
+    type: String
+    value: "0750"
 
   # SV-204476
   - name: init_files_mode
     description: Maximum mode allowed for initialization files (in octal format)
-    type: Numeric
-    value: 0740
+    type: String
+    value: "0740"
 
   # SV-204476
   - name: user_umask
     description: Expected value for all user UMASK values (in octal format)
-    type: Numeric
-    value: 077
+    type: String
+    value: "077"
 
   # SV-204509
   - name: audit_remote_server
@@ -625,3 +631,41 @@ inputs:
     description: "Action that the server should take to preserve audit logs when the network fails -- must be one of syslog, single, halt"
     type: String
     value: "single"
+
+  # SV-204581
+  - name: public_host_key_file_mode
+    description: Maximum mode allowed for directories containing SSH public host keys (in octal format)
+    type: String
+    value: "0644"
+
+  # SV-204581
+  - name: public_host_key_directories
+    description: "List of any directories containing SSH public host keys"
+    type: Array
+    value:
+      - /etc/ssh
+
+  # SV-204596
+  - name: private_host_key_file_mode
+    description: Maximum mode allowed for directories containing SSH private host keys (in octal format)
+    type: String
+    value: "0640"
+
+  # SV-204596
+  - name: private_host_key_directories
+    description: "List of any directories containing SSH private host keys"
+    type: Array
+    value:
+      - /
+
+  # SV-228564
+  - name: expected_audit_file_mode
+    description: Expected mode for the audit log mode (in octal format)
+    type: String
+    value: "0600"
+
+  # SV-228564
+  - name: max_audit_file_mode
+    description: Maximum mode allowed for the audit log (in octal format)
+    type: String
+    value: "0600"

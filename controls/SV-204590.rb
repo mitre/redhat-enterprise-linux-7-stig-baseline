@@ -22,8 +22,17 @@ control 'SV-204590' do
   tag 'fix_id': 'F-4714r88963_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["ssh"]
+  tag 'host'
 
-  describe sshd_config do
-    its('IgnoreRhosts') { should cmp 'yes' }
+  if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
+    impact 0.0
+    describe "Control not applicable - SSH is not installed within containerized RHEL" do
+      skip "Control not applicable - SSH is not installed within containerized RHEL"
+    end
+  else
+    describe sshd_config do
+      its('IgnoreRhosts') { should cmp 'yes' }
+    end
   end
 end

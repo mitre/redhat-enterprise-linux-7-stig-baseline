@@ -42,6 +42,7 @@ control 'SV-214937' do
   tag 'fix_id': 'F-16135r193201_fix'
   tag 'cci': ['CCI-000057']
   tag nist: ['AC-11 a']
+  tag subsystems: ["gui"]
   tag 'host'
 
   if virtualization.system.eql?('docker')

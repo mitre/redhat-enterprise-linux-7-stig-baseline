@@ -30,6 +30,8 @@ control 'SV-204576' do
   tag 'fix_id': 'F-4700r88921_fix'
   tag 'cci': ['CCI-000054']
   tag nist: ['AC-10']
+  tag subsystems: ["session"]
+  tag 'host', 'container'
 
   maxlogins_limit = input('maxlogins_limit')
 

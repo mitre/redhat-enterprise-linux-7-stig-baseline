@@ -26,14 +26,23 @@ control 'SV-204574' do
   tag 'fix_id': 'F-4698r88915_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
+  tag subsystems: ["rsyslog"]
+  tag 'host'
 
-  if input('alternate_logs')
-    describe 'An alternate logging system is used. This test cannot be checked in a automated fashion and you must check it manually' do
-      skip 'An alternate logging system is used. This check must be performed manually'
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
   else
-    describe command("grep @ #{input('log_pkg_path')} | grep -v \"^#\"") do
-      its('stdout.strip') { should_not be_empty }
+    if input('alternate_logs')
+      describe 'An alternate logging system is used. This test cannot be checked in a automated fashion and you must check it manually' do
+        skip 'An alternate logging system is used. This check must be performed manually'
+      end
+    else
+      describe command("grep @ #{input('log_pkg_path')} | grep -v \"^#\"") do
+        its('stdout.strip') { should_not be_empty }
+      end
     end
   end
 end

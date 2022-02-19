@@ -44,6 +44,8 @@ control 'SV-204577' do
   tag 'fix_id': 'F-4701r88924_fix'
   tag 'cci': ['CCI-000382', 'CCI-002314']
   tag nist: ['CM-7 b', 'AC-17 (1)']
+  tag subsystems: ["firewall","manual"]
+  tag 'host', 'container'
 
   firewalld_services_deny = input('firewalld_services_deny')
   firewalld_hosts_deny = input('firewalld_hosts_deny')
