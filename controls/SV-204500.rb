@@ -41,21 +41,30 @@ control 'SV-204500' do
   tag 'fix_id': 'F-4624r792830_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["aide"]
+  tag subsystems: ["file_integrity_tool"]
   tag 'host', 'container'
 
-  describe package('aide') do
-    it { should be_installed }
-  end
+  file_integrity_tool = input('file_integrity_tool')
 
-  exclude_patterns = input('aide_exclude_patterns')
+  if file_integrity_tool == 'aide'
 
-  findings = aide_conf.where do
-    !selection_line.start_with?('!') && !exclude_patterns.include?(selection_line) && !rules.include?('sha512')
-  end
+    describe package('aide') do
+      it { should be_installed }
+    end
 
-  describe "List of monitored files/directories without 'sha512' rule" do
-    subject { findings.selection_lines }
-    it { should be_empty }
+    exclude_patterns = input('aide_exclude_patterns')
+
+    findings = aide_conf.where do
+      !selection_line.start_with?('!') && !exclude_patterns.include?(selection_line) && !rules.include?('sha512')
+    end
+
+    describe "List of monitored files/directories without 'sha512' rule" do
+      subject { findings.selection_lines }
+      it { should be_empty }
+    end
+  else
+    describe "Need manual review of file integrity tool" do
+      skip "A manual review of the file integrity tool is required to ensure that it verifies ACLs."
+    end
   end
 end

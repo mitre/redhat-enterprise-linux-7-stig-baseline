@@ -22,7 +22,7 @@ inputs:
   - name: rpm_verify_perms_except
     description: List of system files that should be allowed to change from an rpm verify point of view
     type: Array
-    value: []
+    value: ["/etc/issue"]
 
   # V-214799
   - name: rpm_verify_integrity_except
@@ -265,11 +265,11 @@ inputs:
     type: String
     value: "enabled"
 
-  # V-204489/V-204574
-  - name: log_pkg_path
-    description: The path to the logging package
-    type: String
-    value: "/etc/rsyslog.conf"
+  # SV-204489/V-204574
+  - name: log_pkg_paths
+    description: Paths to files and directories that may include logging config
+    type: Array
+    value: ["/etc/rsyslog.conf", "/etc/rsyslog.d/*"]
 
   # V-204467, V-204468, V-204469, V-204470, V-204471, V-204472
   # V-204473, V-204474, V-204475, V-204476, V-204477, V-204478, V-204493
@@ -486,6 +486,18 @@ inputs:
     # - 'trusted'
     value: []
 
+  # SV-204604
+  - name: firewall_application_package
+    description: "If a third-party firewall application is in use (other than firewalld or iptables), indicate the package name here. Otherwise, set this value to an empty string"
+    type: String
+    value: ""
+
+  # SV-204604
+  - name: firewall_application_service
+    description: "If a third-party firewall application is in use (other than firewalld or iptables), indicate the service name here. Otherwise, set this value to an empty string"
+    type: String
+    value: ""
+
   # V-204576
   - name: maxlogins_limit
     description: "The maxium value that can be used for maxlogins."
@@ -660,7 +672,7 @@ inputs:
 
   # SV-228564
   - name: expected_audit_file_mode
-    description: Expected mode for the audit log mode (in octal format)
+    description: Expected mode for the audit log (in octal format)
     type: String
     value: "0600"
 
@@ -669,3 +681,27 @@ inputs:
     description: Maximum mode allowed for the audit log (in octal format)
     type: String
     value: "0600"
+
+  #SV-204412
+  - name: expected_minclass
+    description: "Value for the minimum number of characters that must change between password resets"
+    type: Numeric
+    value: 4
+
+  #SV-204412
+  - name: minclass
+    description: "Minimum value for the minimum number of characters that must change between password resets, as allowed by policy"
+    type: Numeric
+    value: 4
+
+  #SV-204421
+  - name: expected_max_password_lifetime
+    description: "Expected value for the maximum lifetime of a password before it needs a reset"
+    type: Numeric
+    value: 60
+
+  #SV-204421
+  - name: max_password_lifetime
+    description: "Maximum value for the maximum lifetime of a password before it needs a reset, as allowed by policy"
+    type: Numeric
+    value: 60

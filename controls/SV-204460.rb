@@ -42,11 +42,10 @@ control 'SV-204460' do
   user_accounts = input('user_accounts')
 
   allowed_accounts = (known_system_accounts + user_accounts).uniq
-  passwd.users.each do |user|
-    describe user do
-      it 'is listed in allowed users.' do
-        expect(subject).to(be_in(allowed_accounts))
-      end
+  describe "All user accounts" do
+    it 'are known system accounts or known user accounts' do
+      fail_msg = "Accounts not part of the known account lists: #{(passwd.users - allowed_accounts).join(', ')}"
+      expect(passwd.users).to all( be_in allowed_accounts ), fail_msg
     end
   end
 end

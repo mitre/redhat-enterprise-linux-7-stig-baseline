@@ -56,57 +56,64 @@ control 'SV-204628' do
   tag subsystems: ["iptables","firewall"]
   tag 'host', 'container'
 
-  firewalld_services = input('firewalld_services')
-  firewalld_hosts_allow = input('firewalld_hosts_allow')
-  firewalld_hosts_deny = input('firewalld_hosts_deny')
-  firewalld_ports_allow = input('firewalld_ports_allow')
-  firewalld_ports_deny = input('firewalld_ports_deny')
-  tcpwrappers_allow = input('tcpwrappers_allow')
-  tcpwrappers_deny = input('tcpwrappers_deny')
-  iptable_rules = input('iptables_rules')
+  unless input('firewall_application_package') != ''
 
-  if service('firewalld').running?
-    @default_zone = firewalld.default_zone
+    firewalld_services = input('firewalld_services')
+    firewalld_hosts_allow = input('firewalld_hosts_allow')
+    firewalld_hosts_deny = input('firewalld_hosts_deny')
+    firewalld_ports_allow = input('firewalld_ports_allow')
+    firewalld_ports_deny = input('firewalld_ports_deny')
+    tcpwrappers_allow = input('tcpwrappers_allow')
+    tcpwrappers_deny = input('tcpwrappers_deny')
+    iptable_rules = input('iptables_rules')
 
-    describe firewalld.where { zone = @default_zone } do
-      its('services') { should be_in firewalld_services }
-    end
+    if service('firewalld').running?
+      @default_zone = firewalld.default_zone
 
-    describe firewalld do
-      firewalld_hosts_allow.each do |rule|
-        it { should have_rule_enabled(rule) }
+      describe firewalld.where { zone = @default_zone } do
+        its('services') { should be_in firewalld_services }
       end
-      firewalld_hosts_deny.each do |rule|
-        it { should_not have_rule_enabled(rule) }
+
+      describe firewalld do
+        firewalld_hosts_allow.each do |rule|
+          it { should have_rule_enabled(rule) }
+        end
+        firewalld_hosts_deny.each do |rule|
+          it { should_not have_rule_enabled(rule) }
+        end
+        firewalld_ports_allow.each do |port|
+          it { should have_port_enabled_in_zone(port) }
+        end
+        firewalld_ports_deny.each do |port|
+          it { should_not have_port_enabled_in_zone(port) }
+        end
       end
-      firewalld_ports_allow.each do |port|
-        it { should have_port_enabled_in_zone(port) }
+    elsif service('iptables').running?
+      describe iptables do
+        iptable_rules.each do |rule|
+          it { should have_rule(rule) }
+        end
       end
-      firewalld_ports_deny.each do |port|
-        it { should_not have_port_enabled_in_zone(port) }
+    else
+      describe package('tcp_wrappers') do
+        it { should be_installed }
       end
-    end
-  elsif service('iptables').running?
-    describe iptables do
-      iptable_rules.each do |rule|
-        it { should have_rule(rule) }
+      tcpwrappers_allow.each do |rule|
+        describe etc_hosts_allow.where { daemon == rule['daemon'] } do
+          its('client_list') { should be rule['client_list'] }
+          its('options') { should be rule['options'] }
+        end
+      end
+      tcpwrappers_deny.each do |rule|
+        describe etc_hosts_deny.where { daemon == rule['daemon'] } do
+          its('client_list') { should be rule['client_list'] }
+          its('options') { should be rule['options'] }
+        end
       end
     end
   else
-    describe package('tcp_wrappers') do
-      it { should be_installed }
-    end
-    tcpwrappers_allow.each do |rule|
-      describe etc_hosts_allow.where { daemon == rule['daemon'] } do
-        its('client_list') { should be rule['client_list'] }
-        its('options') { should be rule['options'] }
-      end
-    end
-    tcpwrappers_deny.each do |rule|
-      describe etc_hosts_deny.where { daemon == rule['daemon'] } do
-        its('client_list') { should be rule['client_list'] }
-        its('options') { should be rule['options'] }
-      end
+    describe "Manual review of third-party firewall needed" do
+      skip "A manual review of firewall application \'#{input('firewall_application_package')}\' is needed to determine if it is properly configured"
     end
   end
 end

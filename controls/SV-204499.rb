@@ -34,24 +34,33 @@ control 'SV-204499' do
   tag 'fix_id': 'F-4623r88690_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["aide"]
+  tag subsystems: ["file_integrity_tool"]
   tag 'host', 'container'
 
-  describe package('aide') do
-    it { should be_installed }
-  end
+  file_integrity_tool = input('file_integrity_tool')
 
-  findings = []
-  aide_conf.where do
-    !selection_line.start_with? '!'
-  end.entries.each do |selection|
-    unless selection.rules.include? 'xattrs'
-      findings.append(selection.selection_line)
+  if file_integrity_tool == 'aide'
+
+    describe package('aide') do
+      it { should be_installed }
     end
-  end
 
-  describe "List of monitored files/directories without 'xattrs' rule" do
-    subject { findings }
-    it { should be_empty }
+    findings = []
+    aide_conf.where do
+      !selection_line.start_with? '!'
+    end.entries.each do |selection|
+      unless selection.rules.include? 'xattrs'
+        findings.append(selection.selection_line)
+      end
+    end
+
+    describe "List of monitored files/directories without 'xattrs' rule" do
+      subject { findings }
+      it { should be_empty }
+    end
+  else
+    describe "Need manual review of file integrity tool" do
+      skip "A manual review of the file integrity tool is required to ensure that it verifies ACLs."
+    end
   end
 end

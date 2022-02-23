@@ -47,6 +47,11 @@ control 'SV-204604' do
     describe package('iptables') do
       it { should be_installed }
     end
+    if input('firewall_application_package') != ''
+      describe package(input('firewall_application_package')) do
+        it { should be_installed }
+      end
+    end
   end
   describe.one do
     describe systemd_service('firewalld.service') do
@@ -54,6 +59,11 @@ control 'SV-204604' do
     end
     describe systemd_service('iptables.service') do
       it { should be_running }
+    end
+    if input('firewall_application_service') != ''
+      describe systemd_service(input('firewall_application_service')) do
+        it { should be_running }
+      end
     end
   end
 end

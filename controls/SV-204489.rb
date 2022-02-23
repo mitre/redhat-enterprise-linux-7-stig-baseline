@@ -33,16 +33,19 @@ control 'SV-204489' do
   tag subsystems: ["cron","rsyslog"]
   tag 'host', 'container'
 
-  log_pkg_path = input('log_pkg_path')
+  log_pkg_paths = input('log_pkg_paths').join(' ')
+  cron_log = command("grep cron #{log_pkg_paths}").stdout.strip
+  facilities_log = inspec.command("grep '/var/log/messages' #{log_pkg_paths}").stdout.strip
 
   describe.one do
-    describe command("grep cron #{log_pkg_path}") do
-      its('stdout.strip') { should match(/^cron/) }
+    describe "cron" do
+      it "should be configured for logging in the logging utility config files" do
+        expect(cron_log).to match(/:cron/), "cron not found in #{log_pkg_paths}"
+      end
     end
-    describe file(log_pkg_path.to_s) do
-      its('content') { should match %r{^\*\.\* /var/log/messages\n?$} }
-      its('content') do
-        should_not match %r{^*.*\s+~$.*^*\.\* /var/log/messages\n?$}m
+    describe "All facilities" do
+      it "should be configured for logging in the logging utility config files" do
+        expect(facilities_log).to match(%r{^.+:\*\.\*\s+/var/log/messages}), "cron not found in #{log_pkg_paths}"
       end
     end
   end

@@ -23,14 +23,23 @@ control 'SV-204419' do
   tag 'cci': ['CCI-000198']
   tag nist: ['IA-5 (1) (d)']
   tag subsystems: ["password","/etc/shadow"]
-  tag 'host', 'container'
+  tag 'host'
 
-  shadow.users.each do |user|
-    # filtering on non-system accounts (uid >= 1000)
-    next unless user(user).uid >= 1000
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
+    end
+  else 
 
-    describe shadow.users(user) do
-      its('min_days.first.to_i') { should cmp >= 1 }
+    shadow.users.each do |user|
+      # filtering on non-system accounts (uid >= 1000)
+      next unless user(user).uid >= 1000
+
+      describe shadow.users(user) do
+        its('min_days.first.to_i') { should cmp input('expected_min_password_lifetime') }
+        its('min_days.first.to_i') { should cmp >= input('min_password_lifetime') }
+      end
     end
   end
 end

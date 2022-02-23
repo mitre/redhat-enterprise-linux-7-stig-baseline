@@ -47,78 +47,85 @@ control 'SV-204577' do
   tag subsystems: ["firewall","manual"]
   tag 'host', 'container'
 
-  firewalld_services_deny = input('firewalld_services_deny')
-  firewalld_hosts_deny = input('firewalld_hosts_deny')
-  firewalld_ports_deny = input('firewalld_ports_deny')
-  firewalld_zones = input('firewalld_zones')
-  iptables_rules = input('iptables_rules')
+  unless input('firewall_application_package') != ''
 
-  if service('firewalld').running?
+    firewalld_services_deny = input('firewalld_services_deny')
+    firewalld_hosts_deny = input('firewalld_hosts_deny')
+    firewalld_ports_deny = input('firewalld_ports_deny')
+    firewalld_zones = input('firewalld_zones')
+    iptables_rules = input('iptables_rules')
 
-    # Check that the rules specified in 'firewalld_host_deny' are not enabled
-    describe firewalld do
-      firewalld_hosts_deny.each do |rule|
-        it { should_not have_rule_enabled(rule) }
+    if service('firewalld').running?
+
+      # Check that the rules specified in 'firewalld_host_deny' are not enabled
+      describe firewalld do
+        firewalld_hosts_deny.each do |rule|
+          it { should_not have_rule_enabled(rule) }
+        end
       end
-    end
 
-    # Check to make sure zones are specified
-    if firewalld_zones.empty?
-      describe "Firewalld zones are not specified. Check 'firewalld_zones' input." do
-        subject { firewalld_zones.empty? }
-        it { should be false }
+      # Check to make sure zones are specified
+      if firewalld_zones.empty?
+        describe "Firewalld zones are not specified. Check 'firewalld_zones' input." do
+          subject { firewalld_zones.empty? }
+          it { should be false }
+        end
       end
-    end
 
-    # Check that the services specified in 'firewalld_services_deny' and
-    # ports specified in 'firewalld_ports_deny' are not enabled
-    firewalld_zones.each do |zone|
-      if firewalld.has_zone?(zone)
-        zone_services = firewalld_services_deny[zone.to_sym]
-        zone_ports = firewalld_ports_deny[zone.to_sym]
+      # Check that the services specified in 'firewalld_services_deny' and
+      # ports specified in 'firewalld_ports_deny' are not enabled
+      firewalld_zones.each do |zone|
+        if firewalld.has_zone?(zone)
+          zone_services = firewalld_services_deny[zone.to_sym]
+          zone_ports = firewalld_ports_deny[zone.to_sym]
 
-        if !zone_services.nil?
-          describe firewalld do
-            zone_services.each do |serv|
-              it { should_not have_service_enabled_in_zone(serv, zone) }
+          if !zone_services.nil?
+            describe firewalld do
+              zone_services.each do |serv|
+                it { should_not have_service_enabled_in_zone(serv, zone) }
+              end
+            end
+          else
+            describe "Services for zone '#{zone}' are not specified. Check 'firewalld_services_deny' input." do
+              subject { zone_services.nil? }
+              it { should be false }
+            end
+          end
+
+          if !zone_ports.nil?
+            describe firewalld do
+              zone_ports.each do |port|
+                it { should_not have_port_enabled_in_zone(port, zone) }
+              end
+            end
+          else
+            describe "Ports for zone '#{zone}' are not specified. Check 'firewalld_ports_deny' input." do
+              subject { zone_ports.nil? }
+              it { should be false }
             end
           end
         else
-          describe "Services for zone '#{zone}' are not specified. Check 'firewalld_services_deny' input." do
-            subject { zone_services.nil? }
-            it { should be false }
+          describe "Firewalld zone '#{zone}' exists" do
+            subject { firewalld.has_zone?(zone) }
+            it { should be true }
           end
-        end
-
-        if !zone_ports.nil?
-          describe firewalld do
-            zone_ports.each do |port|
-              it { should_not have_port_enabled_in_zone(port, zone) }
-            end
-          end
-        else
-          describe "Ports for zone '#{zone}' are not specified. Check 'firewalld_ports_deny' input." do
-            subject { zone_ports.nil? }
-            it { should be false }
-          end
-        end
-      else
-        describe "Firewalld zone '#{zone}' exists" do
-          subject { firewalld.has_zone?(zone) }
-          it { should be true }
         end
       end
-    end
-  elsif service('iptables').running?
-    describe iptables do
-      iptables_rules.each do |rule|
-        it { should have_rule(rule) }
+    elsif service('iptables').running?
+      describe iptables do
+        iptables_rules.each do |rule|
+          it { should have_rule(rule) }
+        end
+      end
+    else
+      describe 'An application firewall is running' do
+        subject { service('firewalld').running? || service('iptables').running? }
+        it { should eq true }
       end
     end
   else
-    describe 'No application firewall is installed' do
-      subject { service('firewalld').running? || service('iptables').running? }
-      it { should eq true }
+    describe "Manual review of third-party firewall needed" do
+      skip "A manual review of firewall application \'#{input('firewall_application_package')}\' is needed to determine if it is properly configured"
     end
   end
 end

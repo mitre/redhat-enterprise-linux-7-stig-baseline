@@ -32,20 +32,28 @@ of \"/home/smithj\".
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ["init_files"]
-  tag 'host', 'container'
+  tag 'host'
 
-  exempt_home_users = input('exempt_home_users')
-  non_interactive_shells = input('non_interactive_shells')
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
+    end
+  else 
 
-  ignore_shells = non_interactive_shells.join('|')
+    exempt_home_users = input('exempt_home_users')
+    non_interactive_shells = input('non_interactive_shells')
 
-  findings = Set[]
-  users.where do
-    !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)
-  end.entries.each do |user_info|
-    findings += command("find #{user_info.home} -xdev -maxdepth 1 -name '.*' -type f -perm -#{input('init_files_mode')}").stdout.split("\n")
-  end
-  describe findings do
-    it { should be_empty }
+    ignore_shells = non_interactive_shells.join('|')
+
+    findings = Set[]
+    users.where do
+      !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)
+    end.entries.each do |user_info|
+      findings += command("find #{user_info.home} -xdev -maxdepth 1 -name '.*' -type f -perm -#{input('init_files_mode')}").stdout.split("\n")
+    end
+    describe findings do
+      it { should be_empty }
+    end
   end
 end

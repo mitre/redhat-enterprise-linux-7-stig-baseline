@@ -38,31 +38,39 @@ control 'SV-204472' do
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ["home_dirs"]
-  tag 'host', 'container'
+  tag 'host'
 
-  exempt_home_users = input('exempt_home_users')
-  non_interactive_shells = input('non_interactive_shells')
-
-  ignore_shells = non_interactive_shells.join('|')
-
-  uid_min = login_defs.read_params['UID_MIN'].to_i
-  uid_min = 1000 if uid_min.nil?
-
-  findings = Set[]
-  users.where do
-    !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)
-  end.entries.each do |user_info|
-    next if exempt_home_users.include?(user_info.username.to_s)
-
-    find_args = ''
-    user_info.groups.each do |curr_group|
-      # some key files and secure dirs (like .ssh) are group owned 'root'
-      find_args += "-not -group #{curr_group} -o root"
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
     end
-    findings += command("find #{user_info.home} -xdev -xautofs #{find_args}").stdout.split("\n")
-  end
-  describe "Home directory files with incorrect group ownership or not 'root' owned" do
-    subject { findings.to_a }
-    it { should be_empty }
+  else 
+
+    exempt_home_users = input('exempt_home_users')
+    non_interactive_shells = input('non_interactive_shells')
+
+    ignore_shells = non_interactive_shells.join('|')
+
+    uid_min = login_defs.read_params['UID_MIN'].to_i
+    uid_min = 1000 if uid_min.nil?
+
+    findings = Set[]
+    users.where do
+      !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)
+    end.entries.each do |user_info|
+      next if exempt_home_users.include?(user_info.username.to_s)
+
+      find_args = ''
+      user_info.groups.each do |curr_group|
+        # some key files and secure dirs (like .ssh) are group owned 'root'
+        find_args += "-not -group #{curr_group} -o root"
+      end
+      findings += command("find #{user_info.home} -xdev -xautofs #{find_args}").stdout.split("\n")
+    end
+    describe "Home directory files with incorrect group ownership or not 'root' owned" do
+      subject { findings.to_a }
+      it { should be_empty }
+    end
   end
 end

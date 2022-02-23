@@ -17,10 +17,17 @@ control 'SV-228564' do
   tag check: "Verify the operating system audit records have proper permissions and ownership.\n\nList the full permissions and ownership of the audit log files with the following command.\n\n# ls -la /var/log/audit \ntotal 4512\ndrwx------. 2 root root 23 Apr 25 16:53 .\ndrwxr-xr-x. 17 root root 4096 Aug 9 13:09 ..\n-rw-------. 1 root root 8675309 Aug 9 12:54 audit.log\n\nAudit logs must be mode 0600 or less permissive. \nIf any are more permissive, this is a finding.\n\nThe owner and group owner of all audit log files must both be \"root\". If any other owner or group owner is listed, this is a finding."
   tag fix: "Change the mode of the audit log files with the following command: \n\n# chmod 0600 [audit_file]\n\nChange the owner and group owner of the audit log files with the following command: \n\n# chown root:root [audit_file]"
 
-  describe file(auditd_conf.log_file) do
-    its('mode') { should cmp input('expected_audit_file_mode') }
-    it { should_not be_more_permissive_than(input('max_audit_file_mode')) }
-    its('group') { should cmp 'root' }
-    its('owner') { should cmp 'root' }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - audit config must be done on the host" do
+      skip "Control not applicable - audit config must be done on the host"
+    end
+  else
+    describe file(auditd_conf.log_file) do
+      its('mode') { should cmp input('expected_audit_file_mode') }
+      it { should_not be_more_permissive_than(input('max_audit_file_mode')) }
+      its('group') { should cmp 'root' }
+      its('owner') { should cmp 'root' }
+    end
   end
 end

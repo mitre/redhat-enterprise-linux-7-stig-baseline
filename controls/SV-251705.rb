@@ -11,12 +11,12 @@ control 'SV-251705' do
   tag fix_id: 'F-55096r809228_fix'
   tag cci: ['CCI-002696']
   tag legacy: []
-  tag subsystems: ["aide"]
+  tag subsystems: ["file_integrity_tool"]
   tag 'host', 'container'
   tag check: "Verify that Advanced Intrusion Detection Environment (AIDE) is installed and verifies the correct operation of all security functions.\n\nCheck that the AIDE package is installed with the following command:\n\n$ sudo rpm -q aide\n\naide-0.16-14.el8.x86_64\n\nIf AIDE is not installed, ask the System Administrator how file integrity checks are performed on the system. \n\nIf there is no application installed to perform integrity checks, this is a finding."
   tag fix: "Install the AIDE package by running the following command:\n\n$ sudo yum install aide"
 
-  describe package('aide') do
+  describe package(input('file_integrity_tool')) do
     it { should be_installed }
   end
 end

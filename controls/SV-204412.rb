@@ -33,6 +33,6 @@ control 'SV-204412' do
 
   describe parse_config_file('/etc/security/pwquality.conf') do
     its('minclass.to_i') { should cmp >= input("minclass") }
-    its('minclass.to_i') { should cmp input("expected_min_class") }
+    its('minclass.to_i') { should cmp input("expected_minclass") }
   end
 end
