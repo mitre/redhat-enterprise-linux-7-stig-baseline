@@ -40,8 +40,6 @@ command:
   tag subsystems: ["rpm","package"]
   tag 'host', 'container'
 
-  rpm_verify_integrity_except = input('rpm_verify_integrity_except')
-
   if input('disable_slow_controls')
     describe "This control consistently takes a long to run and has been disabled
     using the disable_slow_controls attribute." do
@@ -50,10 +48,24 @@ command:
       full accredidation for production."
     end
   else
-    # grep excludes files that are marked with 'c' attribute (config files)
-    describe command("rpm -Va | grep '^..5' | grep -E -v '[a-z]*c[a-z]*\\s+\\S+$' | awk 'NF>1{print $NF}'")
-      .stdout.strip.split("\n") do
-        it { should all(be_in(rpm_verify_integrity_except)) }
+    allowlist = input('rpm_verify_integrity_except')
+
+    misconfigured_packages = command('rpm -Va --noconfig').stdout.split("\n")
+      .select{ |package| package[0..7].match(/5/) }
+      .map{ |package| package.match(/\S+$/)[0] }
+
+    unless misconfigured_packages.empty?
+      describe "The list of rpm packages with hashes changed from the vendor values" do
+        fail_msg = "Files with hashes that are changed from vendor values but are not in the allowlist: #{(misconfigured_packages - allowlist).join(', ')}"
+        it "should all appear in the allowlist" do
+          expect(misconfigured_packages).to all( be_in allowlist ), fail_msg
+        end
       end
+    else
+      describe "The list of rpm packages with hashes changed from the vendor values" do
+        subject { misconfigured_packages }
+        it { should be_empty }
+      end
+    end
   end
 end

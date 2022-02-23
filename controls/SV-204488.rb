@@ -30,71 +30,79 @@ control 'SV-204488' do
               'CCI-001814']
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
   tag subsystems: ["init_files","home_dirs"]
-  tag 'host', 'container'
+  tag 'host'
 
-  non_interactive_shells = input('non_interactive_shells')
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
+    end
+  else 
 
-  # Get all interactive users
-  ignore_shells = non_interactive_shells.join('|')
+    non_interactive_shells = input('non_interactive_shells')
 
-  # Get home directory for users with UID >= 1000 or UID == 0 and support interactive logins.
-  findings = Set[]
-  dotfiles = Set[]
-  umasks = {}
-  umask_findings = Set[]
+    # Get all interactive users
+    ignore_shells = non_interactive_shells.join('|')
 
-  # Get UID_MIN from login.defs
-  uid_min = 1000
-  if file('/etc/login.defs').exist?
-    uid_min_val = command("grep '^UID_MIN' /etc/login.defs | grep -Po '[0-9]+'").stdout.split("\n")
-    uid_min = uid_min_val[0].to_i unless uid_min_val.empty?
-  end
+    # Get home directory for users with UID >= 1000 or UID == 0 and support interactive logins.
+    findings = Set[]
+    dotfiles = Set[]
+    umasks = {}
+    umask_findings = Set[]
 
-  interactive_users = users.where do
-    !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)
-  end.entries
+    # Get UID_MIN from login.defs
+    uid_min = 1000
+    if file('/etc/login.defs').exist?
+      uid_min_val = command("grep '^UID_MIN' /etc/login.defs | grep -Po '[0-9]+'").stdout.split("\n")
+      uid_min = uid_min_val[0].to_i unless uid_min_val.empty?
+    end
 
-  # For each user, build and execute a find command that identifies initialization files
-  # in a user's home directory.
-  interactive_users.each do |u|
-    # Only check if the home directory is local
-    is_local = command("df -l #{u.home}").exit_status
+    interactive_users = users.where do
+      !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)
+    end.entries
 
-    if is_local == 0
-      # Get user's initialization files
-      dotfiles += command("find #{u.home} -xdev -maxdepth 2 ( -name '.*' ! -name '.bash_history' ) -type f").stdout.split("\n")
+    # For each user, build and execute a find command that identifies initialization files
+    # in a user's home directory.
+    interactive_users.each do |u|
+      # Only check if the home directory is local
+      is_local = command("df -l #{u.home}").exit_status
 
-      # Get user's umask
-      umasks.store(u.username,
-                   command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
+      if is_local == 0
+        # Get user's initialization files
+        dotfiles += command("find #{u.home} -xdev -maxdepth 2 ( -name '.*' ! -name '.bash_history' ) -type f").stdout.split("\n")
 
-      # Check all local initialization files to see whether or not they are less restrictive than the input UMASK.
-      dotfiles.each do |df|
-        findings += df if file(df).more_permissive_than?(input('max_user_umask'))
-      end
+        # Get user's umask
+        umasks.store(u.username,
+                    command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
 
-      # Check umask for all interactive users
-      umasks.each do |key, value|
-        max_mode = (input('max_user_umask')).to_i(8)
-        inv_mode = 0o777 ^ max_mode
-        umask_findings += key if inv_mode & (value).to_i(8) != 0
-      end
-    else
-      describe 'This control skips non-local filesystems' do
-        skip "This control has skipped the #{u.home} home directory for #{u.username} because it is not a local filesystem."
+        # Check all local initialization files to see whether or not they are less restrictive than the input UMASK.
+        dotfiles.each do |df|
+          findings += df if file(df).more_permissive_than?(input('max_user_umask'))
+        end
+
+        # Check umask for all interactive users
+        umasks.each do |key, value|
+          max_mode = (input('max_user_umask')).to_i(8)
+          inv_mode = 0o777 ^ max_mode
+          umask_findings += key if inv_mode & (value).to_i(8) != 0
+        end
+      else
+        describe 'This control skips non-local filesystems' do
+          skip "This control has skipped the #{u.home} home directory for #{u.username} because it is not a local filesystem."
+        end
       end
     end
-  end
 
-  # Report on any interactive files that are less restrictive than the input UMASK.
-  describe 'No interactive user initialization files with a less restrictive umask were found.' do
-    subject { findings.empty? }
-    it { should eq true }
-  end
+    # Report on any interactive files that are less restrictive than the input UMASK.
+    describe 'No interactive user initialization files with a less restrictive umask were found.' do
+      subject { findings.empty? }
+      it { should eq true }
+    end
 
-  # Report on any interactive users that have a umask less restrictive than the input UMASK.
-  describe 'No users were found with a less restrictive umask were found.' do
-    subject { umask_findings.empty? }
-    it { should eq true }
+    # Report on any interactive users that have a umask less restrictive than the input UMASK.
+    describe 'No users were found with a less restrictive umask were found.' do
+      subject { umask_findings.empty? }
+      it { should eq true }
+    end
   end
 end

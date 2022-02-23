@@ -37,7 +37,14 @@ control 'SV-204503' do
   tag subsystems: ["audit","auditd"]
   tag 'host'
 
-  describe service('auditd') do
-    it { should be_running }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable - audit config must be done on the host" do
+      skip "Control not applicable - audit config must be done on the host"
+    end
+  else
+    describe service('auditd') do
+      it { should be_running }
+    end
   end
 end

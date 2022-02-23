@@ -33,50 +33,58 @@ control 'SV-204477' do
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ["init_files"]
-  tag 'host', 'container'
+  tag 'host'
 
-  exempt_home_users = input('exempt_home_users')
-  non_interactive_shells = input('non_interactive_shells')
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
+    end
+  else 
 
-  ignore_shells = non_interactive_shells.join('|')
+    exempt_home_users = input('exempt_home_users')
+    non_interactive_shells = input('non_interactive_shells')
 
-  findings = Set[]
-  users.where do
-    !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)
-  end.entries.each do |user_info|
-    next if exempt_home_users.include?(user_info.username.to_s)
+    ignore_shells = non_interactive_shells.join('|')
 
-    grep_results = command("grep -i path --exclude=\".bash_history\" #{user_info.home}/.*").stdout.split('\\n')
-    grep_results.each do |result|
-      result.slice! 'PATH='
-      # Case when last value in exec search path is :
-      result += ' ' if result[-1] == ':'
-      result.slice! '$PATH:'
-      result.gsub! '$HOME', user_info.home.to_s
-      result.gsub! '~', user_info.home.to_s
-      line_arr = result.split(':')
-      line_arr.delete_at(0)
-      line_arr.each do |line|
-        # Don't run test on line that exports PATH and is not commented out
-        next unless !line.start_with?('export') && !line.start_with?('#')
+    findings = Set[]
+    users.where do
+      !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)
+    end.entries.each do |user_info|
+      next if exempt_home_users.include?(user_info.username.to_s)
 
-        # Case when :: found in exec search path or : found at beginning
-        if line.strip.empty?
-          curr_work_dir = command('pwd').stdout.gsub("\n", '')
-          line = curr_work_dir if curr_work_dir.start_with?(user_info.home.to_s)
+      grep_results = command("grep -i path --exclude=\".bash_history\" #{user_info.home}/.*").stdout.split('\\n')
+      grep_results.each do |result|
+        result.slice! 'PATH='
+        # Case when last value in exec search path is :
+        result += ' ' if result[-1] == ':'
+        result.slice! '$PATH:'
+        result.gsub! '$HOME', user_info.home.to_s
+        result.gsub! '~', user_info.home.to_s
+        line_arr = result.split(':')
+        line_arr.delete_at(0)
+        line_arr.each do |line|
+          # Don't run test on line that exports PATH and is not commented out
+          next unless !line.start_with?('export') && !line.start_with?('#')
+
+          # Case when :: found in exec search path or : found at beginning
+          if line.strip.empty?
+            curr_work_dir = command('pwd').stdout.gsub("\n", '')
+            line = curr_work_dir if curr_work_dir.start_with?(user_info.home.to_s)
+          end
+          # This will fail if non-home directory found in path
+          findings.add(line) unless line.start_with?(user_info.home)
         end
-        # This will fail if non-home directory found in path
-        findings.add(line) unless line.start_with?(user_info.home)
       end
     end
-  end
-  describe.one do
-    describe etc_fstab do
-      its('home_mount_options') { should include 'nosuid' }
-    end
-    describe 'Initialization files that include executable search paths that include directories outside their home directories' do
-      subject { findings.to_a }
-      it { should be_empty }
+    describe.one do
+      describe etc_fstab do
+        its('home_mount_options') { should include 'nosuid' }
+      end
+      describe 'Initialization files that include executable search paths that include directories outside their home directories' do
+        subject { findings.to_a }
+        it { should be_empty }
+      end
     end
   end
 end

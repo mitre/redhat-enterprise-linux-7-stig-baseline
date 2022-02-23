@@ -28,26 +28,34 @@ control 'SV-204471' do
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ["home_dirs"]
-  tag 'host', 'container'
+  tag 'host'
 
-  exempt_home_users = input('exempt_home_users')
-  non_interactive_shells = input('non_interactive_shells')
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
+    end
+  else 
 
-  ignore_shells = non_interactive_shells.join('|')
+    exempt_home_users = input('exempt_home_users')
+    non_interactive_shells = input('non_interactive_shells')
 
-  uid_min = login_defs.read_params['UID_MIN'].to_i
-  uid_min = 1000 if uid_min.nil?
+    ignore_shells = non_interactive_shells.join('|')
 
-  findings = Set[]
-  users.where do
-    !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)
-  end.entries.each do |user_info|
-    next if exempt_home_users.include?(user_info.username.to_s)
+    uid_min = login_defs.read_params['UID_MIN'].to_i
+    uid_min = 1000 if uid_min.nil?
 
-    findings += command("find #{user_info.home} -xdev -xautofs -not -user #{user_info.username}").stdout.split("\n")
-  end
-  describe 'Files and directories that are not owned by the user' do
-    subject { findings.to_a }
-    it { should be_empty }
+    findings = Set[]
+    users.where do
+      !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)
+    end.entries.each do |user_info|
+      next if exempt_home_users.include?(user_info.username.to_s)
+
+      findings += command("find #{user_info.home} -xdev -xautofs -not -user #{user_info.username}").stdout.split("\n")
+    end
+    describe 'Files and directories that are not owned by the user' do
+      subject { findings.to_a }
+      it { should be_empty }
+    end
   end
 end

@@ -38,20 +38,28 @@ control 'SV-204475' do
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ["init_files"]
-  tag 'host', 'container'
+  tag 'host'
 
-  exempt_home_users = input('exempt_home_users')
-  non_interactive_shells = input('non_interactive_shells')
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
+    end
+  else 
 
-  ignore_shells = non_interactive_shells.join('|')
+    exempt_home_users = input('exempt_home_users')
+    non_interactive_shells = input('non_interactive_shells')
 
-  findings = Set[]
-  users.where do
-    !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)
-  end.entries.each do |user_info|
-    findings += command("find #{user_info.home} -name '.*' -not -gid #{user_info.gid} -not -group root").stdout.split("\n")
-  end
-  describe findings do
-    its('length') { should == 0 }
+    ignore_shells = non_interactive_shells.join('|')
+
+    findings = Set[]
+    users.where do
+      !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)
+    end.entries.each do |user_info|
+      findings += command("find #{user_info.home} -name '.*' -not -gid #{user_info.gid} -not -group root").stdout.split("\n")
+    end
+    describe findings do
+      its('length') { should == 0 }
+    end
   end
 end

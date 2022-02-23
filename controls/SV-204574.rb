@@ -40,7 +40,7 @@ control 'SV-204574' do
         skip 'An alternate logging system is used. This check must be performed manually'
       end
     else
-      describe command("grep @ #{input('log_pkg_path')} | grep -v \"^#\"") do
+      describe command("grep @ #{input('log_pkg_paths').join(' ')} | grep -v \"^#\"") do
         its('stdout.strip') { should_not be_empty }
       end
     end

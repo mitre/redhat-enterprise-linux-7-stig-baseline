@@ -42,11 +42,17 @@ control 'SV-204486' do
     mount_command = mount('/dev/shm').file.mounted.stdout
       .match(/\((.*)\)/)[1].split(',')
 
-    describe "/etc/fstab mount options for /dev/shm" do
-      subject { mount_file }
-      its('mount_options.flatten') { should include 'nodev' }
-      its('mount_options.flatten') { should include 'nosuid' }
-      its('mount_options.flatten') { should include 'noexec' }
+    describe.one do
+      describe "/etc/fstab mount options for /dev/shm" do
+        subject { mount_file }
+        its('mount_options.flatten') { should include 'nodev' }
+        its('mount_options.flatten') { should include 'nosuid' }
+        its('mount_options.flatten') { should include 'noexec' }
+      end
+      describe "/etc/fstab mount options for /dev/shm" do
+        subject { mount_file }
+        it { should_not exist }
+      end
     end
     describe "mount command options for /dev/shm" do
       subject{ mount_command }

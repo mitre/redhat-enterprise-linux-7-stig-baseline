@@ -34,28 +34,36 @@ control 'SV-204493' do
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ["home_dirs","file_system"]
-  tag 'host', 'container'
+  tag 'host'
 
-  exempt_home_users = input('exempt_home_users')
-  non_interactive_shells = input('non_interactive_shells')
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable to a container" do
+      skip "Control not applicable to a container"
+    end
+  else 
 
-  ignore_shells = non_interactive_shells.join('|')
+    exempt_home_users = input('exempt_home_users')
+    non_interactive_shells = input('non_interactive_shells')
 
-  uid_min = login_defs.read_params['UID_MIN'].to_i
-  uid_min = 1000 if uid_min.nil?
+    ignore_shells = non_interactive_shells.join('|')
 
-  # excluding root because its home directory is usually "/root" (mountpoint "/")
-  users.where do
-    !shell.match(ignore_shells) && (uid >= uid_min)
-  end.entries.each do |user_info|
-    next if exempt_home_users.include?(user_info.username.to_s)
+    uid_min = login_defs.read_params['UID_MIN'].to_i
+    uid_min = 1000 if uid_min.nil?
 
-    home_mount = command(%(df #{user_info.home} --output=target | tail -1)).stdout.strip
-    describe user_info.username do
-      context 'with mountpoint' do
-        context home_mount do
-          it { should_not be_empty }
-          it { should_not match(%r{^/$}) }
+    # excluding root because its home directory is usually "/root" (mountpoint "/")
+    users.where do
+      !shell.match(ignore_shells) && (uid >= uid_min)
+    end.entries.each do |user_info|
+      next if exempt_home_users.include?(user_info.username.to_s)
+
+      home_mount = command(%(df #{user_info.home} --output=target | tail -1)).stdout.strip
+      describe user_info.username do
+        context 'with mountpoint' do
+          context home_mount do
+            it { should_not be_empty }
+            it { should_not match(%r{^/$}) }
+          end
         end
       end
     end
