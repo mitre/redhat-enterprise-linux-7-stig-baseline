@@ -58,47 +58,62 @@ control 'SV-204427' do
   tag subsystems: ["pam","faillock"]
   tag 'host', 'container'
 
-  describe pam('/etc/pam.d/password-auth') do
-    its('lines') do
-      should match_pam_rules(input('required_rules')).exactly.or \
-        match_pam_rules(input('alternate_rules')).exactly
+  pam_rules = pam('/etc/pam.d/password-auth').lines
+  describe.one do
+    describe "pam rules" do
+      it "should lock accounts against brute-force" do
+        expect(input('required_rules')).to all( be_in pam_rules ), "missing required rules: #{input('required_rules').select{ |rule| !pam_rules.include?(rule) }}"
+      end
     end
-    its('lines') do
-      should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', '<=',
-                                                                                                input('unsuccessful_attempts'))
-    end
-    its('lines') do
-      should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', '<=',
-                                                                                                input('fail_interval'))
-    end
-    its('lines') do
-      should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(0|never)').or \
-        (match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '<=',
-                                                                                            604_800).and \
-                                                                                              match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '>=',
-                                                                                                                                                                                 input('lockout_time')))
+    describe "pam rules" do
+      it "should lock accounts against brute-force" do
+        expect(input('alternate_rules')).to all( be_in pam_rules ), "missing required rules: #{input('alternate_rules').select{ |rule| !pam_rules.include?(rule) }}"
+      end
     end
   end
 
-  describe pam('/etc/pam.d/system-auth') do
-    its('lines') do
-      should match_pam_rules(input('required_rules')).exactly.or \
-        match_pam_rules(input('alternate_rules')).exactly
-    end
-    its('lines') do
-      should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', '<=',
-                                                                                                input('unsuccessful_attempts'))
-    end
-    its('lines') do
-      should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', '<=',
-                                                                                                input('fail_interval'))
-    end
-    its('lines') do
-      should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(0|never)').or \
-        (match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '<=',
-                                                                                            604_800).and \
-                                                                                              match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '>=',
-                                                                                                                                                                                 input('lockout_time')))
-    end
-  end
+
+  # describe pam('/etc/pam.d/password-auth') do
+  #   its('lines') do
+  #     should match_pam_rules(input('required_rules')).exactly.or \
+  #       match_pam_rules(input('alternate_rules')).exactly
+  #   end
+  #   its('lines') do
+  #     should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', '<=',
+  #                                                                                               input('unsuccessful_attempts'))
+  #   end
+  #   its('lines') do
+  #     should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', '<=',
+  #                                                                                               input('fail_interval'))
+  #   end
+  #   its('lines') do
+  #     should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(0|never)').or \
+  #       (match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '<=',
+  #                                                                                           604_800).and \
+  #                                                                                             match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '>=',
+  #                                                                                                                                                                                input('lockout_time')))
+  #   end
+  # end
+
+  # describe pam('/etc/pam.d/system-auth') do
+  #   its('lines') do
+  #     should match_pam_rules(input('required_rules')).exactly.or \
+  #       match_pam_rules(input('alternate_rules')).exactly
+  #   end
+  #   its('lines') do
+  #     should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', '<=',
+  #                                                                                               input('unsuccessful_attempts'))
+  #   end
+  #   its('lines') do
+  #     should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', '<=',
+  #                                                                                               input('fail_interval'))
+  #   end
+  #   its('lines') do
+  #     should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(0|never)').or \
+  #       (match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '<=',
+  #                                                                                           604_800).and \
+  #                                                                                             match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '>=',
+  #                                                                                                                                                                                input('lockout_time')))
+  #   end
+  # end
 end
