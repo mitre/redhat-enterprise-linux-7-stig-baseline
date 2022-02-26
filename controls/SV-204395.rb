@@ -75,34 +75,42 @@ control 'SV-204395' do
   tag 'cci': ['CCI-000048']
   tag nist: ['AC-8 a']
   tag subsystems: ["banner","/etc/issue"]
-  tag 'host', 'container'
+  tag 'host'
 
-  banner_message_text_cli = input('banner_message_text_cli')
-  banner_message_text_cli_limited = input('banner_message_text_cli_limited')
-
-  clean_banner = banner_message_text_cli.gsub(/[\r\n\s]/, '')
-  clean_banner_limited = banner_message_text_cli_limited.gsub(/[\r\n\s]/,
-                                                              '')
-  banner_file = file('/etc/issue')
-  banner_missing = !banner_file.exist?
-
-  if banner_missing
-    describe 'The banner text is not set because /etc/issue does not exist' do
-      subject { banner_missing }
-      it { should be false }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
-  end
+  else
 
-  banner_message = banner_file.content.gsub(/[\r\n\s]/, '')
-  unless banner_missing
-    describe.one do
-      describe 'The banner text should match the standard banner' do
-        subject { banner_message }
-        it { should cmp clean_banner }
+    banner_message_text_cli = input('banner_message_text_cli')
+    banner_message_text_cli_limited = input('banner_message_text_cli_limited')
+
+    clean_banner = banner_message_text_cli.gsub(/[\r\n\s]/, '')
+    clean_banner_limited = banner_message_text_cli_limited.gsub(/[\r\n\s]/,
+                                                                '')
+    banner_file = file('/etc/issue')
+    banner_missing = !banner_file.exist?
+
+    if banner_missing
+      describe 'The banner text is not set because /etc/issue does not exist' do
+        subject { banner_missing }
+        it { should be false }
       end
-      describe 'The banner text should match the limited banner' do
-        subject { banner_message }
-        it { should cmp clean_banner_limited }
+    end
+
+    banner_message = banner_file.content.gsub(/[\r\n\s]/, '')
+    unless banner_missing
+      describe.one do
+        describe 'The banner text should match the standard banner' do
+          subject { banner_message }
+          it { should cmp clean_banner }
+        end
+        describe 'The banner text should match the limited banner' do
+          subject { banner_message }
+          it { should cmp clean_banner_limited }
+        end
       end
     end
   end

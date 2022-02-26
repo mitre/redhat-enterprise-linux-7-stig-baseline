@@ -23,6 +23,7 @@ control 'SV-204405' do
   tag 'cci': ['CCI-000192']
   tag subsystems: ['pam','password']
   tag nist: ['IA-5 (1) (a)']
+  tag 'host', 'container'
 
   # Get the content of /etc/pam.d/passwd as an array
   pam_passwd_content = file('/etc/pam.d/passwd').content.strip.split("\n")

@@ -44,14 +44,22 @@ control 'SV-204399' do
   tag subsystems: ["gui"]
   tag 'host'
 
-  if package('gnome-desktop3').installed?
-    describe command('gsettings writable org.gnome.desktop.screensaver lock-delay') do
-      its('stdout.strip') { should cmp 'false' }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
   else
-    impact 0.0
-    describe 'The GNOME desktop is not installed' do
-      skip 'The GNOME desktop is not installed, this control is Not Applicable.'
+
+    if package('gnome-desktop3').installed?
+      describe command('gsettings writable org.gnome.desktop.screensaver lock-delay') do
+        its('stdout.strip') { should cmp 'false' }
+      end
+    else
+      impact 0.0
+      describe 'The GNOME desktop is not installed' do
+        skip 'The GNOME desktop is not installed, this control is Not Applicable.'
+      end
     end
   end
 end
