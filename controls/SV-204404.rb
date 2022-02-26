@@ -42,15 +42,23 @@ control 'SV-204404' do
   tag subsystems: ["gui","screensaver","lock","session"]
   tag 'host'
 
-  if package('gnome-desktop3').installed?
-    describe command("gsettings get org.gnome.desktop.screensaver lock-delay | cut -d ' ' -f2") do
-      its('stdout.strip') { should cmp <= input('lock_delay') }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
   else
-    impact 0.0
-    describe 'The system does not have GNOME installed' do
-      skip "The system does not have GNOME installed, this requirement is Not
-      Applicable."
+
+    if package('gnome-desktop3').installed?
+      describe command("gsettings get org.gnome.desktop.screensaver lock-delay | cut -d ' ' -f2") do
+        its('stdout.strip') { should cmp <= input('lock_delay') }
+      end
+    else
+      impact 0.0
+      describe 'The system does not have GNOME installed' do
+        skip "The system does not have GNOME installed, this requirement is Not
+        Applicable."
+      end
     end
   end
 end

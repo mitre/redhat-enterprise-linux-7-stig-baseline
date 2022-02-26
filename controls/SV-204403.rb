@@ -42,21 +42,29 @@ control 'SV-204403' do
   tag subsystems: ["gui"]
   tag 'host'
 
-  if package('gnome-desktop3').installed?
-    impact 0.5
-  else
+  if virtualization.system.eql?('docker')
     impact 0.0
-  end
-
-  if package('gnome-desktop3').installed?
-    describe command('gsettings writable org.gnome.desktop.screensaver idle-activation-enabled') do
-      its('stdout.strip') { should cmp 'false' }
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
-  end
+  else
 
-  unless package('gnome-desktop3').installed?
-    describe 'The GNOME desktop is not installed' do
-      skip 'The GNOME desktop is not installed, this control is Not Applicable.'
+    if package('gnome-desktop3').installed?
+      impact 0.5
+    else
+      impact 0.0
+    end
+
+    if package('gnome-desktop3').installed?
+      describe command('gsettings writable org.gnome.desktop.screensaver idle-activation-enabled') do
+        its('stdout.strip') { should cmp 'false' }
+      end
+    end
+
+    unless package('gnome-desktop3').installed?
+      describe 'The GNOME desktop is not installed' do
+        skip 'The GNOME desktop is not installed, this control is Not Applicable.'
+      end
     end
   end
 end

@@ -58,62 +58,71 @@ control 'SV-204427' do
   tag subsystems: ["pam","faillock"]
   tag 'host', 'container'
 
-  pam_rules = pam('/etc/pam.d/password-auth').lines
+  # pam rules files to check
+  pa_rules = pam('/etc/pam.d/password-auth').lines
+  sa_rules = pam('/etc/pam.d/system-auth').lines
+
+  # rule patterns to match for
+  faillock_rule_pattern = 'auth [default=die]|required pam_faillock.so'
+  deny_pattern = faillock_rule_pattern + " deny=#{input('unsuccessful_attempts')}"
+  fail_interval_pattern = faillock_rule_pattern + " fail_interval=#{input('fail_interval')}"
+  unlock_time_pattern = faillock_rule_pattern + " unlock_time=(0|never|#{input('lockout_time')})"
+
+  # explicit rulesets to look for
+  req = input('required_rules')
+  alt = input('alternate_rules')
+
   describe.one do
-    describe "pam rules" do
-      it "should lock accounts against brute-force" do
-        expect(input('required_rules')).to all( be_in pam_rules ), "missing required rules: #{input('required_rules').select{ |rule| !pam_rules.include?(rule) }}"
+    describe "pam rules for the faillock module" do
+      it "should exactly match an appropriately configured ruleset in password-auth" do
+        expect(pa_rules).to match_pam_rules(req).exactly, "missing required rules: #{req.select{ |rule| !pa_rules.include?(rule) }}"
       end
     end
-    describe "pam rules" do
-      it "should lock accounts against brute-force" do
-        expect(input('alternate_rules')).to all( be_in pam_rules ), "missing required rules: #{input('alternate_rules').select{ |rule| !pam_rules.include?(rule) }}"
+    describe "pam rules for the faillock module" do
+      it "should exactly match an appropriately configured ruleset in password-auth" do
+        expect(pa_rules).to match_pam_rules(alt).exactly, "missing alternate rules: #{alt.select{ |rule| !pa_rules.include?(rule) }}"
       end
     end
   end
 
+  describe "pam rules for the faillock module" do
+    it "should have the expected settings enabled in password-auth" do
+      expect(pa_rules).to match_pam_rule(deny_pattern), "missing: #{deny_pattern}"
+      expect(pa_rules).to match_pam_rule(fail_interval_pattern), "missing: #{fail_interval_pattern}"
+      expect(pa_rules).to match_pam_rule(unlock_time_pattern), "missing or misconfigured unlock_time"
+    end
+  end
 
-  # describe pam('/etc/pam.d/password-auth') do
-  #   its('lines') do
-  #     should match_pam_rules(input('required_rules')).exactly.or \
-  #       match_pam_rules(input('alternate_rules')).exactly
-  #   end
-  #   its('lines') do
-  #     should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', '<=',
-  #                                                                                               input('unsuccessful_attempts'))
-  #   end
-  #   its('lines') do
-  #     should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', '<=',
-  #                                                                                               input('fail_interval'))
-  #   end
-  #   its('lines') do
-  #     should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(0|never)').or \
-  #       (match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '<=',
-  #                                                                                           604_800).and \
-  #                                                                                             match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '>=',
-  #                                                                                                                                                                                input('lockout_time')))
-  #   end
-  # end
+  describe.one do
+    describe "pam rules for the faillock module" do
+      it "should exactly match an appropriately configured ruleset in system-auth" do
+        expect(sa_rules).to match_pam_rules(req).exactly, "missing required rules: #{req.select{ |rule| !sa_rules.include?(rule) }}"
+      end
+    end
+    describe "pam rules for the faillock module" do
+      it "should exactly match an appropriately configured ruleset in system-auth" do
+        expect(sa_rules).to match_pam_rules(alt).exactly, "missing alternate rules: #{alt.select{ |rule| !sa_rules.include?(rule) }}"
+      end
+    end
+  end
 
-  # describe pam('/etc/pam.d/system-auth') do
-  #   its('lines') do
-  #     should match_pam_rules(input('required_rules')).exactly.or \
-  #       match_pam_rules(input('alternate_rules')).exactly
-  #   end
-  #   its('lines') do
-  #     should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', '<=',
-  #                                                                                               input('unsuccessful_attempts'))
-  #   end
-  #   its('lines') do
-  #     should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', '<=',
-  #                                                                                               input('fail_interval'))
-  #   end
-  #   its('lines') do
-  #     should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(0|never)').or \
-  #       (match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '<=',
-  #                                                                                           604_800).and \
-  #                                                                                             match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '>=',
-  #                                                                                                                                                                                input('lockout_time')))
-  #   end
-  # end
+  describe "pam rules for the faillock module" do
+    it "should have the expected settings enabled in system-auth" do
+      expect(sa_rules).to match_pam_rule(deny_pattern), "missing: #{deny_pattern}"
+      expect(sa_rules).to match_pam_rule(fail_interval_pattern), "missing: #{fail_interval_pattern}"
+      expect(sa_rules).to match_pam_rule(unlock_time_pattern), "missing or misconfigured unlock_time"
+    end
+  end
+
+  describe "input value" do
+    it "for unsuccessful_attempts should be in line with maximum/minimum allowed values by policy" do
+      expect(input('unsuccessful_attempts')).to cmp <= input('maximum_unsuccessful_attempts')
+    end
+    it "for fail_interval should be in line with maximum/minimum allowed values by policy" do
+      expect(input('fail_interval')).to cmp <= input('maximum_fail_interval')
+    end
+    it "for lockout_time should be in line with maximum/minimum allowed values by policy" do
+      expect(input('lockout_time')).to cmp >= input('minimum_lockout_time')
+    end
+  end
 end

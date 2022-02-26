@@ -43,20 +43,20 @@ control 'SV-204428' do
   tag 'host', 'container'
 
   describe.one do
-    describe pam('/etc/pam.d/password-auth') do
+    describe pam('/home/vagrant/sample_pam') do
       its('lines') do
-        should match_pam_rule('auth .* pam_faillock.so preauth').all_with_args('even_deny_root')
+        should match_pam_rule('auth .* pam_faillock.so preauth even_deny_root')
       end
       its('lines') do
-        should match_pam_rule('auth .* pam_faillock.so authfail').all_with_args('even_deny_root')
+        should match_pam_rule('auth .* pam_faillock.so authfail even_deny_root')
       end
     end
     describe pam('/etc/pam.d/system-auth') do
       its('lines') do
-        should match_pam_rule('auth .* pam_faillock.so preauth').all_with_args('even_deny_root')
+        should match_pam_rule('auth .* pam_faillock.so preauth even_deny_root')
       end
       its('lines') do
-        should match_pam_rule('auth .* pam_faillock.so authfail').all_with_args('even_deny_root')
+        should match_pam_rule('auth .* pam_faillock.so authfail even_deny_root')
       end
     end
   end

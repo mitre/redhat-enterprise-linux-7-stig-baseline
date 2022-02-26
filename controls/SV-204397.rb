@@ -43,36 +43,44 @@ control 'SV-204397' do
   tag subsystems: ["gui"]
   tag 'host'
 
-  multifactor_enabled = input('multifactor_enabled')
-  dconf_user = input('dconf_user')
-
-  if package('gnome-desktop3').installed? && (package('pcsc-lite').installed? || package('esc').installed?)
-    impact 0.5
-    if !dconf_user.nil? && command('whoami').stdout.strip == 'root'
-      describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
-        its('stdout.strip') { should eq multifactor_enabled.to_s }
-      end
-    else
-      describe command('dconf read /org/gnome/login-screen/enable-smartcard-authentication') do
-        its('stdout.strip') { should eq multifactor_enabled.to_s }
-      end
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
   else
-    impact 0.0
-    unless package('gnome-desktop3').installed?
-      describe 'The GNOME desktop is not installed' do
-        skip 'The GNOME desktop is not installed, this control is Not Applicable.'
-      end
-    end
 
-    unless package('pcsc-lite').installed?
-      describe 'The pcsc-lite package is not installed' do
-        skip 'The pcsc-lite package is not installed, this control is Not Applicable.'
+    multifactor_enabled = input('multifactor_enabled')
+    dconf_user = input('dconf_user')
+
+    if package('gnome-desktop3').installed? && (package('pcsc-lite').installed? || package('esc').installed?)
+      impact 0.5
+      if !dconf_user.nil? && command('whoami').stdout.strip == 'root'
+        describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
+          its('stdout.strip') { should eq multifactor_enabled.to_s }
+        end
+      else
+        describe command('dconf read /org/gnome/login-screen/enable-smartcard-authentication') do
+          its('stdout.strip') { should eq multifactor_enabled.to_s }
+        end
       end
-    end
-    unless package('esc').installed?
-      describe 'The esc package is not installed' do
-        skip 'The esc package is not installed, this control is Not Applicable.'
+    else
+      impact 0.0
+      unless package('gnome-desktop3').installed?
+        describe 'The GNOME desktop is not installed' do
+          skip 'The GNOME desktop is not installed, this control is Not Applicable.'
+        end
+      end
+
+      unless package('pcsc-lite').installed?
+        describe 'The pcsc-lite package is not installed' do
+          skip 'The pcsc-lite package is not installed, this control is Not Applicable.'
+        end
+      end
+      unless package('esc').installed?
+        describe 'The esc package is not installed' do
+          skip 'The esc package is not installed, this control is Not Applicable.'
+        end
       end
     end
   end
