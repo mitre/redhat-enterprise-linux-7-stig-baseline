@@ -5,6 +5,8 @@ copyright: Defense Information Systems Agency (DISA)
 license: Apache-2.0
 summary: "This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil."
 version: 3.6.0
+
+inspec_version: "~> 4.52"
 # The following defines the default inputs for the configurable controls used in the RHEL 7 DISA STIG.
 inputs:
   - name: disable_slow_controls
@@ -22,7 +24,8 @@ inputs:
   - name: rpm_verify_perms_except
     description: List of system files that should be allowed to change from an rpm verify point of view
     type: Array
-    value: ["/etc/issue"]
+    value:
+      - "/etc/issue"
 
   # V-214799
   - name: rpm_verify_integrity_except
@@ -269,7 +272,9 @@ inputs:
   - name: log_pkg_paths
     description: Paths to files and directories that may include logging config
     type: Array
-    value: ["/etc/rsyslog.conf", "/etc/rsyslog.d/*"]
+    value:
+      - "/etc/rsyslog.conf"
+      - "/etc/rsyslog.d/*"
 
   # V-204467, V-204468, V-204469, V-204470, V-204471, V-204472
   # V-204473, V-204474, V-204475, V-204476, V-204477, V-204478, V-204493
@@ -303,7 +308,8 @@ inputs:
   - name: grub_uefi_user_boot_files
     description: Grub boot config files
     type: Array
-    value: ["/boot/efi/EFI/redhat/user.cfg"]
+    value:
+      - "/boot/efi/EFI/redhat/user.cfg"
 
   # V-204439
   - name: efi_superusers
