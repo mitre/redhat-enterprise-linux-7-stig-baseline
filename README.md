@@ -75,7 +75,7 @@ The RHEL7.x STIG profile is `container aware` and is able to determine when the 
 
 All the profile's tests (`controls`) apply to the `host` but many of the controls are `Not Appliciable` when running inside a `docker container`. When running inside a `docker container`, the tests that only applicable to the host will be marked as `Not Appliciable` automatically. 
 
-To review which controls are `container only`, see: [CONTAINER-ONLY-TESTS.md](CONTAINER-ONLY-TESTS.md) in the root of the profile.
+To review which controls are `container only`, see: [container_applicable_controls.md](https://gitlab.dsolab.io/scv-content/inspec/operating-systems/redhat-enterprise-linux-7-stig-baseline/-/wikis/container_applicable_controls.md) on the wiki.
 
 ## Tailoring to Your Environment
 
