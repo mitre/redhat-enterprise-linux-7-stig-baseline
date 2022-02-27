@@ -169,7 +169,7 @@ inspec archive redhat-enterprise-linux-7-stig-baseline
 
 [Full exec options](https://docs.chef.io/inspec/cli/#options-3)
 
-# Using Heimdall-Lite for Viewing Test Results and Exporting for Checklist and eMASS
+# Using Heimdall for Viewing Test Results and Exporting for Checklist and eMASS
 
 The JSON results output file can be loaded into **[heimdall-lite](https://heimdall-lite.mitre.org/)** for a user-interactive, graphical view of the profile scan results.
 
