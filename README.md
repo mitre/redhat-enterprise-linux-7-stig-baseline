@@ -53,17 +53,25 @@ Comming Soon
 
 These statistics are generated using the [SAF CLI](https://saf-cli.mitre.org) - command `saf generate:threshold -i <our_results.json> -c -o <our_summary>.md`.
 
-## Getting Started
+## Getting Started and Intended Usage
 
-It is intended and recommended that InSpec and this profile be run from a **"runner"** host (such as a DevOps orchestration server, an administrative management system, or a developer's workstation/laptop) against the target [ remotely over **ssh**].
+1. It is intended and recommended that InSpec and this profile be run from a **"runner"** host (such as a DevOps orchestration server, an administrative management system, or a developer's workstation/laptop) against the target [ remotely over **ssh**].
 
-**For the best security of the runner, always install on the runner the _latest version_ of InSpec and supporting Ruby language components.**
+2. **For the best security of the runner, always install on the runner the _latest version_ of InSpec and supporting Ruby language components.**
 
-The latest versions and installation options are available at the [InSpec](http://inspec.io/) site.
+3. The latest versions and installation options are available at the [InSpec](http://inspec.io/) site.
+
+4. Always use the latest version of the `released profile` (see below) on your system. 
+
+### Intended Usage - `main` vs `releases`
+
+1. The latest `released` version of the profile is intended for use in A&A testing, formal results to AO's and IAM's etc. Please use the `released` versions of the profile in these types of workflows.
+
+2. The `main` branch is a development branch that will become the next release of the profile. The `main` branch is intended for use in *developement and testing* merge requests for the next release of the profile, and *is not intended* be used for formal and ongoing testing on systems.
 
 ## Environment Aware Testing
 
-The inspec profile is able to determine when the profile is being executed inside or outside a `docker container` and will only run the tests that are approporate for the enviroment it is testing in. The tests are all taged as `host` or `host, container`. 
+The RHEL7.x STIG profile is `container aware` and is able to determine when the profile is being executed inside or outside a `docker container` and will only run the tests that are approporate for the enviroment it is testing in. The tests are all taged as `host` or `host, container`. 
 
 All the profile's tests (`controls`) apply to the `host` but many of the controls are `Not Appliciable` when running inside a `docker container`. When running inside a `docker container`, the tests that only applicable to the host will be marked as `Not Appliciable` automatically. 
 
