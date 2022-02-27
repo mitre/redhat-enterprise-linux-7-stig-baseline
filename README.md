@@ -53,9 +53,9 @@ Comming Soon
 
 These statistics are generated using the [SAF CLI](https://saf-cli.mitre.org) - command `saf generate:threshold -i <our_results.json> -c -o <our_summary>.md`.
 
-## Getting Started and Intended Usage
+# Getting Started and Intended Usage
 
-1. It is intended and recommended that InSpec and this profile be run from a **"runner"** host (such as a DevOps orchestration server, an administrative management system, or a developer's workstation/laptop) against the target [ remotely over **ssh**].
+1. It is intended and recommended that InSpec and the profile be run from a **"runner"** host, either from source or a local archieve - [Running the Profile](#running-the-profile) - (such as a DevOps orchestration server, an administrative management system, or a developer's workstation/laptop) against the target [ remotely over **ssh**].
 
 2. **For the best security of the runner, always install on the runner the _latest version_ of InSpec and supporting Ruby language components.**
 
@@ -63,7 +63,7 @@ These statistics are generated using the [SAF CLI](https://saf-cli.mitre.org) - 
 
 4. Always use the latest version of the `released profile` (see below) on your system. 
 
-### Intended Usage - `main` vs `releases`
+## Intended Usage - `main` vs `releases`
 
 1. The latest `released` version of the profile is intended for use in A&A testing, formal results to AO's and IAM's etc. Please use the `released` versions of the profile in these types of workflows.
 
@@ -128,6 +128,7 @@ inputs:
     value: []
 ...
 ```
+# Running the Profile
 
 ## (connected) Running the Profile Directly
 
