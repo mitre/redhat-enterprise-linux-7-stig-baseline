@@ -5,7 +5,7 @@
 This automated Security Technical Implementation Guide (STIG) validator was developed to reduce the time it takes to perform a security check based upon STIG Guidance from DISA. These check results should provide information needed to receive a secure authority to operate (ATO) certification for the applicable technology.
 <b>RHEL7</b> uses [Chef InSpec](https://github.com/chef/inspec), which provides an open source compliance, security and policy testing framework that dynamically extracts system configuration information.
 
-<b>**Please note: **</b> This InSpec Profile can assess RHEL7 installations which are hosts (such as bare-metal OS installations and VM installations) and RHEL7 containers. Running this profile against a RHEL7 container will skip the control checks which are not relevant to containers (such as controls dealing with the GUI). For the purposes of developing this profile, Red Hat's [Universal Base Image 7 (UBI7)](https://catalog.redhat.com/software/container-stacks/detail/5eed413846bc301a95a1e9a1) was used as the representative test target for containerized RHEL7.
+<b>**Please note: **</b> This InSpec Profile can assess RHEL7 installations which are hosts (such as bare-metal OS installations and VM installations) and RHEL7 containers. Running this profile against a RHEL7 container will skip the control checks which are not relevant to containers (such as, for example, controls dealing with the GUI). For the purposes of developing this profile, Red Hat's [Universal Base Image 7 (UBI7)](https://catalog.redhat.com/software/container-stacks/detail/5eed413846bc301a95a1e9a1) was used as the representative test target for containerized RHEL7.
 
 See the section for the Control Overview to see which controls are container-applicable.
 
@@ -105,7 +105,7 @@ inspec exec <Profile>  -t docker://<container id> --sudo --show-progress
 
 ## Control Overview
 
-The following table lists the controls in the RHEL7 STIG, which this profile implements in code. Not all controls are relevant to a containerized version of RHEL7. Those that are not applicable to containers have been marked.
+The following table lists the controls in the RHEL7 STIG, which this profile implements in code. Only a subset of the controls are relevant to a containerized version of RHEL7. Controls that are not applicable to containers have been marked.
 
 | Control ID | Title | Container Applicable? | Rationale |
 
