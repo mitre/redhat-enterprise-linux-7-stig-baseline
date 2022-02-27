@@ -174,7 +174,7 @@ The JSON results output file can be loaded into **[heimdall-lite](https://heimda
 
 It can also **_export your results into a DISA Checklist (CKL) file_** for easily upload into eMass using the `Heimdall Export` function.
 
-The JSON results file may also be loaded into a **[full heimdall server](https://github.com/mitre/heimdall)**, allowing for additional functionality such as to store and compare multiple profile runs.
+The JSON results file may also be loaded into a **[full heimdall server](https://github.com/mitre/heimdall2)**, allowing for additional functionality such as to store and compare multiple profile runs.
 
 ## Authors
 
