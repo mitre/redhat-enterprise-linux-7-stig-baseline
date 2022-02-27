@@ -15,7 +15,7 @@ The RHEL7 STIG Profile uses the [InSpec](https://github.com/inspec/inspec) open-
 
 ## RedHat 7.x Enterprise Linux Security Technical Implementation Guide (RHEL7 STIG)
 
-DISA has created and maintains a set of Security Technical Implementation Guides for applications, computer systems and networks connected to the Department of Defense (DoD). These guidelines are the primary security standards used by the DoD agencies. In addition to defining security guidelines, the STIGs also stipulate how security training should proceed and when security checks should occur. Organizations must stay compliant with these guidelines or they risk having their access to the DoD terminated.
+The DISA RME Office and DISA SD, along with thier Vendor partners, create and maintain a set of Security Technical Implementation Guides for applications, computer systems and networks connected to the Department of Defense (DoD). These guidelines are the primary security standards used by the DoD agencies. In addition to defining security guidelines, the STIGs also stipulate how security training should proceed and when security checks should occur. Organizations must stay compliant with these guidelines or they risk having their access to the DoD terminated.
 
 The [RHEL7 STIG](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_RHEL_7_V3R6_STIG.zip) offers a comprehensive compliance guide for the configuration and operation your RedHat Enterprise Linux 7.x system.
 
