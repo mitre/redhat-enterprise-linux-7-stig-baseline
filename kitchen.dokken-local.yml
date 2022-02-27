@@ -15,7 +15,7 @@ driver:
 
 verifier:
   input_files:
-    - dokken.inputs.yml
+    - container.inputs.yml
   reporter:
     - cli
     - json:reports/raw/ubi-%{suite}-%{platform}.json
