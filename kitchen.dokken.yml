@@ -16,6 +16,7 @@ verifier:
   input_files:
     - container.inputs.yml
   reporter:
+    - cli
     - json:reports/raw/container-%{suite}-%{platform}.json
 
 suites:
