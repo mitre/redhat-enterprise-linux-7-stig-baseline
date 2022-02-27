@@ -34,16 +34,24 @@ The RHEL7.x STIG profile checks were developed to provide technical implementati
 | v3r6             | <https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_RHEL_7_V3R6_STIG.zip> | 3.6.0           | FIXME                | N/A      | N/A         |
 | v3r5             | <https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_RHEL_7_V3R5_STIG.zip> | 1.0.0           | N/A                  | N/A      | N/A         |
 
-### Profile Statistics
+### Current Profile Statistics
 
-The profile is tested on every commit and every release on a `vannilla` and `hardened` ubi7 and ec2 image. You can review the current statistics for both the `container` and `ec2` bewlow.
+The profile is tested on every commit and every release with a `vannilla` and `hardened` ubi7 and ec2 image.
 
-  - [EC2 Vanilla](/wikis/ec2_vanilla_stats.md)
-  - [EC2 Hardened](/wikis/ec2_hardened_stats.md)
-  - [UBI7 Vanilla](/wikis/container_vanilla_stats.md)
-  - [UBI7 Hardened](/wikis/container_hardened_stats.md)
+#### Current `main` branch
 
-  wikis/container_hardened_stats.md
+  - [EC2 Vanilla](https://gitlab.dsolab.io/scv-content/inspec/operating-systems/redhat-enterprise-linux-7-stig-baseline/-/wikis/ec2_vanilla_stats.md)
+  - [EC2 Hardened](https://gitlab.dsolab.io/scv-content/inspec/operating-systems/redhat-enterprise-linux-7-stig-baseline/-/wikis/ec2_hardened_stats.md)
+  - [UBI7 Vanilla](https://gitlab.dsolab.io/scv-content/inspec/operating-systems/redhat-enterprise-linux-7-stig-baseline/-/wikis/container_vanilla_stats.md)
+  - [UBI7 Hardened](https://gitlab.dsolab.io/scv-content/inspec/operating-systems/redhat-enterprise-linux-7-stig-baseline/-/wikis/container_hardened_stats.md)
+
+#### Release `v3.6.0`
+
+Comming Soon
+
+#### Generating Statistics
+
+These statistics are generated using the [SAF CLI](https://saf-cli.mitre.org) - command `saf generate:threshold -i <our_results.json> -c -o <our_summary>.md`.
 
 ## Getting Started
 
