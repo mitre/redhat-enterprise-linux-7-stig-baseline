@@ -136,10 +136,6 @@ inputs:
 inspec exec https://gitlab.dsolab.io/scv-content/inspec/operating-systems/redhat-enterprise-linux-7-stig-baseline.git --input-file=<your_inputs_file.yml> -t ssh://<hostname>:<port> --sudo --reporter=cli json:<your_results_file.json>
 ```
 
-### Different Run Options
-
-[Full exec options](https://docs.chef.io/inspec/cli/#options-3)
-
 ## (disconnected) Running the profile from a local archive copy
 
 If your runner is not always expected to have direct access to the profile's hosted location, use the following steps to create an archive bundle of this overlay and all of its dependent tests:
@@ -169,7 +165,11 @@ cd ..
 inspec archive redhat-enterprise-linux-7-stig-baseline
 ```
 
-## Using Heimdall-Lite for Viewing and Checklist/eMass Export of the JSON Results
+## Different Run Options
+
+[Full exec options](https://docs.chef.io/inspec/cli/#options-3)
+
+# Using Heimdall-Lite for Viewing Test Results and Exporting for Checklist and eMASS
 
 The JSON results output file can be loaded into **[heimdall-lite](https://heimdall-lite.mitre.org/)** for a user-interactive, graphical view of the profile scan results.
 
@@ -177,16 +177,16 @@ It can also **_export your results into a DISA Checklist (CKL) file_** for easil
 
 The JSON results file may also be loaded into a **[full heimdall server](https://github.com/mitre/heimdall2)**, allowing for additional functionality such as to store and compare multiple profile runs.
 
-## Authors
+# Authors
 
 Defense Information Systems Agency (DISA) https://www.disa.mil/
 
 STIG support by DISA Risk Management Team and Cyber Exchange https://public.cyber.mil/
 
-## Feedback and Support
+# Feedback and Support
 
 For questions or comments regarding the validation profile, please contact the DISA Service Directorate DevSecOps Help Desk: <disa.meade.sd.mbx.devsecops-mailbox@mail.mil>
 
-## Legal Notices
+# Legal Notices
 
 Copyright © 2020 Defense Information Systems Agency (DISA)
