@@ -168,11 +168,11 @@ cd ..
 inspec archive redhat-enterprise-linux-7-stig-baseline
 ```
 
-## Using Heimdall-Lite for Viewing the JSON Results
+## Using Heimdall-Lite for Viewing and Checklist/eMass Export of the JSON Results
 
 The JSON results output file can be loaded into **[heimdall-lite](https://heimdall-lite.mitre.org/)** for a user-interactive, graphical view of the profile scan results.
 
-It can also **_export your results into a DISA Checklist (CKL) file_** for easily upload into eMass.
+It can also **_export your results into a DISA Checklist (CKL) file_** for easily upload into eMass using the `Heimdall Export` function.
 
 The JSON results file may also be loaded into a **[full heimdall server](https://github.com/mitre/heimdall)**, allowing for additional functionality such as to store and compare multiple profile runs.
 
