@@ -38,10 +38,10 @@ The RHEL7.x STIG profile checks were developed to provide technical implementati
 
 The profile is tested on every commit and every release on a `vannilla` and `hardened` ubi7 and ec2 image. You can review the current statistics for both the `container` and `ec2` bewlow.
 
-  - [EC2 Vanilla](ec2_vanilla_stats.md)
-  - [EC2 Hardened](ec2_hardened_stats.md)
-  - [UBI7 Vanilla](container_vanilla_stats.md)
-  - [UBI7 Hardened](container_hardened_stats.md)
+  - [EC2 Vanilla](/wikis/ec2_vanilla_stats.md)
+  - [EC2 Hardened](/wikis/ec2_hardened_stats.md)
+  - [UBI7 Vanilla](/wikis/container_vanilla_stats.md)
+  - [UBI7 Hardened](/wikis/container_hardened_stats.md)
 
   wikis/container_hardened_stats.md
 
