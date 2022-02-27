@@ -2,24 +2,24 @@
 
 [[_TOC_]]
 
-The <b>Redhat Enterprise Linux 7.X</b> Security Technical Implementation Guide (RHEL7.x STIG) InSpec Profile will help you automate your compliance checks of <b>RedHat Enterprise Linux 7.x</b>.
+The Redhat Enterprise Linux 7.X Security Technical Implementation Guide (RHEL7.x STIG) InSpec Profile will help you automate your compliance checks of RedHat Enterprise Linux 7.x System to the Department of Defense (DoD) requirements. 
 
 - Profile Version: `3.6.0`
 - [RedHat Enterprise Linux 7 Security Technical Implementation Guide v3r6](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_RHEL_7_V3R6_STIG.zip)
 
-This profile was developed to reduce the time it takes to perform a security checks based upon the STIG Guidance from the Defense Information Systems Agency (DISA) in partnership between the DISA Services Directorate (SD) and the DISA Risk Management Execute (RME) offices.
+This profile was developed to reduce the time it takes to perform a security checks based upon the STIG Guidance from the Defense Information Systems Agency (DISA) in partnership between the DISA Services Directorate (SD) and the DISA Risk Management Execute (RME) office.
 
 The profile results will provide information needed to support your Authority to Operate (ATO) decision for the applicable technology.
 
-The <b>RHEL7 STIG Profile</b> uses the [InSpec](https://github.com/inspec/inspec) open-source compliance validation language to support automation of the required compliance, security and policy testing required for your Assessment and Authorization (A&A) and Authority to Operation (ATO) decisions, and your Continuous Authority to Operate (cATO) processes.
+The RHEL7 STIG Profile uses the [InSpec](https://github.com/inspec/inspec) open-source compliance validation language to support automation of the required compliance, security and policy testing for your Assessment and Authorization (A&A) and Authority to Operate (ATO) decisions and your Continuous Authority to Operate (cATO) processes.
 
 ## RedHat 7.x Enterprise Linux Security Technical Implementation Guide (RHEL7 STIG)
 
-The <b>RHEL7 STIG</b> (<https://public.cyber.mil/stigs/>) by the United States Defense Information Systems Agency (DISA) offers a comprehensive compliance guide for the configuration and operation of various technologies.
-
 DISA has created and maintains a set of Security Technical Implementation Guides for applications, computer systems and networks connected to the Department of Defense (DoD). These guidelines are the primary security standards used by the DoD agencies. In addition to defining security guidelines, the STIGs also stipulate how security training should proceed and when security checks should occur. Organizations must stay compliant with these guidelines or they risk having their access to the DoD terminated.
 
-The requirements associated with the <b>RHEL7 STIG</b> are derived from the [Security Requirements Guides](https://csrc.nist.gov/glossary/term/security_requirements_guide) and align to the [National Institute of Standards and Technology](https://www.nist.gov/) (NIST) [Special Publication (SP) 800-53](https://csrc.nist.gov/Projects/risk-management/sp800-53-controls/release-search#!/800-53) Security Controls, [DoD Control Correlation Identifier](https://public.cyber.mil/stigs/cci/) and related standards.
+The [RHEL7 STIG](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_RHEL_7_V3R6_STIG.zip) offers a comprehensive compliance guide for the configuration and operation your RedHat Enterprise Linux 7.x system.
+
+The requirements associated with the RHEL7 STIG are derived from the [Security Requirements Guides](https://csrc.nist.gov/glossary/term/security_requirements_guide) and align to the [National Institute of Standards and Technology](https://www.nist.gov/) (NIST) [Special Publication (SP) 800-53](https://csrc.nist.gov/Projects/risk-management/sp800-53-controls/release-search#!/800-53) Security Controls, [DoD Control Correlation Identifier](https://public.cyber.mil/stigs/cci/) and related standards.
 
 The RHEL7.x STIG profile checks were developed to provide technical implementation validation to the defined DoD requirements, the guidance can provide insight for any organizations wishing to enhance their security posture and can be tailored easily for use in your organization.
 
