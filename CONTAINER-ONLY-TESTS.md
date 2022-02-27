@@ -78,3 +78,9 @@
 |   SV-244558  |
 |   SV-251702  |
 |   SV-251705  |
+
+### Created By
+
+1. `inspec exec <PROFILE> -t mock:// --tags="container" --reporter json:container-only.json`
+2. Load the file into [Heimdall Lite](https://heimdall-lite.mitre.org) - Export as CSV and Select only the ID column
+3. Open the CSV, paste the column to <https://www.tablesgenerator.com/markdown_tables>
