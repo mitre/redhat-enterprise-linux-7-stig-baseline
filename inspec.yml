@@ -227,7 +227,21 @@ inputs:
     value: 900
 
   - name: lockout_time
-    description: Minimum amount of time account must be locked out after failed logins. This attribute should never be set greater than 604800 (time in seconds).
+    description: Amount of time account must be locked out after failed logins. This attribute should never be set greater than 604800 (time in seconds).
+    value: 604800
+
+  - name: maximum_unsuccessful_attempts
+    description: Maximum number of unsuccessful attempts by policy
+    type: Numeric
+    value: 3
+
+  - name: maximum_fail_interval
+    description: Maximum interval of time, according to policy, in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
+    type: Numeric
+    value: 900
+
+  - name: minimum_lockout_time
+    description: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
     value: 604800
 
   # V-204445
