@@ -1,4 +1,4 @@
-# RedHat 7.x Enterprise Linux Security Technical Implementation Guide (RHEL7.x STIG) InSpec Profile
+# RedHat Enterprise Linux 7.x Security Technical Implementation Guide InSpec Profile
 
 [[_TOC_]]
 
@@ -42,15 +42,28 @@ It is intended and recommended that InSpec and this profile be run from a **"run
 
 The latest versions and installation options are available at the [InSpec](http://inspec.io/) site.
 
+## Environment Aware Testing
+
+The inspec profile is able to determine when the profile is being executed inside or outside a `docker container` and will only run the tests that are approporate for the enviroment it is testing in. The tests are all taged as `host` or `host, container`. 
+
+All the profile's tests (`controls`) apply to the `host` but many of the controls are `Not Appliciable` when running inside a `docker container`. When running inside a `docker container`, the tests that only applicable to the host will be marked as `Not Appliciable` automatically. 
+
+To review which controls are `container only`, see: [CONTAINER-ONLY-TESTS.md](CONTAINER-ONLY-TESTS.md) in the root of the profile.
+
 ## Tailoring to Your Environment
 
 ### Profile Inputs (see `inspec.yml` file)
 
 This profile uses InSpec Inputs to make the tests more flexible. You are able to provide inputs at runtime either via the cli or via YAML files to help the profile work best in your deployment.
 
-**Do not change the inputs in the inspec.yml file**
+#### ***Do not change the inputs in the `inspec.yml` file***
 
-To tailor the tested values for your deployment or organizationally defined values, you may update the inputs:
+The `inputs` configured in the `inspec.yml` file are **profile definition and defaults for the profile** and not for the user. InSpec provides two ways to adjust the profiles inputs at run-time. This makes sense, given you will usually be running your profile from the pipeline, a script or some kind of task scheduler and usually running the profile directly from its source, you won't actually have access to the `inspec.yml`.
+
+
+To tailor the tested values for your deployment or organizationally defined values, ***you may update the inputs***
+
+#### Update Profile Inputs from the CLI or Local File
 
 1. Via the cli with the `--input` flag
 2. Pass them in a YAML file with the `--input-file` flag.
@@ -86,6 +99,7 @@ inputs:
     description: List of system files that should be allowed to change from an rpm verify point of view
     type: Array
     value: []
+...
 ```
 
 ## (connected) Running the Profile Directly
