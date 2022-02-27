@@ -40,8 +40,8 @@ The profile is tested on every commit and every release with a `vannilla` and `h
 
 #### Current `main` branch
 
-  - [EC2 Vanilla](https://gitlab.dsolab.io/scv-content/inspec/operating-systems/redhat-enterprise-linux-7-stig-baseline/-/wikis/ec2_vanilla_stats.md)
-  - [EC2 Hardened](https://gitlab.dsolab.io/scv-content/inspec/operating-systems/redhat-enterprise-linux-7-stig-baseline/-/wikis/ec2_hardened_stats.md)
+  - [EC2 Vanilla](https://gitlab.dsolab.io/scv-content/inspec/operating-systems/redhat-enterprise-linux-7-stig-baseline/-/wikis/ec2_vanilla_rhel7_stats.md)
+  - [EC2 Hardened](https://gitlab.dsolab.io/scv-content/inspec/operating-systems/redhat-enterprise-linux-7-stig-baseline/-/wikis/ec2_hardened_rhel7_stats.md)
   - [UBI7 Vanilla](https://gitlab.dsolab.io/scv-content/inspec/operating-systems/redhat-enterprise-linux-7-stig-baseline/-/wikis/container_vanilla_stats.md)
   - [UBI7 Hardened](https://gitlab.dsolab.io/scv-content/inspec/operating-systems/redhat-enterprise-linux-7-stig-baseline/-/wikis/container_hardened_stats.md)
 
