@@ -34,12 +34,8 @@ control 'SV-204415' do
   tag subsystems: ["pam","password"]
   tag 'host', 'container'
 
-  describe pam('/etc/pam.d/system-auth') do
-    its('lines') do
-      should match_pam_rule('password sufficient pam_unix.so sha512')
-    end
-    its('lines') do
-      should match_pam_rule('password .* pam_unix.so').all_without_args('^(md5|bigcrypt|sha256|blowfish)$')
-    end
+  describe pam('/home/vagrant/sample_pam') do
+    its('lines') { should match_pam_rule('password sufficient pam_unix.so sha512') }
+    its('lines') { should_not match_pam_rule('password .* pam_unix.so (md5|bigcrypt|sha256|blowfish)') }
   end
 end

@@ -29,20 +29,13 @@ control 'SV-204406' do
   tag subsystems: ["pam","pwquality","password"]
   tag 'host', 'container'
 
-  max_retry = input('max_retry')
+  describe pam('/etc/pam.d/system-auth') do
+    its('lines') { should match_pam_rule("password required pam_pwquality.so retry=#{input('retry')}") }
+  end
 
-  describe pam('/etc/pam.d/passwd') do
-    its('lines') do
-      should match_pam_rule('password (required|requisite) pam_pwquality.so')
-    end
-    its('lines') do
-      should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg(
-        'retry', '>=', 1
-      )
-    end
-    its('lines') do
-      should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '<=',
-                                                                                                   max_retry)
+  describe "input value" do
+    it "for retry should be in line with maximum/minimum allowed values by policy" do
+      expect(input('retry')).to be_between(1, input('max_retry'))
     end
   end
 end

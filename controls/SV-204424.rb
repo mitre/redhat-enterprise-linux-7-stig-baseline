@@ -27,15 +27,12 @@ control 'SV-204424' do
   tag subsystems: ["pam","password"]
   tag 'host', 'container'
 
-  # Fetch all files under /etc/pam.d excluding '*-ac' files
-  # but including symlinks
-  pam_file_list = command('find /etc/pam.d ! -name \'*-ac\' -a \( -type f -o -type l \)').stdout.strip.split
-
-  pam_file_list.each do |pam_file|
-    describe pam(pam_file) do
-      its('lines') do
-        should match_pam_rule('.* .* pam_unix.so').all_without_args('nullok')
-      end
+  describe.one do
+    describe pam('/etc/pam.d/system-auth') do
+      its('lines') { should_not match_pam_rule(".* .* pam_unix.so nullok") }
+    end
+    describe pam('/etc/pam.d/password-auth') do
+      its('lines') { should_not match_pam_rule(".* .* pam_unix.so nullok") }
     end
   end
 end

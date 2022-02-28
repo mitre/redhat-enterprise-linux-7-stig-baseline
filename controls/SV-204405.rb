@@ -25,18 +25,7 @@ control 'SV-204405' do
   tag nist: ['IA-5 (1) (a)']
   tag 'host', 'container'
 
-  # Get the content of /etc/pam.d/passwd as an array
-  pam_passwd_content = file('/etc/pam.d/passwd').content.strip.split("\n")
-  # Make a new array of any line matching the target pattern:
-  # /password\s+substack\s+system-auth
-  matching_lines = pam_passwd_content.select do |i|
-    i.match(/password\s+substack\s+system-auth/)
-  end
-
-  describe '/etc/pam.d/passwd' do
-    subject { matching_lines }
-    it 'substacks system-auth' do
-      expect(subject.length).to(eql 1)
-    end
+  describe pam('/etc/pam.d/password-auth') do
+    its('lines') { should match_pam_rule('password substack system-auth') }
   end
 end

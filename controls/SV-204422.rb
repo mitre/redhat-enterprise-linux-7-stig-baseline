@@ -32,22 +32,21 @@ control 'SV-204422' do
   tag subsystems: ["pam","password"]
   tag 'host', 'container'
 
-  min_reuse_generations = input('min_reuse_generations')
+  reuse_generations = input('reuse_generations')
 
   describe.one do
     describe pam('/etc/pam.d/system-auth') do
-      its('lines') do
-        should match_pam_rule('password (required|requisite|sufficient) pam_(unix|pwhistory).so').any_with_integer_arg(
-          'remember', '>=', min_reuse_generations
-        )
-      end
+      its('lines') { should match_pam_rule("password (required|requisite|sufficient) pam_(unix|pwhistory).so remember=#{reuse_generations}") }
     end
     describe pam('/etc/pam.d/password-auth') do
-      its('lines') do
-        should match_pam_rule('password (required|requisite|sufficient) pam_(unix|pwhistory).so').any_with_integer_arg(
-          'remember', '>=', min_reuse_generations
-        )
-      end
+      its('lines') {
+        should match_pam_rule("password (required|requisite|sufficient) pam_(unix|pwhistory).soremember=#{reuse_generations}") }
+    end
+  end
+
+  describe "input value" do
+    it "for reuse_generations should be in line with maximum/minimum allowed values by policy" do
+      expect(input('retry')).to cmp >= input('min_reuse_generations')
     end
   end
 end

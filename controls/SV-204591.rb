@@ -47,7 +47,7 @@ control 'SV-204591' do
           should match_pam_rule('session required pam_lastlog.so showfailed')
         end
         its('lines') do
-          should match_pam_rule('session required pam_lastlog.so showfailed').all_without_args('silent')
+          should_not match_pam_rule('session required pam_lastlog.so showfailed silent')
         end
       end
     end

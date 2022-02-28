@@ -188,21 +188,51 @@ inputs:
     type: Numeric
     value: 5
 
-  # V-204411
+  # SV-204411
   - name: difok
-    description: Minimum number of characters that must be different from previous password
+    description: Number of characters that must be different from previous password
     type: Numeric
     value: 8
 
-  # V-204422
-  - name: min_reuse_generations
-    description: Number of reuse generations
+  # SV-204411
+  - name: max_difok
+    description: Minimum number of characters that must be different from previous password, by policy
+    type: Numeric
+    value: 8
+
+  # SV-204413
+  - name: passwd_repeats
+    description: Number of allowed same consecutive characters in a new password
+    type: Numeric
+    value: 3
+
+  # SV-204413
+  - name: max_passwd_repeats
+    description: Maximum number of allowed same consecutive characters in a new password, by policy
+    type: Numeric
+    value: 3
+
+  # SV-204422
+  - name: reuse_generations
+    description: Number of reuse generations for passwords
     type: Numeric
     value: 5
 
-  # V-204423
-  - name: min_len
-    description: Number of characters
+  # SV-204422
+  - name: min_reuse_generations
+    description: Minimum number of reuse generations for passwords by policy
+    type: Numeric
+    value: 5
+
+  # SV-204423
+  - name: passwd_minlen
+    description: Expected value for the minimum number of characters a password needs
+    type: Numeric
+    value: 15
+
+  # SV-204423
+  - name: min_passwd_minlen
+    description: Minimum number of characters a password needs, by policy
     type: Numeric
     value: 15
 
@@ -410,9 +440,15 @@ inputs:
     type: Boolean
     value: false
 
-  # V-204406
+  # SV-204406
+  - name: retry
+    description: number of allowed password retries
+    type: Numeric
+    value: 3
+
+  # SV-204406
   - name: max_retry
-    description: maximum number of password retries
+    description: maximum number of password retries by policy
     type: Numeric
     value: 3
 
@@ -618,7 +654,13 @@ inputs:
 
   #SV-204420
   - name: pass_max_days
-    description: "Maximum password lifetime restriction for new user accounts"
+    description: "Password lifetime restriction for new user accounts"
+    type: Numeric
+    value: 60
+
+  #SV-204420
+  - name: max_pass_max_days
+    description: "Maximum password lifetime restriction for new user accounts, by policy"
     type: Numeric
     value: 60
 
