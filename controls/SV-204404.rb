@@ -51,7 +51,8 @@ control 'SV-204404' do
 
     if package('gnome-desktop3').installed?
       describe command("gsettings get org.gnome.desktop.screensaver lock-delay | cut -d ' ' -f2") do
-        its('stdout.strip') { should cmp <= input('lock_delay') }
+        its('stdout.strip') { should cmp input('expected_lock_delay') }
+        its('stdout.strip') { should cmp <= input('max_lock_delay') }
       end
     else
       impact 0.0

@@ -32,7 +32,7 @@ control 'SV-204422' do
   tag subsystems: ["pam","password"]
   tag 'host', 'container'
 
-  reuse_generations = input('reuse_generations')
+  reuse_generations = input('expected_reuse_generations')
 
   describe.one do
     describe pam('/etc/pam.d/system-auth') do
@@ -46,7 +46,7 @@ control 'SV-204422' do
 
   describe "input value" do
     it "for reuse_generations should be in line with maximum/minimum allowed values by policy" do
-      expect(input('retry')).to cmp >= input('min_reuse_generations')
+      expect(input('expected_reuse_generations')).to cmp >= input('min_reuse_generations')
     end
   end
 end
