@@ -43,7 +43,7 @@ control 'SV-204428' do
   tag 'host', 'container'
 
   describe.one do
-    describe pam('/home/vagrant/sample_pam') do
+    describe pam('/etc/pam.d/password-auth') do
       its('lines') do
         should match_pam_rule('auth .* pam_faillock.so preauth even_deny_root')
       end

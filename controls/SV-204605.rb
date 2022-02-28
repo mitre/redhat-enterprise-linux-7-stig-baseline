@@ -39,7 +39,7 @@ control 'SV-204605' do
       end
       describe pam('/etc/pam.d/postlogin') do
         its('lines') do
-          should match_pam_rule('session .* pam_lastlog.so showfailed').all_without_args('silent')
+          should_not match_pam_rule('session .* pam_lastlog.so showfailed silent')
         end
       end
     end

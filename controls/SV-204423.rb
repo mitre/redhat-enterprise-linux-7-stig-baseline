@@ -27,12 +27,11 @@ control 'SV-204423' do
   tag 'fix_id': 'F-4547r88462_fix'
   tag 'cci': ['CCI-000205']
   tag nist: ['IA-5 (1) (a)']
-  tag subsystems: ["pam","pwquality","password"]
+  tag subsystems: ["pwquality","password"]
   tag 'host', 'container'
 
-  min_len = input('min_len')
-
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('minlen.to_i') { should cmp >= min_len }
+    its('minlen.to_i') { should cmp input('passwd_minlen') }
+    its('minlen.to_i') { should cmp input('min_passwd_minlen') }
   end
 end
