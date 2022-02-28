@@ -29,8 +29,8 @@ control 'SV-204420' do
 
   if command("grep 'pam_unix.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'optional'").stdout.empty? && command("grep 'pam_permit.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'required'").stdout.empty?
     describe login_defs do
-      its('PASS_MAX_DAYS.to_i') { should cmp input('pass_max_days') }
-      its('PASS_MAX_DAYS.to_i') { should cmp <= input('max_pass_max_days') }
+      its('PASS_MAX_DAYS') { should cmp input('pass_max_days') }
+      its('PASS_MAX_DAYS') { should cmp <= input('max_pass_max_days') }
     end
   else
     impact 0.0

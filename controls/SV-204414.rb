@@ -32,8 +32,8 @@ control 'SV-204414' do
   tag 'host', 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('maxclassrepeat.to_i') { should cmp input('classrepeat') }
-    its('maxclassrepeat.to_i') { should_not be > input('max_classrepeat') }
-    its('maxclassrepeat.to_i') { should_not be <= 0 }
+    its('maxclassrepeat') { should cmp input('classrepeat') }
+    its('maxclassrepeat') { should_not cmp > input('max_classrepeat') }
+    its('maxclassrepeat') { should_not cmp <= 0 }
   end
 end

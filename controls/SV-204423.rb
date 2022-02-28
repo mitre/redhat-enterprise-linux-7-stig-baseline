@@ -31,7 +31,7 @@ control 'SV-204423' do
   tag 'host', 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('minlen.to_i') { should cmp input('expected_minlen') }
-    its('minlen.to_i') { should cmp input('min_minlen') }
+    its('minlen') { should cmp input('expected_minlen') }
+    its('minlen') { should cmp input('min_minlen') }
   end
 end
