@@ -26,11 +26,11 @@ control 'SV-244557' do
       if os[:release] >= '7.2'
 
         options = {
-          assignment_regex: /^(.*)=\"?([^\"]+)\"?$/
+          assignment_regex: /^\s*(.*)=\"?([^\"]+)\"?$/
         }
 
         describe parse_config_file(input('grub_main_cfg'), options) do
-          its('set superusers') { should exist }
+          its('set superusers') { should_not be nil }
           its('set superusers') { should_not be_in users.usernames }
         end
       else
