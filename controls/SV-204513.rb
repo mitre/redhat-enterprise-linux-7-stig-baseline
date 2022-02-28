@@ -41,7 +41,7 @@ control 'SV-204513' do
     end
   else
     describe auditd_conf do
-      its('space_left') { should cmp '25%' }
+      its('space_left') { should cmp >= input('min_space_left') }
     end
   end
 end

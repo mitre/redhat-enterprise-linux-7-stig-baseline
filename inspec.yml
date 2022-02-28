@@ -729,6 +729,12 @@ inputs:
     type: String
     value: "single"
 
+  #SV-204513
+  - name: min_space_left
+    description: "Minimum percentage for the space remaining in the audit log file before an alert is generated"
+    type: Numeric
+    value: 25
+
   # SV-204581
   - name: public_host_key_file_mode
     description: Maximum mode allowed for directories containing SSH public host keys (in octal format)
