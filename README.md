@@ -103,8 +103,7 @@ More information about InSpec inputs can be found in the [InSpec Inputs Document
 The STIG frequently will check config values against a numerical maximum or minimum. For example, control SV-204576 states that for the file `/etc/securty/limits.conf`:
 
 ```
-If the "maxlogins" item is missing, commented out, or the value is not set to "10" or less for all domains that have
-    the "maxlogins" item assigned, this is a finding.'
+If the "maxlogins" item is missing, commented out, or the value is not set to "10" or less for all domains that have the "maxlogins" item assigned, this is a finding.'
 ```
 
 The `inspec.yml` file has been written such that numerical inputs (inputs where `type == Numeric`) have two values, the `expected` and the `max/min` value. The profile controls will check that the system config value is:
