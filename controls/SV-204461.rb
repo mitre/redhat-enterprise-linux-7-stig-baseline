@@ -24,9 +24,16 @@ control 'SV-204461' do
   tag subsystems: ["accounts"]
   tag 'host', 'container'
 
-  passwd.gids.each do |gid|
-    describe etc_group do
-      its('gids') { should include gid.to_i }
+  describe "All group identifiers in /etc/passwd" do
+    it "should be defined in /etc/groups" do
+      expect(passwd.gids.map{ |gid| gid.to_i }).to all(be_in etc_group.gids),
+        "missing gids: #{passwd.gids.select{ |gid| !etc_group.gids.include?(gid.to_i)}}"
     end
   end
+
+  # passwd.gids.each do |gid|
+  #   describe etc_group do
+  #     its('gids') { should include gid.to_i }
+  #   end
+  # end
 end
