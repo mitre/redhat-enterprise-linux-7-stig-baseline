@@ -566,13 +566,19 @@ inputs:
     type: String
     value: ""
 
-  # V-204576
-  - name: maxlogins_limit
-    description: "The maxium value that can be used for maxlogins."
+  # SV-204576
+  - name: expected_maxlogins_limit
+    description: "Expected value for the maxlogins setting."
     type: Numeric
     value: 10
 
-  # V-214801
+  # SV-204576
+  - name: max_maxlogins_limit
+    description: "The maxium value that can be used for maxlogins by policy."
+    type: Numeric
+    value: 10
+
+  # SV-214801
   - name: custom_antivirus
     description: "Whether an antivirus solution, other than nails, is in use."
     type: Boolean
@@ -584,18 +590,11 @@ inputs:
     # Default of 'None' is used by control code -- DO NOT CHANGE DEFAULT
     value: "None"
 
-  # V-204500
+  # SV-204500
   - name: aide_exclude_patterns
     description: "It is reasonable and advisable to skip checksum on frequently changing files"
     type: Array
     value: []
-
-  - name: terminal_mux_pkgs
-    description: "A list of acceptable terminal multiplexers"
-    type: Array
-    value:
-      - tmux
-      - screen
 
   - name: required_rules
     description: "Required PAM rules"
@@ -698,7 +697,7 @@ inputs:
   - name: user_umask
     description: Expected value for all user UMASK values (in octal format)
     type: String
-    value: "077"
+    value: "0077"
 
   # SV-204509
   - name: audit_remote_server

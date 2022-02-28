@@ -77,13 +77,13 @@ control 'SV-204488' do
 
         # Check all local initialization files to see whether or not they are less restrictive than the input UMASK.
         dotfiles.each do |df|
-          findings += df if file(df).more_permissive_than?(input('max_user_umask'))
+          findings += df if file(df).more_permissive_than?(input('user_umask'))
         end
 
         # Check umask for all interactive users
         umasks.each do |key, value|
-          max_mode = (input('max_user_umask')).to_i(8)
-          inv_mode = 0o777 ^ max_mode
+          max_mode = (input('user_umask')).to_i(8)
+          inv_mode = 0777 ^ max_mode
           umask_findings += key if inv_mode & (value).to_i(8) != 0
         end
       else
