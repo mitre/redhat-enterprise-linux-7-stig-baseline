@@ -98,6 +98,22 @@ To tailor the tested values for your deployment or organizationally defined valu
 
 More information about InSpec inputs can be found in the [InSpec Inputs Documentation](https://docs.chef.io/inspec/inputs/).
 
+#### Expected versus max/min input values
+
+The STIG frequently will check config values against a numerical maximum or minimum. For example, control SV-204576 states that for the file `/etc/securty/limits.conf`:
+
+```
+If the "maxlogins" item is missing, commented out, or the value is not set to "10" or less for all domains that have
+    the "maxlogins" item assigned, this is a finding.'
+```
+
+The `inspec.yml` file has been written such that numerical inputs (inputs where `type == Numeric`) have two values, the `expected` and the `max/min` value. The profile controls will check that the system config value is:
+
+1. _exactly equal to_ the `expected` value
+2. _greater than_ or _less than_ the `min` or `max` value, respectively
+
+The profile is written this way so that programs can easily configure the ranges used by the checks, in case the program wants to check against different values than the STIG defaults (such as programs with more stringent requirements than the baseline STIG). The `expected`, `max` and `min` values are all set to the STIG defaults in `inspec.yml`. If the program wants to check only baseline STIG compliance, _these values do not need to be changed._
+
 #### See the `inspec.yml` file for full list of avalible inputs
 
 Example Inputs

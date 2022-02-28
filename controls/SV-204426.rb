@@ -34,7 +34,7 @@ control 'SV-204426' do
 
   if command("grep 'pam_unix.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'optional'").stdout.empty? && command("grep 'pam_permit.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'required'").stdout.empty?
     describe parse_config_file('/etc/default/useradd') do
-      its('INACTIVE.to_i') { should cmp input('days_of_inactivity') }
+      its('INACTIVE.to_i') { should cmp input('expected_days_of_inactivity') }
       its('INACTIVE.to_i') { should be <= input('max_days_of_inactivity') }
     end
   else

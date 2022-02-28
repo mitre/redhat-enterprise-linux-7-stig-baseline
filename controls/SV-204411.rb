@@ -31,10 +31,8 @@ control 'SV-204411' do
   tag subsystems: ["pwquality","password"]
   tag 'host', 'container'
 
-  difok = input('difok')
-
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('difok.to_i') { should cmp difok }
-    its('difok.to_i') { should cmp <= max_difok }
+    its('difok.to_i') { should cmp input('expected_difok') }
+    its('difok.to_i') { should cmp <= input('max_difok') }
   end
 end

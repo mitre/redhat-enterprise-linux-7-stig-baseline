@@ -33,7 +33,7 @@ control 'SV-204576' do
   tag subsystems: ["session"]
   tag 'host', 'container'
 
-  maxlogins_limit = input('maxlogins_limit')
+  maxlogins_limit = input('expected_maxlogins_limit')
 
   # Collect any files under limits.d if they exist
   limits_files = directory('/etc/security/limits.d').exist? ? command('ls /etc/security/limits.d/*.conf').stdout.strip.lines : []
@@ -51,8 +51,8 @@ control 'SV-204576' do
     local_limits.each do |temp_limit|
       # For each result check if it is a 'hard' limit for 'maxlogins'
       if temp_limit.include?('hard') && temp_limit.include?('maxlogins')
-        # If the limit is in range, push to compliant files
-        if temp_limit[-1].to_i <= maxlogins_limit
+        # If the limit is correct, push to compliant files
+        if temp_limit[-1].to_i == input('expected_maxlogins_limit')
           compliant_files.push(limits_file)
         # Otherwise add to noncompliant files
         else
@@ -63,14 +63,20 @@ control 'SV-204576' do
   end
 
   # It is required that at least 1 file contain compliant configuration
-  describe "Files configuring maxlogins less than or equal to #{maxlogins_limit}" do
+  describe "Files configuring maxlogins less than or equal to #{input('expected_maxlogins_limit')}" do
     subject { compliant_files.length }
     it { should be_positive }
   end
 
   # No files should set 'hard' 'maxlogins' to any noncompliant value
-  describe "Files configuring maxlogins greater than #{maxlogins_limit}" do
+  describe "Files configuring maxlogins greater than #{input('expected_maxlogins_limit')}" do
     subject { noncompliant_files }
     it { should cmp [] }
+  end
+
+  # No files should set 'hard' 'maxlogins' to any noncompliant value
+  describe "The expected maxlogins value should be within policy limit" do
+    subject { input('expected_maxlogins_limit') }
+    it { should cmp <= input('max_maxlogins_limit') }
   end
 end

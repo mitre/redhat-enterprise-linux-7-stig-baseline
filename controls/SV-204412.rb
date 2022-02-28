@@ -32,7 +32,7 @@ control 'SV-204412' do
   tag 'host', 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('minclass.to_i') { should cmp >= input("minclass") }
     its('minclass.to_i') { should cmp input("expected_minclass") }
+    its('minclass.to_i') { should cmp >= input("min_minclass") }
   end
 end

@@ -37,12 +37,11 @@ control 'SV-204579' do
   tag subsystems: ["user_profile"]
   tag 'host', 'container'
 
-  system_activity_timeout = input('system_activity_timeout')
-
   # Get current TMOUT environment variable (active test)
   describe 'Environment variable TMOUT' do
     subject { os_env('TMOUT').content.to_i }
-    it { should be <= system_activity_timeout }
+    it { should cmp input('expected_system_activity_timeout') }
+    it { should cmp <= input('max_system_activity_timeout') }
   end
 
   # Check if TMOUT is set in files (passive test)
@@ -92,7 +91,8 @@ control 'SV-204579' do
   else
     describe 'The TMOUT setting is configured properly' do
       subject { latest_val }
-      it { should be <= system_activity_timeout }
+      it { should cmp input('expected_system_activity_timeout') }
+      it { should cmp <= input('max_system_activity_timeout') }
     end
   end
 end
