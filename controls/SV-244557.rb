@@ -24,7 +24,12 @@ control 'SV-244557' do
   else 
     unless file('/sys/firmware/efi').exist?
       if os[:release] >= '7.2'
-        describe parse_config_file(input('grub_main_cfg')) do
+
+        options = {
+          assignment_regex: /^(.*)=\"?([^\"]+)\"?$/
+        }
+
+        describe parse_config_file(input('grub_main_cfg'), options) do
           its('set superusers') { should exist }
           its('set superusers') { should_not be_in users.usernames }
         end
