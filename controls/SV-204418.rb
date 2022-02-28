@@ -28,6 +28,6 @@ control 'SV-204418' do
   tag subsystems: ["login_defs","password"]
 
   describe login_defs do
-    its('PASS_MIN_DAYS.to_i') { should cmp >= 1 }
+    its('PASS_MIN_DAYS') { should cmp >= 1 }
   end
 end

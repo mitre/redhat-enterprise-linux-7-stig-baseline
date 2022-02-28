@@ -33,6 +33,6 @@ control 'SV-204408' do
   tag 'host', 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('lcredit.to_i') { should cmp < 0 }
+    its('lcredit') { should cmp < 0 }
   end
 end

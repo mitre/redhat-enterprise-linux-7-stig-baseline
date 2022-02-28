@@ -32,6 +32,6 @@ control 'SV-204407' do
   tag 'host', 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('ucredit.to_i') { should cmp < 0 }
+    its('ucredit') { should cmp < 0 }
   end
 end

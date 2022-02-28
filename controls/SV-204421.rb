@@ -35,8 +35,8 @@ control 'SV-204421' do
       next unless user(user).uid >= 1000
 
       describe shadow.users(user) do
-        its('max_days.first.to_i') { should cmp input('expected_max_password_lifetime') }
-        its('max_days.first.to_i') { should cmp <= input('max_password_lifetime') }
+        its('max_days.first') { should cmp input('expected_max_password_lifetime') }
+        its('max_days.first') { should cmp <= input('max_password_lifetime') }
       end
     end
   end

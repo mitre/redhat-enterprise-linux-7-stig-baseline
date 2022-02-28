@@ -32,7 +32,7 @@ control 'SV-204413' do
   tag 'host', 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('maxrepeat.to_i') { should cmp input('expected_passwd_repeats') }
-    its('maxrepeat.to_i') { should cmp <= input('max_passwd_repeats') }
+    its('maxrepeat') { should cmp input('expected_passwd_repeats') }
+    its('maxrepeat') { should cmp <= input('max_passwd_repeats') }
   end
 end

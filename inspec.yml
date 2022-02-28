@@ -675,6 +675,18 @@ inputs:
     type: Numeric
     value: 60
 
+  #SV-204431
+  - name: fail_delay
+    description: "Expected value for the delay between logon prompts following a failed console logon attempt in seconds"
+    type: Numeric
+    value: 4
+
+  #SV-204431
+  - name: min_fail_delay
+    description: "Minimum value for the delay between logon prompts following a failed console logon attempt in seconds, by policy"
+    type: Numeric
+    value: 4
+
   # SV-204468
   - name: home_dir_mode
     description: Maximum mode allowed for user home directories (in octal format)
