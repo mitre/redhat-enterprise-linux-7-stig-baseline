@@ -63,13 +63,13 @@ These statistics are generated using the [SAF CLI](https://saf-cli.mitre.org) - 
 
 3. The latest versions and installation options are available at the [InSpec](http://inspec.io/) site.
 
-4. Always use the latest version of the `released profile` (see below) on your system. 
+4. Always use the latest version of the `released profile` (see below) on your system.
 
 ## Intended Usage - `main` vs `releases`
 
 1. The latest `released` version of the profile is intended for use in A&A testing, formal results to AO's and IAM's etc. Please use the `released` versions of the profile in these types of workflows.
 
-2. The `main` branch is a development branch that will become the next release of the profile. The `main` branch is intended for use in *developement and testing* merge requests for the next release of the profile, and *is not intended* be used for formal and ongoing testing on systems.
+2. The `main` branch is a development branch that will become the next release of the profile. The `main` branch is intended for use in _developement and testing_ merge requests for the next release of the profile, and _is not intended_ be used for formal and ongoing testing on systems.
 
 ## Environment Aware Testing
 
@@ -85,7 +85,7 @@ To review which controls are `container only`, see: [container_applicable_contro
 
 This profile uses InSpec Inputs to make the tests more flexible. You are able to provide inputs at runtime either via the cli or via YAML files to help the profile work best in your deployment.
 
-#### ***Do not change the inputs in the `inspec.yml` file***
+#### **_Do not change the inputs in the `inspec.yml` file_**
 
 The `inputs` configured in the `inspec.yml` file are **profile definition and defaults for the profile** and not for the user. InSpec provides two ways to adjust the profiles inputs at run-time that do not require modifiying `inspec.yml` itself. This is because automated profiles like this one are frequently run from a script, inside a pipeline or some kind of task scheduler. Such automation usually works by running the profile directly from its source (i.e. this repository), which means the runner will not have access to the `inspec.yml`.
 
@@ -142,8 +142,8 @@ inputs:
     description: List of system files that should be allowed to change from an rpm verify point of view
     type: Array
     value: []
-...
 ```
+
 # Running the Profile
 
 ## (connected) Running the Profile Directly
@@ -203,10 +203,10 @@ Defense Information Systems Agency (DISA) https://www.disa.mil/
 
 STIG support by DISA Risk Management Team and Cyber Exchange https://public.cyber.mil/
 
-# Feedback and Support
+## Feedback and Support
 
-For questions or comments regarding the validation profile, please contact the DISA Service Directorate DevSecOps Help Desk: <disa.meade.sd.mbx.devsecops-mailbox@mail.mil>
+For questions or comments regarding the validation profile, please contact the DISA SD DevSecOps Helpdesk: disa.meade.sd.mbx.devsecops-mailbox@mail.mil
 
-# Legal Notices
+## Legal Notices
 
-Copyright © 2020 Defense Information Systems Agency (DISA)
+Copyright © 2022 Defense Information Systems Agency (DISA)
