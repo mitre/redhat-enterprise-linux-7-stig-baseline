@@ -26,14 +26,13 @@ control 'SV-204421' do
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable to a container" do
-      skip "Control not applicable to a container"
+    describe "This control is Not Applicable to a container" do
+      desc 'rationale', 'Containers do not use the standard TTY user management system so there is no need to set user password settings.'
+      skip "This control is Not Applicable to a container"
     end
   else 
     shadow.users.each do |user|
-      # filtering on non-system accounts (uid >= 1000)
       next unless user(user).uid >= 1000
-
       describe shadow.users(user) do
         its('max_days.first') { should cmp input('expected_max_password_lifetime') }
         its('max_days.first') { should cmp <= input('max_password_lifetime') }

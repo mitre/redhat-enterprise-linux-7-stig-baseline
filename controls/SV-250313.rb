@@ -18,8 +18,8 @@ control 'SV-250313' do
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable within a container -- kernel config" do
-      skip "Control not applicable within a container -- kernel config"
+    describe "This control is Not Applicable inside a container. -- kernel config" do
+      skip "This control is Not Applicable inside a container. -- kernel config"
     end
   else
     describe command('getsebool ssh_sysadm_login').stdout.strip do

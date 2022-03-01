@@ -36,26 +36,25 @@ control 'SV-204402' do
   tag 'fix_id': 'F-4526r88399_fix'
   tag 'cci': ['CCI-000057']
   tag nist: ['AC-11 a']
-  tag subsystems: ["gui","session","lock"]
+  tag subsystems: ['gui', 'session', 'lock']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable within a container" do
-      skip "Control not applicable within a container"
+    describe 'This control is Not Applicable inside a container.' do
+      desc 'rationale', 'Containers do not use the standard TTY user management system so there is no need to set a banner.'
+      skip 'This control is Not Applicable inside a container.'
+    end
+  elsif package('gnome-desktop3').installed?
+
+    describe command('gsettings get org.gnome.desktop.screensaver idle-activation-enabled') do
+      its('stdout.strip') { should cmp 'true' }
     end
   else
-
-    if package('gnome-desktop3').installed?
-      describe command('gsettings get org.gnome.desktop.screensaver idle-activation-enabled') do
-        its('stdout.strip') { should cmp 'true' }
-      end
-    else
-      impact 0.0
-      describe 'The system does not have GNOME installed' do
-        skip "The system does not have GNOME installed, this requirement is Not
-        Applicable."
-      end
+    impact 0.0
+    describe 'The system does not have GNOME installed' do
+      desc 'rationale', 'When GNOME is not installed, it is not required to set the banner text for the GUI.'
+      skip 'The system does not have GNOME installed, this requirement is Not Applicable.'
     end
   end
 end

@@ -39,13 +39,14 @@ control 'SV-204403' do
   tag 'fix_id': 'F-4527r88402_fix'
   tag 'cci': ['CCI-000057']
   tag nist: ['AC-11 a']
-  tag subsystems: ["gui"]
+  tag subsystems: ['gui']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable within a container" do
-      skip "Control not applicable within a container"
+    describe 'This control is Not Applicable inside a container.' do
+      desc 'rationale', 'Containers do not use the standard TTY user management system so there is no need to set a banner.'
+      skip 'This control is Not Applicable inside a container.'
     end
   else
 
@@ -63,6 +64,7 @@ control 'SV-204403' do
 
     unless package('gnome-desktop3').installed?
       describe 'The GNOME desktop is not installed' do
+        desc 'rationale', 'When GNOME is not installed, it is not required to set the banner text for the GUI.'
         skip 'The GNOME desktop is not installed, this control is Not Applicable.'
       end
     end

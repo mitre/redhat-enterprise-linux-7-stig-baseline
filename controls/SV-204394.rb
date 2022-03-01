@@ -79,7 +79,7 @@ control 'SV-204394' do
   tag 'fix_id': 'F-4518r297479_fix'
   tag 'cci': ['CCI-000048']
   tag nist: ['AC-8 a']
-  tag subsystems: ["gdm"]
+  tag subsystems: ['gdm']
   tag 'host'
 
   if package('gnome-desktop3').installed?
@@ -107,9 +107,7 @@ control 'SV-204394' do
       if banner_message.start_with?('"') || banner_message.start_with?('\'')
         banner_message = banner_message[1, banner_message.length]
       end
-      if banner_message.end_with?('"') || banner_message.end_with?('\'')
-        banner_message = banner_message.chop
-      end
+      banner_message = banner_message.chop if banner_message.end_with?('"') || banner_message.end_with?('\'')
       banner_message.gsub!('\\n', '')
       foo = input('banner_message_text_gui')
       foo2 = input('banner_message_text_gui_limited')
@@ -125,8 +123,8 @@ control 'SV-204394' do
   else
     impact 0.0
     describe 'The system does not have GNOME installed' do
-      skip "The system does not have GNOME installed, this requirement is Not
-        Applicable."
+      desc 'rationale', 'When GNOME is not installed, it is not required to set the banner text for the GUI.'
+      skip 'The system does not have GNOME installed, this requirement is Not Applicable.'
     end
   end
 end

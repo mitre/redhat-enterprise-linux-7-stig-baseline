@@ -19,8 +19,8 @@ control 'SV-251704' do
 
   if virtualization.system.eql?('docker') && !command("sudo").exist?
     impact 0.0
-    describe "Control not applicable within a container without sudo enabled" do
-      skip "Control not applicable within a container without sudo enabled"
+    describe "This control is Not Applicable inside a container. without sudo enabled" do
+      skip "This control is Not Applicable inside a container. without sudo enabled"
     end
   else
     describe parse_config_file('/etc/pam.d/sudo') do
