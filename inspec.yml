@@ -5,6 +5,8 @@ copyright: Defense Information Systems Agency (DISA)
 license: Apache-2.0
 summary: "This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil."
 version: 3.6.0
+
+inspec_version: ">= 4.26"
 # The following defines the default inputs for the configurable controls used in the RHEL 7 DISA STIG.
 inputs:
   - name: disable_slow_controls
@@ -22,7 +24,8 @@ inputs:
   - name: rpm_verify_perms_except
     description: List of system files that should be allowed to change from an rpm verify point of view
     type: Array
-    value: []
+    value:
+      - "/etc/issue"
 
   # V-214799
   - name: rpm_verify_integrity_except
@@ -41,12 +44,6 @@ inputs:
     description: Set to 'true' if the system is being used as a log aggregation server
     type: Boolean
     value: false
-
-  # V-204487
-  - name: application_groups
-    description: Known application groups that are allowed to have world-writeable files or directories
-    type: Array
-    value: []
 
   # V-204624
   - name: x11_enabled
@@ -98,7 +95,7 @@ inputs:
   #    - This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.
   #    - Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.
 
-  # V-204394
+  # SV-204394
   - name: banner_message_text_gui
     description: Banner message text for graphical user interface logins.
     type: String
@@ -127,7 +124,7 @@ inputs:
     type: String
     value: "I've read & consent to terms in IS user agreem't."
 
-  # V-204395
+  # SV-204395
   - name: banner_message_text_cli
     description: Banner message text for command line interface logins.
     type: String
@@ -156,7 +153,7 @@ inputs:
     type: String
     value: "I've read & consent to terms in IS user agreem't."
 
-  # V-204580
+  # SV-204580
   - name: banner_message_text_ral
     description: Banner message text for remote access logins.
     type: String
@@ -185,52 +182,108 @@ inputs:
     type: String
     value: "I've read & consent to terms in IS user agreem't."
 
-  # V-204404
-  - name: lock_delay
-    description: The scereensaver lock-delay must be less than or equal to the specified value
+  # SV-204404
+  - name: expected_lock_delay
+    description: Expected value for the screensaver lock-delay
     type: Numeric
     value: 5
 
-  # V-204411
-  - name: difok
-    description: Minimum number of characters that must be different from previous password
+  # SV-204404
+  - name: expected_lock_delay
+    description: Maximum screensaver lock-delay, by policy
+    type: Numeric
+    value: 5
+
+  # SV-204411
+  - name: expected_difok
+    description: Number of characters that must be different from previous password
     type: Numeric
     value: 8
 
-  # V-204422
-  - name: min_reuse_generations
-    description: Number of reuse generations
+  # SV-204411
+  - name: max_difok
+    description: Minimum number of characters that must be different from previous password, by policy
+    type: Numeric
+    value: 8
+
+  # SV-204413
+  - name: expected_passwd_repeats
+    description: Number of allowed same consecutive characters in a new password
+    type: Numeric
+    value: 3
+
+  # SV-204413
+  - name: max_passwd_repeats
+    description: Maximum number of allowed same consecutive characters in a new password, by policy
+    type: Numeric
+    value: 3
+
+  # SV-204422
+  - name: expected_reuse_generations
+    description: Number of reuse generations for passwords
     type: Numeric
     value: 5
 
-  # V-204423
-  - name: min_len
-    description: Number of characters
+  # SV-204422
+  - name: min_reuse_generations
+    description: Minimum number of reuse generations for passwords by policy
+    type: Numeric
+    value: 5
+
+  # SV-204423
+  - name: expected_minlen
+    description: Expected value for the minimum number of characters a password needs
     type: Numeric
     value: 15
 
-  # V-204426
-  - name: days_of_inactivity
-    description: Number of days
+  # SV-204423
+  - name: min_minlen
+    description: Minimum number of characters a password needs, by policy
     type: Numeric
-    value: 0
+    value: 15
 
-  # V-204427
-  - name: unsuccessful_attempts
+  # SV-204426
+  - name: expected_days_of_inactivity
+    description: System setting for number of days an account can stay inactive before deactivation.
+    type: Numeric
+    value: 35
+
+  # SV-204426
+  - name: max_days_of_inactivity
+    description: Maximum allowable number of days an account can stay inactive before deactivation.
+    type: Numeric
+    value: 35
+
+  # SV-204427
+  - name: expected_unsuccessful_attempts
     description: number of unsuccessful attempts
     type: Numeric
     value: 3
 
-  - name: fail_interval
+  - name: expected_fail_interval
     description: Interval of time in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
     type: Numeric
     value: 900
 
-  - name: lockout_time
-    description: Minimum amount of time account must be locked out after failed logins. This attribute should never be set greater than 604800 (time in seconds).
+  - name: expected_lockout_time
+    description: Amount of time account must be locked out after failed logins. This attribute should never be set greater than 604800 (time in seconds).
     value: 604800
 
-  # V-204445
+  - name: max_unsuccessful_attempts
+    description: Maximum number of unsuccessful attempts by policy
+    type: Numeric
+    value: 3
+
+  - name: max_fail_interval
+    description: Maximum interval of time, according to policy, in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
+    type: Numeric
+    value: 900
+
+  - name: min_lockout_time
+    description: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
+    value: 604800
+
+  # SV-204445
   - name: file_integrity_tool
     description: Name of tool
     type: String
@@ -241,15 +294,27 @@ inputs:
     type: String
     value: "weekly"
 
-  # V-204579
-  - name: system_activity_timeout
+  # SV-204579
+  - name: expected_system_activity_timeout
     description: System activity timeout (time in seconds).
     type: Numeric
     value: 600
 
-  # V-204587
-  - name: client_alive_interval
-    description: Client alive interval (time in seconds).
+  # SV-204579
+  - name: max_system_activity_timeout
+    description: Maximum system activity timeout (time in seconds) allowed by policy.
+    type: Numeric
+    value: 600
+
+  # SV-204587
+  - name: expected_client_alive_interval
+    description: Expected specific value of the client alive interval (time in seconds).
+    type: Numeric
+    value: 600
+
+  # SV-204587
+  - name: max_client_alive_interval
+    description: Maximum allowed client alive interval (time in seconds).
     type: Numeric
     value: 600
 
@@ -259,11 +324,13 @@ inputs:
     type: String
     value: "enabled"
 
-  # V-204489/V-204574
-  - name: log_pkg_path
-    description: The path to the logging package
-    type: String
-    value: "/etc/rsyslog.conf"
+  # SV-204489/V-204574
+  - name: log_pkg_paths
+    description: Paths to files and directories that may include logging config
+    type: Array
+    value:
+      - "/etc/rsyslog.conf"
+      - "/etc/rsyslog.d/*"
 
   # V-204467, V-204468, V-204469, V-204470, V-204471, V-204472
   # V-204473, V-204474, V-204475, V-204476, V-204477, V-204478, V-204493
@@ -297,7 +364,8 @@ inputs:
   - name: grub_uefi_user_boot_files
     description: Grub boot config files
     type: Array
-    value: ["/boot/efi/EFI/redhat/user.cfg"]
+    value:
+      - "/boot/efi/EFI/redhat/user.cfg"
 
   # V-204439
   - name: efi_superusers
@@ -384,9 +452,15 @@ inputs:
     type: Boolean
     value: false
 
-  # V-204406
+  # SV-204406
+  - name: retry
+    description: number of allowed password retries
+    type: Numeric
+    value: 3
+
+  # SV-204406
   - name: max_retry
-    description: maximum number of password retries
+    description: maximum number of password retries by policy
     type: Numeric
     value: 3
 
@@ -480,13 +554,31 @@ inputs:
     # - 'trusted'
     value: []
 
-  # V-204576
-  - name: maxlogins_limit
-    description: "The maxium value that can be used for maxlogins."
+  # SV-204604
+  - name: firewall_application_package
+    description: "If a third-party firewall application is in use (other than firewalld or iptables), indicate the package name here. Otherwise, set this value to an empty string"
+    type: String
+    value: ""
+
+  # SV-204604
+  - name: firewall_application_service
+    description: "If a third-party firewall application is in use (other than firewalld or iptables), indicate the service name here. Otherwise, set this value to an empty string"
+    type: String
+    value: ""
+
+  # SV-204576
+  - name: expected_maxlogins_limit
+    description: "Expected value for the maxlogins setting."
     type: Numeric
     value: 10
 
-  # V-214801
+  # SV-204576
+  - name: max_maxlogins_limit
+    description: "The maxium value that can be used for maxlogins by policy."
+    type: Numeric
+    value: 10
+
+  # SV-214801
   - name: custom_antivirus
     description: "Whether an antivirus solution, other than nails, is in use."
     type: Boolean
@@ -498,38 +590,11 @@ inputs:
     # Default of 'None' is used by control code -- DO NOT CHANGE DEFAULT
     value: "None"
 
-  - name: custom_hips
-    description: "Whether an HIPS solution, other than HBSS, is in use."
-    type: Boolean
-    value: false
-
-  - name: custom_hips_description
-    description: "Description of custom HIPS solution, when in use."
-    type: String
-    # [Hopefully] non-existent process name to fail by default -- override
-    # with valid process name
-    value: An6yTr21kC
-
-  - name: max_daemon_processes
-    description: "Restrict the number of returned processes to account
-      for invalid inputs, such as nil(~), that will match all processes
-      while allowing for 3rd party software that may spawn multiple
-      similarly named processes."
-    type: Numeric
-    value: 1
-
-  # V-204500
+  # SV-204500
   - name: aide_exclude_patterns
     description: "It is reasonable and advisable to skip checksum on frequently changing files"
     type: Array
     value: []
-
-  - name: terminal_mux_pkgs
-    description: "A list of acceptable terminal multiplexers"
-    type: Array
-    value:
-      - tmux
-      - screen
 
   - name: required_rules
     description: "Required PAM rules"
@@ -567,3 +632,179 @@ inputs:
     description: "Set flag to true if the target system is disconnected"
     type: Boolean
     value: false
+
+  # SV-219059
+  - name: automount_config
+    description: "Full path to config file for automount settings"
+    type: String
+    value: "/etc/dconf/db/local.d/00-No-Automount"
+
+  # SV-219059
+  - name: automount_locks_config
+    description: "Full path to locks config file for automount settings"
+    type: String
+    value: "/etc/dconf/db/local.d/locks/00-No-Automount"
+
+  # SV-204414
+  - name: classrepeat
+    description: "Expected system setting for the maximum number of allowed same consecutive characters in the same class of a new password. Maximum of 4"
+    type: Numeric
+    value: 4
+
+  # SV-204414
+  - name: max_classrepeat
+    description: "Maximum allowable value for classrepeat by policy."
+    type: Numeric
+    value: 4
+
+  #SV-204603
+  - name: maxpoll
+    description: "This option specifies the maximum interval between requests sent to the NTP server as a power of 2 in seconds."
+    type: Numeric
+    value: 16
+
+  #SV-204420
+  - name: pass_max_days
+    description: "Password lifetime restriction for new user accounts"
+    type: Numeric
+    value: 60
+
+  #SV-204420
+  - name: max_pass_max_days
+    description: "Maximum password lifetime restriction for new user accounts, by policy"
+    type: Numeric
+    value: 60
+
+  #SV-204431
+  - name: fail_delay
+    description: "Expected value for the delay between logon prompts following a failed console logon attempt in seconds"
+    type: Numeric
+    value: 4
+
+  #SV-204431
+  - name: min_fail_delay
+    description: "Minimum value for the delay between logon prompts following a failed console logon attempt in seconds, by policy"
+    type: Numeric
+    value: 4
+
+  # SV-204468
+  - name: home_dir_mode
+    description: Maximum mode allowed for user home directories (in octal format)
+    type: String
+    value: "0750"
+
+  # SV-204473
+  - name: home_dir_files_mode
+    description: Maximum mode allowed for files contained within user home directories (in octal format)
+    type: String
+    value: "0750"
+
+  # SV-204476
+  - name: init_files_mode
+    description: Maximum mode allowed for initialization files (in octal format)
+    type: String
+    value: "0740"
+
+  # SV-204476
+  - name: user_umask
+    description: Expected value for all user UMASK values (in octal format)
+    type: String
+    value: "0077"
+
+  # SV-204509
+  - name: audit_remote_server
+    description: "Address of the remote server to which audit logs can be sent -- if left blank, control will check that any non-local server is in use"
+    type: String
+    value: ""
+
+  # SV-204511
+  - name: expected_disk_full_action
+    description: "Action that the server should take to preserve audit logs when the disk becomes full -- must be one of syslog, single, halt"
+    type: String
+    value: "single"
+
+  # SV-204512
+  - name: expected_network_failure_action
+    description: "Action that the server should take to preserve audit logs when the network fails -- must be one of syslog, single, halt"
+    type: String
+    value: "single"
+
+  #SV-204513
+  - name: min_space_left
+    description: "Minimum percentage for the space remaining in the audit log file before an alert is generated"
+    type: Numeric
+    value: 25
+
+  # SV-204581
+  - name: public_host_key_file_mode
+    description: Maximum mode allowed for directories containing SSH public host keys (in octal format)
+    type: String
+    value: "0644"
+
+  # SV-204581
+  - name: public_host_key_directories
+    description: "List of any directories containing SSH public host keys"
+    type: Array
+    value:
+      - /etc/ssh
+
+  # SV-204596
+  - name: private_host_key_file_mode
+    description: Maximum mode allowed for directories containing SSH private host keys (in octal format)
+    type: String
+    value: "0640"
+
+  # SV-204596
+  - name: private_host_key_directories
+    description: "List of any directories containing SSH private host keys"
+    type: Array
+    value:
+      - /
+
+  # SV-228564
+  - name: expected_audit_file_mode
+    description: Expected mode for the audit log (in octal format)
+    type: String
+    value: "0600"
+
+  # SV-228564
+  - name: max_audit_file_mode
+    description: Maximum mode allowed for the audit log (in octal format)
+    type: String
+    value: "0600"
+
+  #SV-204412
+  - name: expected_minclass
+    description: "Value for the minimum number of characters that must change between password resets"
+    type: Numeric
+    value: 4
+
+  #SV-204412
+  - name: min_minclass
+    description: "Minimum value for the minimum number of characters that must change between password resets, as allowed by policy"
+    type: Numeric
+    value: 4
+
+  #SV-204419
+  - name: expected_password_lifetime
+    description: "Expected value for the minimum lifetime of a password before it can be a reset"
+    type: Numeric
+    value: 1
+
+  #SV-204419
+  - name: min_password_lifetime
+    description: "Minimum value for the lifetime of a password before it needs a reset, as allowed by policy"
+    type: Numeric
+    value: 1
+
+  #SV-204421
+  - name: expected_max_password_lifetime
+    description: "Expected value for the maximum lifetime of a password before it needs a reset"
+    type: Numeric
+    value: 60
+
+  #SV-204421
+  - name: max_password_lifetime
+    description: "Maximum value for the maximum lifetime of a password before it needs a reset, as allowed by policy"
+    type: Numeric
+    value: 60

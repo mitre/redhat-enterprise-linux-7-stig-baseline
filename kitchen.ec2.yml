@@ -25,6 +25,7 @@ verifier:
   input_files:
     - ec2.inputs.yml
   reporter:
+    - cli
     - json:reports/raw/ec2-%{suite}-%{platform}.json
 
 lifecycle:
@@ -39,7 +40,7 @@ lifecycle:
         sudo chage -d $(( $( date +%s ) / 86400 )) ec2-user
         echo "NOTICE - updating ec2-user sudo config"
         sudo chmod 600 /etc/sudoers && sudo sed -i'' "/ec2-user/d" /etc/sudoers && sudo chmod 400 /etc/sudoers
-        
+
 suites:
   - name: vanilla
     driver:
@@ -54,4 +55,3 @@ suites:
     provisioner:
       name: ansible_playbook
       playbook: test/ansible/rhel7STIG-ansible/site.yml
-    
