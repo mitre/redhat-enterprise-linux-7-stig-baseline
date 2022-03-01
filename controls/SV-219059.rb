@@ -18,8 +18,8 @@ control 'SV-219059' do
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable within a container" do
-      skip "Control not applicable within a container"
+    describe "This control is Not Applicable inside a container." do
+      skip "This control is Not Applicable inside a container."
     end
   else
     if package('gnome-desktop3').installed?

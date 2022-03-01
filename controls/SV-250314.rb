@@ -18,8 +18,8 @@ control 'SV-250314' do
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable within a container -- kernel config" do
-      skip "Control not applicable within a container -- kernel config"
+    describe "This control is Not Applicable inside a container. -- kernel config" do
+      skip "This control is Not Applicable inside a container. -- kernel config"
     end
   else
     describe command("grep sysadm_r /etc/sudoers /etc/sudoers.d/*").stdout.strip do

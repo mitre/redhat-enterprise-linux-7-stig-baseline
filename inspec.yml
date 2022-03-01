@@ -39,6 +39,12 @@ inputs:
     type: Boolean
     value: true
 
+  # V-204420
+  - name: local_login_disabled
+    description: Set to 'true' if the system is not using local logins, pam.d or an external authentication system
+    type: Boolean
+    value: false
+
   # V-204575
   - name: log_aggregation_server
     description: Set to 'true' if the system is being used as a log aggregation server

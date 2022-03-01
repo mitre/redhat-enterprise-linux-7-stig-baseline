@@ -74,13 +74,15 @@ control 'SV-204395' do
   tag 'fix_id': 'F-4519r88378_fix'
   tag 'cci': ['CCI-000048']
   tag nist: ['AC-8 a']
-  tag subsystems: ["banner","/etc/issue"]
+  tag subsystems: ['banner', '/etc/issue']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable within a container" do
-      skip "Control not applicable within a container"
+    describe 'This control is Not Applicable inside a container.' do
+      desc 'rationale',
+           'Containers do not use the standard TTY user management system so there is no need to set a banner.'
+      skip 'This control is Not Applicable inside a container.'
     end
   else
 
@@ -88,8 +90,7 @@ control 'SV-204395' do
     banner_message_text_cli_limited = input('banner_message_text_cli_limited')
 
     clean_banner = banner_message_text_cli.gsub(/[\r\n\s]/, '')
-    clean_banner_limited = banner_message_text_cli_limited.gsub(/[\r\n\s]/,
-                                                                '')
+    clean_banner_limited = banner_message_text_cli_limited.gsub(/[\r\n\s]/, '')
     banner_file = file('/etc/issue')
     banner_missing = !banner_file.exist?
 

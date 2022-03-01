@@ -18,8 +18,8 @@ control 'SV-237635' do
 
   if virtualization.system.eql?('docker') && !command("sudo").exist?
     impact 0.0
-    describe "Control not applicable within a container without sudo enabled" do
-      skip "Control not applicable within a container without sudo enabled"
+    describe "This control is Not Applicable inside a container. without sudo enabled" do
+      skip "This control is Not Applicable inside a container. without sudo enabled"
     end
   else
     describe command("grep -i 'timestamp_timeout' /etc/sudoers /etc/sudoers.d/*").stdout.strip do
