@@ -39,26 +39,27 @@ control 'SV-204404' do
   tag 'fix_id': 'F-4528r88405_fix'
   tag 'cci': ['CCI-000057']
   tag nist: ['AC-11 a']
-  tag subsystems: ['gui', 'screensaver', 'lock', 'session']
+  tag subsystems: ["gui","screensaver","lock","session"]
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe 'This control is Not Applicable inside a container.' do
-      desc 'rationale', 'You do not log into a container via the standard TTY user management system and so there is no need to set a banner.'
-      skip 'This control is Not Applicable inside a container.'
-    end
-  elsif package('gnome-desktop3').installed?
-
-    describe command("gsettings get org.gnome.desktop.screensaver lock-delay | cut -d ' ' -f2") do
-      its('stdout.strip') { should cmp input('expected_lock_delay') }
-      its('stdout.strip') { should cmp <= input('max_lock_delay') }
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
   else
-    impact 0.0
-    describe 'The system does not have GNOME installed' do
-      desc 'rationale', 'When GNOME is not installed, it is not required to set the banner text for the GUI.'
-      skip 'The system does not have GNOME installed, this requirement is Not Applicable.'
+
+    if package('gnome-desktop3').installed?
+      describe command("gsettings get org.gnome.desktop.screensaver lock-delay | cut -d ' ' -f2") do
+        its('stdout.strip') { should cmp input('expected_lock_delay') }
+        its('stdout.strip') { should cmp <= input('max_lock_delay') }
+      end
+    else
+      impact 0.0
+      describe 'The system does not have GNOME installed' do
+        skip "The system does not have GNOME installed, this requirement is Not
+        Applicable."
+      end
     end
   end
 end

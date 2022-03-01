@@ -27,23 +27,15 @@ control 'SV-204420' do
   tag subsystems: ["login_defs","password"]
   tag 'host', 'container'
 
-  if input('local_login_disabled')
-    impact 0.0
-    describe 'The system is not using local user/password management for authentication' do
-      desc 'rationale', 'The system is not using the local user management system so there is no need to set user password settings.'
-      skip 'The system is not using local user/password for authentication, this control is Not Applicable.'
-    end
-  end
-
   if command("grep 'pam_unix.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'optional'").stdout.empty? && command("grep 'pam_permit.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'required'").stdout.empty?
     describe login_defs do
       its('PASS_MAX_DAYS') { should cmp input('pass_max_days') }
       its('PASS_MAX_DAYS') { should cmp <= input('max_pass_max_days') }
     end
   else
-    describe "Cannot determine the 'pass_max_days'and/or the 'max_pass_max_days', this control must be reviewed manually." do
-      desc 'rationale', "Cannot determine the 'pass_max_days' and/or the 'max_pass_max_days', this control must be reviewed manually."
-      skip "Cannot determine the 'pass_max_days' and/or the 'max_pass_max_days', this control must be reviewed manually."
+    impact 0.0
+    describe 'The system is not using password for authentication' do
+      skip 'The system is not using password for authentication, this control is Not Applicable.'
     end
   end
 end

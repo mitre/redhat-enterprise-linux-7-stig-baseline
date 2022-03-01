@@ -31,8 +31,8 @@ control 'SV-204574' do
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "This control is Not Applicable inside a container." do
-      skip "This control is Not Applicable inside a container."
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
   else
     if input('alternate_logs')

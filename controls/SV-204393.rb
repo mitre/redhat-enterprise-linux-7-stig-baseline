@@ -54,7 +54,7 @@ control 'SV-204393' do
   tag 'fix_id': 'F-4517r88372_fix'
   tag 'cci': ['CCI-000048']
   tag nist: ['AC-8 a']
-  tag subsystems: ['gui', 'banner']
+  tag subsystems: ["gui", 'banner']
 
   if package('gnome-desktop3').installed?
     if !input('dconf_user').nil? and command('whoami').stdout.strip == 'root'
@@ -73,7 +73,6 @@ control 'SV-204393' do
   else
     impact 0.0
     describe 'The GNOME desktop is not installed' do
-      desc 'rationale', 'When GNOME is not installed, it is not required to set the banner text for the GUI.'
       skip 'The GNOME desktop is not installed, this control is Not Applicable.'
     end
   end

@@ -30,13 +30,10 @@ control 'SV-204425' do
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0
     describe "Control not applicable - SSH is not installed within containerized RHEL" do
-      desc 'rationale', 'The container does not have the sshd server installed.'
       skip "Control not applicable - SSH is not installed within containerized RHEL"
     end
   else
     describe sshd_config do
-      desc 'rationale', 'Warning: Container best-practices recommend not having an sshd server in the container.' if virtualization.system.eql?('docker')
-      ref 'https://medium.com/tech-bits/if-you-run-sshd-in-your-docker-containers-youre-doing-it-wrong-8f07ca1bd693' if virtualization.system.eql?('docker')
       its('PermitEmptyPasswords') { should eq 'no' }
     end
   end

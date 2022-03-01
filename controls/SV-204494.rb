@@ -24,8 +24,8 @@ control 'SV-204494' do
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "This control is Not Applicable inside a container." do
-      skip "This control is Not Applicable inside a container."
+    describe "Control not applicable within a container" do
+      skip "Control not applicable within a container"
     end
   else
     describe etc_fstab.where { mount_point == '/var/log' } do
