@@ -30,10 +30,4 @@ control 'SV-204461' do
         "missing gids: #{passwd.gids.select{ |gid| !etc_group.gids.include?(gid.to_i)}}"
     end
   end
-
-  # passwd.gids.each do |gid|
-  #   describe etc_group do
-  #     its('gids') { should include gid.to_i }
-  #   end
-  # end
 end
