@@ -14,15 +14,13 @@ verifier:
   load_plugins: true
 
 provisioner:
-  name: puppet_apply
-  sudo: true
+  name: ansible_playbook
+  hosts: all
   require_chef_for_busser: false
-  manifests_path: ./spec/puppet/manifests
-  modules_path: ./spec/puppet/modules
-  hiera_config_path: ./spec/puppet/hiera.yaml
-  hiera_data_path: ./spec/puppet/hiera
-  resolve_with_librarian_puppet: true
-  ignore_spec_fixtures: true
+  require_ruby_for_busser: false
+  ansible_verbose: true
+  roles_path: spec/ansible/roles
+  galaxy_ignore_certs: true
 
 platforms:
   - name: rhel-7
@@ -30,8 +28,8 @@ platforms:
 suites:
   - name: vanilla
     provisioner:
-      manifest: base.pp
+      playbook: spec/ansible/roles/ansible-role-rhel-vanilla.yml
       
   - name: hardened
     provisioner:
-      manifest: stig.pp
+      playbook: spec/ansible/roles/ansible-role-rhel-hardened.yml

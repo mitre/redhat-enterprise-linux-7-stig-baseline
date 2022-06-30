@@ -1,0 +1,13 @@
+---
+- name: Upgrade all packages
+  yum:
+    name: '*'
+    state: latest
+- name: Install required packages
+  yum:
+    name:
+      - jq
+      - vim
+      - bc 
+    state: latest
+    
