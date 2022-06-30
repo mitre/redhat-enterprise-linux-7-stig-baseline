@@ -1,0 +1,8 @@
+---
+- hosts:
+    - localhost
+  roles:
+    - roles/ansible-role-rhel-vanilla
+    - roles/rhel7STIG
+  serial: 50
+  become: yes
