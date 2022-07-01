@@ -34,10 +34,7 @@ jobs:
       - name: Clone full repository so we can push
         run: git fetch --prune --unshallow
       - name: Clone hardening repository into correct role directory
-        uses: actions/checkout@v3
-        with:
-          repository: mitre/ansible-rhel7-stig-hardening
-          path: spec/ansible/roles/rhel7STIG
+        run: ansible-galaxy install -r spec/ansible/roles/requirements.yml -p spec/ansible/roles
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
