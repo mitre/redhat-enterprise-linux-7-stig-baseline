@@ -3,6 +3,6 @@
     - localhost
   roles:
     - roles/ansible-role-rhel-vanilla
-    - roles/rhel7STIG
+    - roles/rhel7STIG/ansible-rhel7-stig-hardening
   serial: 50
   become: yes
