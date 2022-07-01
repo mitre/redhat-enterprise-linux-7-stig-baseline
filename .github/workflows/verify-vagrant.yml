@@ -27,6 +27,11 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.7'
+      - name: Clone hardening repository into correct role directory
+        uses: actions/checkout@v3
+        with:
+          repository: mitre/ansible-rhel7-stig-hardening
+          path: spec/ansible/roles/rhel7STIG
       - name: Disable ri and rdoc
         run: 'echo "gem: --no-ri --no-rdoc" >> ~/.gemrc'
       - run: bundle install
