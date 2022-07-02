@@ -19,30 +19,25 @@ settings; account, file, and directory permission settings; and settings for
 functions, ports, protocols, services, and remote connections.
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system enforces a delay of at least four seconds
-between console logon prompts following a failed logon attempt.
+  desc "check", "Verify the operating system enforces a delay of at least four seconds between 
+console logon prompts following a failed logon attempt.
 
-    Check the value of the \"fail_delay\" parameter in the \"/etc/login.defs\"
-file with the following command:
+Check the value of the \"fail_delay\" parameter in the \"/etc/login.defs\" file with the 
+following command:
 
-    # grep -i fail_delay /etc/login.defs
-    FAIL_DELAY 4
+# grep -i fail_delay /etc/login.defs
+FAIL_DELAY 4
 
-    If the value of \"FAIL_DELAY\" is not set to \"4\" or greater, or the line
-is commented out, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to enforce a delay of at least four seconds
+If the value of \"FAIL_DELAY\" is not set to \"4\" or greater, or the line is commented out, this is 
+a finding." 
+  desc "fix", "Configure the operating system to enforce a delay of at least four seconds 
 between logon prompts following a failed console logon attempt.
 
-    Modify the \"/etc/login.defs\" file to set the \"FAIL_DELAY\" parameter to
-\"4\" or greater:
+Modify the \"/etc/login.defs\" file to set the \"FAIL_DELAY\" parameter to \"4\" or greater:
 
-    FAIL_DELAY 4
-  "
+FAIL_DELAY 4" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00226"
   tag gid: "V-71951"
   tag rid: "SV-86575r2_rule"
@@ -55,4 +50,3 @@ between logon prompts following a failed console logon attempt.
     its('FAIL_DELAY.to_i') { should cmp >= 4 }
   end
 end
-

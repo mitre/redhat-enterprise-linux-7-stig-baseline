@@ -12,35 +12,26 @@ responsible for one.
 information system (e.g., module or policy filter).
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system must generate audit records for all account
-creations, modifications, disabling, and termination events that affect
-/etc/opasswd.
+  desc "check", "Verify the operating system must generate audit records for all account 
+creations, modifications, disabling, and termination events that affect /etc/opasswd.
 
-    Check the auditing rules in \"/etc/audit/audit.rules\" with the following
-command:
+Check the auditing rules in \"/etc/audit/audit.rules\" with the following command:
 
-    # grep /etc/security/opasswd /etc/audit/audit.rules
+# grep /etc/security/opasswd /etc/audit/audit.rules
 
-    -w /etc/security/opasswd -p wa -k identity
+-w /etc/security/opasswd -p wa -k identity
 
-    If the command does not return a line, or the line is commented out, this
-is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to generate audit records for all account
-creations, modifications, disabling, and termination events that affect
-/etc/opasswd.
+If the command does not return a line, or the line is commented out, this is a finding." 
+  desc "fix", "Configure the operating system to generate audit records for all account 
+creations, modifications, disabling, and termination events that affect /etc/opasswd.
 
-    Add or update the following file system rule in
-\"/etc/audit/rules.d/audit.rules\":
+Add or update the following file system rule in \"/etc/audit/rules.d/audit.rules\":
 
-    -w /etc/security/opasswd -p wa -k identity
+-w /etc/security/opasswd -p wa -k identity
 
-    The audit daemon must be restarted for the changes to take effect:
-    # systemctl restart auditd
-  "
-  tag severity: nil
+The audit daemon must be restarted for the changes to take effect:
+# systemctl restart auditd" 
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000004-GPOS-00004"
   tag gid: "V-73173"
   tag rid: "SV-87825r5_rule"
@@ -52,9 +43,9 @@ creations, modifications, disabling, and termination events that affect
   audit_file = '/etc/security/opasswd'
 
   if file(audit_file).exist?
-    impact 0.5
+  impact "0.5"
   else
-    impact 0.0
+  impact "0.5"
   end
 
   describe auditd.file(audit_file) do
@@ -76,4 +67,3 @@ creations, modifications, disabling, and termination events that affect
     skip "The #{audit_file} file does not exist, this requirement is Not Applicable."
   end if !file(audit_file).exist?
 end
-

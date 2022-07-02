@@ -6,34 +6,27 @@ permissive."
   desc  "Excessive permissions on local interactive user home directories may
 allow unauthorized access to user files by other users."
   desc  "rationale", ""
-  desc  "check", "
-    Verify the assigned home directory of all local interactive users has a
-mode of \"0750\" or less permissive.
+  desc "check", "Verify the assigned home directory of all local interactive users has a mode of 
+\"0750\" or less permissive.
 
-    Check the home directory assignment for all non-privileged users on the
-system with the following command:
+Check the home directory assignment for all non-privileged users on the system with the following command:
 
-    Note: This may miss interactive users that have been assigned a privileged
-User Identifier (UID). Evidence of interactive use may be obtained from a
-number of log files containing system logon information.
+Note: This may miss interactive users that have been assigned a privileged User Identifier (UID). 
+Evidence of interactive use may be obtained from a number of log files containing system logon information.
 
-    # ls -ld $(egrep ':[0-9]{4}' /etc/passwd | cut -d: -f6)
-    -rwxr-x--- 1 smithj users  18 Mar  5 17:06 /home/smithj
+# ls -ld $(egrep ':[0-9]{4}' /etc/passwd | cut -d: -f6)
+-rwxr-x--- 1 smithj users 18 Mar 5 17:06 /home/smithj
 
-    If home directories referenced in \"/etc/passwd\" do not have a mode of
-\"0750\" or less permissive, this is a finding.
-  "
-  desc  "fix", "
-    Change the mode of interactive user's home directories to \"0750\". To
-change the mode of a local interactive user's home directory, use the following
-command:
+If home directories referenced in \"/etc/passwd\" do not have a mode of \"0750\" or less 
+permissive, this is a finding." 
+  desc "fix", "Change the mode of interactive user's home directories to \"0750\". To change 
+the mode of a local interactive user's home directory, use the following command:
 
-    Note: The example will be for the user \"smithj\".
+Note: The example will be for the user \"smithj\".
 
-    # chmod 0750 /home/smithj
-  "
+# chmod 0750 /home/smithj" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72017"
   tag rid: "SV-86641r3_rule"
@@ -60,4 +53,3 @@ command:
     it { should be_empty }
   end
 end
-

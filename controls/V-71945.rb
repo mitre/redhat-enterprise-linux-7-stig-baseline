@@ -10,55 +10,45 @@ forcing, is reduced. Limits are imposed by locking the account.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system automatically locks the root account until it
-is released by an administrator when three unsuccessful logon attempts in 15
+  desc "check", "Verify the operating system automatically locks the root account until it is 
+released by an administrator when three unsuccessful logon attempts in 15 minutes are made.
+
+# grep pam_faillock.so /etc/pam.d/password-auth
+auth required pam_faillock.so preauth silent audit deny=3 even_deny_root fail_interval=900 
+unlock_time=900 
+auth [default=die] pam_faillock.so authfail audit deny=3 even_deny_root fail_interval=900 
+unlock_time=900 
+account required pam_faillock.so
+
+If the \"even_deny_root\" setting is not defined on both lines with the \"pam_faillock.so\" 
+module, is commented out, or is missing from a line, this is a finding.
+
+# grep pam_faillock.so /etc/pam.d/system-auth
+auth required pam_faillock.so preauth silent audit deny=3 even_deny_root fail_interval=900 
+unlock_time=900 
+auth [default=die] pam_faillock.so authfail audit deny=3 even_deny_root fail_interval=900 unlock_time=900
+account required pam_faillock.so
+
+If the \"even_deny_root\" setting is not defined on both lines with the \"pam_faillock.so\" 
+module, is commented out, or is missing from a line, this is a finding." 
+  desc "fix", "Configure the operating system to lock automatically the root account until the 
+locked account is released by an administrator when three unsuccessful logon attempts in 15 
 minutes are made.
 
-    # grep pam_faillock.so /etc/pam.d/password-auth
-    auth required pam_faillock.so preauth silent audit deny=3 even_deny_root
-fail_interval=900 unlock_time=900
-    auth [default=die] pam_faillock.so authfail audit deny=3 even_deny_root
-fail_interval=900 unlock_time=900
-    account required pam_faillock.so
+Modify the first three lines of the auth section and the first line of the account section of the 
+\"/etc/pam.d/system-auth\" and \"/etc/pam.d/password-auth\" files to match the 
+following lines:
 
-    If the \"even_deny_root\" setting is not defined on both lines with the
-\"pam_faillock.so\" module, is commented out, or is missing from a line, this
-is a finding.
+auth required pam_faillock.so preauth silent audit deny=3 even_deny_root fail_interval=900 unlock_time=900
+auth sufficient pam_unix.so try_first_pass
+auth [default=die] pam_faillock.so authfail audit deny=3 even_deny_root fail_interval=900 unlock_time=900
+account required pam_faillock.so
 
-    # grep pam_faillock.so /etc/pam.d/system-auth
-    auth required pam_faillock.so preauth silent audit deny=3 even_deny_root
-fail_interval=900 unlock_time=900
-    auth [default=die] pam_faillock.so authfail audit deny=3 even_deny_root
-fail_interval=900 unlock_time=900
-    account required pam_faillock.so
-
-    If the \"even_deny_root\" setting is not defined on both lines with the
-\"pam_faillock.so\" module, is commented out, or is missing from a line, this
-is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to lock automatically the root account until
-the locked account is released by an administrator when three unsuccessful
-logon attempts in 15 minutes are made.
-
-    Modify the first three lines of the auth section and the first line of the
-account section of the \"/etc/pam.d/system-auth\" and
-\"/etc/pam.d/password-auth\" files to match the following lines:
-
-    auth required pam_faillock.so preauth silent audit deny=3 even_deny_root
-fail_interval=900 unlock_time=900
-    auth sufficient pam_unix.so try_first_pass
-    auth [default=die] pam_faillock.so authfail audit deny=3 even_deny_root
-fail_interval=900 unlock_time=900
-    account required pam_faillock.so
-
-    Note: Manual changes to the listed files may be overwritten by the
-\"authconfig\" program. The \"authconfig\" program should not be used to update
-the configurations listed in this requirement.
-  "
+Note: Manual changes to the listed files may be overwritten by the \"authconfig\" program. The 
+\"authconfig\" program should not be used to update the configurations listed in this 
+requirement." 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000329-GPOS-00128"
   tag satisfies: ["SRG-OS-000329-GPOS-00128", "SRG-OS-000021-GPOS-00005"]
   tag gid: "V-71945"
@@ -84,4 +74,3 @@ the configurations listed in this requirement.
     its('lines') { should match_pam_rule('auth .* pam_faillock.so (preauth|authfail)').all_with_args('even_deny_root') }
   end
 end
-

@@ -10,32 +10,26 @@ malicious AP and enabling the attacker to monitor and record network traffic.
 These malicious APs can also serve to create a man-in-the-middle attack or be
 used to create a denial of service to valid network resources."
   desc  "rationale", ""
-  desc  "check", "
-    Verify that there are no wireless interfaces configured on the system.
+  desc "check", "Verify that there are no wireless interfaces configured on the system.
 
-    This is N/A for systems that do not have wireless network adapters.
+This is N/A for systems that do not have wireless network adapters.
 
-    Check for the presence of active wireless interfaces with the following
-command:
+Check for the presence of active wireless interfaces with the following command:
 
-    # nmcli device
-    DEVICE TYPE STATE
-    eth0 ethernet connected
-    wlp3s0 wifi disconnected
-    lo loopback unmanaged
+# nmcli device
+DEVICE TYPE STATE
+eth0 ethernet connected
+wlp3s0 wifi disconnected
+lo loopback unmanaged
 
-    If a wireless interface is configured and its use on the system is not
-documented with the Information System Security Officer (ISSO), this is a
-finding.
-  "
-  desc  "fix", "
-    Configure the system to disable all wireless network interfaces with the
+If a wireless interface is configured and its use on the system is not documented with the 
+Information System Security Officer (ISSO), this is a finding." 
+  desc "fix", "Configure the system to disable all wireless network interfaces with the 
 following command:
 
-    #nmcli radio wifi off
-  "
+#nmcli radio wifi off" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000424-GPOS-00188"
   tag gid: "V-73177"
   tag rid: "SV-87829r2_rule"
@@ -48,4 +42,3 @@ following command:
     its('stdout.strip') { should_not match %r{wifi connected} }
   end
 end
-

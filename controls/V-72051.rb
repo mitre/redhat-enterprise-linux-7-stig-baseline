@@ -6,39 +6,32 @@ implemented."
 execution of cron jobs. It can also be used to spot intrusions into the use of
 the cron facility by unauthorized and malicious users."
   desc  "rationale", ""
-  desc  "check", "
-    Verify that \"rsyslog\" is configured to log cron events.
+  desc "check", "Verify that \"rsyslog\" is configured to log cron events.
 
-    Check the configuration of \"/etc/rsyslog.conf\" or
-\"/etc/rsyslog.d/*.conf\" files for the cron facility with the following
-command:
+Check the configuration of \"/etc/rsyslog.conf\" or \"/etc/rsyslog.d/*.conf\" files for the 
+cron facility with the following command:
 
-    Note: If another logging package is used, substitute the utility
-configuration file for \"/etc/rsyslog.conf\" or \"/etc/rsyslog.d/*.conf\" files.
+Note: If another logging package is used, substitute the utility configuration file for 
+\"/etc/rsyslog.conf\" or \"/etc/rsyslog.d/*.conf\" files.
 
-    # grep cron /etc/rsyslog.conf  /etc/rsyslog.d/*.conf
-    cron.* /var/log/cron.log
+# grep cron /etc/rsyslog.conf /etc/rsyslog.d/*.conf
+cron.* /var/log/cron.log
 
-    If the command does not return a response, check for cron logging all
-facilities by inspecting the \"/etc/rsyslog.conf\" or \"/etc/rsyslog.d/*.conf\"
-files.
+If the command does not return a response, check for cron logging all facilities by inspecting 
+the \"/etc/rsyslog.conf\" or \"/etc/rsyslog.d/*.conf\" files.
 
-    Look for the following entry:
+Look for the following entry:
 
-    *.* /var/log/messages
+*.* /var/log/messages
 
-    If \"rsyslog\" is not logging messages for the cron facility or all
-facilities, this is a finding.
-  "
-  desc  "fix", "
-    Configure \"rsyslog\" to log all cron messages by adding or updating the
-following line to \"/etc/rsyslog.conf\" or a configuration file in the
-/etc/rsyslog.d/ directory:
+If \"rsyslog\" is not logging messages for the cron facility or all facilities, this is a 
+finding." 
+  desc "fix", "Configure \"rsyslog\" to log all cron messages by adding or updating the 
+following line to \"/etc/rsyslog.conf\" or a configuration file in the /etc/rsyslog.d/ directory:
 
-    cron.* /var/log/cron.log
-  "
+cron.* /var/log/cron.log" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72051"
   tag rid: "SV-86675r2_rule"
@@ -59,4 +52,3 @@ following line to \"/etc/rsyslog.conf\" or a configuration file in the
     end
   end
 end
-

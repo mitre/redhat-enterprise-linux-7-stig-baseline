@@ -27,38 +27,32 @@ control "V-72417" do
         proxy capability). This does not apply to authentication for the purpose of
         configuring the device itself (management)."
 
-  desc  "check", "
-        Verify the operating system has the packages required for multifactor
-        authentication installed.
+  desc "check", "Verify the operating system has the packages required for multifactor 
+authentication installed.
 
-        Check for the presence of the packages required to support multifactor
-        authentication with the following commands:
+Check for the presence of the packages required to support multifactor authentication with the 
+following commands:
 
-        # yum list installed esc
-        esc-1.1.0-26.el7.noarch.rpm
+# yum list installed pam_pkcs11
+pam_pkcs11-0.6.2-14.el7.noarch.rpm
 
-        # yum list installed pam_pkcs11
-        pam_pkcs11-0.6.2-14.el7.noarch.rpm
 
-        If the \"esc\" and \"pam_pkcs11\" packages are not installed, this is a
-        finding."
+If the \"pam_pkcs11\" package is not installed, this is a finding." 
 
-  desc  "fix", "
-        Configure the operating system to implement multifactor authentication by
-        installing the required packages.
+  desc "fix", "Configure the operating system to implement multifactor authentication by 
+installing the required packages.
 
-        Install the \"esc\" and \"pam_pkcs11\" packages on the system with the
-        following command:
+Install the pam_pkcs11 package with the following command:
 
-        # yum install esc pam_pkcs11"
+# yum install pam_pkcs11" 
 
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000375-GPOS-00160"
   tag satisfies: ["SRG-OS-000375-GPOS-00160", "SRG-OS-000375-GPOS-00161", "SRG-OS-000375-GPOS-00162"]
   tag gid: "V-72417"
-  tag rid: "SV-87041r4_rule"
+  tag rid: "SV-87041r5_rule"
   tag stig_id: "RHEL-07-041001"
-  tag fix_id: "F-78769r4_fix"
+  tag fix_id: "F-78769r5_fix"
   tag cci: ["CCI-001948", "CCI-001953", "CCI-001954"]
   tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)"]
 

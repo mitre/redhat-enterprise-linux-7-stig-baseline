@@ -8,59 +8,49 @@ facilitating malicious activity.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    If there is an HBSS with a Device Control Module and a Data Loss Prevention
+  desc "check", "If there is an HBSS with a Device Control Module and a Data Loss Prevention 
 mechanism, this requirement is not applicable.
 
-    Verify the operating system disables the ability to load the USB Storage
+Verify the operating system disables the ability to load the USB Storage kernel module.
+
+# grep -r usb-storage /etc/modprobe.d/* | grep -i \"/bin/true\" | grep -v \"^#\"
+
+install usb-storage /bin/true
+
+If the command does not return any output, or the line is commented out, and use of USB Storage is 
+not documented with the Information System Security Officer (ISSO) as an operational 
+requirement, this is a finding.
+
+Verify the operating system disables the ability to use USB mass storage devices.
+
+Check to see if USB mass storage is disabled with the following command:
+
+# grep usb-storage /etc/modprobe.d/* | grep -i \"blacklist\" | grep -v \"^#\"
+blacklist usb-storage
+
+If the command does not return any output or the output is not \"blacklist usb-storage\", and use 
+of USB storage devices is not documented with the Information System Security Officer (ISSO) 
+as an operational requirement, this is a finding." 
+  desc "fix", "Configure the operating system to disable the ability to use the USB Storage 
 kernel module.
 
-    # grep -r usb-storage /etc/modprobe.d/* | grep -i \"/bin/true\" | grep -v
-\"^#\"
+Create a file under \"/etc/modprobe.d\" with the following command:
 
-    install usb-storage /bin/true
+# touch /etc/modprobe.d/usb-storage.conf
 
-    If the command does not return any output, or the line is commented out,
-and use of USB Storage is not documented with the Information System Security
-Officer (ISSO) as an operational requirement, this is a finding.
+Add the following line to the created file:
 
-    Verify the operating system disables the ability to use USB mass storage
-devices.
+install usb-storage /bin/true
 
-    Check to see if USB mass storage is disabled with the following command:
+Configure the operating system to disable the ability to use USB mass storage devices.
 
-    # grep usb-storage /etc/modprobe.d/* | grep -i \"blacklist\" | grep -v
-\"^#\"
-    blacklist usb-storage
+# vi /etc/modprobe.d/blacklist.conf
 
-    If the command does not return any output or the output is not \"blacklist
-usb-storage\", and use of USB storage devices is not documented with the
-Information System Security Officer (ISSO) as an operational requirement, this
-is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to disable the ability to use the USB
-Storage kernel module.
+Add or update the line:
 
-    Create a file under \"/etc/modprobe.d\" with the following command:
-
-    # touch /etc/modprobe.d/usb-storage.conf
-
-    Add the following line to the created file:
-
-    install usb-storage /bin/true
-
-    Configure the operating system to disable the ability to use USB mass
-storage devices.
-
-    # vi /etc/modprobe.d/blacklist.conf
-
-    Add or update the line:
-
-    blacklist usb-storage
-  "
+blacklist usb-storage" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000114-GPOS-00059"
   tag satisfies: ["SRG-OS-000114-GPOS-00059", "SRG-OS-000378-GPOS-00163",
 "SRG-OS-000480-GPOS-00227"]
@@ -83,4 +73,3 @@ storage devices.
     end
   end
 end
-

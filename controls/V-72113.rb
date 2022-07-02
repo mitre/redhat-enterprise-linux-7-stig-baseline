@@ -13,40 +13,31 @@ information system (e.g., module or policy filter).
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when 
 successful/unsuccessful attempts to use the \"fsetxattr\" syscall occur.
 
-    Check the file system rules in \"/etc/audit/audit.rules\" with the
-following commands:
+Check the file system rules in \"/etc/audit/audit.rules\" with the following commands:
 
-    # grep -iw fsetxattr /etc/audit/audit.rules
+# grep -iw fsetxattr /etc/audit/audit.rules
 
-    -a always,exit -F arch=b32 -S fsetxattr -F auid>=1000 -F auid!=4294967295
--k perm_mod
+-a always,exit -F arch=b32 -S fsetxattr -F auid>=1000 -F auid!=4294967295 -k perm_mod
 
-    -a always,exit -F arch=b64 -S fsetxattr -F auid>=1000 -F auid!=4294967295
--k perm_mod
+-a always,exit -F arch=b64 -S fsetxattr -F auid>=1000 -F auid!=4294967295 -k perm_mod
 
-    If both the \"b32\" and \"b64\" audit rules are not defined for the
-\"fsetxattr\" syscall, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to generate audit records when
+If both the \"b32\" and \"b64\" audit rules are not defined for the \"fsetxattr\" syscall, this 
+is a finding." 
+  desc "fix", "Configure the operating system to generate audit records when 
 successful/unsuccessful attempts to use the \"fsetxattr\" syscall occur.
 
-    Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":
+Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":
 
-    -a always,exit -F arch=b32 -S fsetxattr -F auid>=1000 -F auid!=4294967295
--k perm_mod
+-a always,exit -F arch=b32 -S fsetxattr -F auid>=1000 -F auid!=4294967295 -k perm_mod
 
-    -a always,exit -F arch=b64 -S fsetxattr -F auid>=1000 -F auid!=4294967295
--k perm_mod
+-a always,exit -F arch=b64 -S fsetxattr -F auid>=1000 -F auid!=4294967295 -k perm_mod
 
-    The audit daemon must be restarted for the changes to take effect.
-  "
+The audit daemon must be restarted for the changes to take effect." 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000458-GPOS-00203"
   tag satisfies: ["SRG-OS-000458-GPOS-00203", "SRG-OS-000392-GPOS-00172",
 "SRG-OS-000064-GPOS-00033"]
@@ -68,4 +59,3 @@ successful/unsuccessful attempts to use the \"fsetxattr\" syscall occur.
     end
   end
 end
-

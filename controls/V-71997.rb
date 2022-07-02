@@ -7,34 +7,32 @@ continues to provide security patches for the product. With an unsupported
 release, it will not be possible to resolve security issues discovered in the
 system software."
   desc  "rationale", ""
-  desc  "check", "
-    Verify the version of the operating system is vendor supported.
+  desc "check", "Verify the version of the operating system is vendor supported.
 
-    Check the version of the operating system with the following command:
+Check the version of the operating system with the following command:
 
-    # cat /etc/redhat-release
+# cat /etc/redhat-release
 
-    Red Hat Enterprise Linux Server release 7.4 (Maipo)
+Red Hat Enterprise Linux Server release 7.4 (Maipo)
 
-    Current End of Life for RHEL 7.1 is 31 March 2017.
+Current End of Life for RHEL 7.1 is 31 March 2017.
 
-    Current End of Life for RHEL 7.2 is 30 November 2017.
+Current End of Life for RHEL 7.2 is 30 November 2017.
 
-    Current End of Life for RHEL 7.3 is 30 November 2018.
+Current End of Life for RHEL 7.3 is 30 November 2018.
 
-    Current End of Life for RHEL 7.4 is 31 August 2019.
+Current End of Life for RHEL 7.4 is 31 August 2019.
 
-    Current End of Life for RHEL 7.5 is 30 April 2020.
+Current End of Life for RHEL 7.5 is 30 April 2020.
 
-    Current End of Life for RHEL 7.6 is 31 October 2020.
+Current End of Life for RHEL 7.6 is 31 October 2020.
 
-    Current End of Life for RHEL 7.7 is 30 August 2021.
+Current End of Life for RHEL 7.7 is 30 August 2021.
 
-    If the release is not supported by the vendor, this is a finding.
-  "
+If the release is not supported by the vendor, this is a finding." 
   desc  "fix", "Upgrade to a supported version of the operating system."
   impact 0.7
-  tag severity: nil
+  tag severity: "high"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-71997"
   tag rid: "SV-86621r5_rule"
@@ -47,4 +45,3 @@ system software."
     its('content') { should match %r{Release (6.7*|7.[2-9].*)}i }
   end
 end
-

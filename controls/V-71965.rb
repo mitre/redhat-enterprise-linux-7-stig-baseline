@@ -26,42 +26,36 @@ accounts) or for detailed accountability of individual activity.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system requires multifactor authentication to uniquely
-identify organizational users using multifactor authentication.
+  desc "check", "Verify the operating system requires multifactor authentication to 
+uniquely identify organizational users using multifactor authentication.
 
-    Check to see if smartcard authentication is enforced on the system:
+Check to see if smartcard authentication is enforced on the system:
 
-    # authconfig --test | grep \"pam_pkcs11 is enabled\"
+# authconfig --test | grep \"pam_pkcs11 is enabled\"
 
-    If no results are returned, this is a finding.
+If no results are returned, this is a finding.
 
-    # authconfig --test | grep \"smartcard removal action\"
+# authconfig --test | grep \"smartcard removal action\"
 
-    If \"smartcard removal action\" is blank, this is a finding.
+If \"smartcard removal action\" is blank, this is a finding.
 
-    # authconfig --test | grep \"smartcard module\"
+# authconfig --test | grep \"smartcard module\"
 
-    If \"smartcard module\" is blank, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to require individuals to be authenticated
-with a multifactor authenticator.
+If \"smartcard module\" is blank, this is a finding." 
+  desc "fix", "Configure the operating system to require individuals to be authenticated with 
+a multifactor authenticator.
 
-    Enable smartcard logons with the following commands:
+Enable smartcard logons with the following commands:
 
-    # authconfig --enablesmartcard --smartcardaction=0 --update
-    # authconfig --enablerequiresmartcard -update
+# authconfig --enablesmartcard --smartcardaction=0 --update
+# authconfig --enablerequiresmartcard -update
 
-    Modify the \"/etc/pam_pkcs11/pkcs11_eventmgr.conf\" file to uncomment the
-following line:
+Modify the \"/etc/pam_pkcs11/pkcs11_eventmgr.conf\" file to uncomment the following line:
 
-    #/usr/X11R6/bin/xscreensaver-command -lock
+#/usr/X11R6/bin/xscreensaver-command -lock
 
-    Modify the \"/etc/pam_pkcs11/pam_pkcs11.conf\" file to use the cackey
-module if required.
-  "
-  tag severity: nil
+Modify the \"/etc/pam_pkcs11/pam_pkcs11.conf\" file to use the cackey module if required." 
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000104-GPOS-00051"
   tag satisfies: ["SRG-OS-000104-GPOS-00051", "SRG-OS-000106-GPOS-00053",
 "SRG-OS-000107-GPOS-00054", "SRG-OS-000109-GPOS-00056",
@@ -89,4 +83,3 @@ module if required.
     end
   end
 end
-

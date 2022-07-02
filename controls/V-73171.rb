@@ -12,34 +12,25 @@ responsible for one.
 information system (e.g., module or policy filter).
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system must generate audit records for all account
-creations, modifications, disabling, and termination events that affect
-/etc/shadow.
+  desc "check", "Verify the operating system must generate audit records for all account 
+creations, modifications, disabling, and termination events that affect /etc/shadow.
 
-    Check the auditing rules in \"/etc/audit/audit.rules\" with the following
-command:
+Check the auditing rules in \"/etc/audit/audit.rules\" with the following command:
 
-    # grep /etc/shadow /etc/audit/audit.rules
+# grep /etc/shadow /etc/audit/audit.rules
 
-    -w /etc/shadow -p wa -k identity
+-w /etc/shadow -p wa -k identity
 
-    If the command does not return a line, or the line is commented out, this
-is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to generate audit records for all account
-creations, modifications, disabling, and termination events that affect
-/etc/shadow.
+If the command does not return a line, or the line is commented out, this is a finding." 
+  desc "fix", "Configure the operating system to generate audit records for all account 
+creations, modifications, disabling, and termination events that affect /etc/shadow.
 
-    Add or update the following file system rule in
-\"/etc/audit/rules.d/audit.rules\":
+Add or update the following file system rule in \"/etc/audit/rules.d/audit.rules\":
 
-    -w /etc/shadow -p wa -k identity
+-w /etc/shadow -p wa -k identity
 
-    The audit daemon must be restarted for the changes to take effect.
-  "
-  tag severity: nil
+The audit daemon must be restarted for the changes to take effect." 
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000004-GPOS-00004"
   tag gid: "V-73171"
   tag rid: "SV-87823r4_rule"
@@ -51,9 +42,9 @@ creations, modifications, disabling, and termination events that affect
   audit_file = '/etc/shadow'
 
   if file(audit_file).exist?
-    impact 0.5
+  impact "0.5"
   else
-    impact 0.0
+  impact "0.5"
   end
 
   describe auditd.file(audit_file) do
@@ -76,4 +67,3 @@ creations, modifications, disabling, and termination events that affect
   end if !file(audit_file).exist?
 
 end
-

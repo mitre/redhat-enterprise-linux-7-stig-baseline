@@ -5,26 +5,20 @@ package installed."
   desc  "Removing the \"ypserv\" package decreases the risk of the accidental
 (or intentional) activation of NIS or NIS+ services."
   desc  "rationale", ""
-  desc  "check", "
-    The NIS service provides an unencrypted authentication service that does
-not provide for the confidentiality and integrity of user passwords or the
-remote session.
+  desc "check", "The NIS service provides an unencrypted authentication service that does not 
+provide for the confidentiality and integrity of user passwords or the remote session.
 
-    Check to see if the \"ypserve\" package is installed with the following
-command:
+Check to see if the \"ypserve\" package is installed with the following command:
 
-    # yum list installed ypserv
+# yum list installed ypserv
 
-    If the \"ypserv\" package is installed, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to disable non-essential capabilities by
+If the \"ypserv\" package is installed, this is a finding." 
+  desc "fix", "Configure the operating system to disable non-essential capabilities by 
 removing the \"ypserv\" package from the system with the following command:
 
-    # yum remove ypserv
-  "
+# yum remove ypserv" 
   impact 0.7
-  tag severity: nil
+  tag severity: "high"
   tag gtitle: "SRG-OS-000095-GPOS-00049"
   tag gid: "V-71969"
   tag rid: "SV-86593r2_rule"
@@ -37,4 +31,3 @@ removing the \"ypserv\" package from the system with the following command:
     it { should_not be_installed }
   end
 end
-

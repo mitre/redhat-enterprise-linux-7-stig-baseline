@@ -24,29 +24,23 @@ not have to be employed, and vice versa.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify SSH is loaded and active with the following command:
+  desc "check", "Verify SSH is loaded and active with the following command:
 
-    # systemctl status sshd
-    sshd.service - OpenSSH server daemon
-    Loaded: loaded (/usr/lib/systemd/system/sshd.service; enabled)
-    Active: active (running) since Tue 2015-11-17 15:17:22 EST; 4 weeks 0 days
-ago
-    Main PID: 1348 (sshd)
-    CGroup: /system.slice/sshd.service
-    1053 /usr/sbin/sshd -D
+# systemctl status sshd
+sshd.service - OpenSSH server daemon
+Loaded: loaded (/usr/lib/systemd/system/sshd.service; enabled)
+Active: active (running) since Tue 2015-11-17 15:17:22 EST; 4 weeks 0 days ago
+Main PID: 1348 (sshd)
+CGroup: /system.slice/sshd.service
+1053 /usr/sbin/sshd -D
 
-    If \"sshd\" does not show a status of \"active\" and \"running\", this is a
-finding.
-  "
-  desc  "fix", "
-    Configure the SSH service to automatically start after reboot with the
+If \"sshd\" does not show a status of \"active\" and \"running\", this is a finding." 
+  desc "fix", "Configure the SSH service to automatically start after reboot with the 
 following command:
 
-    # systemctl enable sshd.service
-  "
+# systemctl enable sshd.service" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000423-GPOS-00187"
   tag satisfies: ["SRG-OS-000423-GPOS-00187", "SRG-OS-000423-GPOS-00188",
 "SRG-OS-000423-GPOS-00189", "SRG-OS-000423-GPOS-00190"]
@@ -61,4 +55,3 @@ following command:
     it { should be_running }
   end
 end
-

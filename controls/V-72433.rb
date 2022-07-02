@@ -1,4 +1,3 @@
-
 control 'V-72433' do
   title "The Red Hat Enterprise Linux operating system must implement
 certificate status checking for PKI authentication."
@@ -54,7 +53,7 @@ authentication.
     Modify all of the \"cert_policy\" lines in
 \"/etc/pam_pkcs11/pam_pkcs11.conf\" to include \"ocsp_on\".
   "
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000375-GPOS-00160"
   tag satisfies: ["SRG-OS-000375-GPOS-00160", "SRG-OS-000375-GPOS-00161",
 "SRG-OS-000375-GPOS-00162"]

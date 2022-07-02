@@ -14,33 +14,27 @@ number of possible combinations that need to be tested before the password is
 compromised.
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system enforces password complexity by requiring that
+  desc "check", "Verify the operating system enforces password complexity by requiring that 
 at least one special character be used.
 
-    Note: The value to require a number of special characters to be set is
-expressed as a negative number in \"/etc/security/pwquality.conf\".
+Note: The value to require a number of special characters to be set is expressed as a negative number 
+in \"/etc/security/pwquality.conf\".
 
-    Check the value for \"ocredit\" in \"/etc/security/pwquality.conf\" with
-the following command:
+Check the value for \"ocredit\" in \"/etc/security/pwquality.conf\" with the following command:
 
-    # grep ocredit /etc/security/pwquality.conf
-    ocredit=-1
+# grep ocredit /etc/security/pwquality.conf 
+ocredit=-1
 
-    If the value of \"ocredit\" is not set to a negative value, this is a
-finding.
-  "
-  desc  "fix", "
-    Configure the operating system to enforce password complexity by requiring
+If the value of \"ocredit\" is not set to a negative value, this is a finding." 
+  desc "fix", "Configure the operating system to enforce password complexity by requiring 
 that at least one special character be used by setting the \"ocredit\" option.
 
-    Add the following line to \"/etc/security/pwquality.conf\" (or modify the
-line to have the required value):
+Add the following line to \"/etc/security/pwquality.conf\" (or modify the line to have the 
+required value):
 
-    ocredit = -1
-  "
+ocredit = -1" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000266-GPOS-00101"
   tag gid: "V-71909"
   tag rid: "SV-86533r2_rule"
@@ -53,4 +47,3 @@ line to have the required value):
     its('ocredit.to_i') { should cmp < 0 }
   end
 end
-

@@ -21,22 +21,17 @@ remote session and has very weak authentication.
 password could be compromised.
   "
   desc  "rationale", ""
-  desc  "check", "
-    Check to see if the rsh-server package is installed with the following
-command:
+  desc "check", "Check to see if the rsh-server package is installed with the following command:
 
-    # yum list installed rsh-server
+# yum list installed rsh-server
 
-    If the rsh-server package is installed, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to disable non-essential capabilities by
+If the rsh-server package is installed, this is a finding." 
+  desc "fix", "Configure the operating system to disable non-essential capabilities by 
 removing the rsh-server package from the system with the following command:
 
-    # yum remove rsh-server
-  "
+# yum remove rsh-server" 
   impact 0.7
-  tag severity: nil
+  tag severity: "high"
   tag gtitle: "SRG-OS-000095-GPOS-00049"
   tag gid: "V-71967"
   tag rid: "SV-86591r2_rule"
@@ -49,4 +44,3 @@ removing the rsh-server package from the system with the following command:
     it { should_not be_installed }
   end
 end
-

@@ -14,41 +14,35 @@ daemon will not off load the logs from the system being audited.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the \"au-remote\" plugin is configured to always off-load audit logs
+  desc "check", "Verify the \"au-remote\" plugin is configured to always off-load audit logs 
 using the audisp-remote daemon:
 
-    # cat /etc/audisp/plugins.d/au-remote.conf | grep -v \"^#\"
+# cat /etc/audisp/plugins.d/au-remote.conf | grep -v \"^#\"
 
-    active = yes
-    direction = out
-    path = /sbin/audisp-remote
-    type = always
-    format = string
+active = yes
+direction = out
+path = /sbin/audisp-remote
+type = always
+format = string
 
-    If the \"direction\" setting is not set to \"out\", or the line is
-commented out, this is a finding.
+If the \"direction\" setting is not set to \"out\", or the line is commented out, this is a finding.
 
-    If the \"path\" setting is not set to \"/sbin/audisp-remote\", or the line
-is commented out, this is a finding.
+If the \"path\" setting is not set to \"/sbin/audisp-remote\", or the line is commented out, 
+this is a finding.
 
-    If the \"type\" setting is not set to \"always\", or the line is commented
-out, this is a finding.
-  "
-  desc  "fix", "
-    Edit the /etc/audisp/plugins.d/au-remote.conf file and add or update the
+If the \"type\" setting is not set to \"always\", or the line is commented out, this is a finding." 
+  desc "fix", "Edit the /etc/audisp/plugins.d/au-remote.conf file and add or update the 
 following values:
 
-    direction = out
-    path = /sbin/audisp-remote
-    type = always
+direction = out
+path = /sbin/audisp-remote
+type = always
 
-    The audit daemon must be restarted for changes to take effect:
+The audit daemon must be restarted for changes to take effect:
 
-    # service auditd restart
-  "
+# service auditd restart" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000342-GPOS-00133"
   tag satisfies: ["SRG-OS-000342-GPOS-00133", "SRG-OS-000479-GPOS-00224"]
   tag gid: "V-81017"
@@ -72,4 +66,3 @@ following values:
     end
   end
 end
-

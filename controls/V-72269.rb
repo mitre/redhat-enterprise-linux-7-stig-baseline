@@ -22,73 +22,65 @@ endpoints).
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Check to see if NTP is running in continuous mode:
+  desc "check", "Check to see if NTP is running in continuous mode:
 
-    # ps -ef | grep ntp
+# ps -ef | grep ntp
 
-    If NTP is not running, check to see if \"chronyd\" is running in continuous
-mode:
+If NTP is not running, check to see if \"chronyd\" is running in continuous mode:
 
-    # ps -ef | grep chronyd
+# ps -ef | grep chronyd
 
-    If NTP or \"chronyd\" is not running, this is a finding.
+If NTP or \"chronyd\" is not running, this is a finding.
 
-    If the NTP process is found, then check the \"ntp.conf\" file for the
-\"maxpoll\" option setting:
+If the NTP process is found, then check the \"ntp.conf\" file for the \"maxpoll\" option setting:
 
-    # grep maxpoll /etc/ntp.conf
+# grep maxpoll /etc/ntp.conf
 
-    server 0.rhel.pool.ntp.org iburst maxpoll 10
+server 0.rhel.pool.ntp.org iburst maxpoll 10
 
-    If the option is set to \"17\" or is not set, this is a finding.
+If the option is set to \"17\" or is not set, this is a finding.
 
-    If the file does not exist, check the \"/etc/cron.daily\" subdirectory for
-a crontab file controlling the execution of the \"ntpd -q\" command.
+If the file does not exist, check the \"/etc/cron.daily\" subdirectory for a crontab file 
+controlling the execution of the \"ntpd -q\" command.
 
-    # grep -i \"ntpd -q\" /etc/cron.daily/*
-    # ls -al /etc/cron.* | grep ntp
+# grep -i \"ntpd -q\" /etc/cron.daily/*
+# ls -al /etc/cron.* | grep ntp
 
-    ntp
+ntp
 
-    If a crontab file does not exist in the \"/etc/cron.daily\" that executes
-the \"ntpd -q\" command, this is a finding.
+If a crontab file does not exist in the \"/etc/cron.daily\" that executes the \"ntpd -q\" 
+command, this is a finding.
 
-    If the \"chronyd\" process is found, then check the \"chrony.conf\" file
-for the \"maxpoll\" option setting:
+If the \"chronyd\" process is found, then check the \"chrony.conf\" file for the \"maxpoll\" 
+option setting:
 
-    # grep maxpoll /etc/chrony.conf
+# grep maxpoll /etc/chrony.conf
 
-    server 0.rhel.pool.ntp.org iburst maxpoll 10
+server 0.rhel.pool.ntp.org iburst maxpoll 10
 
-    If the option is not set or the line is commented out, this is a finding.
-  "
-  desc  "fix", "
-    Edit the \"/etc/ntp.conf\" or \"/etc/chrony.conf\" file and add or update
-an entry to define \"maxpoll\" to \"10\" as follows:
+If the option is not set or the line is commented out, this is a finding." 
+  desc "fix", "Edit the \"/etc/ntp.conf\" or \"/etc/chrony.conf\" file and add or update an 
+entry to define \"maxpoll\" to \"10\" as follows:
 
-    server 0.rhel.pool.ntp.org iburst maxpoll 10
+server 0.rhel.pool.ntp.org iburst maxpoll 10
 
-    If NTP was running and \"maxpoll\" was updated, the NTP service must be
-restarted:
+If NTP was running and \"maxpoll\" was updated, the NTP service must be restarted:
 
-    # systemctl restart ntpd
+# systemctl restart ntpd
 
-    If NTP was not running, it must be started:
+If NTP was not running, it must be started:
 
-    # systemctl start ntpd
+# systemctl start ntpd 
 
-    If \"chronyd\" was running and \"maxpoll\" was updated, the service must be
-restarted:
+If \"chronyd\" was running and \"maxpoll\" was updated, the service must be restarted:
 
-    # systemctl restart chronyd.service
+# systemctl restart chronyd.service
 
-    If \"chronyd\" was not running, it must be started:
+If \"chronyd\" was not running, it must be started:
 
-    # systemctl start chronyd.service
-  "
+# systemctl start chronyd.service" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000355-GPOS-00143"
   tag satisfies: ["SRG-OS-000355-GPOS-00143", "SRG-OS-000356-GPOS-00144"]
   tag gid: "V-72269"

@@ -7,26 +7,23 @@ character or block special devices. Executing character or block special
 devices from untrusted file systems increases the opportunity for unprivileged
 users to attain unauthorized administrative access."
   desc  "rationale", ""
-  desc  "check", "
-    Verify that the \"nodev\" option is configured for /dev/shm:
+  desc "check", "Verify that the \"nodev\" option is configured for /dev/shm:
 
 
-    # cat /etc/fstab | grep /dev/shm
-    tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0
+# cat /etc/fstab | grep /dev/shm
+tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0
 
-    If any results are returned and the \"nodev\" option is not listed, this is
-a finding.
+If any results are returned and the \"nodev\" option is not listed, this is a finding.
 
-    Verify \"/dev/shm\" is mounted with the \"nodev\" option:
+Verify \"/dev/shm\" is mounted with the \"nodev\" option:
 
-    # mount | grep \"/dev/shm\" | grep nodev
+# mount | grep \"/dev/shm\" | grep nodev
 
-    If no results are returned, this is a finding.
-  "
+If no results are returned, this is a finding." 
   desc  "fix", "Configure the system so that /dev/shm is mounted with the
 \"nodev\" option."
   impact 0.3
-  tag severity: nil
+  tag severity: "low"
   tag gtitle: "SRG-OS-000368-GPOS-00154"
   tag gid: "V-81009"
   tag rid: "SV-95721r2_rule"
@@ -39,4 +36,3 @@ a finding.
     its('options') { should include 'nodev' }
   end
 end
-

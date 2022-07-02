@@ -22,65 +22,53 @@ storage repositories combined), or both.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Confirm the audit configuration regarding how auditing processing failures
+  desc "check", "Confirm the audit configuration regarding how auditing processing failures 
 are handled.
 
-    Check to see what level \"auditctl\" is set to with following command:
+Check to see what level \"auditctl\" is set to with following command: 
 
-    # auditctl -s | grep -i \"fail\"
+# auditctl -s | grep -i \"fail\"
 
-    failure 2
+failure 2
 
-    If the value of \"failure\" is set to \"2\", the system is configured to
-panic (shut down) in the event of an auditing failure.
+Note: If the value of \"failure\" is set to \"2\", the system is configured to panic (shut down) in the 
+event of an auditing failure. If the value of \"failure\" is set to \"1\", the system is 
+configured to only send information to the kernel log regarding the failure.
 
-    If the value of \"failure\" is set to \"1\", the system is configured to
-only send information to the kernel log regarding the failure.
+If the \"failure\" setting is set to any value other than \"1\" or \"2\", this is a finding.
 
-    If the \"failure\" setting is not set, this is a CAT I finding.
+If the \"failure\" setting is not set, this should be upgraded to a CAT I finding.
 
-    If the \"failure\" setting is set to any value other than \"1\" or \"2\",
-this is a CAT II finding.
+If the \"failure\" setting is set to \"1\" but the availability concern is not documented or 
+there is no monitoring of the kernel log, this should be downgraded to a CAT III finding." 
+  desc "fix", "Configure the operating system to shut down in the event of an audit processing failure.
 
-    If the \"failure\" setting is set to \"1\" but the availability concern is
-not documented or there is no monitoring of the kernel log, this is a CAT III
-finding.
-  "
-  desc  "fix", "
-    Configure the operating system to shut down in the event of an audit
-processing failure.
+Add or correct the option to shut down the operating system with the following command:
 
-    Add or correct the option to shut down the operating system with the
-following command:
+# auditctl -f 2
 
-    # auditctl -f 2
+Edit the \"/etc/audit/rules.d/audit.rules\" file and add the following line:
 
-    Edit the \"/etc/audit/rules.d/audit.rules\" file and add the following line:
+-f 2
 
-    -f 2
+If availability has been determined to be more important, and this decision is documented with 
+the ISSO, configure the operating system to notify system administration staff and ISSO 
+staff in the event of an audit processing failure with the following command:
 
-    If availability has been determined to be more important, and this decision
-is documented with the ISSO, configure the operating system to notify system
-administration staff and ISSO staff in the event of an audit processing failure
-with the following command:
+# auditctl -f 1
 
-    # auditctl -f 1
+Edit the \"/etc/audit/rules.d/audit.rules\" file and add the following line:
 
-    Edit the \"/etc/audit/rules.d/audit.rules\" file and add the following line:
+-f 1
 
-    -f 1
+Kernel log monitoring must also be configured to properly alert designated staff.
 
-    Kernel log monitoring must also be configured to properly alert designated
-staff.
-
-    The audit daemon must be restarted for the changes to take effect.
-  "
-  tag severity: nil
+The audit daemon must be restarted for the changes to take effect." 
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000046-GPOS-00022"
   tag satisfies: ["SRG-OS-000046-GPOS-00022", "SRG-OS-000047-GPOS-00023"]
   tag gid: "V-72081"
-  tag rid: "SV-86705r4_rule"
+  tag rid: "SV-86705r5_rule"
   tag stig_id: "RHEL-07-030010"
   tag fix_id: "F-78433r2_fix"
   tag cci: ["CCI-000139"]
@@ -89,11 +77,11 @@ staff.
   monitor_kernel_log = input('monitor_kernel_log')
 
   if auditd.status['failure'].nil?
-    impact 0.7
+  impact "0.5"
   elsif auditd.status['failure'].match?(%r{^1$}) && !monitor_kernel_log
-    impact 0.3
+  impact "0.5"
   else
-    impact 0.5
+  impact "0.5"
   end
 
   if !monitor_kernel_log

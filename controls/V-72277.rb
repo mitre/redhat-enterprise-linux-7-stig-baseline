@@ -8,23 +8,18 @@ sufficient for preventing unauthorized access to the system, as it does not
 require interactive identification and authentication of a connection request,
 or for the use of two-factor authentication."
   desc  "rationale", ""
-  desc  "check", "
-    Verify there are no \".shosts\" files on the system.
+  desc "check", "Verify there are no \".shosts\" files on the system.
 
-    Check the system for the existence of these files with the following
-command:
+Check the system for the existence of these files with the following command:
 
-    # find / -name '*.shosts'
+# find / -name '*.shosts'
 
-    If any \".shosts\" files are found on the system, this is a finding.
-  "
-  desc  "fix", "
-    Remove any found \".shosts\" files from the system.
+If any \".shosts\" files are found on the system, this is a finding." 
+  desc "fix", "Remove any found \".shosts\" files from the system.
 
-    # rm /[path]/[to]/[file]/.shosts
-  "
+# rm /[path]/[to]/[file]/.shosts" 
   impact 0.7
-  tag severity: nil
+  tag severity: "high"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72277"
   tag rid: "SV-86901r2_rule"
@@ -37,4 +32,3 @@ command:
     its('stdout.strip') { should be_empty }
   end
 end
-

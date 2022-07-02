@@ -15,41 +15,34 @@ configured.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system has the screen package installed.
+  desc "check", "Verify the operating system has the screen package installed.
 
-    Check to see if the screen package is installed with the following command:
+Check to see if the screen package is installed with the following command:
 
-    # yum list installed screen
-    screen-4.3.1-3-x86_64.rpm
+# yum list installed screen
+screen-4.3.1-3-x86_64.rpm
 
-    If the screen package is not installed, check to see if the tmux package is
-installed with the following command:
+If the screen package is not installed, check to see if the tmux package is installed with the 
+following command:
 
-    #yum list installed tmux
-    tmux-1.8-4.el7.x86_64.rpm
+#yum list installed tmux
+tmux-1.8-4.el7.x86_64.rpm 
 
-    If either the screen package or the tmux package is not installed, this is
-a finding.
-  "
-  desc  "fix", "
-    Install the screen package to allow the initiation of a session lock after
-a 15-minute period of inactivity.
+If either the screen package or the tmux package is not installed, this is a finding." 
+  desc "fix", "Install the screen package to allow the initiation of a session lock after a 
+15-minute period of inactivity.
 
-    Install the screen program (if it is not on the system) with the following
-command:
+Install the screen program (if it is not on the system) with the following command:
 
-    # yum install screen
+# yum install screen 
 
-    OR
+OR
 
-    Install the tmux program (if it is not on the system) with the following
-command:
+Install the tmux program (if it is not on the system) with the following command:
 
-    #yum install tmux
-  "
+#yum install tmux" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000029-GPOS-00010"
   tag gid: "V-71897"
   tag rid: "SV-86521r3_rule"
@@ -68,4 +61,3 @@ command:
     end
   end
 end
-

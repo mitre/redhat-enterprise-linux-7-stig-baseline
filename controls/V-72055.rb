@@ -5,25 +5,19 @@ that the cron.allow file, if it exists, is group-owned by root."
   desc  "If the group owner of the \"cron.allow\" file is not set to root,
 sensitive information could be viewed or edited by unauthorized users."
   desc  "rationale", ""
-  desc  "check", "
-    Verify that the \"cron.allow\" file is group-owned by root.
+  desc "check", "Verify that the \"cron.allow\" file is group-owned by root.
 
-    Check the group owner of the \"cron.allow\" file with the following command:
+Check the group owner of the \"cron.allow\" file with the following command:
 
-    # ls -al /etc/cron.allow
-    -rw------- 1 root root 6 Mar  5  2011 /etc/cron.allow
+# ls -al /etc/cron.allow
+-rw------- 1 root root 6 Mar 5 2011 /etc/cron.allow
 
-    If the \"cron.allow\" file exists and has a group owner other than root,
-this is a finding.
-  "
-  desc  "fix", "
-    Set the group owner on the \"/etc/cron.allow\" file to root with the
-following command:
+If the \"cron.allow\" file exists and has a group owner other than root, this is a finding." 
+  desc "fix", "Set the group owner on the \"/etc/cron.allow\" file to root with the following command:
 
-    # chgrp root /etc/cron.allow
-  "
+# chgrp root /etc/cron.allow" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72055"
   tag rid: "SV-86679r2_rule"
@@ -43,4 +37,3 @@ following command:
     end
   end
 end
-

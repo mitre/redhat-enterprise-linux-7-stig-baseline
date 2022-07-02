@@ -8,25 +8,20 @@ integrating authentication methods. PAM operates in a top-down processing model
 and if the modules are not listed in the correct order, an important security
 function could be bypassed if stack entries are not centralized."
   desc  "rationale", ""
-  desc  "check", "
-    Verify that /etc/pam.d/passwd is configured to use /etc/pam.d/system-auth
+  desc "check", "Verify that /etc/pam.d/passwd is configured to use /etc/pam.d/system-auth 
 when changing passwords:
 
-    # cat /etc/pam.d/passwd | grep -i substack | grep -i system-auth
-    password     substack     system-auth
+# cat /etc/pam.d/passwd | grep -i substack | grep -i system-auth
+password substack system-auth
 
-    If no results are returned, the line is commented out, this is a finding.
-  "
-  desc  "fix", "
-    Configure PAM to utilize /etc/pam.d/system-auth when changing passwords.
+If no results are returned, the line is commented out, this is a finding." 
+  desc "fix", "Configure PAM to utilize /etc/pam.d/system-auth when changing passwords.
 
-    Add the following line to \"/etc/pam.d/passwd\" (or modify the line to have
-the required value):
+Add the following line to \"/etc/pam.d/passwd\" (or modify the line to have the required value):
 
-    password     substack    system-auth
-  "
+password substack system-auth" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000069-GPOS-00037"
   tag gid: "V-81003"
   tag rid: "SV-95715r1_rule"
@@ -48,4 +43,3 @@ the required value):
     end
   end
 end
-

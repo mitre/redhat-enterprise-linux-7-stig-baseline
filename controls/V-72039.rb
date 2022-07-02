@@ -7,7 +7,23 @@ modification."
 system, there is the possibility the system may perform unintended or
 unauthorized operations."
   desc  "rationale", ""
-  desc  "check", "
+  desc "check", "Verify that all system device files are correctly labeled to prevent 
+unauthorized modification.
+
+List all device files on the system that are incorrectly labeled with the following commands:
+
+Note: Device files are normally found under \"/dev\", but applications may place device files in 
+other directories and may necessitate a search of the entire system.
+
+#find /dev -context *:device_t:* \\( -type c -o -type b \\) -printf \"%p %Z \"
+
+#find /dev -context *:unlabeled_t:* \\( -type c -o -type b \\) -printf \"%p %Z \"
+
+Note: There are device files, such as \"/dev/vmci\", that are used when the operating system is a 
+host virtual machine. They will not be owned by a user on the system and require the 
+\"device_t\" label to operate. These device files are not a finding.
+
+If there is output from either of these commands, other than already noted, this is a finding." 
     Verify that all system device files are correctly labeled to prevent
 unauthorized modification.
 
@@ -33,22 +49,19 @@ are not a finding.
     If there is output from either of these commands, other than already noted,
 this is a finding.
   "
-  desc  "fix", "
-    Run the following command to determine which package owns the device file:
+  desc "fix", "Run the following command to determine which package owns the device file:
 
-    # rpm -qf <filename>
+# rpm -qf <filename>
 
-    The package can be reinstalled from a yum repository using the command:
+The package can be reinstalled from a yum repository using the command:
 
-    # sudo yum reinstall <packagename>
+# sudo yum reinstall <packagename>
 
-    Alternatively, the package can be reinstalled from trusted media using the
-command:
+Alternatively, the package can be reinstalled from trusted media using the command:
 
-    # sudo rpm -Uvh <packagename>
-  "
+# sudo rpm -Uvh <packagename>" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72039"
   tag rid: "SV-86663r2_rule"
@@ -74,4 +87,3 @@ command:
     end
   end
 end
-

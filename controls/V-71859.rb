@@ -46,50 +46,39 @@ Agreement for details.\"
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system displays the Standard Mandatory DoD Notice and
-Consent Banner before granting access to the operating system via a graphical
-user logon.
+  desc "check", "Verify the operating system displays the Standard Mandatory DoD Notice and 
+Consent Banner before granting access to the operating system via a graphical user logon.
 
-    Note: If the system does not have GNOME installed, this requirement is Not
-Applicable.
+Note: If the system does not have GNOME installed, this requirement is Not Applicable. 
 
-    Check to see if the operating system displays a banner at the logon screen
-with the following command:
+Check to see if the operating system displays a banner at the logon screen with the following command:
 
-    # grep banner-message-enable /etc/dconf/db/local.d/*
-    banner-message-enable=true
+# grep banner-message-enable /etc/dconf/db/local.d/*
+banner-message-enable=true
 
-    If \"banner-message-enable\" is set to \"false\" or is missing, this is a
-finding.
-  "
-  desc  "fix", "
-    Configure the operating system to display the Standard Mandatory DoD Notice
-and Consent Banner before granting access to the system.
+If \"banner-message-enable\" is set to \"false\" or is missing, this is a finding." 
+  desc "fix", "Configure the operating system to display the Standard Mandatory DoD Notice and 
+Consent Banner before granting access to the system.
 
-    Note: If the system does not have GNOME installed, this requirement is Not
-Applicable.
+Note: If the system does not have GNOME installed, this requirement is Not Applicable.
 
-    Create a database to contain the system-wide graphical user logon settings
-(if it does not already exist) with the following command:
+Create a database to contain the system-wide graphical user logon settings (if it does not already 
+exist) with the following command:
 
-    # touch /etc/dconf/db/local.d/01-banner-message
+# touch /etc/dconf/db/local.d/01-banner-message
 
-    Add the following line to the [org/gnome/login-screen] section of the
-\"/etc/dconf/db/local.d/01-banner-message\":
+Add the following line to the [org/gnome/login-screen] section of the \"/etc/dconf/db/local.d/01-banner-message\":
 
-    [org/gnome/login-screen]
-    banner-message-enable=true
+[org/gnome/login-screen]
+banner-message-enable=true
 
-    Update the system databases:
+Update the system databases:
 
-    # dconf update
+# dconf update
 
-    Users must log out and back in again before the system-wide settings take
-effect.
-  "
-  impact 0.5
-  tag severity: nil
+Users must log out and back in again before the system-wide settings take effect." 
+  impact "0.5"
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000023-GPOS-00006"
   tag satisfies: ["SRG-OS-000023-GPOS-00006", "SRG-OS-000024-GPOS-00007",
 "SRG-OS-000228-GPOS-00088"]
@@ -111,10 +100,9 @@ effect.
       end
     end
   else
-    impact 0.0
+  impact "0.5"
     describe "The GNOME desktop is not installed" do      
       skip "The GNOME desktop is not installed, this control is Not Applicable."
     end
   end
 end
-

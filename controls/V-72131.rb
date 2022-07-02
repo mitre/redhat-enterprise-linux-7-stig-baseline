@@ -13,58 +13,43 @@ information system (e.g., module or policy filter).
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when 
 successful/unsuccessful attempts to use the \"truncate\" syscall occur.
 
-    Check the file system rules in \"/etc/audit/audit.rules\" with the
-following commands:
+Check the file system rules in \"/etc/audit/audit.rules\" with the following commands:
 
-    # grep -iw truncate /etc/audit/audit.rules
+# grep -iw truncate /etc/audit/audit.rules
 
-    -a always,exit -F arch=b32 -S truncate -F exit=-EPERM -F auid>=1000 -F
-auid!=4294967295 -k access
+-a always,exit -F arch=b32 -S truncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
 
-    -a always,exit -F arch=b32 -S truncate -F exit=-EACCES -F auid>=1000 -F
-auid!=4294967295 -k access
+-a always,exit -F arch=b32 -S truncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
 
-    -a always,exit -F arch=b64 -S truncate -F exit=-EPERM -F auid>=1000 -F
-auid!=4294967295 -k access
+-a always,exit -F arch=b64 -S truncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
 
-    -a always,exit -F arch=b64 -S truncate -F exit=-EACCES -F auid>=1000 -F
-auid!=4294967295 -k access
+-a always,exit -F arch=b64 -S truncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
 
-    If both the \"b32\" and \"b64\" audit rules are not defined for the
-\"truncate\" syscall, this is a finding.
-
-    If the output does not produce rules containing \"-F exit=-EPERM\", this is
+If both the \"b32\" and \"b64\" audit rules are not defined for the \"truncate\" syscall, this is 
 a finding.
 
-    If the output does not produce rules containing \"-F exit=-EACCES\", this
-is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to generate audit records when
+If the output does not produce rules containing \"-F exit=-EPERM\", this is a finding.
+
+If the output does not produce rules containing \"-F exit=-EACCES\", this is a finding." 
+  desc "fix", "Configure the operating system to generate audit records when 
 successful/unsuccessful attempts to use the \"truncate\" syscall occur.
 
-    Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":
+Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":
 
-    -a always,exit -F arch=b32 -S truncate -F exit=-EPERM -F auid>=1000 -F
-auid!=4294967295 -k access
+-a always,exit -F arch=b32 -S truncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
 
-    -a always,exit -F arch=b32 -S truncate -F exit=-EACCES -F auid>=1000 -F
-auid!=4294967295 -k access
+-a always,exit -F arch=b32 -S truncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
 
-    -a always,exit -F arch=b64 -S truncate -F exit=-EPERM -F auid>=1000 -F
-auid!=4294967295 -k access
+-a always,exit -F arch=b64 -S truncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
 
-    -a always,exit -F arch=b64 -S truncate -F exit=-EACCES -F auid>=1000 -F
-auid!=4294967295 -k access
+-a always,exit -F arch=b64 -S truncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
 
-    The audit daemon must be restarted for the changes to take effect.
-  "
+The audit daemon must be restarted for the changes to take effect." 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000064-GPOS-00033"
   tag satisfies: ["SRG-OS-000064-GPOS-00033", "SRG-OS-000458-GPOS-00203",
 "SRG-OS-000461-GPOS-00205", "SRG-OS-000392-GPOS-00172"]
@@ -98,4 +83,3 @@ auid!=4294967295 -k access
     end
   end
 end
-

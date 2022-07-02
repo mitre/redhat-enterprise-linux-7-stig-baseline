@@ -5,21 +5,17 @@ system for /var."
   desc  "The use of separate file systems for different paths can protect the
 system from failures resulting from a file system becoming full or failing."
   desc  "rationale", ""
-  desc  "check", "
-    Verify that a separate file system/partition has been created for \"/var\".
+  desc "check", "Verify that a separate file system/partition has been created for \"/var\".
 
-    Check that a file system/partition has been created for \"/var\" with the
-following command:
+Check that a file system/partition has been created for \"/var\" with the following command:
 
-    # grep /var /etc/fstab
-    UUID=c274f65f    /var                    ext4    noatime,nobarrier        1
-2
+# grep /var /etc/fstab
+UUID=c274f65f /var ext4 noatime,nobarrier 1 2
 
-    If a separate entry for \"/var\" is not in use, this is a finding.
-  "
+If a separate entry for \"/var\" is not in use, this is a finding." 
   desc  "fix", "Migrate the \"/var\" path onto a separate file system."
   impact 0.3
-  tag severity: nil
+  tag severity: "low"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72061"
   tag rid: "SV-86685r2_rule"
@@ -32,4 +28,3 @@ following command:
     it { should be_mounted }
   end
 end
-

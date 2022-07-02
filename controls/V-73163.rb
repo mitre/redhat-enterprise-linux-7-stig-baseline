@@ -6,31 +6,26 @@ audit records to a remote system."
   desc  "Taking appropriate action when there is an error sending audit records
 to a remote system will minimize the possibility of losing audit records."
   desc  "rationale", ""
-  desc  "check", "
-    Verify the action the operating system takes if there is an error sending
+  desc "check", "Verify the action the operating system takes if there is an error sending audit 
+records to a remote system.
+
+Check the action that takes place if there is an error sending audit records to a remote system with 
+the following command:
+
+# grep -i network_failure_action /etc/audisp/audisp-remote.conf
+network_failure_action = syslog
+
+If the value of the \"network_failure_action\" option is not \"syslog\", \"single\", or 
+\"halt\", or the line is commented out, this is a finding." 
+  desc "fix", "Configure the action the operating system takes if there is an error sending 
 audit records to a remote system.
 
-    Check the action that takes place if there is an error sending audit
-records to a remote system with the following command:
+Uncomment the \"network_failure_action\" option in \"/etc/audisp/audisp-remote.conf\" and set it 
+to \"syslog\", \"single\", or \"halt\".
 
-    # grep -i network_failure_action /etc/audisp/audisp-remote.conf
-    network_failure_action = syslog
-
-    If the value of the \"network_failure_action\" option is not \"syslog\",
-\"single\", or \"halt\", or the line is commented out, this is a finding.
-  "
-  desc  "fix", "
-    Configure the action the operating system takes if there is an error
-sending audit records to a remote system.
-
-    Uncomment the \"network_failure_action\" option in
-\"/etc/audisp/audisp-remote.conf\" and set it to \"syslog\", \"single\", or
-\"halt\".
-
-    network_failure_action = syslog
-  "
+network_failure_action = syslog" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000342-GPOS-00133"
   tag gid: "V-73163"
   tag rid: "SV-87815r3_rule"
@@ -43,4 +38,3 @@ sending audit records to a remote system.
     its('network_failure_action'.to_s) { should be_in ['syslog', 'single', 'halt'] }
   end
 end
-

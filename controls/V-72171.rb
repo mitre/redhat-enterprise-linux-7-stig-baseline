@@ -13,46 +13,33 @@ compromise.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when 
 successful/unsuccessful attempts to use the \"mount\" command and syscall occur.
 
-    Check that the following system call is being audited by performing the
-following series of commands to check the file system rules in
-\"/etc/audit/audit.rules\":
+Check that the following system call is being audited by performing the following series of 
+commands to check the file system rules in \"/etc/audit/audit.rules\": 
 
-    # grep -iw \"mount\" /etc/audit/audit.rules
+# grep -iw \"mount\" /etc/audit/audit.rules
 
-    -a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k
-privileged-mount
-    -a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k
-privileged-mount
-    -a always,exit -F path=/usr/bin/mount -F auid>=1000 -F auid!=4294967295 -k
-privileged-mount
+-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k privileged-mount
+-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k privileged-mount
+-a always,exit -F path=/usr/bin/mount -F auid>=1000 -F auid!=4294967295 -k privileged-mount
 
-    If both the \"b32\" and \"b64\" audit rules are not defined for the
-\"mount\" syscall, this is a finding.
+If both the \"b32\" and \"b64\" audit rules are not defined for the \"mount\" syscall, this is a finding.
 
-    If all uses of the \"mount\" command are not being audited, this is a
-finding.
-  "
-  desc  "fix", "
-    Configure the operating system to generate audit records when
+If all uses of the \"mount\" command are not being audited, this is a finding." 
+  desc "fix", "Configure the operating system to generate audit records when 
 successful/unsuccessful attempts to use the \"mount\" command and syscall occur.
 
-    Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":
+Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":
 
-    -a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k
-privileged-mount
-    -a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k
-privileged-mount
-    -a always,exit -F path=/usr/bin/mount -F auid>=1000 -F auid!=4294967295 -k
-privileged-mount
+-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k privileged-mount
+-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k privileged-mount
+-a always,exit -F path=/usr/bin/mount -F auid>=1000 -F auid!=4294967295 -k privileged-mount
 
-    The audit daemon must be restarted for the changes to take effect.
-  "
+The audit daemon must be restarted for the changes to take effect." 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000042-GPOS-00020"
   tag satisfies: ["SRG-OS-000042-GPOS-00020", "SRG-OS-000392-GPOS-00172"]
   tag gid: "V-72171"
@@ -79,5 +66,3 @@ privileged-mount
     its('list.uniq') { should eq ['exit'] }
   end
 end
-
-

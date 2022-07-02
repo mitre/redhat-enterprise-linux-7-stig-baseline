@@ -12,48 +12,42 @@ enabling distribution of the public key to verify the hash information while
 maintaining the confidentiality of the key used to generate the hash.
   "
   desc  "rationale", ""
-  desc  "check", "
-    If LDAP is not being utilized, this requirement is Not Applicable.
+  desc "check", "If LDAP is not being utilized, this requirement is Not Applicable.
 
-    Verify the operating system implements cryptography to protect the
-integrity of remote LDAP authentication sessions.
+Verify the operating system implements cryptography to protect the integrity of remote LDAP 
+authentication sessions.
 
-    To determine if LDAP is being used for authentication, use the following
-command:
+To determine if LDAP is being used for authentication, use the following command:
 
-    # systemctl status sssd.service
-    sssd.service - System Security Services Daemon
-    Loaded: loaded (/usr/lib/systemd/system/sssd.service; enabled; vendor
-preset: disabled)
-    Active: active (running) since Wed 2018-06-27 10:58:11 EST; 1h 50min ago
+# systemctl status sssd.service
+sssd.service - System Security Services Daemon
+Loaded: loaded (/usr/lib/systemd/system/sssd.service; enabled; vendor preset: disabled)
+Active: active (running) since Wed 2018-06-27 10:58:11 EST; 1h 50min ago
 
-    If the \"sssd.service\" is \"active\", then LDAP is being used.
+If the \"sssd.service\" is \"active\", then LDAP is being used. 
 
-    Determine the \"id_provider\" the LDAP is currently using:
+Determine the \"id_provider\" the LDAP is currently using:
 
-    # grep -i \"id_provider\" /etc/sssd/sssd.conf
+# grep -i \"id_provider\" /etc/sssd/sssd.conf
 
-    id_provider = ad
+id_provider = ad
 
-    If \"id_provider\" is set to \"ad\", this is Not Applicable.
+If \"id_provider\" is set to \"ad\", this is Not Applicable.
 
-    Ensure that LDAP is configured to use TLS by using the following command:
+Ensure that LDAP is configured to use TLS by using the following command:
 
-    # grep -i \"start_tls\" /etc/sssd/sssd.conf
-    ldap_id_use_start_tls = true
+# grep -i \"start_tls\" /etc/sssd/sssd.conf
+ldap_id_use_start_tls = true
 
-    If the \"ldap_id_use_start_tls\" option is not \"true\", this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to implement cryptography to protect the
+If the \"ldap_id_use_start_tls\" option is not \"true\", this is a finding." 
+  desc "fix", "Configure the operating system to implement cryptography to protect the 
 integrity of LDAP authentication sessions.
 
-    Add or modify the following line in \"/etc/sssd/sssd.conf\":
+Add or modify the following line in \"/etc/sssd/sssd.conf\":
 
-    ldap_id_use_start_tls = true
-  "
-  impact 0.5
-  tag severity: nil
+ldap_id_use_start_tls = true" 
+  impact "0.5"
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000250-GPOS-00093"
   tag gid: "V-72227"
   tag rid: "SV-86851r4_rule"
@@ -68,7 +62,7 @@ integrity of LDAP authentication sessions.
   pam_ldap_enabled = (!command('grep "^[^#]*pam_ldap\.so" /etc/pam.d/*').stdout.strip.empty?)
 
   if !(sssd_id_ldap_enabled or pam_ldap_enabled)
-    impact 0.0
+  impact "0.5"
     describe "LDAP not enabled" do
       skip "LDAP not enabled using any known mechanisms, this control is Not Applicable."
     end
@@ -93,4 +87,3 @@ integrity of LDAP authentication sessions.
     end
   end
 end
-

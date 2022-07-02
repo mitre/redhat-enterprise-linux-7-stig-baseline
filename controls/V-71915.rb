@@ -14,30 +14,25 @@ number of possible combinations that need to be tested before the password is
 compromised.
   "
   desc  "rationale", ""
-  desc  "check", "
-    The \"maxrepeat\" option sets the maximum number of allowed same
-consecutive characters in a new password.
+  desc "check", "The \"maxrepeat\" option sets the maximum number of allowed same consecutive 
+characters in a new password.
 
-    Check for the value of the \"maxrepeat\" option in
-\"/etc/security/pwquality.conf\" with the following command:
+Check for the value of the \"maxrepeat\" option in \"/etc/security/pwquality.conf\" with the 
+following command:
 
-    # grep maxrepeat /etc/security/pwquality.conf
-    maxrepeat = 3
+# grep maxrepeat /etc/security/pwquality.conf 
+maxrepeat = 3
 
-    If the value of \"maxrepeat\" is set to more than \"3\", this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to require the change of the number of
-repeating consecutive characters when passwords are changed by setting the
-\"maxrepeat\" option.
+If the value of \"maxrepeat\" is set to more than \"3\", this is a finding." 
+  desc "fix", "Configure the operating system to require the change of the number of repeating 
+consecutive characters when passwords are changed by setting the \"maxrepeat\" option.
 
-    Add the following line to \"/etc/security/pwquality.conf conf\" (or modify
-the line to have the required value):
+Add the following line to \"/etc/security/pwquality.conf conf\" (or modify the line to have the 
+required value):
 
-    maxrepeat = 3
-  "
+maxrepeat = 3" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000072-GPOS-00040"
   tag gid: "V-71915"
   tag rid: "SV-86539r3_rule"
@@ -50,4 +45,3 @@ the line to have the required value):
     its('maxrepeat.to_i') { should cmp <= 3 }
   end
 end
-

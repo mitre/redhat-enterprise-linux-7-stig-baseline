@@ -7,32 +7,26 @@ users."
 unauthorized users could access or modify the user's files, and the users may
 not be able to access their own files."
   desc  "rationale", ""
-  desc  "check", "
-    Verify the assigned home directory of all local interactive users on the
+  desc "check", "Verify the assigned home directory of all local interactive users on the 
 system exists.
 
-    Check the home directory assignment for all local interactive users on the
-system with the following command:
+Check the home directory assignment for all local interactive users on the system with the 
+following command:
 
-    # ls -ld $(egrep ':[0-9]{4}' /etc/passwd | cut -d: -f6)
+# ls -ld $(egrep ':[0-9]{4}' /etc/passwd | cut -d: -f6)
 
-    -rwxr-x--- 1 smithj users 18 Mar 5 17:06 /home/smithj
+-rwxr-x--- 1 smithj users 18 Mar 5 17:06 /home/smithj
 
-    If any home directories referenced in \"/etc/passwd\" are not owned by the
-interactive user, this is a finding.
-  "
-  desc  "fix", "
-    Change the owner of a local interactive user's home directories to that
-owner. To change the owner of a local interactive user's home directory, use
-the following command:
+If any home directories referenced in \"/etc/passwd\" are not owned by the interactive user, 
+this is a finding." 
+  desc "fix", "Change the owner of a local interactive user's home directories to that owner. To 
+change the owner of a local interactive user's home directory, use the following command:
 
-    Note: The example will be for the user smithj, who has a home directory of
-\"/home/smithj\".
+Note: The example will be for the user smithj, who has a home directory of \"/home/smithj\".
 
-    # chown smithj /home/smithj
-  "
+# chown smithj /home/smithj" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72019"
   tag rid: "SV-86643r5_rule"
@@ -58,4 +52,3 @@ the following command:
     end
   end
 end
-

@@ -30,29 +30,25 @@ control "V-72427" do
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system implements multifactor authentication for
-    remote access to privileged accounts via pluggable authentication modules (PAM).
+  desc "check", "Verify the operating system implements multifactor authentication for 
+remote access to privileged accounts via pluggable authentication modules (PAM).
 
-        Check the \"/etc/sssd/sssd.conf\" file for the authentication services that
-    are being used with the following command:
+Check the \"/etc/sssd/sssd.conf\" file for the authentication services that are being used with 
+the following command:
 
-        # grep services /etc/sssd/sssd.conf /etc/sssd/conf.d/*.conf
+# grep services /etc/sssd/sssd.conf /etc/sssd/conf.d/*.conf
 
-        services = nss, pam
+services = nss, pam
 
-        If the \"pam\" service is not present on all \"services\" lines, this is a
-    finding.
-  "
-  desc  "fix", "
-    Configure the operating system to implement multifactor authentication for
-    remote access to privileged accounts via pluggable authentication modules (PAM).
+If the \"pam\" service is not present on all \"services\" lines, this is a finding." 
+  desc "fix", "Configure the operating system to implement multifactor authentication for 
+remote access to privileged accounts via pluggable authentication modules (PAM).
 
-        Modify all of the services lines in \"/etc/sssd/sssd.conf\" or in
-    configuration files found under \"/etc/sssd/conf.d\" to include pam."
+Modify all of the services lines in \"/etc/sssd/sssd.conf\" or in configuration files found under 
+\"/etc/sssd/conf.d\" to include pam." 
 
-  impact 0.5  
-  tag severity: nil
+  impact "0.5"
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000375-GPOS-00160"
   tag satisfies: ["SRG-OS-000375-GPOS-00160", "SRG-OS-000375-GPOS-00161",
 "SRG-OS-000375-GPOS-00162"]
@@ -64,7 +60,7 @@ control "V-72427" do
   tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)"]
 
   unless package('sssd').installed?
-    impact 0.0
+  impact "0.5"
     describe "The SSSD Package is not installed on the system" do
       skip "This control is Not Appliciable without the SSSD Package installed."
     end

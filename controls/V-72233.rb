@@ -22,23 +22,19 @@ have to be employed, and vice versa.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Check to see if sshd is installed with the following command:
+  desc "check", "Check to see if sshd is installed with the following command:
 
-    # yum list installed \\*ssh\\*
-    libssh2.x86_64 1.4.3-8.el7 @anaconda/7.1
-    openssh.x86_64 6.6.1p1-11.el7 @anaconda/7.1
-    openssh-server.x86_64 6.6.1p1-11.el7 @anaconda/7.1
+# yum list installed \\*ssh\\*
+libssh2.x86_64 1.4.3-8.el7 @anaconda/7.1
+openssh.x86_64 6.6.1p1-11.el7 @anaconda/7.1
+openssh-server.x86_64 6.6.1p1-11.el7 @anaconda/7.1
 
-    If the \"SSH server\" package is not installed, this is a finding.
-  "
-  desc  "fix", "
-    Install SSH packages onto the host with the following commands:
+If the \"SSH server\" package is not installed, this is a finding." 
+  desc "fix", "Install SSH packages onto the host with the following commands:
 
-    # yum install openssh-server.x86_64
-  "
+# yum install openssh-server.x86_64" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000423-GPOS-00187"
   tag satisfies: ["SRG-OS-000423-GPOS-00187", "SRG-OS-000424-GPOS-00188",
 "SRG-OS-000425-GPOS-00189", "SRG-OS-000426-GPOS-00190"]
@@ -56,4 +52,3 @@ have to be employed, and vice versa.
     it { should be_installed }
   end
 end
-

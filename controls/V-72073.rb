@@ -7,56 +7,48 @@ hashes for validating file contents and directories."
 contents and directories have not been altered. These hashes must be FIPS 140-2
 approved cryptographic hashes."
   desc  "rationale", ""
-  desc  "check", "
-    Verify the file integrity tool is configured to use FIPS 140-2 approved
+  desc "check", "Verify the file integrity tool is configured to use FIPS 140-2 approved 
 cryptographic hashes for validating file contents and directories.
 
-    Note: If RHEL-07-021350 is a finding, this is automatically a finding too
-as the system cannot implement FIPS 140-2 approved cryptographic algorithms and
-hashes.
+Note: If RHEL-07-021350 is a finding, this is automatically a finding too as the system cannot 
+implement FIPS 140-2 approved cryptographic algorithms and hashes.
 
-    Check to see if Advanced Intrusion Detection Environment (AIDE) is
-installed on the system with the following command:
+Check to see if Advanced Intrusion Detection Environment (AIDE) is installed on the system with the 
+following command:
 
-    # yum list installed aide
+# yum list installed aide
 
-    If AIDE is not installed, ask the System Administrator how file integrity
-checks are performed on the system.
+If AIDE is not installed, ask the System Administrator how file integrity checks are performed 
+on the system. 
 
-    If there is no application installed to perform file integrity checks, this
-is a finding.
+If there is no application installed to perform file integrity checks, this is a finding.
 
-    Note: AIDE is highly configurable at install time. These commands assume
-the \"aide.conf\" file is under the \"/etc\" directory.
+Note: AIDE is highly configurable at install time. These commands assume the \"aide.conf\" file is 
+under the \"/etc\" directory. 
 
-    Use the following command to determine if the file is in another location:
+Use the following command to determine if the file is in another location:
 
-    # find / -name aide.conf
+# find / -name aide.conf
 
-    Check the \"aide.conf\" file to determine if the \"sha512\" rule has been
-added to the rule list being applied to the files and directories selection
-lists.
+Check the \"aide.conf\" file to determine if the \"sha512\" rule has been added to the rule list 
+being applied to the files and directories selection lists.
 
-    An example rule that includes the \"sha512\" rule follows:
+An example rule that includes the \"sha512\" rule follows:
 
-    All=p+i+n+u+g+s+m+S+sha512+acl+xattrs+selinux
-    /bin All # apply the custom rule to the files in bin
-    /sbin All # apply the same custom rule to the files in sbin
+All=p+i+n+u+g+s+m+S+sha512+acl+xattrs+selinux
+/bin All # apply the custom rule to the files in bin 
+/sbin All # apply the same custom rule to the files in sbin 
 
-    If the \"sha512\" rule is not being used on all uncommented selection lines
-in the \"/etc/aide.conf\" file, or another file integrity tool is not using
-FIPS 140-2 approved cryptographic hashes for validating file contents and
-directories, this is a finding.
-  "
-  desc  "fix", "
-    Configure the file integrity tool to use FIPS 140-2 cryptographic hashes
-for validating file and directory contents.
+If the \"sha512\" rule is not being used on all uncommented selection lines in the 
+\"/etc/aide.conf\" file, or another file integrity tool is not using FIPS 140-2 approved 
+cryptographic hashes for validating file contents and directories, this is a finding." 
+  desc "fix", "Configure the file integrity tool to use FIPS 140-2 cryptographic hashes for 
+validating file and directory contents. 
 
-    If AIDE is installed, ensure the \"sha512\" rule is present on all
-uncommented file and directory selection lists.
-  "
+If AIDE is installed, ensure the \"sha512\" rule is present on all uncommented file and 
+directory selection lists." 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72073"
   tag rid: "SV-86697r3_rule"
@@ -78,4 +70,3 @@ uncommented file and directory selection lists.
     it { should be_empty }
   end
 end
-

@@ -14,29 +14,25 @@ number of possible combinations that need to be tested before the password is
 compromised.
   "
   desc  "rationale", ""
-  desc  "check", "
-    The \"minclass\" option sets the minimum number of required classes of
+  desc "check", "The \"minclass\" option sets the minimum number of required classes of 
 characters for the new password (digits, upper-case, lower-case, others).
 
-    Check for the value of the \"minclass\" option in
-\"/etc/security/pwquality.conf\" with the following command:
+Check for the value of the \"minclass\" option in \"/etc/security/pwquality.conf\" with the 
+following command:
 
-    # grep minclass /etc/security/pwquality.conf
-    minclass = 4
+# grep minclass /etc/security/pwquality.conf 
+minclass = 4
 
-    If the value of \"minclass\" is set to less than \"4\", this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to require the change of at least four
-character classes when passwords are changed by setting the \"minclass\" option.
+If the value of \"minclass\" is set to less than \"4\", this is a finding." 
+  desc "fix", "Configure the operating system to require the change of at least four character 
+classes when passwords are changed by setting the \"minclass\" option.
 
-    Add the following line to \"/etc/security/pwquality.conf conf\" (or modify
-the line to have the required value):
+Add the following line to \"/etc/security/pwquality.conf conf\" (or modify the line to have the 
+required value):
 
-    minclass = 4
-  "
+minclass = 4" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000072-GPOS-00040"
   tag gid: "V-71913"
   tag rid: "SV-86537r2_rule"
@@ -49,4 +45,3 @@ the line to have the required value):
     its('minclass.to_i') { should cmp >= 4 }
   end
 end
-

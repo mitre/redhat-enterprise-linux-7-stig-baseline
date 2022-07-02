@@ -7,34 +7,29 @@ the time of the crash. Kernel core dumps may consume a considerable amount of
 disk space and may result in denial of service by exhausting the available
 space on the target file system partition."
   desc  "rationale", ""
-  desc  "check", "
-    Verify that kernel core dumps are disabled unless needed.
+  desc "check", "Verify that kernel core dumps are disabled unless needed.
 
-    Check the status of the \"kdump\" service with the following command:
+Check the status of the \"kdump\" service with the following command:
 
-    # systemctl status kdump.service
-    kdump.service - Crash recovery kernel arming
-       Loaded: loaded (/usr/lib/systemd/system/kdump.service; enabled)
-       Active: active (exited) since Wed 2015-08-26 13:08:09 EDT; 43min ago
-     Main PID: 1130 (code=exited, status=0/SUCCESS)
-    kernel arming.
+# systemctl status kdump.service
+kdump.service - Crash recovery kernel arming
+ Loaded: loaded (/usr/lib/systemd/system/kdump.service; enabled)
+ Active: active (exited) since Wed 2015-08-26 13:08:09 EDT; 43min ago
+ Main PID: 1130 (code=exited, status=0/SUCCESS)
+kernel arming.
 
-    If the \"kdump\" service is active, ask the System Administrator if the use
-of the service is required and documented with the Information System Security
-Officer (ISSO).
+If the \"kdump\" service is active, ask the System Administrator if the use of the service is 
+required and documented with the Information System Security Officer (ISSO).
 
-    If the service is active and is not documented, this is a finding.
-  "
-  desc  "fix", "
-    If kernel core dumps are not required, disable the \"kdump\" service with
-the following command:
+If the service is active and is not documented, this is a finding." 
+  desc "fix", "If kernel core dumps are not required, disable the \"kdump\" service with the 
+following command:
 
-    # systemctl disable kdump.service
+# systemctl disable kdump.service
 
-    If kernel core dumps are required, document the need with the ISSO.
-  "
+If kernel core dumps are required, document the need with the ISSO." 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72057"
   tag rid: "SV-86681r2_rule"
@@ -47,4 +42,3 @@ the following command:
     it { should_not be_running }
   end
 end
-

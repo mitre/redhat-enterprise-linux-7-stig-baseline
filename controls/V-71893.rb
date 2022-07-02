@@ -14,50 +14,42 @@ when a user's session has idled and take action to initiate the session lock.
 determined and/or controlled.
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system initiates a screensaver after a 15-minute
-period of inactivity for graphical user interfaces. The screen program must be
-installed to lock sessions on the console.
+  desc "check", "Verify the operating system initiates a screensaver after a 15-minute period 
+of inactivity for graphical user interfaces. The screen program must be installed to lock 
+sessions on the console.
 
-    Note: If the system does not have GNOME installed, this requirement is Not
-Applicable.
+Note: If the system does not have GNOME installed, this requirement is Not Applicable.
 
-    Check to see if GNOME is configured to display a screensaver after a 15
-minute delay with the following command:
+Check to see if GNOME is configured to display a screensaver after a 15 minute delay with the 
+following command:
 
-    # grep -i idle-delay /etc/dconf/db/local.d/*
-    idle-delay=uint32 900
+# grep -i idle-delay /etc/dconf/db/local.d/*
+idle-delay=uint32 900
 
-    If the \"idle-delay\" setting is missing or is not set to \"900\" or less,
-this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to initiate a screensaver after a 15-minute
+If the \"idle-delay\" setting is missing or is not set to \"900\" or less, this is a finding." 
+  desc "fix", "Configure the operating system to initiate a screensaver after a 15-minute 
 period of inactivity for graphical user interfaces.
 
-    Create a database to contain the system-wide screensaver settings (if it
-does not already exist) with the following command:
+Create a database to contain the system-wide screensaver settings (if it does not already exist) 
+with the following command:
 
-    # touch /etc/dconf/db/local.d/00-screensaver
+# touch /etc/dconf/db/local.d/00-screensaver
 
-    Edit /etc/dconf/db/local.d/00-screensaver and add or update the following
-lines:
+Edit /etc/dconf/db/local.d/00-screensaver and add or update the following lines:
 
-    [org/gnome/desktop/session]
-    # Set the lock time out to 900 seconds before the session is considered idle
-    idle-delay=uint32 900
+[org/gnome/desktop/session]
+# Set the lock time out to 900 seconds before the session is considered idle
+idle-delay=uint32 900
 
-    You must include the \"uint32\" along with the integer key values as shown.
+You must include the \"uint32\" along with the integer key values as shown.
 
-    Update the system databases:
+Update the system databases:
 
-    # dconf update
+# dconf update
 
-    Users must log out and back in again before the system-wide settings take
-effect.
-  "
-  impact 0.5
-  tag severity: nil
+Users must log out and back in again before the system-wide settings take effect." 
+  impact "0.5"
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000029-GPOS-00010"
   tag gid: "V-71893"
   tag rid: "SV-86517r5_rule"
@@ -67,7 +59,7 @@ effect.
   tag nist: ["AC-11 a"]
 
   unless package('gnome-desktop3').installed?
-    impact 0.0
+  impact "0.5"
     describe "The system does not have GNOME installed" do
       skip "The system does not have GNOME installed, this requirement is Not
       Applicable."

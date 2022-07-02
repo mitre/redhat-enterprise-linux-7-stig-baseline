@@ -6,31 +6,23 @@ that the SSH daemon does not allow authentication using rhosts authentication."
 assurance that remote logon via SSH will require a password, even in the event
 of misconfiguration elsewhere."
   desc  "rationale", ""
-  desc  "check", "
-    Verify the SSH daemon does not allow authentication using known hosts
-authentication.
+  desc "check", "Verify the SSH daemon does not allow authentication using known hosts authentication.
 
-    To determine how the SSH daemon's \"IgnoreRhosts\" option is set, run the
-following command:
+To determine how the SSH daemon's \"IgnoreRhosts\" option is set, run the following command:
 
-    # grep -i IgnoreRhosts /etc/ssh/sshd_config
+# grep -i IgnoreRhosts /etc/ssh/sshd_config
 
-    IgnoreRhosts yes
+IgnoreRhosts yes
 
-    If the value is returned as \"no\", the returned line is commented out, or
-no output is returned, this is a finding.
-  "
-  desc  "fix", "
-    Configure the SSH daemon to not allow authentication using known hosts
-authentication.
+If the value is returned as \"no\", the returned line is commented out, or no output is returned, 
+this is a finding." 
+  desc "fix", "Configure the SSH daemon to not allow authentication using known hosts authentication.
 
-    Add the following line in \"/etc/ssh/sshd_config\", or uncomment the line
-and set the value to \"yes\":
+Add the following line in \"/etc/ssh/sshd_config\", or uncomment the line and set the value to \"yes\":
 
-    IgnoreRhosts yes
-  "
+IgnoreRhosts yes" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72243"
   tag rid: "SV-86867r3_rule"
@@ -43,4 +35,3 @@ and set the value to \"yes\":
     its('IgnoreRhosts') { should cmp 'yes' }
   end
 end
-

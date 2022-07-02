@@ -17,41 +17,33 @@ general purpose computing system.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system uses mechanisms meeting the requirements of
-applicable federal laws, Executive orders, directives, policies, regulations,
+  desc "check", "Verify the operating system uses mechanisms meeting the requirements of 
+applicable federal laws, Executive orders, directives, policies, regulations, 
 standards, and guidance for authentication to a cryptographic module.
 
-    Note: If RHEL-07-021350 is a finding, this is automatically a finding as
-the system cannot implement FIPS 140-2-approved cryptographic algorithms and
-hashes.
+Note: If RHEL-07-021350 is a finding, this is automatically a finding as the system cannot 
+implement FIPS 140-2-approved cryptographic algorithms and hashes.
 
-    The location of the \"sshd_config\" file may vary if a different daemon is
-in use.
+The location of the \"sshd_config\" file may vary if a different daemon is in use.
 
-    Inspect the \"Ciphers\" configuration with the following command:
+Inspect the \"Ciphers\" configuration with the following command:
 
-    # grep -i ciphers /etc/ssh/sshd_config
-    Ciphers aes128-ctr,aes192-ctr,aes256-ctr
+# grep -i ciphers /etc/ssh/sshd_config
+Ciphers aes128-ctr,aes192-ctr,aes256-ctr
 
-    If any ciphers other than \"aes128-ctr\", \"aes192-ctr\", or \"aes256-ctr\"
-are listed, the \"Ciphers\" keyword is missing, or the returned line is
-commented out, this is a finding.
-  "
-  desc  "fix", "
-    Configure SSH to use FIPS 140-2 approved cryptographic algorithms.
+If any ciphers other than \"aes128-ctr\", \"aes192-ctr\", or \"aes256-ctr\" are listed, the 
+\"Ciphers\" keyword is missing, or the returned line is commented out, this is a finding." 
+  desc "fix", "Configure SSH to use FIPS 140-2 approved cryptographic algorithms.
 
-    Add the following line (or modify the line to have the required value) to
-the \"/etc/ssh/sshd_config\" file (this file may be named differently or be in
-a different location if using a version of SSH that is provided by a
-third-party vendor).
+Add the following line (or modify the line to have the required value) to the 
+\"/etc/ssh/sshd_config\" file (this file may be named differently or be in a different 
+location if using a version of SSH that is provided by a third-party vendor).
 
-    Ciphers aes128-ctr,aes192-ctr,aes256-ctr
+Ciphers aes128-ctr,aes192-ctr,aes256-ctr
 
-    The SSH service must be restarted for changes to take effect.
-  "
+The SSH service must be restarted for changes to take effect." 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000033-GPOS-00014"
   tag satisfies: ["SRG-OS-000033-GPOS-00014", "SRG-OS-000120-GPOS-00061",
 "SRG-OS-000125-GPOS-00065", "SRG-OS-000250-GPOS-00093",
@@ -73,4 +65,3 @@ third-party vendor).
     it { should be_in ['aes128-ctr', 'aes192-ctr', 'aes256-ctr'] }
   end
 end
-

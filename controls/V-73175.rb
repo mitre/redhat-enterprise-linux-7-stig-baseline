@@ -8,37 +8,33 @@ direct route exists for a particular destination. These messages modify the
 host's route table and are unauthenticated. An illicit ICMP redirect message
 could result in a man-in-the-middle attack."
   desc  "rationale", ""
-  desc  "check", "
-    Verify the system ignores IPv4 ICMP redirect messages.
+  desc "check", "Verify the system ignores IPv4 ICMP redirect messages.
 
-    # grep 'net.ipv4.conf.all.accept_redirects' /etc/sysctl.conf /etc/sysctl.d/*
+# grep 'net.ipv4.conf.all.accept_redirects' /etc/sysctl.conf /etc/sysctl.d/*
 
-    If \" net.ipv4.conf.all.accept_redirects \" is not configured in the
-/etc/sysctl.conf file or in the /etc/sysctl.d/ directory, is commented out, or
-does not have a value of \"0\", this is a finding.
+If \" net.ipv4.conf.all.accept_redirects \" is not configured in the /etc/sysctl.conf file 
+or in the /etc/sysctl.d/ directory, is commented out, or does not have a value of \"0\", this is 
+a finding.
 
-    Check that the operating system implements the \"accept_redirects\"
-variables with the following command:
+Check that the operating system implements the \"accept_redirects\" variables with the 
+following command:
 
-    # /sbin/sysctl -a | grep 'net.ipv4.conf.all.accept_redirects'
+# /sbin/sysctl -a | grep 'net.ipv4.conf.all.accept_redirects'
 
-    net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.all.accept_redirects = 0
 
-    If the returned line does not have a value of \"0\", this is a finding.
-  "
-  desc  "fix", "
-    Set the system to ignore IPv4 ICMP redirect messages by adding the
-following line to \"/etc/sysctl.conf\" or a configuration file in the
-/etc/sysctl.d/ directory (or modify the line to have the required value):
+If the returned line does not have a value of \"0\", this is a finding." 
+  desc "fix", "Set the system to ignore IPv4 ICMP redirect messages by adding the following line 
+to \"/etc/sysctl.conf\" or a configuration file in the /etc/sysctl.d/ directory (or modify 
+the line to have the required value):
 
-    net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.all.accept_redirects = 0 
 
-    Issue the following command to make the changes take effect:
+Issue the following command to make the changes take effect:
 
-    # sysctl --system
-  "
+# sysctl --system" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-73175"
   tag rid: "SV-87827r4_rule"
@@ -51,4 +47,3 @@ following line to \"/etc/sysctl.conf\" or a configuration file in the
     its('value') { should eq 0 }
   end
 end
-

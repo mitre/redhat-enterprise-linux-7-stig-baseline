@@ -13,32 +13,26 @@ compromise.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when 
 successful/unsuccessful attempts to use the \"postdrop\" command occur.
 
-    Check that the following system call is being audited by performing the
-following command to check the file system rules in \"/etc/audit/audit.rules\":
+Check that the following system call is being audited by performing the following command to check 
+the file system rules in \"/etc/audit/audit.rules\": 
 
-    # grep -iw /usr/sbin/postdrop /etc/audit/audit.rules
+# grep -iw /usr/sbin/postdrop /etc/audit/audit.rules
 
-    -a always,exit -F path=/usr/sbin/postdrop -F auid>=1000 -F auid!=4294967295
--k privileged-postfix
+-a always,exit -F path=/usr/sbin/postdrop -F auid>=1000 -F auid!=4294967295 -k privileged-postfix
 
-    If the command does not return any output, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to generate audit records when
+If the command does not return any output, this is a finding." 
+  desc "fix", "Configure the operating system to generate audit records when 
 successful/unsuccessful attempts to use the \"postdrop\" command occur.
 
-    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
+Add or update the following rule in \"/etc/audit/rules.d/audit.rules\": 
 
-    -a always,exit -F path=/usr/sbin/postdrop -F auid>=1000 -F auid!=4294967295
--k privileged-postfix
+-a always,exit -F path=/usr/sbin/postdrop -F auid>=1000 -F auid!=4294967295 -k privileged-postfix
 
-    The audit daemon must be restarted for the changes to take effect.
-  "
-  tag severity: nil
+The audit daemon must be restarted for the changes to take effect." 
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000042-GPOS-00020"
   tag satisfies: ["SRG-OS-000042-GPOS-00020", "SRG-OS-000392-GPOS-00172"]
   tag gid: "V-72175"
@@ -51,9 +45,9 @@ successful/unsuccessful attempts to use the \"postdrop\" command occur.
   audit_file = '/usr/sbin/postdrop'
 
   if file(audit_file).exist?
-    impact 0.5
+  impact "0.5"
   else
-    impact 0.0
+  impact "0.5"
   end
 
   describe auditd.file(audit_file) do

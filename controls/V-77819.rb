@@ -16,54 +16,46 @@ Card.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system uniquely identifies and authenticates users
+  desc "check", "Verify the operating system uniquely identifies and authenticates users 
 using multifactor authentication via a graphical user logon.
 
-    Note: If the system does not have GNOME installed, this requirement is Not
-Applicable.
+Note: If the system does not have GNOME installed, this requirement is Not Applicable. 
 
-    Determine which profile the system database is using with the following
-command:
+Determine which profile the system database is using with the following command:
 
-    # grep system-db /etc/dconf/profile/user
+# grep system-db /etc/dconf/profile/user
 
-    system-db:local
+system-db:local
 
-    Note: The example is using the database local for the system, so the path
-is \"/etc/dconf/db/local.d\". This path must be modified if a database other
-than local is being used.
+Note: The example is using the database local for the system, so the path is 
+\"/etc/dconf/db/local.d\". This path must be modified if a database other than local is 
+being used.
 
-    # grep enable-smartcard-authentication /etc/dconf/db/local.d/*
+# grep enable-smartcard-authentication /etc/dconf/db/local.d/*
 
-    enable-smartcard-authentication=true
+enable-smartcard-authentication=true
 
-    If \"enable-smartcard-authentication\" is set to \"false\" or the keyword
-is missing, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to uniquely identify and authenticate users
+If \"enable-smartcard-authentication\" is set to \"false\" or the keyword is missing, this is 
+a finding." 
+  desc "fix", "Configure the operating system to uniquely identify and authenticate users 
 using multifactor authentication via a graphical user logon.
 
-    Note: If the system does not have GNOME installed, this requirement is Not
-Applicable.
+Note: If the system does not have GNOME installed, this requirement is Not Applicable.
 
-    Create a database to contain the system-wide screensaver settings (if it
-does not already exist) with the following command:
+Create a database to contain the system-wide screensaver settings (if it does not already exist) 
+with the following command: 
 
-    Note: The example is using the database local for the system, so if the
-system is using another database in \"/etc/dconf/profile/user\", the file
-should be created under the appropriate subdirectory.
+Note: The example is using the database local for the system, so if the system is using another 
+database in \"/etc/dconf/profile/user\", the file should be created under the appropriate subdirectory.
 
-    # touch /etc/dconf/db/local.d/00-defaults
+# touch /etc/dconf/db/local.d/00-defaults
 
-    Edit \"[org/gnome/login-screen]\" and add or update the following line:
-    enable-smartcard-authentication=true
+Edit \"[org/gnome/login-screen]\" and add or update the following line:
+enable-smartcard-authentication=true 
 
-    Update the system databases:
-    # dconf update
-  "
-  tag severity: nil
+Update the system databases:
+# dconf update" 
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000375-GPOS-00160"
   tag satisfies: ["SRG-OS-000375-GPOS-00161", "SRG-OS-000375-GPOS-00162"]
   tag gid: "V-77819"
@@ -77,7 +69,7 @@ should be created under the appropriate subdirectory.
   dconf_user = input('dconf_user')
 
   if package('gnome-desktop3').installed? && (package('pcsc-lite').installed? || package('esc').installed?)
-    impact 0.5
+  impact "0.5"
     if !dconf_user.nil? && command('whoami').stdout.strip == 'root'
       describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
         its('stdout.strip') { should eq multifactor_enabled.to_s }
@@ -88,7 +80,7 @@ should be created under the appropriate subdirectory.
       end
     end
   else
-    impact 0.0
+  impact "0.5"
     if !package('gnome-desktop3').installed?
       describe "The GNOME desktop is not installed" do
         skip "The GNOME desktop is not installed, this control is Not Applicable."
@@ -107,4 +99,3 @@ should be created under the appropriate subdirectory.
     end
   end
 end
-

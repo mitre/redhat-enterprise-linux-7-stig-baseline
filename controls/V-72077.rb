@@ -19,33 +19,27 @@ requirements or providing a wide array of functionality not required for every
 mission, but which cannot be disabled.
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system is configured to disable non-essential
-capabilities. The most secure way of ensuring a non-essential capability is
-disabled is to not have the capability installed.
+  desc "check", "Verify the operating system is configured to disable non-essential 
+capabilities. The most secure way of ensuring a non-essential capability is disabled is to 
+not have the capability installed.
 
-    The telnet service provides an unencrypted remote access service that does
-not provide for the confidentiality and integrity of user passwords or the
-remote session.
+The telnet service provides an unencrypted remote access service that does not provide for the 
+confidentiality and integrity of user passwords or the remote session.
 
-    If a privileged user were to log on using this service, the privileged user
-password could be compromised.
+If a privileged user were to log on using this service, the privileged user password could be 
+compromised. 
 
-    Check to see if the telnet-server package is installed with the following
-command:
+Check to see if the telnet-server package is installed with the following command:
 
-    # yum list installed telnet-server
+# yum list installed telnet-server
 
-    If the telnet-server package is installed, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to disable non-essential capabilities by
+If the telnet-server package is installed, this is a finding." 
+  desc "fix", "Configure the operating system to disable non-essential capabilities by 
 removing the telnet-server package from the system with the following command:
 
-    # yum remove telnet-server
-  "
+# yum remove telnet-server" 
   impact 0.7
-  tag severity: nil
+  tag severity: "high"
   tag gtitle: "SRG-OS-000095-GPOS-00049"
   tag gid: "V-72077"
   tag rid: "SV-86701r2_rule"
@@ -58,4 +52,3 @@ removing the telnet-server package from the system with the following command:
     it { should_not be_installed }
   end
 end
-

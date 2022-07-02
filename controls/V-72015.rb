@@ -9,45 +9,39 @@ directory upon logon. This could create a Denial of Service because the user
 would not be able to access their logon configuration files, and it may give
 them visibility to system files they normally would not be able to access."
   desc  "rationale", ""
-  desc  "check", "
-    Verify the assigned home directory of all local interactive users on the
+  desc "check", "Verify the assigned home directory of all local interactive users on the 
 system exists.
 
-    Check the home directory assignment for all local interactive
-non-privileged users on the system with the following command:
+Check the home directory assignment for all local interactive non-privileged users on the system 
+with the following command:
 
-    # cut -d: -f 1,3,6 /etc/passwd | egrep \":[1-4][0-9]{3}\"
+# cut -d: -f 1,3,6 /etc/passwd | egrep \":[1-4][0-9]{3}\"
 
-    smithj:1001:/home/smithj
+smithj:1001:/home/smithj
 
-    Note: This may miss interactive users that have been assigned a privileged
-UID. Evidence of interactive use may be obtained from a number of log files
-containing system logon information.
+Note: This may miss interactive users that have been assigned a privileged UID. Evidence of 
+interactive use may be obtained from a number of log files containing system logon information.
 
-    Check that all referenced home directories exist with the following command:
+Check that all referenced home directories exist with the following command:
 
-    # pwck -r
-    user 'smithj': directory '/home/smithj' does not exist
+# pwck -r
+user 'smithj': directory '/home/smithj' does not exist
 
-    If any home directories referenced in \"/etc/passwd\" are returned as not
-defined, this is a finding.
-  "
-  desc  "fix", "
-    Create home directories to all local interactive users that currently do
-not have a home directory assigned. Use the following commands to create the
-user home directory assigned in \"/etc/ passwd\":
+If any home directories referenced in \"/etc/passwd\" are returned as not defined, this is a 
+finding." 
+  desc "fix", "Create home directories to all local interactive users that currently do not 
+have a home directory assigned. Use the following commands to create the user home directory 
+assigned in \"/etc/ passwd\":
 
-    Note: The example will be for the user smithj, who has a home directory of
-\"/home/smithj\", a UID of \"smithj\", and a Group Identifier (GID) of
-\"users\" assigned in \"/etc/passwd\".
+Note: The example will be for the user smithj, who has a home directory of \"/home/smithj\", a UID of 
+\"smithj\", and a Group Identifier (GID) of \"users\" assigned in \"/etc/passwd\".
 
-    # mkdir /home/smithj
-    # chown smithj /home/smithj
-    # chgrp users /home/smithj
-    # chmod 0750 /home/smithj
-  "
+# mkdir /home/smithj 
+# chown smithj /home/smithj
+# chgrp users /home/smithj
+# chmod 0750 /home/smithj" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72015"
   tag rid: "SV-86639r2_rule"
@@ -71,4 +65,3 @@ user home directory assigned in \"/etc/ passwd\":
     end
   end
 end
-

@@ -14,31 +14,24 @@ number of possible combinations that need to be tested before the password is
 compromised.
   "
   desc  "rationale", ""
-  desc  "check", "
-    Note: The value to require a number of upper-case characters to be set is
+  desc "check", "Note: The value to require a number of upper-case characters to be set is 
 expressed as a negative number in \"/etc/security/pwquality.conf\".
 
-    Check the value for \"ucredit\" in \"/etc/security/pwquality.conf\" with
-the following command:
+Check the value for \"ucredit\" in \"/etc/security/pwquality.conf\" with the following command:
 
-    # grep ucredit /etc/security/pwquality.conf
-    ucredit = -1
+# grep ucredit /etc/security/pwquality.conf 
+ucredit = -1
 
-    If the value of \"ucredit\" is not set to a negative value, this is a
-finding.
-  "
-  desc  "fix", "
-    Configure the operating system to enforce password complexity by requiring
-that at least one upper-case character be used by setting the \"ucredit\"
-option.
+If the value of \"ucredit\" is not set to a negative value, this is a finding." 
+  desc "fix", "Configure the operating system to enforce password complexity by requiring 
+that at least one upper-case character be used by setting the \"ucredit\" option.
 
-    Add the following line to \"/etc/security/pwquality.conf\" (or modify the
-line to have the required value):
+Add the following line to \"/etc/security/pwquality.conf\" (or modify the line to have the 
+required value):
 
-    ucredit = -1
-  "
+ucredit = -1" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000069-GPOS-00037"
   tag gid: "V-71903"
   tag rid: "SV-86527r3_rule"
@@ -51,4 +44,3 @@ line to have the required value):
     its('ucredit.to_i') { should cmp < 0 }
   end
 end
-

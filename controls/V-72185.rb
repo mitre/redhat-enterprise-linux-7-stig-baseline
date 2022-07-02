@@ -7,34 +7,26 @@ mission needs of the organization, it would be difficult to establish,
 correlate, and investigate the events relating to an incident or identify those
 responsible for one."
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system generates audit records when
-successful/unsuccessful attempts to use the \"pam_timestamp_check\" command
-occur.
+  desc "check", "Verify the operating system generates audit records when 
+successful/unsuccessful attempts to use the \"pam_timestamp_check\" command occur. 
 
-    Check the auditing rules in \"/etc/audit/audit.rules\" with the following
-command:
+Check the auditing rules in \"/etc/audit/audit.rules\" with the following command:
 
-    # grep -iw \"/usr/sbin/pam_timestamp_check\" /etc/audit/audit.rules
+# grep -iw \"/usr/sbin/pam_timestamp_check\" /etc/audit/audit.rules
 
-    -a always,exit -F path=/usr/sbin/pam_timestamp_check -F auid>=1000 -F
-auid!=4294967295 -k privileged-pam
+-a always,exit -F path=/usr/sbin/pam_timestamp_check -F auid>=1000 -F auid!=4294967295 -k 
+privileged-pam 
 
-    If the command does not return any output, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to generate audit records when
-successful/unsuccessful attempts to use the \"pam_timestamp_check\" command
-occur.
+If the command does not return any output, this is a finding." 
+  desc "fix", "Configure the operating system to generate audit records when 
+successful/unsuccessful attempts to use the \"pam_timestamp_check\" command occur. 
 
-    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
+Add or update the following rule in \"/etc/audit/rules.d/audit.rules\": 
 
-    -a always,exit -F path=/usr/sbin/pam_timestamp_check -F auid>=1000 -F
-auid!=4294967295 -k privileged-pam
+-a always,exit -F path=/usr/sbin/pam_timestamp_check -F auid>=1000 -F auid!=4294967295 -k privileged-pam
 
-    The audit daemon must be restarted for the changes to take effect.
-  "
-  tag severity: nil
+The audit daemon must be restarted for the changes to take effect." 
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000471-GPOS-00215"
   tag gid: "V-72185"
   tag rid: "SV-86809r4_rule"
@@ -46,9 +38,9 @@ auid!=4294967295 -k privileged-pam
   audit_file = '/sbin/pam_timestamp_check'
 
   if file(audit_file).exist?
-    impact 0.5
+  impact "0.5"
   else
-    impact 0.0
+  impact "0.5"
   end
 
   describe auditd.file(audit_file) do

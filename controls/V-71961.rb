@@ -9,53 +9,44 @@ maintenance mode is granted privileged access to all files on the system. GRUB
 2 is the default boot loader for RHEL 7 and is designed to require a password
 to boot into single-user mode or make modifications to the boot menu."
   desc  "rationale", ""
-  desc  "check", "
-    For systems that use UEFI, this is Not Applicable.
-    For systems that are running RHEL 7.2 or newer, this is Not Applicable.
+  desc "check", "For systems that use UEFI, this is Not Applicable.
+For systems that are running RHEL 7.2 or newer, this is Not Applicable.
 
-    Check to see if an encrypted root password is set. On systems that use a
-BIOS, use the following command:
+Check to see if an encrypted root password is set. On systems that use a BIOS, use the following command:
 
-    # grep -i password_pbkdf2 /boot/grub2/grub.cfg
+# grep -i password_pbkdf2 /boot/grub2/grub.cfg
 
-    password_pbkdf2 [superusers-account] [password-hash]
+password_pbkdf2 [superusers-account] [password-hash]
 
-    If the root password entry does not begin with \"password_pbkdf2\", this is
-a finding.
+If the root password entry does not begin with \"password_pbkdf2\", this is a finding.
 
-    If the \"superusers-account\" is not set to \"root\", this is a finding.
-  "
-  desc  "fix", "
-    Configure the system to encrypt the boot password for root.
+If the \"superusers-account\" is not set to \"root\", this is a finding." 
+  desc "fix", "Configure the system to encrypt the boot password for root.
 
-    Generate an encrypted grub2 password for root with the following command:
+Generate an encrypted grub2 password for root with the following command:
 
-    Note: The hash generated is an example.
+Note: The hash generated is an example.
 
-    # grub2-mkpasswd-pbkdf2
+# grub2-mkpasswd-pbkdf2
 
-    Enter Password:
-    Reenter Password:
-    PBKDF2 hash of your password is
-grub.pbkdf2.sha512.10000.F3A7CFAA5A51EED123BE8238C23B25B2A6909AFC9812F0D45
+Enter Password:
+Reenter Password:
+PBKDF2 hash of your password is grub.pbkdf2.sha512.10000.F3A7CFAA5A51EED123BE8238C23B25B2A6909AFC9812F0D45
 
-    Edit \"/etc/grub.d/40_custom\" and add the following lines below the
-comments:
+Edit \"/etc/grub.d/40_custom\" and add the following lines below the comments:
 
-    # vi /etc/grub.d/40_custom
+# vi /etc/grub.d/40_custom
 
-    set superusers=\"root\"
+set superusers=\"root\"
 
-    password_pbkdf2 root {hash from grub2-mkpasswd-pbkdf2 command}
+password_pbkdf2 root {hash from grub2-mkpasswd-pbkdf2 command}
 
-    Generate a new \"grub.conf\" file with the new password with the following
-commands:
+Generate a new \"grub.conf\" file with the new password with the following commands:
 
-    # grub2-mkconfig --output=/tmp/grub2.cfg
-    # mv /tmp/grub2.cfg /boot/grub2/grub.cfg
-  "
-  impact 0.7
-  tag severity: nil
+# grub2-mkconfig --output=/tmp/grub2.cfg
+# mv /tmp/grub2.cfg /boot/grub2/grub.cfg" 
+  impact "0.7"
+  tag severity: "high"
   tag gtitle: "SRG-OS-000080-GPOS-00048"
   tag gid: "V-71961"
   tag rid: "SV-86585r6_rule"
@@ -71,18 +62,18 @@ commands:
   grub_main_content = file(grub_main_cfg).content
 
   if file('/sys/firmware/efi').exist?
-    impact 0.0
+  impact "0.7"
     describe "System running UEFI" do
       skip "The System is running UEFI, this control is Not Applicable."
     end
   else
     if os[:release] >= "7.2"
-      impact 0.0
+  impact "0.7"
       describe "System running version of RHEL that is equal to or newer than 7.2" do
         skip "The System is running version #{os[:release]} of RHEL, this control is Not Applicable."
       end
     else
-      impact 0.7
+  impact "0.7"
       # Check if any additional superusers are set
       pattern = %r{\s*set superusers=\"(\w+)\"}i
       matches = grub_main_content.match(pattern)
@@ -139,5 +130,3 @@ commands:
     end
   end
 end
-
-

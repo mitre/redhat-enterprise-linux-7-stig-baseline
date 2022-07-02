@@ -20,40 +20,33 @@ terminates all sessions or network access; it only ends the inactive session
 and releases the resources associated with that session.
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system terminates all network connections associated
+  desc "check", "Verify the operating system terminates all network connections associated 
 with a communications session at the end of the session or based on inactivity.
 
-    Check the value of the system inactivity timeout with the following command:
+Check the value of the system inactivity timeout with the following command:
 
-    # grep -i tmout /etc/profile.d/*
+# grep -i tmout /etc/profile.d/*
 
-    etc/profile.d/tmout.sh:TMOUT=600
+etc/profile.d/tmout.sh:TMOUT=600
 
-    /etc/profile.d/tmout.sh:readonly TMOUT
+/etc/profile.d/tmout.sh:readonly TMOUT
 
-    /etc/profile.d/tmout.sh:export TMOUT
+/etc/profile.d/tmout.sh:export TMOUT
 
-    If \"TMOUT\" is not set to \"600\" or less in a script located in the
-/etc/profile.d/ directory to enforce session termination after inactivity, this
-is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to terminate all network connections
-associated with a communications session at the end of the session or after a
-period of inactivity.
+If \"TMOUT\" is not set to \"600\" or less in a script located in the /etc/profile.d/ directory to 
+enforce session termination after inactivity, this is a finding." 
+  desc "fix", "Configure the operating system to terminate all network connections 
+associated with a communications session at the end of the session or after a period of inactivity.
 
-    Create a script to enforce the inactivity timeout (for example
-/etc/profile.d/tmout.sh) such as:
+Create a script to enforce the inactivity timeout (for example /etc/profile.d/tmout.sh) such as:
 
-    #!/bin/bash
+#!/bin/bash
 
-    TMOUT=600
-    readonly TMOUT
-    export TMOUT
-  "
+TMOUT=600
+readonly TMOUT
+export TMOUT" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000163-GPOS-00072"
   tag gid: "V-72223"
   tag rid: "SV-86847r4_rule"
@@ -121,4 +114,3 @@ period of inactivity.
     end
   end
 end
-

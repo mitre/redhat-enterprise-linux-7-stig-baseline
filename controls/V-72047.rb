@@ -14,31 +14,25 @@ users for temporary file storage, (e.g., /tmp), and for directories requiring
 global read/write access.
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify all world-writable directories are group-owned by root, sys, bin, or
+  desc "check", "Verify all world-writable directories are group-owned by root, sys, bin, or 
 an application group.
 
-    Check the system for world-writable directories with the following command:
+Check the system for world-writable directories with the following command:
 
-    Note: The value after -fstype must be replaced with the filesystem type.
-XFS is used as an example.
+Note: The value after -fstype must be replaced with the filesystem type. XFS is used as an example.
 
-    # find / -xdev -perm -002 -type d -fstype xfs -exec ls -lLd {} \\;
-    drwxrwxrwt 2 root root 40 Aug 26 13:07 /dev/mqueue
-    drwxrwxrwt 2 root root 220 Aug 26 13:23 /dev/shm
-    drwxrwxrwt 14 root root 4096 Aug 26 13:29 /tmp
+# find / -xdev -perm -002 -type d -fstype xfs -exec ls -lLd {} \\;
+drwxrwxrwt 2 root root 40 Aug 26 13:07 /dev/mqueue
+drwxrwxrwt 2 root root 220 Aug 26 13:23 /dev/shm
+drwxrwxrwt 14 root root 4096 Aug 26 13:29 /tmp
 
-    If any world-writable directories are not owned by root, sys, bin, or an
-application group associated with the directory, this is a finding.
-  "
-  desc  "fix", "
-    Change the group of the world-writable directories to root with the
-following command:
+If any world-writable directories are not owned by root, sys, bin, or an application group 
+associated with the directory, this is a finding." 
+  desc "fix", "Change the group of the world-writable directories to root with the following command:
 
-    # chgrp root <directory>
-  "
+# chgrp root <directory>" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72047"
   tag rid: "SV-86671r4_rule"
@@ -63,4 +57,3 @@ following command:
     end
   end
 end
-

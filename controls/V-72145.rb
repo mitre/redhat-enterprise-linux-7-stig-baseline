@@ -13,30 +13,25 @@ information system (e.g., module or policy filter).
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system generates audit records when unsuccessful
-account access events occur.
+  desc "check", "Verify the operating system generates audit records when unsuccessful 
+account access events occur. 
 
-    Check the file system rule in \"/etc/audit/audit.rules\" with the following
-commands:
+Check the file system rule in \"/etc/audit/audit.rules\" with the following commands: 
 
-    # grep -i /var/run/faillock /etc/audit/audit.rules
+# grep -i /var/run/faillock /etc/audit/audit.rules
 
-    -w /var/run/faillock -p wa -k logins
+-w /var/run/faillock -p wa -k logins
 
-    If the command does not return any output, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to generate audit records when unsuccessful
-account access events occur.
+If the command does not return any output, this is a finding." 
+  desc "fix", "Configure the operating system to generate audit records when unsuccessful 
+account access events occur. 
 
-    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
+Add or update the following rule in \"/etc/audit/rules.d/audit.rules\": 
 
-    -w /var/run/faillock -p wa -k logins
+-w /var/run/faillock -p wa -k logins
 
-    The audit daemon must be restarted for the changes to take effect.
-  "
-  tag severity: nil
+The audit daemon must be restarted for the changes to take effect." 
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000392-GPOS-00172"
   tag satisfies: ["SRG-OS-000392-GPOS-00172", "SRG-OS-000470-GPOS-00214",
 "SRG-OS-000473-GPOS-00218"]
@@ -50,9 +45,9 @@ account access events occur.
   audit_file = '/var/run/faillock'
 
   if file(audit_file).exist?
-    impact 0.5
+  impact "0.5"
   else
-    impact 0.0
+  impact "0.5"
   end
 
   describe auditd.file(audit_file) do
@@ -74,4 +69,3 @@ account access events occur.
     skip "The #{audit_file} file does not exist, this requirement is Not Applicable."
   end if !file(audit_file).exist?
 end
-

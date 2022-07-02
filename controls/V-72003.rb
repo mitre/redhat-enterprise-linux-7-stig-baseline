@@ -7,24 +7,22 @@ defined in the /etc/group file."
 and a group with the GID is subsequently created, the user may have unintended
 rights to any files associated with the group."
   desc  "rationale", ""
-  desc  "check", "
-    Verify all GIDs referenced in the \"/etc/passwd\" file are defined in the
+  desc "check", "Verify all GIDs referenced in the \"/etc/passwd\" file are defined in the 
 \"/etc/group\" file.
 
-    Check that all referenced GIDs exist with the following command:
+Check that all referenced GIDs exist with the following command:
 
-    # pwck -r
+# pwck -r
 
-    If GIDs referenced in \"/etc/passwd\" file are returned as not defined in
-\"/etc/group\" file, this is a finding.
-  "
+If GIDs referenced in \"/etc/passwd\" file are returned as not defined in \"/etc/group\" file, 
+this is a finding." 
   desc  "fix", "Configure the system to define all GIDs found in the
 \"/etc/passwd\" file by modifying the \"/etc/group\" file to add any
 non-existent group referenced in the \"/etc/passwd\" file, or change the GIDs
 referenced in the \"/etc/passwd\" file to a group that exists in
 \"/etc/group\"."
   impact 0.3
-  tag severity: nil
+  tag severity: "low"
   tag gtitle: "SRG-OS-000104-GPOS-00051"
   tag gid: "V-72003"
   tag rid: "SV-86627r2_rule"
@@ -39,4 +37,3 @@ referenced in the \"/etc/passwd\" file to a group that exists in
     end
   end
 end
-

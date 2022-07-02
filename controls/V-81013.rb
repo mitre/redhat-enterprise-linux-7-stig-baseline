@@ -8,26 +8,23 @@ approved binary files as they may be incompatible. Executing files from
 untrusted file systems increases the opportunity for unprivileged users to
 attain unauthorized administrative access."
   desc  "rationale", ""
-  desc  "check", "
-    Verify that the \"noexec\" option is configured for /dev/shm:
+  desc "check", "Verify that the \"noexec\" option is configured for /dev/shm:
 
-    # cat /etc/fstab | grep /dev/shm
+# cat /etc/fstab | grep /dev/shm
 
-    tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0
+tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0
 
-    If any results are returned and the \"noexec\" option is not listed, this
-is a finding.
+If any results are returned and the \"noexec\" option is not listed, this is a finding.
 
-    Verify \"/dev/shm\" is mounted with the \"noexec\" option:
+Verify \"/dev/shm\" is mounted with the \"noexec\" option:
 
-    # mount | grep \"/dev/shm\" | grep noexec
+# mount | grep \"/dev/shm\" | grep noexec
 
-    If no results are returned, this is a finding.
-  "
+If no results are returned, this is a finding." 
   desc  "fix", "Configure the system so that /dev/shm is mounted with the
 \"noexec\" option."
   impact 0.3
-  tag severity: nil
+  tag severity: "low"
   tag gtitle: "SRG-OS-000368-GPOS-00154"
   tag gid: "V-81013"
   tag rid: "SV-95725r2_rule"
@@ -40,4 +37,3 @@ is a finding.
     its('options') { should include 'noexec' }
   end
 end
-

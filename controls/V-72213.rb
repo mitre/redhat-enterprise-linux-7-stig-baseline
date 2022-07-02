@@ -15,16 +15,13 @@ daily basis.
 configured to scan all received mail.
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify an anti-virus solution is installed on the system. The anti-virus
+  desc "check", "Verify an anti-virus solution is installed on the system. The anti-virus 
 solution may be bundled with an approved host-based security solution.
 
-    If there is no anti-virus solution installed on the system, this is a
-finding.
-  "
+If there is no anti-virus solution installed on the system, this is a finding." 
   desc  "fix", "Install an antivirus solution on the system."
   impact 0.7
-  tag severity: nil
+  tag severity: "high"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72213"
   tag rid: "SV-86837r3_rule"
@@ -57,4 +54,3 @@ finding.
     end
   end
 end
-

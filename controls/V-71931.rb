@@ -8,24 +8,18 @@ does not limit the lifetime of passwords and force users to change their
 passwords, there is the risk that the operating system passwords could be
 compromised."
   desc  "rationale", ""
-  desc  "check", "
-    Check whether the maximum time period for existing passwords is restricted
-to 60 days.
+  desc "check", "Check whether the maximum time period for existing passwords is restricted to 
+60 days.
 
-    # awk -F: '$5 > 60 {print $1 \" \" $5}' /etc/shadow
+# awk -F: '$5 > 60 {print $1 \" \" $5}' /etc/shadow
 
-    If any results are returned that are not associated with a system account,
-this is a finding.
-
-  "
-  desc  "fix", "
-    Configure non-compliant accounts to enforce a 60-day maximum password
+If any results are returned that are not associated with a system account, this is a finding." 
+  desc "fix", "Configure non-compliant accounts to enforce a 60-day maximum password 
 lifetime restriction.
 
-    # chage -M 60 [user]
-  "
+# chage -M 60 [user]" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000076-GPOS-00044"
   tag gid: "V-71931"
   tag rid: "SV-86555r3_rule"
@@ -42,4 +36,3 @@ lifetime restriction.
     end
   end
 end
-

@@ -13,31 +13,28 @@ system's storage leading to a Denial of Service.
 documented with the ISSO.
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify that the system is not accepting \"rsyslog\" messages from other
+  desc "check", "Verify that the system is not accepting \"rsyslog\" messages from other 
 systems unless it is documented as a log aggregation server.
 
-    Check the configuration of \"rsyslog\" with the following command:
+Check the configuration of \"rsyslog\" with the following command:
 
-    # grep imtcp /etc/rsyslog.conf
-    $ModLoad imtcp
-    # grep imudp /etc/rsyslog.conf
-    $ModLoad imudp
-    # grep imrelp /etc/rsyslog.conf
-    $ModLoad imrelp
+# grep imtcp /etc/rsyslog.conf
+$ModLoad imtcp
+# grep imudp /etc/rsyslog.conf
+$ModLoad imudp
+# grep imrelp /etc/rsyslog.conf
+$ModLoad imrelp
 
-    If any of the above modules are being loaded in the \"/etc/rsyslog.conf\"
-file, ask to see the documentation for the system being used for log
-aggregation.
+If any of the above modules are being loaded in the \"/etc/rsyslog.conf\" file, ask to see the 
+documentation for the system being used for log aggregation.
 
-    If the documentation does not exist, or does not specify the server as a
-log aggregation system, this is a finding.
-  "
+If the documentation does not exist, or does not specify the server as a log aggregation system, 
+this is a finding." 
   desc  "fix", "Modify the \"/etc/rsyslog.conf\" file to remove the \"ModLoad
 imtcp\", \"ModLoad imudp\", and \"ModLoad imrelp\" configuration lines, or
 document the system as being used for log aggregation."
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72211"
   tag rid: "SV-86835r2_rule"
@@ -64,4 +61,3 @@ document the system as being used for log aggregation."
     end
   end
 end
-

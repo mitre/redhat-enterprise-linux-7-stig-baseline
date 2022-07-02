@@ -13,32 +13,25 @@ compromise.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when 
 successful/unsuccessful attempts to use the \"unix_chkpwd\" command occur.
 
-    Check the file system rule in \"/etc/audit/audit.rules\" with the following
-command:
+Check the file system rule in \"/etc/audit/audit.rules\" with the following command:
 
-    # grep -iw /usr/sbin/unix_chkpwd /etc/audit/audit.rules
+# grep -iw /usr/sbin/unix_chkpwd /etc/audit/audit.rules
 
-    -a always,exit -F path=/usr/sbin/unix_chkpwd -F auid>=1000 -F
-auid!=4294967295 -k privileged-passwd
+-a always,exit -F path=/usr/sbin/unix_chkpwd -F auid>=1000 -F auid!=4294967295 -k privileged-passwd
 
-    If the command does not return any output, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to generate audit records when
+If the command does not return any output, this is a finding." 
+  desc "fix", "Configure the operating system to generate audit records when 
 successful/unsuccessful attempts to use the \"unix_chkpwd\" command occur.
 
-    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
+Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
 
-    -a always,exit -F path=/usr/sbin/unix_chkpwd -F auid>=1000 -F
-auid!=4294967295 -k privileged-passwd
+-a always,exit -F path=/usr/sbin/unix_chkpwd -F auid>=1000 -F auid!=4294967295 -k privileged-passwd
 
-    The audit daemon must be restarted for the changes to take effect.
-  "
-  tag severity: nil
+The audit daemon must be restarted for the changes to take effect." 
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000042-GPOS-00020"
   tag satisfies: ["SRG-OS-000042-GPOS-00020", "SRG-OS-000392-GPOS-00172",
 "SRG-OS-000471-GPOS-00215"]
@@ -52,9 +45,9 @@ auid!=4294967295 -k privileged-passwd
   audit_file = '/usr/sbin/unix_chkpwd'
 
   if file(audit_file).exist?
-    impact 0.5
+  impact "0.5"
   else
-    impact 0.0
+  impact "0.5"
   end
 
   describe auditd.file(audit_file) do

@@ -17,48 +17,39 @@ No other activity aside from reauthentication must unlock the system.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system enables a user's session lock until that user
-re-establishes access using established identification and authentication
-procedures. The screen program must be installed to lock sessions on the
-console.
+  desc "check", "Verify the operating system enables a user's session lock until that user 
+re-establishes access using established identification and authentication procedures. 
+The screen program must be installed to lock sessions on the console.
 
-    Note: If the system does not have GNOME installed, this requirement is Not
-Applicable.
+Note: If the system does not have GNOME installed, this requirement is Not Applicable.
 
-    Check to see if the screen lock is enabled with the following command:
+Check to see if the screen lock is enabled with the following command:
 
-    # grep -i lock-enabled /etc/dconf/db/local.d/*
-    lock-enabled=true
+# grep -i lock-enabled /etc/dconf/db/local.d/*
+lock-enabled=true
 
-    If the \"lock-enabled\" setting is missing or is not set to \"true\", this
-is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to enable a user's session lock until that
-user re-establishes access using established identification and authentication
-procedures.
+If the \"lock-enabled\" setting is missing or is not set to \"true\", this is a finding." 
+  desc "fix", "Configure the operating system to enable a user's session lock until that user 
+re-establishes access using established identification and authentication procedures.
 
-    Create a database to contain the system-wide screensaver settings (if it
-does not already exist) with the following example:
+Create a database to contain the system-wide screensaver settings (if it does not already exist) 
+with the following example:
 
-    # touch /etc/dconf/db/local.d/00-screensaver
+# touch /etc/dconf/db/local.d/00-screensaver
 
-    Edit the \"[org/gnome/desktop/screensaver]\" section of the database file
-and add or update the following lines:
+Edit the \"[org/gnome/desktop/screensaver]\" section of the database file and add or update the 
+following lines:
 
-    # Set this to true to lock the screen when the screensaver activates
-    lock-enabled=true
+# Set this to true to lock the screen when the screensaver activates
+lock-enabled=true
 
-    Update the system databases:
+Update the system databases:
 
-    # dconf update
+# dconf update
 
-    Users must log out and back in again before the system-wide settings take
-effect.
-  "
-  impact 0.5
-  tag severity: nil
+Users must log out and back in again before the system-wide settings take effect." 
+  impact "0.5"
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000028-GPOS-00009"
   tag satisfies: ["SRG-OS-000028-GPOS-00009", "SRG-OS-000030-GPOS-00011"]
   tag gid: "V-71891"
@@ -73,11 +64,10 @@ effect.
       its('stdout.strip') { should cmp 'true' }
     end
   else
-    impact 0.0
+  impact "0.5"
     describe "The system does not have GNOME installed" do
       skip "The system does not have GNOME installed, this requirement is Not
       Applicable."
     end
   end
 end
-

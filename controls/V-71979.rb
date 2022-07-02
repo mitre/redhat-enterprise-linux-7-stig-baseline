@@ -22,33 +22,28 @@ does not mandate DoD certificates for this purpose; however, the certificate
 used to verify the software must be from an approved CA.
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system prevents the installation of patches, service
-packs, device drivers, or operating system components of local packages without
-verification that they have been digitally signed using a certificate that is
-recognized and approved by the organization.
+  desc "check", "Verify the operating system prevents the installation of patches, service 
+packs, device drivers, or operating system components of local packages without 
+verification that they have been digitally signed using a certificate that is recognized and 
+approved by the organization.
 
-    Check that yum verifies the signature of local packages prior to install
-with the following command:
+Check that yum verifies the signature of local packages prior to install with the following command:
 
-    # grep localpkg_gpgcheck /etc/yum.conf
-    localpkg_gpgcheck=1
+# grep localpkg_gpgcheck /etc/yum.conf
+localpkg_gpgcheck=1
 
-    If \"localpkg_gpgcheck\" is not set to \"1\", or if options are missing or
-commented out, ask the System Administrator how the signatures of local
-packages and other operating system components are verified.
+If \"localpkg_gpgcheck\" is not set to \"1\", or if options are missing or commented out, ask the 
+System Administrator how the signatures of local packages and other operating system 
+components are verified. 
 
-    If there is no process to validate the signatures of local packages that is
-approved by the organization, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to verify the signature of local packages
-prior to install by setting the following option in the \"/etc/yum.conf\" file:
+If there is no process to validate the signatures of local packages that is approved by the 
+organization, this is a finding." 
+  desc "fix", "Configure the operating system to verify the signature of local packages prior 
+to install by setting the following option in the \"/etc/yum.conf\" file:
 
-    localpkg_gpgcheck=1
-  "
+localpkg_gpgcheck=1" 
   impact 0.7
-  tag severity: nil
+  tag severity: "high"
   tag gtitle: "SRG-OS-000366-GPOS-00153"
   tag gid: "V-71979"
   tag rid: "SV-86603r2_rule"
@@ -69,4 +64,3 @@ prior to install by setting the following option in the \"/etc/yum.conf\" file:
      end
    end
 end
-

@@ -25,35 +25,33 @@ business or to address authorized quality of life issues.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Inspect the firewall configuration and running services to verify that it
-is configured to prohibit or restrict the use of functions, ports, protocols,
-and/or services that are unnecessary or prohibited.
+  desc "check", "Inspect the firewall configuration and running services to verify that it is 
+configured to prohibit or restrict the use of functions, ports, protocols, and/or services 
+that are unnecessary or prohibited.
 
-    Check which services are currently active with the following command:
+Check which services are currently active with the following command:
 
-    # firewall-cmd --list-all
-    public (default, active)
-      interfaces: enp0s3
-      sources:
-      services: dhcpv6-client dns http https ldaps rpc-bind ssh
-      ports:
-      masquerade: no
-      forward-ports:
-      icmp-blocks:
-      rich rules:
+# firewall-cmd --list-all
+public (default, active)
+ interfaces: enp0s3
+ sources: 
+ services: dhcpv6-client dns http https ldaps rpc-bind ssh
+ ports: 
+ masquerade: no
+ forward-ports: 
+ icmp-blocks: 
+ rich rules: 
 
-    Ask the System Administrator for the site or program PPSM CLSA. Verify the
-services allowed by the firewall match the PPSM CLSA.
+Ask the System Administrator for the site or program PPSM CLSA. Verify the services allowed by the 
+firewall match the PPSM CLSA. 
 
-    If there are additional ports, protocols, or services that are not in the
-PPSM CLSA, or there are ports, protocols, or services that are prohibited by
-the PPSM Category Assurance List (CAL), this is a finding.
-  "
+If there are additional ports, protocols, or services that are not in the PPSM CLSA, or there are 
+ports, protocols, or services that are prohibited by the PPSM Category Assurance List (CAL), 
+this is a finding." 
   desc  "fix", "Update the host's firewall settings and/or running services to
 comply with the PPSM CLSA for the site or program and the PPSM CAL."
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000096-GPOS-00050"
   tag satisfies: ["SRG-OS-000096-GPOS-00050", "SRG-OS-000297-GPOS-00115"]
   tag gid: "V-72219"
@@ -138,4 +136,3 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
     end
   end
 end
-

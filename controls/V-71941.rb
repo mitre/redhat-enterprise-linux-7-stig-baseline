@@ -10,30 +10,23 @@ unauthorized access to their user account has been obtained.
 application identifiers after zero days of inactivity.
   "
   desc  "rationale", ""
-  desc  "check", "
-    If passwords are not being used for authentication, this is Not Applicable.
+  desc "check", "If passwords are not being used for authentication, this is Not Applicable.
 
-    Verify the operating system disables account identifiers (individuals,
-groups, roles, and devices) after the password expires with the following
-command:
+Verify the operating system disables account identifiers (individuals, groups, roles, and 
+devices) after the password expires with the following command:
 
-    # grep -i inactive /etc/default/useradd
-    INACTIVE=0
+# grep -i inactive /etc/default/useradd
+INACTIVE=0
 
-    If the value is not set to \"0\", is commented out, or is not defined, this
-is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to disable account identifiers (individuals,
+If the value is not set to \"0\", is commented out, or is not defined, this is a finding." 
+  desc "fix", "Configure the operating system to disable account identifiers (individuals, 
 groups, roles, and devices) after the password expires.
 
-    Add the following line to \"/etc/default/useradd\" (or modify the line to
-have the required value):
+Add the following line to \"/etc/default/useradd\" (or modify the line to have the required value):
 
-    INACTIVE=0
-  "
+INACTIVE=0" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000118-GPOS-00060"
   tag gid: "V-71941"
   tag rid: "SV-86565r2_rule"
@@ -57,4 +50,3 @@ have the required value):
   end
 
 end
-

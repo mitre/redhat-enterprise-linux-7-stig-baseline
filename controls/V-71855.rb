@@ -11,38 +11,29 @@ enabling distribution of the public key to verify the hash information while
 maintaining the confidentiality of the key used to generate the hash.
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the cryptographic hash of system files and commands match the vendor
-values.
+  desc "check", "Verify the cryptographic hash of system files and commands match the vendor values.
 
-    Check the cryptographic hash of system files and commands with the
-following command:
+Check the cryptographic hash of system files and commands with the following command:
 
-    Note: System configuration files (indicated by a \"c\" in the second
-column) are expected to change over time. Unusual modifications should be
-investigated through the system audit log.
+Note: System configuration files (indicated by a \"c\" in the second column) are expected to change 
+over time. Unusual modifications should be investigated through the system audit log.
 
-    # rpm -Va --noconfig | grep '^..5'
+# rpm -Va --noconfig | grep '^..5'
 
-    If there is any output from the command for system files or binaries, this
-is a finding.
-  "
-  desc  "fix", "
-    Run the following command to determine which package owns the file:
+If there is any output from the command for system files or binaries, this is a finding." 
+  desc "fix", "Run the following command to determine which package owns the file:
 
-    # rpm -qf <filename>
+# rpm -qf <filename>
 
-    The package can be reinstalled from a yum repository using the command:
+The package can be reinstalled from a yum repository using the command:
 
-    # sudo yum reinstall <packagename>
+# sudo yum reinstall <packagename>
 
-    Alternatively, the package can be reinstalled from trusted media using the
-command:
+Alternatively, the package can be reinstalled from trusted media using the command:
 
-    # sudo rpm -Uvh <packagename>
-  "
+# sudo rpm -Uvh <packagename>" 
   impact 0.7
-  tag severity: nil
+  tag severity: "high"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-71855"
   tag rid: "SV-86479r4_rule"
@@ -68,5 +59,3 @@ if input('disable_slow_controls')
       end
   end
 end
-
-

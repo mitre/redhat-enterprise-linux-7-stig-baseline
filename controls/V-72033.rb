@@ -6,35 +6,26 @@ that all local initialization files have mode 0740 or less permissive."
 environment upon logon. Malicious modification of these files could compromise
 accounts upon logon."
   desc  "rationale", ""
-  desc  "check", "
-    Verify that all local initialization files have a mode of \"0740\" or less
-permissive.
+  desc "check", "Verify that all local initialization files have a mode of \"0740\" or less permissive.
 
-    Check the mode on all local initialization files with the following command:
+Check the mode on all local initialization files with the following command:
 
-    Note: The example will be for the \"smithj\" user, who has a home directory
-of \"/home/smithj\".
+Note: The example will be for the \"smithj\" user, who has a home directory of \"/home/smithj\".
 
-    # ls -al /home/smithj/.[^.]* | more
+# ls -al /home/smithj/.[^.]* | more
 
-    -rwxr----- 1 smithj users 896 Mar 10 2011 .profile
-    -rwxr----- 1 smithj users 497 Jan 6 2007 .login
-    -rwxr----- 1 smithj users 886 Jan 6 2007 .something
+-rwxr----- 1 smithj users 896 Mar 10 2011 .profile
+-rwxr----- 1 smithj users 497 Jan 6 2007 .login
+-rwxr----- 1 smithj users 886 Jan 6 2007 .something
 
-    If any local initialization files have a mode more permissive than
-\"0740\", this is a finding.
-  "
-  desc  "fix", "
-    Set the mode of the local initialization files to \"0740\" with the
-following command:
+If any local initialization files have a mode more permissive than \"0740\", this is a finding." 
+  desc "fix", "Set the mode of the local initialization files to \"0740\" with the following command:
 
-    Note: The example will be for the \"smithj\" user, who has a home directory
-of \"/home/smithj\".
+Note: The example will be for the \"smithj\" user, who has a home directory of \"/home/smithj\".
 
-    # chmod 0740 /home/smithj/.[^.]*
-  "
+# chmod 0740 /home/smithj/.[^.]*" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72033"
   tag rid: "SV-86657r3_rule"
@@ -56,4 +47,3 @@ of \"/home/smithj\".
     it { should be_empty }
   end
 end
-

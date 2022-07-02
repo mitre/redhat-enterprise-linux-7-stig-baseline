@@ -9,31 +9,26 @@ availability of systems due to unintentional reboot. In the GNOME graphical
 environment, risk of unintentional reboot from the Ctrl-Alt-Delete sequence is
 reduced because the user will be prompted before any action is taken."
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system is not configured to reboot the system when
+  desc "check", "Verify the operating system is not configured to reboot the system when 
 Ctrl-Alt-Delete is pressed.
 
-    Check that the ctrl-alt-del.target is masked and not active with the
-following command:
+Check that the ctrl-alt-del.target is masked and not active with the following command:
 
-    # systemctl status ctrl-alt-del.target
+# systemctl status ctrl-alt-del.target
 
-    ctrl-alt-del.target
-    Loaded: masked (/dev/null; bad)
-    Active: inactive (dead)
+ctrl-alt-del.target
+Loaded: masked (/dev/null; bad)
+Active: inactive (dead)
 
-    If the ctrl-alt-del.target is not masked, this is a finding.
+If the ctrl-alt-del.target is not masked, this is a finding.
 
-    If the ctrl-alt-del.target is active, this is a finding.
-  "
-  desc  "fix", "
-    Configure the system to disable the Ctrl-Alt-Delete sequence for the
-command line with the following command:
+If the ctrl-alt-del.target is active, this is a finding." 
+  desc "fix", "Configure the system to disable the Ctrl-Alt-Delete sequence for the command 
+line with the following command:
 
-    # systemctl mask ctrl-alt-del.target
-  "
+# systemctl mask ctrl-alt-del.target" 
   impact 0.7
-  tag severity: nil
+  tag severity: "high"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-71993"
   tag rid: "SV-86617r5_rule"
@@ -47,4 +42,3 @@ command line with the following command:
     it { should_not be_enabled }
   end
 end
-

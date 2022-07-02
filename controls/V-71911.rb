@@ -14,30 +14,25 @@ number of possible combinations that need to be tested before the password is
 compromised.
   "
   desc  "rationale", ""
-  desc  "check", "
-    The \"difok\" option sets the number of characters in a password that must
-not be present in the old password.
+  desc "check", "The \"difok\" option sets the number of characters in a password that must not 
+be present in the old password.
 
-    Check for the value of the \"difok\" option in
-\"/etc/security/pwquality.conf\" with the following command:
+Check for the value of the \"difok\" option in \"/etc/security/pwquality.conf\" with the 
+following command:
 
-    # grep difok /etc/security/pwquality.conf
-    difok = 8
+# grep difok /etc/security/pwquality.conf 
+difok = 8
 
-    If the value of \"difok\" is set to less than \"8\", this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to require the change of at least eight of
-the total number of characters when passwords are changed by setting the
-\"difok\" option.
+If the value of \"difok\" is set to less than \"8\", this is a finding." 
+  desc "fix", "Configure the operating system to require the change of at least eight of the 
+total number of characters when passwords are changed by setting the \"difok\" option.
 
-    Add the following line to \"/etc/security/pwquality.conf\" (or modify the
-line to have the required value):
+Add the following line to \"/etc/security/pwquality.conf\" (or modify the line to have the 
+required value):
 
-    difok = 8
-  "
+difok = 8" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000072-GPOS-00040"
   tag gid: "V-71911"
   tag rid: "SV-86535r2_rule"
@@ -52,4 +47,3 @@ line to have the required value):
     its('difok.to_i') { should cmp >= difok }
   end
 end
-

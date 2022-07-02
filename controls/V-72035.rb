@@ -14,34 +14,28 @@ deviations from the default system search path for the local interactive user
 are required, they must be documented with the Information System Security
 Officer (ISSO)."
   desc  "rationale", ""
-  desc  "check", "
-    Verify that all local interactive user initialization files' executable
-search path statements do not contain statements that will reference a working
-directory other than the users' home directory.
+  desc "check", "Verify that all local interactive user initialization files' executable 
+search path statements do not contain statements that will reference a working directory 
+other than the users' home directory.
 
-    Check the executable search path statement for all local interactive user
-initialization files in the users' home directory with the following commands:
+Check the executable search path statement for all local interactive user initialization files in 
+the users' home directory with the following commands:
 
-    Note: The example will be for the smithj user, which has a home directory
-of \"/home/smithj\".
+Note: The example will be for the smithj user, which has a home directory of \"/home/smithj\".
 
-    # grep -i path /home/smithj/.*
-    /home/smithj/.bash_profile:PATH=$PATH:$HOME/.local/bin:$HOME/bin
-    /home/smithj/.bash_profile:export PATH
+# grep -i path /home/smithj/.*
+/home/smithj/.bash_profile:PATH=$PATH:$HOME/.local/bin:$HOME/bin
+/home/smithj/.bash_profile:export PATH
 
-    If any local interactive user initialization files have executable search
-path statements that include directories outside of their home directory, this
-is a finding.
-  "
-  desc  "fix", "
-    Edit the local interactive user initialization files to change any PATH
-variable statements that reference directories other than their home directory.
+If any local interactive user initialization files have executable search path statements 
+that include directories outside of their home directory, this is a finding." 
+  desc "fix", "Edit the local interactive user initialization files to change any PATH 
+variable statements that reference directories other than their home directory. 
 
-    If a local interactive user requires path variables to reference a
-directory owned by the application, it must be documented with the ISSO.
-  "
+If a local interactive user requires path variables to reference a directory owned by the 
+application, it must be documented with the ISSO." 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72035"
   tag rid: "SV-86659r4_rule"
@@ -98,5 +92,3 @@ directory owned by the application, it must be documented with the ISSO.
     end
   end
 end
-
-

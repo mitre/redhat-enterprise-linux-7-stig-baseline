@@ -15,28 +15,23 @@ correct system.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the audisp daemon is configured to label all off-loaded audit logs:
+  desc "check", "Verify the audisp daemon is configured to label all off-loaded audit logs:
 
-    # grep \"name_format\" /etc/audisp/audispd.conf
+# grep \"name_format\" /etc/audisp/audispd.conf
 
-    name_format = hostname
+name_format = hostname
 
-    If the \"name_format\" option is not \"hostname\", \"fqd\", or \"numeric\",
-or the line is commented out, this is a finding.
-  "
-  desc  "fix", "
-    Edit the /etc/audisp/audispd.conf file and add or update the
-\"name_format\" option:
+If the \"name_format\" option is not \"hostname\", \"fqd\", or \"numeric\", or the line is 
+commented out, this is a finding." 
+  desc "fix", "Edit the /etc/audisp/audispd.conf file and add or update the \"name_format\" option:
 
-    name_format = hostname
+name_format = hostname
 
-    The audit daemon must be restarted for changes to take effect:
+The audit daemon must be restarted for changes to take effect:
 
-    # service auditd restart
-  "
+# service auditd restart" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000342-GPOS-00133"
   tag satisfies: ["SRG-OS-000342-GPOS-00133", "SRG-OS-000479-GPOS-00224"]
   tag gid: "V-81021"
@@ -56,4 +51,3 @@ or the line is commented out, this is a finding.
     end
   end
 end
-

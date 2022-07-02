@@ -13,32 +13,25 @@ information system (e.g., module or policy filter).
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when 
 successful/unsuccessful attempts to use the \"setfiles\" command occur.
 
-    Check the file system rule in \"/etc/audit/audit.rules\" with the following
-command:
+Check the file system rule in \"/etc/audit/audit.rules\" with the following command:
 
-    # grep -iw /usr/sbin/setfiles /etc/audit/audit.rules
+# grep -iw /usr/sbin/setfiles /etc/audit/audit.rules
 
-    -a always,exit -F path=/usr/sbin/setfiles -F auid>=1000 -F auid!=4294967295
--k privileged-priv_change
+-a always,exit -F path=/usr/sbin/setfiles -F auid>=1000 -F auid!=4294967295 -k privileged-priv_change
 
-    If the command does not return any output, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to generate audit records when
+If the command does not return any output, this is a finding." 
+  desc "fix", "Configure the operating system to generate audit records when 
 successful/unsuccessful attempts to use the \"setfiles\" command occur.
 
-    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
+Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
 
-    -a always,exit -F path=/usr/sbin/setfiles -F auid>=1000 -F auid!=4294967295
--k privileged-priv_change
+-a always,exit -F path=/usr/sbin/setfiles -F auid>=1000 -F auid!=4294967295 -k privileged-priv_change
 
-    The audit daemon must be restarted for the changes to take effect.
-  "
-  tag severity: nil
+The audit daemon must be restarted for the changes to take effect." 
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000392-GPOS-00172"
   tag satisfies: ["SRG-OS-000392-GPOS-00172", "SRG-OS-000463-GPOS-00207",
 "SRG-OS-000465-GPOS-00209"]
@@ -52,9 +45,9 @@ successful/unsuccessful attempts to use the \"setfiles\" command occur.
   audit_file = '/usr/sbin/setfiles'
 
   if file(audit_file).exist?
-    impact 0.5
+  impact "0.5"
   else
-    impact 0.0
+  impact "0.5"
   end
 
   describe auditd.file(audit_file) do

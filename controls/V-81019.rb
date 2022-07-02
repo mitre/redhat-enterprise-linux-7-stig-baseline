@@ -14,29 +14,25 @@ to the central log server.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the audisp daemon is configured to take an appropriate action when
-the internal queue is full:
+  desc "check", "Verify the audisp daemon is configured to take an appropriate action when the 
+internal queue is full:
 
-    # grep \"overflow_action\" /etc/audisp/audispd.conf
+# grep \"overflow_action\" /etc/audisp/audispd.conf
 
-    overflow_action = syslog
+overflow_action = syslog
 
-    If the \"overflow_action\" option is not \"syslog\", \"single\", or
-\"halt\", or the line is commented out, this is a finding.
-  "
-  desc  "fix", "
-    Edit the /etc/audisp/audispd.conf file and add or update the
+If the \"overflow_action\" option is not \"syslog\", \"single\", or \"halt\", or the line is 
+commented out, this is a finding." 
+  desc "fix", "Edit the /etc/audisp/audispd.conf file and add or update the 
 \"overflow_action\" option:
 
-    overflow_action = syslog
+overflow_action = syslog
 
-    The audit daemon must be restarted for changes to take effect:
+The audit daemon must be restarted for changes to take effect:
 
-    # service auditd restart
-  "
+# service auditd restart" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000342-GPOS-00133"
   tag satisfies: ["SRG-OS-000342-GPOS-00133", "SRG-OS-000479-GPOS-00224"]
   tag gid: "V-81019"
@@ -56,4 +52,3 @@ the internal queue is full:
     end
   end
 end
-

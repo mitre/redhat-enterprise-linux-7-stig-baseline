@@ -13,32 +13,28 @@ compromise.
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system generates audit records when
-successful/unsuccessful attempts to use the \"ssh-keysign\" command occur.
+  desc "check", "Verify the operating system generates audit records when 
+successful/unsuccessful attempts to use the \"ssh-keysign\" command occur. 
 
-    Check that the following system call is being audited by performing the
-following command to check the file system rules in \"/etc/audit/audit.rules\":
+Check that the following system call is being audited by performing the following command to check 
+the file system rules in \"/etc/audit/audit.rules\": 
 
-    # grep -iw /usr/libexec/openssh/ssh-keysign /etc/audit/audit.rules
+# grep -iw /usr/libexec/openssh/ssh-keysign /etc/audit/audit.rules
 
-    -a always,exit -F path=/usr/libexec/openssh/ssh-keysign -F auid>=1000 -F
+-a always,exit -F path=/usr/libexec/openssh/ssh-keysign -F auid>=1000 -F 
 auid!=4294967295 -k privileged-ssh
 
-    If the command does not return any output, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to generate audit records when
-successful/unsuccessful attempts to use the \"ssh-keysign\" command occur.
+If the command does not return any output, this is a finding." 
+  desc "fix", "Configure the operating system to generate audit records when 
+successful/unsuccessful attempts to use the \"ssh-keysign\" command occur. 
 
-    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
+Add or update the following rule in \"/etc/audit/rules.d/audit.rules\": 
 
-    -a always,exit -F path=/usr/libexec/openssh/ssh-keysign -F auid>=1000 -F
+-a always,exit -F path=/usr/libexec/openssh/ssh-keysign -F auid>=1000 -F 
 auid!=4294967295 -k privileged-ssh
 
-    The audit daemon must be restarted for the changes to take effect.
-  "
-  tag severity: nil
+The audit daemon must be restarted for the changes to take effect." 
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000042-GPOS-00020"
   tag satisfies: ["SRG-OS-000042-GPOS-00020", "SRG-OS-000392-GPOS-00172",
 "SRG-OS-000471-GPOS-00215"]
@@ -52,9 +48,9 @@ auid!=4294967295 -k privileged-ssh
   audit_file = '/usr/libexec/openssh/ssh-keysign'
 
   if file(audit_file).exist?
-    impact 0.5
+  impact "0.5"
   else
-    impact 0.0
+  impact "0.5"
   end
 
   describe auditd.file(audit_file) do

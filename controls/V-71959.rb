@@ -5,32 +5,27 @@ non-certificate trusted host SSH logon to the system."
   desc  "Failure to restrict system access to authenticated users negatively
 impacts operating system security."
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system does not allow a non-certificate trusted host
-SSH logon to the system.
+  desc "check", "Verify the operating system does not allow a non-certificate trusted host SSH 
+logon to the system.
 
-    Check for the value of the \"HostbasedAuthentication\" keyword with the
-following command:
+Check for the value of the \"HostbasedAuthentication\" keyword with the following command:
 
-    # grep -i hostbasedauthentication /etc/ssh/sshd_config
-    HostbasedAuthentication no
+# grep -i hostbasedauthentication /etc/ssh/sshd_config
+HostbasedAuthentication no
 
-    If the \"HostbasedAuthentication\" keyword is not set to \"no\", is
-missing, or is commented out, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to not allow a non-certificate trusted host
-SSH logon to the system.
+If the \"HostbasedAuthentication\" keyword is not set to \"no\", is missing, or is commented 
+out, this is a finding." 
+  desc "fix", "Configure the operating system to not allow a non-certificate trusted host SSH 
+logon to the system.
 
-    Edit the \"/etc/ssh/sshd_config\" file to uncomment or add the line for
+Edit the \"/etc/ssh/sshd_config\" file to uncomment or add the line for 
 \"HostbasedAuthentication\" keyword and set the value to \"no\":
 
-    HostbasedAuthentication no
+HostbasedAuthentication no
 
-    The SSH service must be restarted for changes to take effect.
-  "
+The SSH service must be restarted for changes to take effect." 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00229"
   tag gid: "V-71959"
   tag rid: "SV-86583r3_rule"
@@ -43,4 +38,3 @@ SSH logon to the system.
     its('HostbasedAuthentication') { should eq 'no' }
   end
 end
-

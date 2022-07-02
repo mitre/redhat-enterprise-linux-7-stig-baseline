@@ -10,30 +10,26 @@ integrity of the system or network(s). It is highly recommended that SNMP
 version 3 user authentication and message encryption be used in place of the
 version 2 community strings."
   desc  "rationale", ""
-  desc  "check", "
-    Verify that a system using SNMP is not using default community strings.
+  desc "check", "Verify that a system using SNMP is not using default community strings.
 
-    Check to see if the \"/etc/snmp/snmpd.conf\" file exists with the following
-command:
+Check to see if the \"/etc/snmp/snmpd.conf\" file exists with the following command:
 
-    # ls -al /etc/snmp/snmpd.conf
-     -rw-------   1 root root      52640 Mar 12 11:08 snmpd.conf
+# ls -al /etc/snmp/snmpd.conf
+ -rw------- 1 root root 52640 Mar 12 11:08 snmpd.conf
 
-    If the file does not exist, this is Not Applicable.
+If the file does not exist, this is Not Applicable.
 
-    If the file does exist, check for the default community strings with the
-following commands:
+If the file does exist, check for the default community strings with the following commands:
 
-    # grep public /etc/snmp/snmpd.conf
-    # grep private /etc/snmp/snmpd.conf
+# grep public /etc/snmp/snmpd.conf
+# grep private /etc/snmp/snmpd.conf
 
-    If either of these commands returns any output, this is a finding.
-  "
+If either of these commands returns any output, this is a finding." 
   desc  "fix", "If the \"/etc/snmp/snmpd.conf\" file exists, modify any lines
 that contain a community string value of \"public\" or \"private\" to another
 string value."
 
-  tag severity: nil
+  tag severity: "high"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72313"
   tag rid: "SV-86937r2_rule"
@@ -43,7 +39,7 @@ string value."
   tag nist: ["CM-6 b"]
 
   if file('/etc/snmp/snmpd.conf').exist?
-    impact 0.7
+  impact "0.7"
     processed = []
     to_process = ['/etc/snmp/snmpd.conf']
 
@@ -82,10 +78,9 @@ string value."
       end
     end
   else
-    impact 0.0
+  impact "0.7"
     describe "The `snmpd.conf` does not exist" do
       skip "The snmpd.conf file does not exist, this control is Not Applicable"
     end
   end
 end
-

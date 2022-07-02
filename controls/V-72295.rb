@@ -12,27 +12,23 @@ the use of these tools must be documented with the Information System Security
 Officer (ISSO) and restricted to only authorized personnel.
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify network interfaces are not in promiscuous mode unless approved by
+  desc "check", "Verify network interfaces are not in promiscuous mode unless approved by the 
+ISSO and documented.
+
+Check for the status with the following command:
+
+# ip link | grep -i promisc
+
+If network interfaces are found on the system in promiscuous mode and their use has not been 
+approved by the ISSO and documented, this is a finding." 
+  desc "fix", "Configure network interfaces to turn off promiscuous mode unless approved by 
 the ISSO and documented.
 
-    Check for the status with the following command:
+Set the promiscuous mode of an interface to off with the following command:
 
-    # ip link | grep -i promisc
-
-    If network interfaces are found on the system in promiscuous mode and their
-use has not been approved by the ISSO and documented, this is a finding.
-  "
-  desc  "fix", "
-    Configure network interfaces to turn off promiscuous mode unless approved
-by the ISSO and documented.
-
-    Set the promiscuous mode of an interface to off with the following command:
-
-    #ip link set dev <devicename> multicast off promisc off
-  "
+#ip link set dev <devicename> multicast off promisc off" 
   impact 0.5
-  tag severity: nil
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000480-GPOS-00227"
   tag gid: "V-72295"
   tag rid: "SV-86919r2_rule"
@@ -45,4 +41,3 @@ by the ISSO and documented.
     its('stdout.strip') { should match %r{^$} }
   end
 end
-

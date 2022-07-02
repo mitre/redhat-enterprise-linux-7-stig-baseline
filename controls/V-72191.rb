@@ -13,30 +13,25 @@ information system (e.g., module or policy filter).
 
   "
   desc  "rationale", ""
-  desc  "check", "
-    Verify the operating system generates audit records when
-successful/unsuccessful attempts to use the \"kmod\" command occur.
+  desc "check", "Verify the operating system generates audit records when 
+successful/unsuccessful attempts to use the \"kmod\" command occur. 
 
-    Check the auditing rules in \"/etc/audit/audit.rules\" with the following
-command:
+Check the auditing rules in \"/etc/audit/audit.rules\" with the following command:
 
-    # grep -iw kmod /etc/audit/audit.rules
+# grep -iw kmod /etc/audit/audit.rules
 
-    -w /usr/bin/kmod -p x -F auid!=4294967295 -k module-change
+-w /usr/bin/kmod -p x -F auid!=4294967295 -k module-change
 
-    If the command does not return any output, this is a finding.
-  "
-  desc  "fix", "
-    Configure the operating system to generate audit records when
-successful/unsuccessful attempts to use the \"kmod\" command occur.
+If the command does not return any output, this is a finding." 
+  desc "fix", "Configure the operating system to generate audit records when 
+successful/unsuccessful attempts to use the \"kmod\" command occur. 
 
-    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
+Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
 
-    -w /usr/bin/kmod -p x -F auid!=4294967295 -k module-change
+-w /usr/bin/kmod -p x -F auid!=4294967295 -k module-change
 
-    The audit daemon must be restarted for the changes to take effect.
-  "
-  tag severity: nil
+The audit daemon must be restarted for the changes to take effect." 
+  tag severity: "medium"
   tag gtitle: "SRG-OS-000471-GPOS-00216"
   tag satisfies: ["SRG-OS-000471-GPOS-00216", "SRG-OS-000477-GPOS-00222"]
   tag gid: "V-72191"
@@ -49,9 +44,9 @@ successful/unsuccessful attempts to use the \"kmod\" command occur.
   audit_file = '/usr/bin/kmod'
 
   if file(audit_file).exist?
-    impact 0.5
+  impact "0.5"
   else
-    impact 0.0
+  impact "0.5"
   end
 
   describe auditd.file(audit_file) do
