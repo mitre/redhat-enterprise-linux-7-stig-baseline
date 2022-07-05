@@ -32,8 +32,5 @@ suites:
       playbook: spec/ansible/roles/ansible-role-rhel-vanilla.yml
       
   - name: hardened
-    lifecycle:
-      pre_converge:
-      - local: ansible-galaxy install -r spec/ansible/roles/requirements.yml -p spec/ansible/roles
     provisioner:
       playbook: spec/ansible/roles/ansible-role-rhel-hardened.yml
