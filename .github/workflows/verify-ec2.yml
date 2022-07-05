@@ -33,8 +33,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Clone full repository so we can push
         run: git fetch --prune --unshallow
-      - name: Clone hardening repository into correct role directory
-        run: ansible-galaxy install -r spec/ansible/roles/requirements.yml -p spec/ansible/roles
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
