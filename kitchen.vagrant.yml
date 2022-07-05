@@ -32,4 +32,4 @@ lifecycle:
         echo 'password' | sudo passwd --stdin root
         echo "NOTICE - updating vagrant sudo config"
         sudo chmod 600 /etc/sudoers && sudo sed -i'' "/vagrant/d" /etc/sudoers && sudo chmod 400 /etc/sudoers
-    - local: ansible-galaxy install -r spec/ansible/roles/requirements.yml -p spec/ansible/roles
+    - local: bundle exec ansible-galaxy install -r spec/ansible/roles/requirements.yml -p spec/ansible/roles
