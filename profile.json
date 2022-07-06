@@ -22,7 +22,580 @@
       "release": "2*"
     }
   ],
-  "inputs": [],
+  "inputs": [
+    {
+      "name": "disable_slow_controls",
+      "options": {
+        "type": "Boolean",
+        "value": false
+      }
+    },
+    {
+      "name": "monitor_kernel_log",
+      "options": {
+        "type": "Boolean",
+        "value": true
+      }
+    },
+    {
+      "name": "rpm_verify_perms_except",
+      "options": {
+        "type": "Array",
+        "value": []
+      }
+    },
+    {
+      "name": "rpm_verify_integrity_except",
+      "options": {
+        "type": "Array",
+        "value": []
+      }
+    },
+    {
+      "name": "banner_message_enabled",
+      "options": {
+        "type": "Boolean",
+        "value": true
+      }
+    },
+    {
+      "name": "log_aggregation_server",
+      "options": {
+        "type": "Boolean",
+        "value": false
+      }
+    },
+    {
+      "name": "application_groups",
+      "options": {
+        "type": "Array",
+        "value": []
+      }
+    },
+    {
+      "name": "x11_enabled",
+      "options": {
+        "type": "Boolean",
+        "value": false
+      }
+    },
+    {
+      "name": "user_accounts",
+      "options": {
+        "type": "Array",
+        "value": []
+      }
+    },
+    {
+      "name": "known_system_accounts",
+      "options": {
+        "type": "Array",
+        "value": [
+          "root",
+          "bin",
+          "daemon",
+          "adm",
+          "lp",
+          "sync",
+          "shutdown",
+          "halt",
+          "mail",
+          "operator",
+          "nobody",
+          "systemd-bus-proxy",
+          "dbus",
+          "polkitd",
+          "postfix",
+          "sssd",
+          "chrony",
+          "systemd-network",
+          "sshd",
+          "ntp"
+        ]
+      }
+    },
+    {
+      "name": "dconf_user",
+      "options": {
+        "type": "String",
+        "value": ""
+      }
+    },
+    {
+      "name": "banner_message_text_gui",
+      "options": {
+        "type": "String",
+        "value": "You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. By using this IS (which includes any device attached to this IS), you consent to the following conditions: -The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations. -At any time, the USG may inspect and seize data stored on this IS. -Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose. -This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy. -Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details."
+      }
+    },
+    {
+      "name": "banner_message_text_gui_limited",
+      "options": {
+        "type": "String",
+        "value": "I've read & consent to terms in IS user agreem't."
+      }
+    },
+    {
+      "name": "banner_message_text_cli",
+      "options": {
+        "type": "String",
+        "value": "You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. By using this IS (which includes any device attached to this IS), you consent to the following conditions: -The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations. -At any time, the USG may inspect and seize data stored on this IS. -Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose. -This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy. -Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details."
+      }
+    },
+    {
+      "name": "banner_message_text_cli_limited",
+      "options": {
+        "type": "String",
+        "value": "I've read & consent to terms in IS user agreem't."
+      }
+    },
+    {
+      "name": "banner_message_text_ral",
+      "options": {
+        "type": "String",
+        "value": "You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. By using this IS (which includes any device attached to this IS), you consent to the following conditions: -The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations. -At any time, the USG may inspect and seize data stored on this IS. -Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose. -This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy. -Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details."
+      }
+    },
+    {
+      "name": "banner_message_text_ral_limited",
+      "options": {
+        "type": "String",
+        "value": "I've read & consent to terms in IS user agreem't."
+      }
+    },
+    {
+      "name": "lock_delay",
+      "options": {
+        "type": "Numeric",
+        "value": 5
+      }
+    },
+    {
+      "name": "difok",
+      "options": {
+        "type": "Numeric",
+        "value": 8
+      }
+    },
+    {
+      "name": "min_reuse_generations",
+      "options": {
+        "type": "Numeric",
+        "value": 5
+      }
+    },
+    {
+      "name": "min_len",
+      "options": {
+        "type": "Numeric",
+        "value": 15
+      }
+    },
+    {
+      "name": "days_of_inactivity",
+      "options": {
+        "type": "Numeric",
+        "value": 0
+      }
+    },
+    {
+      "name": "unsuccessful_attempts",
+      "options": {
+        "type": "Numeric",
+        "value": 3
+      }
+    },
+    {
+      "name": "fail_interval",
+      "options": {
+        "type": "Numeric",
+        "value": 900
+      }
+    },
+    {
+      "name": "lockout_time",
+      "options": {
+        "value": 604800
+      }
+    },
+    {
+      "name": "file_integrity_tool",
+      "options": {
+        "type": "String",
+        "value": "aide"
+      }
+    },
+    {
+      "name": "file_integrity_interval",
+      "options": {
+        "type": "String",
+        "value": "weekly"
+      }
+    },
+    {
+      "name": "system_activity_timeout",
+      "options": {
+        "type": "Numeric",
+        "value": 600
+      }
+    },
+    {
+      "name": "client_alive_interval",
+      "options": {
+        "type": "Numeric",
+        "value": 600
+      }
+    },
+    {
+      "name": "smart_card_status",
+      "options": {
+        "type": "String",
+        "value": "enabled"
+      }
+    },
+    {
+      "name": "log_pkg_path",
+      "options": {
+        "type": "String",
+        "value": "/etc/rsyslog.conf"
+      }
+    },
+    {
+      "name": "exempt_home_users",
+      "options": {
+        "type": "Array",
+        "value": []
+      }
+    },
+    {
+      "name": "grub_main_cfg",
+      "options": {
+        "type": "String",
+        "value": "/boot/grub2/grub.cfg"
+      }
+    },
+    {
+      "name": "grub_uefi_main_cfg",
+      "options": {
+        "type": "String",
+        "value": "/boot/efi/EFI/redhat/grub.cfg"
+      }
+    },
+    {
+      "name": "grub_superuser",
+      "options": {
+        "type": "String",
+        "value": "root"
+      }
+    },
+    {
+      "name": "grub_user_boot_files",
+      "options": {
+        "type": "Array",
+        "value": [
+          "/boot/grub2/user.cfg"
+        ]
+      }
+    },
+    {
+      "name": "grub_uefi_user_boot_files",
+      "options": {
+        "type": "Array",
+        "value": [
+          "/boot/efi/EFI/redhat/user.cfg"
+        ]
+      }
+    },
+    {
+      "name": "efi_superusers",
+      "options": {
+        "type": "Array",
+        "value": [
+          "root"
+        ],
+        "sensitive": true
+      }
+    },
+    {
+      "name": "admin_logins",
+      "options": {
+        "type": "Array",
+        "value": [],
+        "sensitive": true
+      }
+    },
+    {
+      "name": "max_rety",
+      "options": {
+        "type": "Numeric",
+        "value": 3
+      }
+    },
+    {
+      "name": "mfa_pkg_list",
+      "options": {
+        "type": "Array",
+        "value": [
+          "nss-tools",
+          "nss-pam-ldapd",
+          "esc",
+          "pam_pkcs11",
+          "pam_krb5",
+          "opensc",
+          "pcsc-lite-ccid",
+          "gdm",
+          "authconfig",
+          "authconfig-gtk",
+          "krb5-libs",
+          "krb5-workstation",
+          "krb5-pkinit",
+          "pcsc-lite",
+          "pcsc-lite-libs"
+        ]
+      }
+    },
+    {
+      "name": "multifactor_enabled",
+      "options": {
+        "type": "Boolean",
+        "value": true
+      }
+    },
+    {
+      "name": "non_interactive_shells",
+      "options": {
+        "type": "Array",
+        "value": [
+          "/sbin/nologin",
+          "/sbin/halt",
+          "/sbin/shutdown",
+          "/bin/false",
+          "/bin/sync",
+          "/bin/true"
+        ]
+      }
+    },
+    {
+      "name": "randomize_va_space",
+      "options": {
+        "type": "Numeric",
+        "value": 2
+      }
+    },
+    {
+      "name": "non_removable_media_fs",
+      "options": {
+        "type": "Array",
+        "value": [
+          "xfs",
+          "ext4",
+          "swap",
+          "tmpfs"
+        ]
+      }
+    },
+    {
+      "name": "approved_tunnels",
+      "options": {
+        "type": "Array",
+        "value": []
+      }
+    },
+    {
+      "name": "virtual_machine",
+      "options": {
+        "type": "Boolean",
+        "value": false
+      }
+    },
+    {
+      "name": "max_retry",
+      "options": {
+        "type": "Numeric",
+        "value": 3
+      }
+    },
+    {
+      "name": "firewalld_services",
+      "options": {
+        "type": "Array",
+        "value": []
+      }
+    },
+    {
+      "name": "firewalld_hosts_allow",
+      "options": {
+        "type": "Array",
+        "value": []
+      }
+    },
+    {
+      "name": "firewalld_hosts_deny",
+      "options": {
+        "type": "Array",
+        "value": []
+      }
+    },
+    {
+      "name": "firewalld_ports_allow",
+      "options": {
+        "type": "Array",
+        "value": []
+      }
+    },
+    {
+      "name": "firewalld_ports_deny",
+      "options": {
+        "type": "Hash",
+        "value": {}
+      }
+    },
+    {
+      "name": "tcpwrappers_allow",
+      "options": {
+        "type": "Hash",
+        "value": {}
+      }
+    },
+    {
+      "name": "tcpwrappers_deny",
+      "options": {
+        "type": "Hash",
+        "value": {}
+      }
+    },
+    {
+      "name": "iptables_rules",
+      "options": {
+        "type": "Array",
+        "value": []
+      }
+    },
+    {
+      "name": "firewalld_services_deny",
+      "options": {
+        "type": "Hash",
+        "value": {}
+      }
+    },
+    {
+      "name": "firewalld_zones",
+      "options": {
+        "type": "Array",
+        "value": []
+      }
+    },
+    {
+      "name": "maxlogins_limit",
+      "options": {
+        "type": "Numeric",
+        "value": 10
+      }
+    },
+    {
+      "name": "custom_antivirus",
+      "options": {
+        "type": "Boolean",
+        "value": false
+      }
+    },
+    {
+      "name": "custom_antivirus_description",
+      "options": {
+        "type": "String",
+        "value": "None"
+      }
+    },
+    {
+      "name": "custom_hips",
+      "options": {
+        "type": "Boolean",
+        "value": false
+      }
+    },
+    {
+      "name": "custom_hips_description",
+      "options": {
+        "type": "String",
+        "value": "An6yTr21kC"
+      }
+    },
+    {
+      "name": "max_daemon_processes",
+      "options": {
+        "type": "Numeric",
+        "value": 1
+      }
+    },
+    {
+      "name": "aide_exclude_patterns",
+      "options": {
+        "type": "Array",
+        "value": []
+      }
+    },
+    {
+      "name": "terminal_mux_pkgs",
+      "options": {
+        "type": "Array",
+        "value": [
+          "tmux",
+          "screen"
+        ]
+      }
+    },
+    {
+      "name": "required_rules",
+      "options": {
+        "type": "Array",
+        "value": [
+          "auth required pam_faillock.so unlock_time=.*",
+          "auth sufficient pam_unix.so try_first_pass",
+          "auth [default=die] pam_faillock.so unlock_time=.*"
+        ]
+      }
+    },
+    {
+      "name": "alternate_rules",
+      "options": {
+        "type": "Array",
+        "value": [
+          "auth required pam_faillock.so unlock_time=.*",
+          "auth sufficient pam_sss.so forward_pass",
+          "auth sufficient pam_unix.so try_first_pass",
+          "auth [default=die] pam_faillock.so unlock_time=.*"
+        ]
+      }
+    },
+    {
+      "name": "data_loss_prevention_installed",
+      "options": {
+        "type": "Boolean",
+        "value": true
+      }
+    },
+    {
+      "name": "alternate_logs",
+      "options": {
+        "type": "Boolean",
+        "value": false
+      }
+    },
+    {
+      "name": "gssapi_approved",
+      "options": {
+        "type": "Boolean",
+        "value": true
+      }
+    },
+    {
+      "name": "disconnected_system",
+      "options": {
+        "type": "Boolean",
+        "value": false
+      }
+    }
+  ],
   "controls": [
     {
       "title": "The Red Hat Enterprise Linux operating system must audit all uses of\nthe fchown syscall.",
@@ -10403,6 +10976,6 @@
   "status": "loaded",
   "generator": {
     "name": "inspec",
-    "version": "4.56.20"
+    "version": "5.17.4"
   }
 }
