@@ -2,9 +2,8 @@
 
 source 'https://rubygems.org'
 
-gem 'highline'
 gem 'inspec-bin'
-gem 'inspec_tools'
+gem 'inspec'
 gem 'kitchen-ec2'
 gem 'kitchen-inspec'
 gem 'kitchen-ansible'

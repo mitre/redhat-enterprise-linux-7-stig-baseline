@@ -3,11 +3,18 @@
   yum:
     name: '*'
     state: latest
-- name: Install required packages
+- name: Install required packages via yum
   yum:
     name:
-      - jq
       - vim
-      - bc 
+      - bc
+    state: latest
+
+- name: Install required packages via pip
+  pip:
+    name:
+      - python3-pkg-resources
+      - python3-setuptools
+      - jmespath
     state: latest
     
