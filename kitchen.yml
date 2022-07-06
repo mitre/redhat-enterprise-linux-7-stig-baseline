@@ -37,3 +37,6 @@ suites:
   - name: hardened
     provisioner:
       playbook: spec/ansible/roles/ansible-role-rhel-hardened.yml
+  
+transport:
+  max_ssh_sessions: 6
