@@ -18,10 +18,13 @@ provisioner:
   hosts: all
   require_chef_for_busser: false
   require_ruby_for_busser: false
+  require_pip3: true
+  ansible_binary_path: /usr/local/bin
   ansible_verbose: true
   roles_path: spec/ansible/roles
   galaxy_ignore_certs: true
   ansible_extra_flags: <%= ENV['ANSIBLE_EXTRA_FLAGS'] %>
+  requirements_path: spec/ansible/roles/requirements.yml
 
 platforms:
   - name: rhel-7
@@ -32,8 +35,5 @@ suites:
       playbook: spec/ansible/roles/ansible-role-rhel-vanilla.yml
       
   - name: hardened
-    lifecycle:
-      pre_converge:
-      - local: ansible-galaxy install -r spec/ansible/roles/requirements.yml -p spec/ansible/roles
     provisioner:
       playbook: spec/ansible/roles/ansible-role-rhel-hardened.yml
