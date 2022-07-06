@@ -22,6 +22,7 @@ provisioner:
   roles_path: spec/ansible/roles
   galaxy_ignore_certs: true
   ansible_extra_flags: <%= ENV['ANSIBLE_EXTRA_FLAGS'] %>
+  requirements_path: spec/ansible/roles/requirements.yml
 
 platforms:
   - name: rhel-7
