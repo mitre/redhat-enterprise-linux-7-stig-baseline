@@ -15,7 +15,8 @@
       - bzip2-devel 
       - readline-devel 
       - sqlite 
-      - sqlite-devel 
+      - sqlite-devel
+      - epel-release
       - openssl11
       - openssl11-libs
       - openssl11-devel 
