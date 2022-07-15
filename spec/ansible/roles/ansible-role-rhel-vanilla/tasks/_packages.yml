@@ -8,8 +8,6 @@
     name:
       - vim
       - bc
-      - python3-setuptools
-      - python3-pkg-resources
     state: latest
 
 - name: Install required packages via pip
@@ -17,4 +15,6 @@
     name:
       - jmespath
     state: latest
+  tags:
+    - pip-task
     
