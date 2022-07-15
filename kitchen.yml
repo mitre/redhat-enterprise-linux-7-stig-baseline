@@ -21,10 +21,14 @@ provisioner:
   require_pip3: true
   ansible_binary_path: /usr/local/bin
   ansible_verbose: true
+  ansible_verbosity: 3
   roles_path: spec/ansible/roles
   galaxy_ignore_certs: true
   ansible_extra_flags: <%= ENV['ANSIBLE_EXTRA_FLAGS'] %>
   requirements_path: spec/ansible/roles/requirements.yml
+  env_vars:
+    - ANSIBLE_LOCAL_TEMP=$HOME/.ansible/tmp
+    - ANSIBLE_REMOTE_TEMP=$HOME/.ansible/tmp
 
 platforms:
   - name: rhel-7
@@ -37,6 +41,3 @@ suites:
   - name: hardened
     provisioner:
       playbook: spec/ansible/roles/ansible-role-rhel-hardened.yml
-  
-transport:
-  max_ssh_sessions: 6

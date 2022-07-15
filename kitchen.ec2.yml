@@ -39,5 +39,8 @@ lifecycle:
         echo "NOTICE - updating ec2-user sudo config"
         sudo chmod 600 /etc/sudoers && sudo sed -i'' "/ec2-user/d" /etc/sudoers && sudo chmod 400 /etc/sudoers
 
+        
 transport:
   name: ssh
+  #https://github.com/neillturner/kitchen-ansible/issues/295
+  max_ssh_sessions: 2

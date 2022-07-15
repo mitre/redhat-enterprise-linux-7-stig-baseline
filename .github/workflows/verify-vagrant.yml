@@ -2,7 +2,7 @@ name: Vagrant Testing Matrix
 
 on:
   push:
-    branches: [ master, wdd ]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
