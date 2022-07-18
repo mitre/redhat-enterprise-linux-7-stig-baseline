@@ -19,7 +19,7 @@ platforms:
   - name: rhel-7
 
     driver:
-      box: bento/centos-7.9
+      box: generic/centos7
 
 lifecycle:
   pre_converge:
