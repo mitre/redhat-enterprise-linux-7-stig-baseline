@@ -390,8 +390,7 @@ profiles in `spec/fixtures/inspec_profiles` during testing.
 2. If you run into errors when running `bundle install`, use the following
    commands to install gems:
 
-- `gem install kitchen-puppet`
-- `gem install librarian-puppet`
+- `gem install kitchen-ansible`
 - `gem install kitchen-vagrant`
 
 3. If the tests are not found when running `kitchen verify`, open
