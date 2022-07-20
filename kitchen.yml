@@ -16,12 +16,28 @@ verifier:
 provisioner:
   name: ansible_playbook
   hosts: all
-  require_ansible_repo: true
   require_chef_for_busser: false
   require_ruby_for_busser: false
+  require_pip3: true
+  ansible_binary_path: /usr/local/bin
   ansible_verbose: true
-  roles_path: test/ansible/rhel7STIG-ansible/roles
+  ansible_verbosity: 3
+  roles_path: spec/ansible/roles
+  galaxy_ignore_certs: true
+  ansible_extra_flags: <%= ENV['ANSIBLE_EXTRA_FLAGS'] %>
+  requirements_path: spec/ansible/roles/requirements.yml
+  env_vars:
+    - ANSIBLE_LOCAL_TEMP=$HOME/.ansible/tmp
+    - ANSIBLE_REMOTE_TEMP=$HOME/.ansible/tmp
+
+platforms:
+  - name: rhel-7
 
 suites:
   - name: vanilla
+    provisioner:
+      playbook: spec/ansible/roles/ansible-role-rhel-vanilla.yml
+      
   - name: hardened
+    provisioner:
+      playbook: spec/ansible/roles/ansible-role-rhel-hardened.yml

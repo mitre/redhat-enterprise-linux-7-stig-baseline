@@ -2,14 +2,13 @@
 
 source 'https://rubygems.org'
 
-gem 'highline'
 gem 'inspec-bin'
 gem 'inspec'
 gem 'kitchen-ec2'
 gem 'kitchen-inspec'
+gem 'kitchen-ansible'
 gem 'kitchen-sync'
 gem 'kitchen-vagrant'
-gem 'kitchen-ansible'
-gem 'kitchen-dokken'
+gem 'kitchen-docker'
 gem 'rake'
 gem 'rubocop'
