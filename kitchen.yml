@@ -7,7 +7,7 @@ verifier:
   sudo: true
   reporter:
     - cli
-    - json:reports/raw/%{suite}-%{platform}.json
+    - json:spec/results/%{platform}_%{suite}.json
   inspec_tests:
     - name: RedHat Enterprise Linux 7 STIG
       path: .

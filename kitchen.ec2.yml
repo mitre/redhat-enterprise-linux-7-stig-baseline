@@ -24,9 +24,6 @@ transport:
 verifier:
   input_files:
     - ec2.inputs.yml
-  reporter:
-    - cli
-    - json:reports/raw/ec2-%{suite}-%{platform}.json
 
 lifecycle:
   post_create:
