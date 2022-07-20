@@ -46,8 +46,6 @@ jobs:
           bundle exec inspec json . | jq . > profile.json
       - name: Lint the Inspec profile
         run: bundle exec inspec check .
-      - name: install ansible (for ansible-galaxy)
-        run: python3 -m pip install ansible 
       - name: Run kitchen test
         run: bundle exec kitchen test --destroy=always ${{ matrix.suite }}-rhel-7 || true
       - name: Display our ${{ matrix.suite }} results summary
