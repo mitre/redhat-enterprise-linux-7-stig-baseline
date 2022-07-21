@@ -454,8 +454,10 @@ Included in this repository are testing scripts which allow you to run the profi
   - run `CHEF_LICENSE=accept KITCHEN_LOCAL_YAML=kitchen.vagrant.yml kitchen test (machine name)` or to test all defined machines `kitchen test`
 - Just running the validation scripts
   - run `CHEF_LICENSE=accept KITCHEN_LOCAL_YAML=kitchen.vagrant.yml kitchen verify (machine name)`
-- just run one or more controls in the validation
+- Just run one or more controls in the validation
   - edit the .kitchen.yml file in the `controls:` section add the `control id(s)` to the list
+- Skipping one or more tags in the hardening content 
+  - run `CHEF_LICENSE=accept KITCHEN_LOCAL_YAML=kitchen.vagrant.yml ANSIBLE_EXTRA_FLAGS='--skip-tags=(tags)' kitchen converge (machine name)` kitchen will skip the tasks in the hardening script specified with the tags. 
 
 ### NOTICE
 
