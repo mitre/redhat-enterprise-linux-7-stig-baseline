@@ -32,7 +32,10 @@ control 'SV-204619' do
 
   if package('postfix').installed?
     options = { assignment_regex: /^\s*([^=]*?)\s*=\s*(.*?)\s*$/ }
-    pf_config = parse_config_file('/etc/postfix/main.cf', options).params['smtpd_client_restrictions'].split(',')
+
+    if (defined? parse_config_file('/etc/postfix/main.cf', options).params['smtpd_client_restrictions'])then
+      pf_config = parse_config_file('/etc/postfix/main.cf', options).params['smtpd_client_restrictions'].split(',')
+    end
 
     describe "Postfix config setting smptd_client_restrictions" do
       it "should be set to 'permit_mynetworks', 'reject', or both" do
