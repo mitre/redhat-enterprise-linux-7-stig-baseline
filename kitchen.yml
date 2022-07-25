@@ -1,4 +1,6 @@
----
+transport:
+  name: ssh
+  max_ssh_sessions: 2
 
 verifier:
   name: inspec
@@ -9,8 +11,6 @@ verifier:
   inspec_tests:
     - name: RedHat Enterprise Linux 7 STIG
       path: .
-  input_files:
-    - kitchen.inputs.yml
   load_plugins: true
 
 provisioner:
