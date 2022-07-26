@@ -3,14 +3,14 @@ control 'SV-204596' do
     mode 0644 or less permissive.'
   desc 'If a public host key file is modified by an unauthorized user, the SSH service may be compromised.'
   desc 'rationale', ''
-  desc 'check', %q(Verify the SSH public host key files have mode "0644" or less permissive.
+  desc 'check', 'Verify the SSH public host key files have mode "0644" or less permissive.
     Note: SSH public key files may be found in other directories on the system depending on the installation.
     The following command will find all SSH public key files on the system:
-    # find /etc/ssh -name '*.pub' -exec ls -lL {} \;
+    # find /etc/ssh -name \'*.pub\' -exec ls -lL {} \;
     -rw-r--r-- 1 root root 618 Nov 28 06:43 ssh_host_dsa_key.pub
     -rw-r--r-- 1 root root 347 Nov 28 06:43 ssh_host_key.pub
     -rw-r--r-- 1 root root 238 Nov 28 06:43 ssh_host_rsa_key.pub
-    If any file has a mode more permissive than "0644", this is a finding.)
+    If any file has a mode more permissive than "0644", this is a finding.'
   desc 'fix', 'Note: SSH public key files may be found in other directories on the system depending on the
     installation.
     Change the mode of public host key files under "/etc/ssh" to "0644" with the following command:

@@ -14,9 +14,9 @@ control 'SV-204619' do
     smtpd_client_restrictions = permit_mynetworks, reject
     If the "smtpd_client_restrictions" parameter contains any entries other than "permit_mynetworks" and "reject", this
     is a finding.'
-  desc 'fix', %q(If "postfix" is installed, modify the "/etc/postfix/main.cf" file to restrict client connections to
+  desc 'fix', 'If "postfix" is installed, modify the "/etc/postfix/main.cf" file to restrict client connections to
     the local network with the following command:
-    # postconf -e 'smtpd_client_restrictions = permit_mynetworks,reject')
+    # postconf -e \'smtpd_client_restrictions = permit_mynetworks,reject\''
   impact 0.5
   tag 'legacy': ['SV-86921', 'V-72297']
   tag 'severity': 'medium'

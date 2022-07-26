@@ -9,7 +9,7 @@ control 'SV-204454' do
     This requirement applies to operating systems performing security function verification/testing and/or systems and
     environments that require this functionality.'
   desc 'rationale', ''
-  desc 'check', %q{Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL) in
+  desc 'check', 'Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL) in
     conjunction with SELinux.
     Verify the operating system verifies correct operation of all security functions.
     Check if "SELinux" is active and is enforcing the targeted policy with the following command:
@@ -25,9 +25,9 @@ control 'SV-204454' do
     Max kernel policy version: 28
     If the "Loaded policy name" is not set to "targeted", this is a finding.
     Verify that the /etc/selinux/config file is configured to the "SELINUXTYPE" to "targeted":
-    # grep -i "selinuxtype" /etc/selinux/config | grep -v '^#'
+    # grep -i "selinuxtype" /etc/selinux/config | grep -v \'^#\'
     SELINUXTYPE = targeted
-    If no results are returned or "SELINUXTYPE" is not set to "targeted", this is a finding.}
+    If no results are returned or "SELINUXTYPE" is not set to "targeted", this is a finding.'
   desc 'fix', 'Configure the operating system to verify correct operation of all security functions.
     Set the "SELinuxtype" to the "targeted" policy by modifying the "/etc/selinux/config" file to have the following
     line:

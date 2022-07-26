@@ -4,9 +4,9 @@ control 'SV-204628' do
   desc 'If the systems access control program is not configured with appropriate rules for allowing and denying
     access to system network resources, services may be accessible to unauthorized hosts.'
   desc 'rationale', ''
-  desc 'check', %q{If the "firewalld" package is not installed, ask the System Administrator (SA) if another firewall
+  desc 'check', 'If the "firewalld" package is not installed, ask the System Administrator (SA) if another firewall
     application (such as iptables) is installed. If an application firewall is not installed, this is a finding.
-    Verify the system's access control program is configured to grant or deny system access to specific hosts.
+    Verify the system\'s access control program is configured to grant or deny system access to specific hosts.
     Check to see if "firewalld" is active with the following command:
     # systemctl status firewalld
     firewalld.service - firewalld - dynamic firewall daemon
@@ -38,7 +38,7 @@ control 'SV-204628' do
     program (such as iptables) is installed and active. Ask the SA to show that the running configuration grants or
     denies access to specific hosts or services.
     If "firewalld" is active and is not configured to grant access to specific hosts or "tcpwrappers" is not configured
-    to grant or deny access to specific hosts, this is a finding.}
+    to grant or deny access to specific hosts, this is a finding.'
   desc 'fix', 'If "firewalld" is installed and active on the system, configure rules for allowing specific services
     and hosts.
     If "firewalld" is not "active", enable "tcpwrappers" by configuring "/etc/hosts.allow" and "/etc/hosts.deny" to

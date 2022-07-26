@@ -7,14 +7,14 @@ control 'SV-204478' do
     compromised at the user level, it is easier to elevate privileges to eventually
     compromise the system at the root and network level."
   desc 'rationale', ''
-  desc 'check', %q(Verify that local initialization files do not execute world-writable programs.
+  desc 'check', 'Verify that local initialization files do not execute world-writable programs.
     Check the system for world-writable files with the following command:
     # find / -xdev -perm -002 -type f -exec ls -ld {} \; | more
     For all files listed, check for their presence in the local initialization files with the following commands:
-    Note: The example will be for a system that is configured to create users' home directories in the "/home"
+    Note: The example will be for a system that is configured to create users\' home directories in the "/home"
     directory.
     # grep <file> /home/*/.*
-    If any local initialization files are found to reference world-writable files, this is a finding.)
+    If any local initialization files are found to reference world-writable files, this is a finding.'
   desc  'fix', "
     Set the mode on files being executed by the local initialization files with
 the following command:

@@ -5,7 +5,7 @@ control 'SV-204501' do
     the boot loader. If removable media is designed to be used as the boot loader, the requirement must be documented
     with the Information System Security Officer (ISSO).'
   desc 'rationale', ''
-  desc 'check', %q{Verify the system is not configured to use a boot loader on removable media.
+  desc 'check', 'Verify the system is not configured to use a boot loader on removable media.
     Note: GRUB 2 reads its configuration from the "/boot/grub2/grub.cfg" file on traditional BIOS-based machines and
     from the "/boot/efi/EFI/redhat/grub.cfg" file on UEFI machines.
     Check for the existence of alternate boot loader configuration files with the following command:
@@ -16,10 +16,10 @@ control 'SV-204501' do
     Check that the grub configuration file has the set root command in each menu entry with the following commands:
     # grep -c menuentry /boot/grub2/grub.cfg
     1
-    # grep 'set root' /boot/grub2/grub.cfg
+    # grep \'set root\' /boot/grub2/grub.cfg
     set root=(hd0,1)
     If the system is using an alternate boot loader on removable media, and documentation does not exist approving the
-    alternate configuration, this is a finding.}
+    alternate configuration, this is a finding.'
   desc 'fix', 'Remove alternate methods of booting the system from removable media or document the configuration to
     boot from removable media with the ISSO.'
   impact 0.5

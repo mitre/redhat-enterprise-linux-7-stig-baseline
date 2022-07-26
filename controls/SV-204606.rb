@@ -5,10 +5,10 @@ control 'SV-204606' do
     require interactive identification and authentication of a connection request, or for the use of two-factor
     authentication.'
   desc 'rationale', ''
-  desc 'check', %q(Verify there are no ".shosts" files on the system.
+  desc 'check', 'Verify there are no ".shosts" files on the system.
     Check the system for the existence of these files with the following command:
-    # find / -name '*.shosts'
-    If any ".shosts" files are found on the system, this is a finding.)
+    # find / -name \'*.shosts\'
+    If any ".shosts" files are found on the system, this is a finding.'
   desc 'fix', 'Remove any found ".shosts" files from the system.
     # rm /[path]/[to]/[file]/.shosts'
   impact 0.7

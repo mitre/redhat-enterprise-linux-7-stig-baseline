@@ -22,14 +22,14 @@ control 'SV-204394' do
     services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are
     private and confidential. See User Agreement for details."'
   desc 'rationale', ''
-  desc 'check', %q{Verify the operating system displays the approved Standard Mandatory DoD Notice and Consent Banner
+  desc 'check', 'Verify the operating system displays the approved Standard Mandatory DoD Notice and Consent Banner
     before granting access to the operating system via a graphical user logon.
     Note: If the system does not have a Graphical User Interface installed, this requirement is Not Applicable.
     Check that the operating system displays the exact approved Standard Mandatory DoD Notice and Consent Banner text
     with the command:
     # grep banner-message-text /etc/dconf/db/local.d/*
     banner-message-text=
-    'You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.\nBy
+    \'You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.\nBy
     using this IS (which includes any device attached to this IS), you consent to the following conditions:\n-The USG
     routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration
     testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and
@@ -40,10 +40,10 @@ control 'SV-204394' do
     privacy.\n-Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative
     searching or monitoring of the content of privileged communications, or work product, related to personal
     representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and
-    work product are private and confidential. See User Agreement for details. '
+    work product are private and confidential. See User Agreement for details. \'
     Note: The "\n " characters are for formatting only. They will not be displayed on the Graphical User Interface.
-    If the banner does not match the approved Standard Mandatory DoD Notice and Consent Banner, this is a finding.}
-  desc 'fix', %q{Configure the operating system to display the approved Standard Mandatory DoD Notice and Consent
+    If the banner does not match the approved Standard Mandatory DoD Notice and Consent Banner, this is a finding.'
+  desc 'fix', 'Configure the operating system to display the approved Standard Mandatory DoD Notice and Consent
     Banner before granting access to the system.
     Note: If the system does not have a Graphical User Interface installed, this requirement is Not Applicable.
     Create a database to contain the system-wide graphical user logon settings (if it does not already exist) with the
@@ -52,7 +52,7 @@ control 'SV-204394' do
     Add the following line to the [org/gnome/login-screen] section of the "/etc/dconf/db/local.d/01-banner-message":
     [org/gnome/login-screen]
     banner-message-enable=true
-    banner-message-text='You are accessing a U.S. Government (USG) Information System (IS) that is provided for
+    banner-message-text=\'You are accessing a U.S. Government (USG) Information System (IS) that is provided for
     USG-authorized use only.\nBy using this IS (which includes any device attached to this IS), you consent to the
     following conditions:\n-The USG routinely intercepts and monitors communications on this IS for purposes including,
     but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct
@@ -63,10 +63,10 @@ control 'SV-204394' do
     personal benefit or privacy.\n-Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI
     investigative searching or monitoring of the content of privileged communications, or work product, related to
     personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such
-    communications and work product are private and confidential. See User Agreement for details. '
+    communications and work product are private and confidential. See User Agreement for details. \'
     Note: The "\n " characters are for formatting only. They will not be displayed on the Graphical User Interface.
     Run the following command to update the database:
-    # dconf update}
+    # dconf update'
   impact 0.5
   tag 'legacy': ['V-71861', 'SV-86485']
   tag 'severity': 'medium'

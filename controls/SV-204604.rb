@@ -20,11 +20,11 @@ control 'SV-204604' do
     # firewall-cmd --state
     running
     If "firewalld" does not show a state of "running", this is a finding.'
-  desc 'fix', %q(Ensure the operating system's application firewall is enabled.
+  desc 'fix', 'Ensure the operating system\'s application firewall is enabled.
     Install the "firewalld" package, if it is not on the system, with the following command:
     # yum install firewalld
     Start the firewall via "systemctl" with the following command:
-    # systemctl start firewalld)
+    # systemctl start firewalld'
   impact 0.5
   tag 'legacy': ['SV-86897', 'V-72273']
   tag 'severity': 'medium'

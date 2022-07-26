@@ -7,12 +7,12 @@ control 'SV-214799' do
     functions using asymmetric cryptography enabling distribution of the public key to verify the hash information while
     maintaining the confidentiality of the key used to generate the hash.'
   desc 'rationale', ''
-  desc 'check', %q{Verify the cryptographic hash of system files and commands match the vendor values.
+  desc 'check', 'Verify the cryptographic hash of system files and commands match the vendor values.
     Check the cryptographic hash of system files and commands with the following command:
     Note: System configuration files (indicated by a "c" in the second column) are expected to change over time. Unusual
     modifications should be investigated through the system audit log.
-    # rpm -Va --noconfig | grep '^..5'
-    If there is any output from the command for system files or binaries, this is a finding.}
+    # rpm -Va --noconfig | grep \'^..5\'
+    If there is any output from the command for system files or binaries, this is a finding.'
   desc  'fix', "
     Run the following command to determine which package owns the file:
 

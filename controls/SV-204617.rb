@@ -5,14 +5,14 @@ control 'SV-204617' do
     destination. These messages contain information from the system's route table, possibly revealing portions of the
     network topology."
   desc 'rationale', ''
-  desc 'check', %q(Verify the system does not send IPv4 ICMP redirect messages.
-    # grep 'net.ipv4.conf.all.send_redirects' /etc/sysctl.conf /etc/sysctl.d/*
+  desc 'check', 'Verify the system does not send IPv4 ICMP redirect messages.
+    # grep \'net.ipv4.conf.all.send_redirects\' /etc/sysctl.conf /etc/sysctl.d/*
     If "net.ipv4.conf.all.send_redirects" is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/
     directory, is commented out or does not have a value of "0", this is a finding.
     Check that the operating system implements the "all send_redirects" variables with the following command:
-    # /sbin/sysctl -a | grep 'net.ipv4.conf.all.send_redirects'
+    # /sbin/sysctl -a | grep \'net.ipv4.conf.all.send_redirects\'
     net.ipv4.conf.all.send_redirects = 0
-    If the returned line does not have a value of "0", this is a finding.)
+    If the returned line does not have a value of "0", this is a finding.'
   desc 'fix', 'Configure the system to not allow interfaces to perform IPv4 ICMP redirects.
     Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" or a
     configuration file in the /etc/sysctl.d/ directory (or modify the line to have the required value):

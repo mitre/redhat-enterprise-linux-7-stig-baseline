@@ -5,16 +5,16 @@ control 'SV-204608' do
     failure in name resolution could lead to the failure of security functions requiring name resolution, which may
     include time synchronization, centralized authentication, and remote system logging.'
   desc 'rationale', ''
-  desc 'check', %q{Determine whether the system is using local or DNS name resolution with the following command:
+  desc 'check', 'Determine whether the system is using local or DNS name resolution with the following command:
     # grep hosts /etc/nsswitch.conf
     hosts: files dns
-    If the DNS entry is missing from the host's line in the "/etc/nsswitch.conf" file, the "/etc/resolv.conf" file must
+    If the DNS entry is missing from the host\'s line in the "/etc/nsswitch.conf" file, the "/etc/resolv.conf" file must
     be empty.
     Verify the "/etc/resolv.conf" file is empty with the following command:
     # ls -al /etc/resolv.conf
     -rw-r--r-- 1 root root 0 Aug 19 08:31 resolv.conf
     If local host authentication is being used and the "/etc/resolv.conf" file is not empty, this is a finding.
-    If the DNS entry is found on the host's line of the "/etc/nsswitch.conf" file, verify the operating system is
+    If the DNS entry is found on the host\'s line of the "/etc/nsswitch.conf" file, verify the operating system is
     configured to use two or more name servers for DNS resolution.
     Determine the name servers used by the system with the following command:
     # grep nameserver /etc/resolv.conf
@@ -25,7 +25,7 @@ control 'SV-204608' do
     # sudo lsattr /etc/resolv.conf
     ----i----------- /etc/resolv.conf
     If the file is mutable and has not been documented with the Information System Security Officer (ISSO), this is a
-    finding.}
+    finding.'
   desc 'fix', 'Configure the operating system to use two or more name servers for DNS resolution.
     Edit the "/etc/resolv.conf" file to uncomment or add the two or more "nameserver" option lines with the IP address
     of local authoritative name servers. If local host resolution is being performed, the "/etc/resolv.conf" file must

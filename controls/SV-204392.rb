@@ -4,11 +4,11 @@ control 'SV-204392' do
   desc 'Discretionary access control is weakened if a user or group has access permissions to system files and
     directories greater than the default.'
   desc 'rationale', ''
-  desc 'check', %q{Verify the file permissions, ownership, and group membership of system files and commands match the
+  desc 'check', 'Verify the file permissions, ownership, and group membership of system files and commands match the
     vendor values.
     Check the default file permissions, ownership, and group membership of system files and commands with the following
     command:
-    # for i in `rpm -Va | egrep '^.{1}M|^.{5}U|^.{6}G' | cut -d " " -f 4,5`;do for j in `rpm -qf $i`;do rpm -ql $j
+    # for i in `rpm -Va | egrep \'^.{1}M|^.{5}U|^.{6}G\' | cut -d " " -f 4,5`;do for j in `rpm -qf $i`;do rpm -ql $j
     --dump | cut -d " " -f 1,5,6,7 | grep $i;done;done
     /var/log/gdm 040755 root root
     /etc/audisp/audisp-remote.conf 0100640 root root
@@ -20,7 +20,7 @@ control 'SV-204392' do
     If the file is not owned by the default owner and is not documented with the Information System Security Officer
     (ISSO), this is a finding.
     If the file is not a member of the default group and is not documented with the Information System Security Officer
-    (ISSO), this is a finding.}
+    (ISSO), this is a finding.'
   desc  'fix', "
     Run the following command to determine which package owns the file:
 
