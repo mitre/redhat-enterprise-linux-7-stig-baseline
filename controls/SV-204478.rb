@@ -1,38 +1,41 @@
-control 'SV-204478' do
-  title 'The Red Hat Enterprise Linux operating system must be configured so that local initialization files do not
-    execute world-writable programs.'
-  desc "If user start-up files execute world-writable programs, especially in
+# encoding: UTF-8
+
+control "SV-204478" do
+  title "The Red Hat Enterprise Linux operating system must be configured so that local initialization files do not execute world-writable programs."
+  desc "If user start-up files execute world-writable programs, especially in unprotected directories, they could be maliciously modified to destroy user files or otherwise compromise the system at the user level. If the system is compromised at the user level, it is easier to elevate privileges to eventually compromise the system at the root and network level."
+  desc "default", "If user start-up files execute world-writable programs, especially in
     unprotected directories, they could be maliciously modified to destroy user
     files or otherwise compromise the system at the user level. If the system is
     compromised at the user level, it is easier to elevate privileges to eventually
     compromise the system at the root and network level."
-  desc 'rationale', ''
-  desc 'check', 'Verify that local initialization files do not execute world-writable programs.
-    Check the system for world-writable files with the following command:
-    # find / -xdev -perm -002 -type f -exec ls -ld {} \; | more
-    For all files listed, check for their presence in the local initialization files with the following commands:
-    Note: The example will be for a system that is configured to create users\' home directories in the "/home"
-    directory.
-    # grep <file> /home/*/.*
-    If any local initialization files are found to reference world-writable files, this is a finding.'
-  desc  'fix', "
-    Set the mode on files being executed by the local initialization files with
-the following command:
+  desc "check", "Verify that local initialization files do not execute world-writable programs.
 
-    # chmod 0755 <file>
-  "
+Check the system for world-writable files with the following command:
+
+# find / -xdev -perm -002 -type f -exec ls -ld {} \\; | more
+
+For all files listed, check for their presence in the local initialization files with the following commands:
+
+Note: The example will be for a system that is configured to create users' home directories in the \"/home\" directory.
+
+# grep <file> /home/*/.*
+
+If any local initialization files are found to reference world-writable files, this is a finding."
+  desc "fix", "Set the mode on files being executed by the local initialization files with the following command:
+
+# chmod 0755 <file>"
   impact 0.5
-  tag 'legacy': ['SV-86661', 'V-72037']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204478'
-  tag 'rid': 'SV-204478r603261_rule'
-  tag 'stig_id': 'RHEL-07-020730'
-  tag 'fix_id': 'F-4602r88627_fix'
-  tag 'cci': ['CCI-000366']
-  tag nist: ['CM-6 b']
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
+  tag legacy: ["SV-86661", "V-72037"]
+  tag severity: "medium"
+  tag gtitle: "SRG-OS-000480-GPOS-00227"
+  tag gid: "V-204478"
+  tag rid: "SV-204478r603261_rule"
+  tag stig_id: "RHEL-07-020730"
+  tag fix_id: "F-4602r88627_fix"
+  tag cci: ["CCI-000366"]
+  tag nist: ["CM-6 b"]
   tag subsystems: ["init_files"]
-  tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
@@ -40,10 +43,8 @@ the following command:
       skip "Control not applicable to a container"
     end
   else 
-
     exempt_home_users = input('exempt_home_users')
     non_interactive_shells = input('non_interactive_shells')
-
     if input('disable_slow_controls')
       describe "This control consistently takes a long to run and has been disabled
     using the disable_slow_controls attribute." do
@@ -53,7 +54,6 @@ the following command:
       end
     else
       ignore_shells = non_interactive_shells.join('|')
-
       # Get home directory for users with UID >= 1000 or UID == 0 and support interactive logins.
       dotfiles = Set[]
       u = users.where do
@@ -66,7 +66,6 @@ the following command:
       end
       ww_files = Set[]
       ww_files = command('find / -xdev -perm -002 -type f -exec ls {} \;').stdout.lines
-
       # To reduce the number of commands ran, we use a pattern file in the grep command below
       # So we don't have too long of a grep command, we chunk the list of ww_files
       # into strings not longer than PATTERN_FILE_MAX_LENGTH
@@ -79,7 +78,6 @@ the following command:
         if item.length + "\n".length > PATTERN_FILE_MAX_LENGTH
           raise 'Single pattern is longer than PATTERN_FILE_MAX_LENGTH'
         end
-
         if ww_chunked[-1].length + "\n".length + item.length > PATTERN_FILE_MAX_LENGTH
           ww_chunked.append('')
         end
@@ -89,7 +87,6 @@ the following command:
       if ww_chunked[0] == ''
         ww_chunked = [] # If we didn't have any ww_files, this will prevent an empty grep pattern
       end
-
       # Check each dotfile for existence of each world-writeable file
       findings = Set[]
       dotfiles.each do |dotfile|

@@ -5202,7 +5202,7 @@
           "default__deleted": "Any password, no matter how complex, can eventually be cracked. Therefore, passwords need to be changed\n    periodically. If the operating system does not limit the lifetime of passwords and force users to change their\n    passwords, there is the risk that the operating system passwords could be compromised.",
           "rationale__deleted": "",
           "check": {
-            "__old": "Check whether the maximum time period for existing passwords is restricted to 60 days.\n    # awk -F: '$5 > 60 {print $1 \" \" $5}' /etc/shadow\n    If any results are returned that are not associated with a system account, this is a finding.",
+            "__old": "(Check whether the maximum time period for existing passwords is restricted to 60 days.\n    # awk -F: '$5 > 60 {print $1 \" \" $5}' /etc/shadow\n    If any results are returned that are not associated with a system account, this is a finding.",
             "__new": "Check whether the maximum time period for existing passwords is restricted to 60 days.\n\n# awk -F: '$5 > 60 {print $1 \" \" $5}' /etc/shadow\n\nIf any results are returned that are not associated with a system account, this is a finding."
           },
           "fix": {
