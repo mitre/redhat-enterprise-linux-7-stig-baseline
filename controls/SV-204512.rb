@@ -1,27 +1,43 @@
 # encoding: UTF-8
 
 control "SV-204512" do
-  title "The Red Hat Enterprise Linux operating system must be configured so that the audit system takes appropriate action when there is an error sending audit records to a remote system."
-  desc "Taking appropriate action when there is an error sending audit records to a remote system will minimize the possibility of losing audit records.
-One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon."
-  desc "default", "Taking appropriate action when there is an error sending audit records to a remote system will minimize the
-    possibility of losing audit records.
-    One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon."
-  desc "check", "Verify the action the operating system takes if there is an error sending audit records to a remote system.
+  title "The Red Hat Enterprise Linux operating system must be configured so 
+    that the audit system takes appropriate action when there is an error 
+    sending audit records to a remote system."
+  desc "Taking appropriate action when there is an error sending audit records 
+    to a remote system will minimize the possibility of losing audit records.
+    One method of off-loading audit logs in Red Hat Enterprise Linux is with 
+    the use of the audisp-remote dameon."
+  desc "default", "Taking appropriate action when there is an error sending 
+    audit records to a remote system will minimize the possibility of losing 
+    audit records. One method of off-loading audit logs in Red Hat Enterprise 
+    Linux is with the use of the audisp-remote dameon."
+  desc "check", "Verify the action the operating system takes if there is an 
+    error sending audit records to a remote system.
 
-Check the action that takes place if there is an error sending audit records to a remote system with the following command:
+    Check the action that takes place if there is an error sending audit records 
+    to a remote system with the following command:
 
-# grep -i network_failure_action /etc/audisp/audisp-remote.conf
-network_failure_action = syslog
+    # grep -i network_failure_action /etc/audisp/audisp-remote.conf
+    network_failure_action = syslog
 
-If the value of the \"network_failure_action\" option is not \"syslog\", \"single\", or \"halt\", or the line is commented out, ask the System Administrator to indicate how the audit logs are off-loaded to a different system or storage media, and to indicate the action taken if there is an error sending audit records to the remote system.
+    If the value of the \"network_failure_action\" option is not \"syslog\", 
+    \"single\", or \"halt\", or the line is commented out, ask the System 
+    Administrator to indicate how the audit logs are off-loaded to a different 
+    system or storage media, and to indicate the action taken if there is an 
+    error sending audit records to the remote system.
 
-If there is no evidence that the system is configured to off-load audit logs to a different system or storage media, or if the configuration does not take appropriate action if there is an error sending audit records to the remote system, this is a finding."
-  desc "fix", "Configure the action the operating system takes if there is an error sending audit records to a remote system.
+    If there is no evidence that the system is configured to off-load audit 
+    logs to a different system or storage media, or if the configuration 
+    does not take appropriate action if there is an error sending audit 
+    records to the remote system, this is a finding."
+  desc "fix", "Configure the action the operating system takes if there is an 
+    error sending audit records to a remote system.
 
-Uncomment the \"network_failure_action\" option in \"/etc/audisp/audisp-remote.conf\" and set it to \"syslog\", \"single\", or \"halt\".
+    Uncomment the \"network_failure_action\" option in \"/etc/audisp/audisp-remote.conf\" 
+    and set it to \"syslog\", \"single\", or \"halt\".
 
-network_failure_action = syslog"
+    network_failure_action = syslog"
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["V-73163", "SV-87815"]
@@ -42,8 +58,10 @@ network_failure_action = syslog"
     end
   else
     describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-      its('network_failure_action'.to_s) { should cmp input('expected_network_failure_action') }
-      its('network_failure_action'.to_s) { should be_in ['syslog', 'single', 'halt'] }
+      its('network_failure_action'.to_s) {
+ should cmp input('expected_network_failure_action') }
+      its('network_failure_action'.to_s) {
+ should be_in ['syslog', 'single', 'halt'] }
     end
   end
 end

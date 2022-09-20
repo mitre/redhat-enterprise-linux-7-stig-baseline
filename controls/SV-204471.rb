@@ -1,27 +1,38 @@
 # encoding: UTF-8
 
 control "SV-204471" do
-  title "The Red Hat Enterprise Linux operating system must be configured so that all files and directories contained in local interactive user home directories have a valid owner."
-  desc "Unowned files and directories may be unintentionally inherited if a user is assigned the same User Identifier \"UID\" as the UID of the un-owned files."
-  desc "default", "Unowned files and directories may be unintentionally inherited if a user is assigned the same User
-    Identifier \"UID\" as the UID of the un-owned files."
-  desc "check", "Verify all files and directories in a local interactive user's home directory have a valid owner.
+  title "The Red Hat Enterprise Linux operating system must be configured so 
+    that all files and directories contained in local interactive user home 
+    directories have a valid owner."
+  desc "Unowned files and directories may be unintentionally inherited if a 
+    user is assigned the same User Identifier \"UID\" as the UID of the 
+    un-owned files."
+  desc "default", "Unowned files and directories may be unintentionally 
+    inherited if a user is assigned the same User Identifier \"UID\" as 
+    the UID of the un-owned files."
+  desc "check", "Verify all files and directories in a local interactive 
+    user's home directory have a valid owner.
 
-Check the owner of all files and directories in a local interactive user's home directory with the following command:
+    Check the owner of all files and directories in a local interactive user's 
+    home directory with the following command:
 
-Note: The example will be for the user \"smithj\", who has a home directory of \"/home/smithj\".
+    Note: The example will be for the user \"smithj\", who has a home directory 
+    of \"/home/smithj\".
 
-$ sudo ls -lLR /home/smithj
--rw-r--r-- 1 smithj smithj  18 Mar  5 17:06 file1
--rw-r--r-- 1 smithj smithj 193 Mar  5 17:06 file2
--rw-r--r-- 1 smithj smithj 231 Mar  5 17:06 file3
+    $ sudo ls -lLR /home/smithj
+    -rw-r--r-- 1 smithj smithj  18 Mar  5 17:06 file1
+    -rw-r--r-- 1 smithj smithj 193 Mar  5 17:06 file2
+    -rw-r--r-- 1 smithj smithj 231 Mar  5 17:06 file3
 
-If any files or directories are found without an owner, this is a finding."
-  desc "fix", "Either remove all files and directories from the system that do not have a valid user, or assign a valid user to all unowned files and directories on RHEL 7 with the \"chown\" command:
+    If any files or directories are found without an owner, this is a finding."
+  desc "fix", "Either remove all files and directories from the system that do 
+    not have a valid user, or assign a valid user to all unowned files and 
+    directories on RHEL 7 with the \"chown\" command:
 
-Note: The example will be for the user smithj, who has a home directory of \"/home/smithj\".
+    Note: The example will be for the user smithj, who has a home directory 
+    of \"/home/smithj\".
 
-$ sudo chown smithj /home/smithj/<file or directory>"
+    $ sudo chown smithj /home/smithj/<file or directory>"
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["SV-86647", "V-72023"]

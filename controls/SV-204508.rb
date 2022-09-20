@@ -1,33 +1,48 @@
 # encoding: UTF-8
 
 control "SV-204508" do
-  title "The Red Hat Enterprise Linux operating system must label all off-loaded audit logs before sending them to the central log server."
-  desc "Information stored in one location is vulnerable to accidental or incidental deletion or alteration.
+  title "The Red Hat Enterprise Linux operating system must label all off-loaded 
+    audit logs before sending them to the central log server."
+  desc "Information stored in one location is vulnerable to accidental or 
+    incidental deletion or alteration.
 
-Off-loading is a common process in information systems with limited audit storage capacity.
+    Off-loading is a common process in information systems with limited 
+    audit storage capacity.
 
-One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon.  When audit logs are not labeled before they are sent to a central log server, the audit data will not be able to be analyzed and tied back to the correct system."
-  desc "default", "Information stored in one location is vulnerable to accidental or incidental deletion or alteration.
-    Off-loading is a common process in information systems with limited audit storage capacity.
-    One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon.  When
-    audit logs are not labeled before they are sent to a central log server, the audit data will not be able to be
+    One method of off-loading audit logs in Red Hat Enterprise Linux is with 
+    the use of the audisp-remote dameon.  When audit logs are not labeled 
+    before they are sent to a central log server, the audit data will not 
+    be able to be analyzed and tied back to the correct system."
+  desc "default", "Information stored in one location is vulnerable to accidental 
+    or incidental deletion or alteration. Off-loading is a common process in 
+    information systems with limited audit storage capacity. One method of 
+    off-loading audit logs in Red Hat Enterprise Linux is with the use of 
+    the audisp-remote dameon.  When audit logs are not labeled before they 
+    are sent to a central log server, the audit data will not be able to be
     analyzed and tied back to the correct system."
-  desc "check", "Verify the audisp daemon is configured to label all off-loaded audit logs:
+  desc "check", "Verify the audisp daemon is configured to label all off-loaded 
+    audit logs:
 
-# grep \"name_format\" /etc/audisp/audispd.conf
+    # grep \"name_format\" /etc/audisp/audispd.conf
 
-name_format = hostname
+    name_format = hostname
 
-If the \"name_format\" option is not \"hostname\", \"fqd\", or \"numeric\", or the line is commented out, ask the System Administrator to indicate how the audit logs are off-loaded to a different system or storage media, and to indicate if the logs are labeled appropriately.
+    If the \"name_format\" option is not \"hostname\", \"fqd\", or \"numeric\", 
+    or the line is commented out, ask the System Administrator to indicate how 
+    the audit logs are off-loaded to a different system or storage media, and 
+    to indicate if the logs are labeled appropriately.
 
-If there is no evidence that the system is configured to off-load audit logs to a different system or storage media, or if the configuration does not appropriately label logs before they are off-loaded, this is a finding."
-  desc "fix", "Edit the /etc/audisp/audispd.conf file and add or update the \"name_format\" option:
+    If there is no evidence that the system is configured to off-load audit logs 
+    to a different system or storage media, or if the configuration does not 
+    appropriately label logs before they are off-loaded, this is a finding."
+  desc "fix", "Edit the /etc/audisp/audispd.conf file and add or update the 
+    \"name_format\" option:
 
-name_format = hostname
+    name_format = hostname
 
-The audit daemon must be restarted for changes to take effect:
+    The audit daemon must be restarted for changes to take effect:
 
-# service auditd restart"
+    # service auditd restart"
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["SV-95733", "V-81021"]

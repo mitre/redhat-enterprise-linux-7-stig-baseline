@@ -1,29 +1,43 @@
 # encoding: UTF-8
 
 control "SV-204413" do
-  title "The Red Hat Enterprise Linux operating system must be configured so that when passwords are changed the number of repeating consecutive characters must not be more than three characters."
-  desc "Use of a complex password helps to increase the time and resources required to compromise the password. Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks.
+  title "The Red Hat Enterprise Linux operating system must be configured so that 
+    when passwords are changed the number of repeating consecutive characters 
+    must not be more than three characters."
+  desc "Use of a complex password helps to increase the time and resources 
+    required to compromise the password. Password complexity, or strength, 
+    is a measure of the effectiveness of a password in resisting attempts 
+    at guessing and brute-force attacks.
 
-Password complexity is one factor of several that determines how long it takes to crack a password. The more complex the password, the greater the number of possible combinations that need to be tested before the password is compromised."
-  desc "default", "Use of a complex password helps to increase the time and resources required to compromise the password.
-    Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing
-    and brute-force attacks.
-    Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
-    the password, the greater the number of possible combinations that need to be tested before the password is
+    Password complexity is one factor of several that determines how long it 
+    takes to crack a password. The more complex the password, the greater the 
+    number of possible combinations that need to be tested before the password 
+    is compromised."
+  desc "default", "Use of a complex password helps to increase the time and 
+    resources required to compromise the password. Password complexity, or 
+    strength, is a measure of the effectiveness of a password in resisting 
+    attempts at guessing and brute-force attacks. Password complexity is one 
+    factor of several that determines how long it takes to crack a password. 
+    The more complex the password, the greater the number of possible 
+    combinations that need to be tested before the password is
     compromised."
-  desc "check", "The \"maxrepeat\" option sets the maximum number of allowed same consecutive characters in a new password.
+  desc "check", "The \"maxrepeat\" option sets the maximum number of allowed 
+    same consecutive characters in a new password.
 
-Check for the value of the \"maxrepeat\" option in \"/etc/security/pwquality.conf\" with the following command:
+    Check for the value of the \"maxrepeat\" option in \"/etc/security/pwquality.conf\" 
+    with the following command:
 
-# grep maxrepeat /etc/security/pwquality.conf 
-maxrepeat = 3
+    # grep maxrepeat /etc/security/pwquality.conf 
+    maxrepeat = 3
 
-If the value of \"maxrepeat\" is set to more than \"3\", this is a finding."
-  desc "fix", "Configure the operating system to require the change of the number of repeating consecutive characters when passwords are changed by setting the \"maxrepeat\" option.
+    If the value of \"maxrepeat\" is set to more than \"3\", this is a finding."
+  desc "fix", "Configure the operating system to require the change of the number 
+    of repeating consecutive characters when passwords are changed by setting the \"maxrepeat\" option.
 
-Add the following line to \"/etc/security/pwquality.conf conf\" (or modify the line to have the required value):
+    Add the following line to \"/etc/security/pwquality.conf conf\" (or modify the 
+    line to have the required value):
 
-maxrepeat = 3"
+    maxrepeat = 3"
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["SV-86539", "V-71915"]

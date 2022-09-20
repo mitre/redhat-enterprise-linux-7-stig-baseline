@@ -1,30 +1,39 @@
 # encoding: UTF-8
 
 control "SV-204594" do
-  title "The Red Hat Enterprise Linux operating system must be configured so that the SSH daemon is configured to only use the SSHv2 protocol."
-  desc "SSHv1 is an insecure implementation of the SSH protocol and has many well-known vulnerability exploits. Exploits of the SSH daemon could provide immediate root access to the system."
-  desc "default", "SSHv1 is an insecure implementation of the SSH protocol and has many well-known vulnerability exploits.
-    Exploits of the SSH daemon could provide immediate root access to the system."
-  desc "check", "Check the version of the operating system with the following command:
+  title "The Red Hat Enterprise Linux operating system must be configured so 
+    that the SSH daemon is configured to only use the SSHv2 protocol."
+  desc "SSHv1 is an insecure implementation of the SSH protocol and has many 
+    well-known vulnerability exploits. Exploits of the SSH daemon could provide 
+    immediate root access to the system."
+  desc "default", "SSHv1 is an insecure implementation of the SSH protocol and 
+    has many well-known vulnerability exploits. Exploits of the SSH daemon 
+    could provide immediate root access to the system."
+  desc "check", "Check the version of the operating system with the following 
+    command:
 
-# cat /etc/redhat-release
+    # cat /etc/redhat-release
 
-If the release is 7.4 or newer this requirement is Not Applicable.
+    If the release is 7.4 or newer this requirement is Not Applicable.
 
-Verify the SSH daemon is configured to only use the SSHv2 protocol.
+    Verify the SSH daemon is configured to only use the SSHv2 protocol.
 
-Check that the SSH daemon is configured to only use the SSHv2 protocol with the following command:
+    Check that the SSH daemon is configured to only use the SSHv2 protocol 
+    with the following command:
 
-# grep -i protocol /etc/ssh/sshd_config
-Protocol 2
-#Protocol 1,2
+    # grep -i protocol /etc/ssh/sshd_config
+    Protocol 2
+    #Protocol 1,2
 
-If any protocol line other than \"Protocol 2\" is uncommented, this is a finding."
-  desc "fix", "Remove all Protocol lines that reference version \"1\" in \"/etc/ssh/sshd_config\" (this file may be named differently or be in a different location if using a version of SSH that is provided by a third-party vendor). The \"Protocol\" line must be as follows:
+    If any protocol line other than \"Protocol 2\" is uncommented, this is a finding."
+  desc "fix", "Remove all Protocol lines that reference version \"1\" in 
+    \"/etc/ssh/sshd_config\" (this file may be named differently or be in a different 
+    location if using a version of SSH that is provided by a third-party vendor). 
+    The \"Protocol\" line must be as follows:
 
-Protocol 2
-
-The SSH service must be restarted for changes to take effect."
+    Protocol 2
+    
+    The SSH service must be restarted for changes to take effect."
   impact 0.7
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["SV-86875", "V-72251"]

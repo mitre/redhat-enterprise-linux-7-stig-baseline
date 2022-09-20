@@ -1,19 +1,27 @@
 # encoding: UTF-8
 
 control "SV-204421" do
-  title "The Red Hat Enterprise Linux operating system must be configured so that existing passwords are restricted to a 60-day maximum lifetime."
-  desc "Any password, no matter how complex, can eventually be cracked. Therefore, passwords need to be changed periodically. If the operating system does not limit the lifetime of passwords and force users to change their passwords, there is the risk that the operating system passwords could be compromised."
-  desc "default", "Any password, no matter how complex, can eventually be cracked. Therefore, passwords need to be changed
-    periodically. If the operating system does not limit the lifetime of passwords and force users to change their
+  title "The Red Hat Enterprise Linux operating system must be configured so that 
+    existing passwords are restricted to a 60-day maximum lifetime."
+  desc "Any password, no matter how complex, can eventually be cracked. Therefore, 
+    passwords need to be changed periodically. If the operating system does not 
+    limit the lifetime of passwords and force users to change their passwords, 
+    there is the risk that the operating system passwords could be compromised."
+  desc "default", "Any password, no matter how complex, can eventually be cracked. 
+    Therefore, passwords need to be changed periodically. If the operating system 
+    does not limit the lifetime of passwords and force users to change their
     passwords, there is the risk that the operating system passwords could be compromised."
-  desc "check", "Check whether the maximum time period for existing passwords is restricted to 60 days.
+  desc "check", "Check whether the maximum time period for existing passwords 
+    is restricted to 60 days.
 
-# awk -F: '$5 > 60 {print $1 \" \" $5}' /etc/shadow
+    # awk -F: '$5 > 60 {print $1 \" \" $5}' /etc/shadow
 
-If any results are returned that are not associated with a system account, this is a finding."
-  desc "fix", "Configure non-compliant accounts to enforce a 60-day maximum password lifetime restriction.
+    If any results are returned that are not associated with a system account, 
+    this is a finding."
+  desc "fix", "Configure non-compliant accounts to enforce a 60-day maximum 
+    password lifetime restriction.
 
-# chage -M 60 [user]"
+    # chage -M 60 [user]"
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["V-71931", "SV-86555"]
@@ -37,7 +45,8 @@ If any results are returned that are not associated with a system account, this 
       # filtering on non-system accounts (uid >= 1000)
       next unless user(user).uid >= 1000
       describe shadow.users(user) do
-        its('max_days.first') { should cmp input('expected_max_password_lifetime') }
+        its('max_days.first') {
+ should cmp input('expected_max_password_lifetime') }
         its('max_days.first') { should cmp <= input('max_password_lifetime') }
       end
     end

@@ -1,27 +1,38 @@
 # encoding: UTF-8
 
 control "SV-204618" do
-  title "Network interfaces configured on the Red Hat Enterprise Linux operating system must not be in promiscuous mode."
-  desc "Network interfaces in promiscuous mode allow for the capture of all network traffic visible to the system. If unauthorized individuals can access these applications, it may allow then to collect information such as logon IDs, passwords, and key exchanges between systems.
+  title "Network interfaces configured on the Red Hat Enterprise Linux operating 
+    system must not be in promiscuous mode."
+  desc "Network interfaces in promiscuous mode allow for the capture of all 
+    network traffic visible to the system. If unauthorized individuals can access 
+    these applications, it may allow then to collect information such as logon IDs, 
+    passwords, and key exchanges between systems.
 
-If the system is being used to perform a network troubleshooting function, the use of these tools must be documented with the Information System Security Officer (ISSO) and restricted to only authorized personnel."
-  desc "default", "Network interfaces in promiscuous mode allow for the capture of all network traffic visible to the system.
-    If unauthorized individuals can access these applications, it may allow then to collect information such as logon
-    IDs, passwords, and key exchanges between systems.
-    If the system is being used to perform a network troubleshooting function, the use of these tools must be documented
-    with the Information System Security Officer (ISSO) and restricted to only authorized personnel."
-  desc "check", "Verify network interfaces are not in promiscuous mode unless approved by the ISSO and documented.
+    If the system is being used to perform a network troubleshooting function, the 
+    use of these tools must be documented with the Information System Security Officer 
+    (ISSO) and restricted to only authorized personnel."
+  desc "default", "Network interfaces in promiscuous mode allow for the capture 
+    of all network traffic visible to the system. If unauthorized individuals can 
+    access these applications, it may allow then to collect information such as 
+    logon IDs, passwords, and key exchanges between systems. If the system is 
+    being used to perform a network troubleshooting function, the use of these 
+    tools must be documented with the Information System Security Officer (ISSO) 
+    and restricted to only authorized personnel."
+  desc "check", "Verify network interfaces are not in promiscuous mode unless 
+    approved by the ISSO and documented.
 
-Check for the status with the following command:
+    Check for the status with the following command:
 
-# ip link | grep -i promisc
+    # ip link | grep -i promisc
 
-If network interfaces are found on the system in promiscuous mode and their use has not been approved by the ISSO and documented, this is a finding."
-  desc "fix", "Configure network interfaces to turn off promiscuous mode unless approved by the ISSO and documented.
+    If network interfaces are found on the system in promiscuous mode and their 
+    use has not been approved by the ISSO and documented, this is a finding."
+  desc "fix", "Configure network interfaces to turn off promiscuous mode unless 
+    approved by the ISSO and documented.
 
-Set the promiscuous mode of an interface to off with the following command:
-
-#ip link set dev <devicename> multicast off promisc off"
+    Set the promiscuous mode of an interface to off with the following command:
+    
+    #ip link set dev <devicename> multicast off promisc off"
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["V-72295", "SV-86919"]

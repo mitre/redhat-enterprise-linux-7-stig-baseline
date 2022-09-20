@@ -1,27 +1,34 @@
 # encoding: UTF-8
 
 control "SV-204596" do
-  title "The Red Hat Enterprise Linux operating system must be configured so that the SSH public host key files have mode 0644 or less permissive."
-  desc "If a public host key file is modified by an unauthorized user, the SSH service may be compromised."
-  desc "default", "If a public host key file is modified by an unauthorized user, the SSH service may be compromised."
-  desc "check", "Verify the SSH public host key files have mode \"0644\" or less permissive.
+  title "The Red Hat Enterprise Linux operating system must be configured so 
+    that the SSH public host key files have mode 0644 or less permissive."
+  desc "If a public host key file is modified by an unauthorized user, the 
+    SSH service may be compromised."
+  desc "default", "If a public host key file is modified by an unauthorized 
+    user, the SSH service may be compromised."
+  desc "check", "Verify the SSH public host key files have mode \"0644\" or 
+    less permissive.
 
-Note: SSH public key files may be found in other directories on the system depending on the installation.
+    Note: SSH public key files may be found in other directories on the system 
+    depending on the installation.
 
-The following command will find all SSH public key files on the system:
+    The following command will find all SSH public key files on the system:
 
-# find /etc/ssh -name '*.pub' -exec ls -lL {} \\;
+    # find /etc/ssh -name '*.pub' -exec ls -lL {} \\;
 
--rw-r--r-- 1 root root 618 Nov 28 06:43 ssh_host_dsa_key.pub
--rw-r--r-- 1 root root 347 Nov 28 06:43 ssh_host_key.pub
--rw-r--r-- 1 root root 238 Nov 28 06:43 ssh_host_rsa_key.pub
+    -rw-r--r-- 1 root root 618 Nov 28 06:43 ssh_host_dsa_key.pub
+    -rw-r--r-- 1 root root 347 Nov 28 06:43 ssh_host_key.pub
+    -rw-r--r-- 1 root root 238 Nov 28 06:43 ssh_host_rsa_key.pub
 
-If any file has a mode more permissive than \"0644\", this is a finding."
-  desc "fix", "Note: SSH public key files may be found in other directories on the system depending on the installation. 
+    If any file has a mode more permissive than \"0644\", this is a finding."
+  desc "fix", "Note: SSH public key files may be found in other directories on 
+    the system depending on the installation. 
 
-Change the mode of public host key files under \"/etc/ssh\" to \"0644\" with the following command:
+    Change the mode of public host key files under \"/etc/ssh\" to \"0644\" with 
+    the following command:
 
-# chmod 0644 /etc/ssh/*.key.pub"
+    # chmod 0644 /etc/ssh/*.key.pub"
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["V-72255", "SV-86879"]
@@ -45,7 +52,8 @@ Change the mode of public host key files under \"/etc/ssh\" to \"0644\" with the
     if !pub_files.nil? and !pub_files.empty?
       pub_files.each do |pubfile|
         describe file(pubfile) do
-          it { should_not be_more_permissive_than(input('public_host_key_file_mode')) }
+          it {
+ should_not be_more_permissive_than(input('public_host_key_file_mode')) }
         end
       end
     else

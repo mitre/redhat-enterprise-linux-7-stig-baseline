@@ -1,42 +1,55 @@
 # encoding: UTF-8
 
 control "SV-204392" do
-  title "The Red Hat Enterprise Linux operating system must be configured so that the file permissions, ownership, and group membership of system files and commands match the vendor values."
-  desc "Discretionary access control is weakened if a user or group has access permissions to system files and directories greater than the default."
-  desc "default", "Discretionary access control is weakened if a user or group has access permissions to system files and
-    directories greater than the default."
-  desc "check", "Verify the file permissions, ownership, and group membership of system files and commands match the vendor values.
+  title "The Red Hat Enterprise Linux operating system must be configured so 
+    that the file permissions, ownership, and group membership of system 
+    files and commands match the vendor values."
+  desc "Discretionary access control is weakened if a user or group has access 
+  permissions to system files and directories greater than the default."
+  desc "default", "Discretionary access control is weakened if a user or group 
+    has access permissions to system files and directories greater than the default."
+  desc "check", "Verify the file permissions, ownership, and group membership of 
+    system files and commands match the vendor values.
 
-Check the default file permissions, ownership, and group membership of system files and commands with the following command:
+    Check the default file permissions, ownership, and group membership of system 
+    files and commands with the following command:
 
-# for i in `rpm -Va | egrep '^.{1}M|^.{5}U|^.{6}G' | cut -d \" \" -f 4,5`;do for j in `rpm -qf $i`;do rpm -ql $j --dump | cut -d \" \" -f 1,5,6,7 | grep $i;done;done
+    # for i in `rpm -Va | egrep '^.{1}M|^.{5}U|^.{6}G' | cut -d \" \" -f 4,5`;do 
+    for j in `rpm -qf $i`;do rpm -ql $j --dump | cut -d \" \" -f 1,5,6,7 | grep $i;
+    done;done
 
-/var/log/gdm 040755 root root
-/etc/audisp/audisp-remote.conf 0100640 root root
-/usr/bin/passwd 0104755 root root
+    /var/log/gdm 040755 root root
+    /etc/audisp/audisp-remote.conf 0100640 root root
+    /usr/bin/passwd 0104755 root root
 
-For each file returned, verify the current permissions, ownership, and group membership:
-# ls -la <filename>
+    For each file returned, verify the current permissions, ownership, and group 
+    membership:
+    # ls -la <filename>
 
--rw-------. 1 root root 133 Jan 11 13:25 /etc/audisp/audisp-remote.conf
+    -rw-------. 1 root root 133 Jan 11 13:25 /etc/audisp/audisp-remote.conf
 
-If the file is more permissive than the default permissions, this is a finding.
+    If the file is more permissive than the default permissions, this is a finding.
 
-If the file is not owned by the default owner and is not documented with the Information System Security Officer (ISSO), this is a finding.
+    If the file is not owned by the default owner and is not documented with the 
+    Information System Security Officer (ISSO), this is a finding.
 
-If the file is not a member of the default group and is not documented with the Information System Security Officer (ISSO), this is a finding."
-  desc "fix", "Run the following command to determine which package owns the file:
+    If the file is not a member of the default group and is not documented with the 
+    Information System Security Officer (ISSO), this is a finding."
+  desc "fix", "Run the following command to determine which package owns the 
+    file:
 
-# rpm -qf <filename>
+    # rpm -qf <filename>
 
-Reset the user and group ownership of files within a package with the following command:
+    Reset the user and group ownership of files within a package with the 
+    following command:
 
-# rpm --setugids <packagename>
+    # rpm --setugids <packagename>
 
 
-Reset the permissions of files within a package with the following command:
+    Reset the permissions of files within a package with the following 
+    command:
 
-# rpm --setperms <packagename>"
+    # rpm --setperms <packagename>"
   impact 0.7
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["V-71849", "SV-86473"]
@@ -52,8 +65,8 @@ Reset the permissions of files within a package with the following command:
   tag subsystems: ["permissions", "package", "rpm"]
 
   if input('disable_slow_controls')
-    describe "This control consistently takes a long time to run and has been disabled
-    using the disable_slow_controls attribute." do
+    describe "This control consistently takes a long time to run and has been 
+    disabled using the disable_slow_controls attribute." do
       skip "This control consistently takes a long time to run and has been disabled
             using the disable_slow_controls attribute. You must enable this control for a
             full accredidation for production."

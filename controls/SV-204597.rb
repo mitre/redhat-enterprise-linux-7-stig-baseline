@@ -1,23 +1,29 @@
 # encoding: UTF-8
 
 control "SV-204597" do
-  title "The Red Hat Enterprise Linux operating system must be configured so that the SSH private host key files have mode 0600 or less permissive."
-  desc "If an unauthorized user obtains the private SSH host key file, the host could be impersonated."
-  desc "default", "If an unauthorized user obtains the private SSH host key file, the host could be impersonated."
-  desc "check", "Verify the SSH private host key files have mode \"0600\" or less permissive.
+  title "The Red Hat Enterprise Linux operating system must be configured so 
+    that the SSH private host key files have mode 0600 or less permissive."
+  desc "If an unauthorized user obtains the private SSH host key file, 
+    the host could be impersonated."
+  desc "default", "If an unauthorized user obtains the private SSH host 
+    key file, the host could be impersonated."
+  desc "check", "Verify the SSH private host key files have mode \"0600\" or 
+    less permissive.
 
-The following command will find all SSH private key files on the system and list their modes:
+    The following command will find all SSH private key files on the system and 
+    list their modes:
 
-# find / -name '*ssh_host*key' | xargs ls -lL
+    # find / -name '*ssh_host*key' | xargs ls -lL
 
--rw------- 1 root ssh_keys 668 Nov 28 06:43 ssh_host_dsa_key
--rw------- 1 root ssh_keys 582 Nov 28 06:43 ssh_host_key
--rw------- 1 root ssh_keys 887 Nov 28 06:43 ssh_host_rsa_key
+    -rw------- 1 root ssh_keys 668 Nov 28 06:43 ssh_host_dsa_key
+    -rw------- 1 root ssh_keys 582 Nov 28 06:43 ssh_host_key
+    -rw------- 1 root ssh_keys 887 Nov 28 06:43 ssh_host_rsa_key
 
-If any file has a mode more permissive than \"0600\", this is a finding."
-  desc "fix", "Configure the mode of SSH private host key files under \"/etc/ssh\" to \"0600\" with the following command:
+    If any file has a mode more permissive than \"0600\", this is a finding."
+  desc "fix", "Configure the mode of SSH private host key files under \"/etc/ssh\" 
+    to \"0600\" with the following command:
 
-# chmod 0600 /path/to/file/ssh_host*key"
+    # chmod 0600 /path/to/file/ssh_host*key"
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["V-72257", "SV-86881"]
@@ -41,7 +47,8 @@ If any file has a mode more permissive than \"0600\", this is a finding."
     if !pub_files.nil? and !pub_files.empty?
       pub_files.each do |pubfile|
         describe file(pubfile) do
-          it { should_not be_more_permissive_than(input('private_host_key_file_mode')) }
+          it {
+ should_not be_more_permissive_than(input('private_host_key_file_mode')) }
         end
       end
     else

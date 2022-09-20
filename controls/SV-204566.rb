@@ -1,31 +1,44 @@
 # encoding: UTF-8
 
 control "SV-204566" do
-  title "The Red Hat Enterprise Linux operating system must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/gshadow."
-  desc "Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one.
+  title "The Red Hat Enterprise Linux operating system must generate audit 
+    records for all account creations, modifications, disabling, and termination 
+    events that affect /etc/gshadow."
+  desc "Without generating audit records that are specific to the security and 
+    mission needs of the organization, it would be difficult to establish, 
+    correlate, and investigate the events relating to an incident or identify 
+    those responsible for one.
 
-Audit records can be generated from various components within the information system (e.g., module or policy filter)."
-  desc "default", "Without generating audit records that are specific to the security and mission needs of the organization, it
-    would be difficult to establish, correlate, and investigate the events relating to an incident or identify those
-    responsible for one.
-    Audit records can be generated from various components within the information system (e.g., module or policy
+    Audit records can be generated from various components within the information 
+    system (e.g., module or policy filter)."
+  desc "default", "Without generating audit records that are specific to the 
+    security and mission needs of the organization, it would be difficult to 
+    establish, correlate, and investigate the events relating to an incident 
+    or identify those responsible for one. Audit records can be generated from 
+    various components within the information system (e.g., module or policy
     filter)."
-  desc "check", "Verify the operating system must generate audit records for all account creations, modifications, disabling, and termination events that affect \"/etc/gshadow\".
+  desc "check", "Verify the operating system must generate audit records for all 
+    account creations, modifications, disabling, and termination events that affect 
+    \"/etc/gshadow\".
 
-Check the auditing rules in \"/etc/audit/audit.rules\" with the following command:
+    Check the auditing rules in \"/etc/audit/audit.rules\" with the following 
+    command:
 
-# grep /etc/gshadow /etc/audit/audit.rules
+    # grep /etc/gshadow /etc/audit/audit.rules
 
--w /etc/gshadow -p wa -k identity
+    -w /etc/gshadow -p wa -k identity
 
-If the command does not return a line, or the line is commented out, this is a finding."
-  desc "fix", "Configure the operating system to generate audit records for all account creations, modifications, disabling, and termination events that affect \"/etc/gshadow\".
+    If the command does not return a line, or the line is commented out, this 
+    is a finding."
+  desc "fix", "Configure the operating system to generate audit records for all 
+    account creations, modifications, disabling, and termination events that affect 
+    \"/etc/gshadow\".
 
-Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
-
--w /etc/gshadow -p wa -k identity
-
-The audit daemon must be restarted for the changes to take effect."
+    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
+        
+    -w /etc/gshadow -p wa -k identity
+        
+    The audit daemon must be restarted for the changes to take effect."
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["SV-87819", "V-73167"]

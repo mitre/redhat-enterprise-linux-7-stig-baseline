@@ -1,48 +1,59 @@
 # encoding: UTF-8
 
 control "SV-204449" do
-  title "The Red Hat Enterprise Linux operating system must be configured to disable USB mass storage."
-  desc "USB mass storage permits easy introduction of unknown devices, thereby facilitating malicious activity."
-  desc "default", "USB mass storage permits easy introduction of unknown devices, thereby facilitating malicious activity."
-  desc "check", "Verify the operating system disables the ability to load the USB Storage kernel module.
+  title "The Red Hat Enterprise Linux operating system must be configured to 
+    disable USB mass storage."
+  desc "USB mass storage permits easy introduction of unknown devices, 
+    thereby facilitating malicious activity."
+  desc "default", "USB mass storage permits easy introduction of unknown 
+    devices, thereby facilitating malicious activity."
+  desc "check", "Verify the operating system disables the ability to load the 
+    USB Storage kernel module.
 
-# grep -r usb-storage /etc/modprobe.d/* | grep -i \"/bin/true\" | grep -v \"^#\"
+    # grep -r usb-storage /etc/modprobe.d/* | grep -i \"/bin/true\" | grep -v \"^#\"
 
-install usb-storage /bin/true
+    install usb-storage /bin/true
 
-If the command does not return any output, or the line is commented out, and use of USB Storage is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding.
+    If the command does not return any output, or the line is commented out, and 
+    use of USB Storage is not documented with the Information System Security 
+    Officer (ISSO) as an operational requirement, this is a finding.
 
-Verify the operating system disables the ability to use USB mass storage devices.
+    Verify the operating system disables the ability to use USB mass storage devices.
 
-Check to see if USB mass storage is disabled with the following command:
+    Check to see if USB mass storage is disabled with the following command:
 
-# grep usb-storage /etc/modprobe.d/* | grep -i \"blacklist\" | grep -v \"^#\"
-blacklist usb-storage
+    # grep usb-storage /etc/modprobe.d/* | grep -i \"blacklist\" | grep -v \"^#\"
+    blacklist usb-storage
 
-If the command does not return any output or the output is not \"blacklist usb-storage\", and use of USB storage devices is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding."
-  desc "fix", "Configure the operating system to disable the ability to use the USB Storage kernel module.
+    If the command does not return any output or the output is not \"blacklist usb-storage\", 
+    and use of USB storage devices is not documented with the Information System Security 
+    Officer (ISSO) as an operational requirement, this is a finding."
+  desc "fix", "Configure the operating system to disable the ability to use the 
+    USB Storage kernel module.
 
-Create a file under \"/etc/modprobe.d\" with the following command:
+    Create a file under \"/etc/modprobe.d\" with the following command:
 
-# touch /etc/modprobe.d/usb-storage.conf
+    # touch /etc/modprobe.d/usb-storage.conf
 
-Add the following line to the created file:
+    Add the following line to the created file:
 
-install usb-storage /bin/true
+    install usb-storage /bin/true
 
-Configure the operating system to disable the ability to use USB mass storage devices.
+    Configure the operating system to disable the ability to use USB mass 
+    storage devices.
 
-# vi /etc/modprobe.d/blacklist.conf
+    # vi /etc/modprobe.d/blacklist.conf
 
-Add or update the line:
+    Add or update the line:
 
-blacklist usb-storage"
+    blacklist usb-storage"
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["SV-86607", "V-71983"]
   tag severity: "medium"
   tag gtitle: "SRG-OS-000114-GPOS-00059"
-  tag satisfies: ["SRG-OS-000114-GPOS-00059", "SRG-OS-000378-GPOS-00163", "SRG-OS-000480-GPOS-00227"]
+  tag satisfies: ["SRG-OS-000114-GPOS-00059", "SRG-OS-000378-GPOS-00163", 
+"SRG-OS-000480-GPOS-00227"]
   tag gid: "V-204449"
   tag rid: "SV-204449r603261_rule"
   tag stig_id: "RHEL-07-020100"

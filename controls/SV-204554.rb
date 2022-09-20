@@ -1,36 +1,49 @@
 # encoding: UTF-8
 
 control "SV-204554" do
-  title "The Red Hat Enterprise Linux operating system must audit all uses of the postdrop command."
-  desc "Reconstruction of harmful events or forensic analysis is not possible if audit records do not contain enough information.
+  title "The Red Hat Enterprise Linux operating system must audit all uses of 
+    the postdrop command."
+  desc "Reconstruction of harmful events or forensic analysis is not possible 
+    if audit records do not contain enough information.
 
-At a minimum, the organization must audit the full-text recording of privileged postfix commands. The organization must maintain audit trails in sufficient detail to reconstruct events to determine the cause and impact of compromise.
+    At a minimum, the organization must audit the full-text recording of 
+    privileged postfix commands. The organization must maintain audit trails 
+    in sufficient detail to reconstruct events to determine the cause and 
+    impact of compromise.
 
-When a user logs on, the auid is set to the uid of the account that is being authenticated. Daemons are not user sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals 4294967295. The audit system interprets -1, 4294967295, and \"unset\" in the same way."
-  desc "default", "Reconstruction of harmful events or forensic analysis is not possible if audit records do not contain enough
-    information.
-    At a minimum, the organization must audit the full-text recording of privileged postfix commands. The organization
-    must maintain audit trails in sufficient detail to reconstruct events to determine the cause and impact of
-    compromise.
-    When a user logs on, the auid is set to the uid of the account that is being authenticated. Daemons are not user
-    sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals
-    4294967295. The audit system interprets -1, 4294967295, and \"unset\" in the same way."
-  desc "check", "Verify the operating system generates audit records when successful/unsuccessful attempts to use the \"postdrop\" command occur.
+    When a user logs on, the auid is set to the uid of the account that is being 
+    authenticated. Daemons are not user sessions and have the loginuid set to -1. 
+    The auid representation is an unsigned 32-bit integer, which equals 4294967295. 
+    The audit system interprets -1, 4294967295, and \"unset\" in the same way."
+  desc "default", "Reconstruction of harmful events or forensic analysis is not 
+    possible if audit records do not contain enough information.
+    At a minimum, the organization must audit the full-text recording of 
+    privileged postfix commands. The organization must maintain audit trails 
+    in sufficient detail to reconstruct events to determine the cause and 
+    impact of compromise. When a user logs on, the auid is set to the uid of 
+    the account that is being authenticated. Daemons are not user
+    sessions and have the loginuid set to -1. The auid representation is an 
+    unsigned 32-bit integer, which equals 4294967295. The audit system interprets 
+    -1, 4294967295, and \"unset\" in the same way."
+  desc "check", "Verify the operating system generates audit records when 
+    successful/unsuccessful attempts to use the \"postdrop\" command occur.
 
-Check that the following system call is being audited by performing the following command to check the file system rules in \"/etc/audit/audit.rules\": 
+    Check that the following system call is being audited by performing the 
+    following command to check the file system rules in \"/etc/audit/audit.rules\": 
 
-# grep -iw /usr/sbin/postdrop /etc/audit/audit.rules
+    # grep -iw /usr/sbin/postdrop /etc/audit/audit.rules
 
--a always,exit -F path=/usr/sbin/postdrop -F auid>=1000 -F auid!=unset -k privileged-postfix
+    -a always,exit -F path=/usr/sbin/postdrop -F auid>=1000 -F auid!=unset -k privileged-postfix
 
-If the command does not return any output, this is a finding."
-  desc "fix", "Configure the operating system to generate audit records when successful/unsuccessful attempts to use the \"postdrop\" command occur.
+    If the command does not return any output, this is a finding."
+  desc "fix", "Configure the operating system to generate audit records when 
+    successful/unsuccessful attempts to use the \"postdrop\" command occur.
 
-Add or update the following rule in \"/etc/audit/rules.d/audit.rules\": 
-
--a always,exit -F path=/usr/sbin/postdrop -F auid>=1000 -F auid!=unset -k privileged-postfix
-
-The audit daemon must be restarted for the changes to take effect."
+    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\": 
+        
+    -a always,exit -F path=/usr/sbin/postdrop -F auid>=1000 -F auid!=unset -k privileged-postfix
+        
+    The audit daemon must be restarted for the changes to take effect."
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["V-72175", "SV-86799"]

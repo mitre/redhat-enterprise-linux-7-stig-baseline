@@ -1,30 +1,38 @@
 # encoding: UTF-8
 
 control "SV-204496" do
-  title "The Red Hat Enterprise Linux operating system must use a separate file system for /tmp (or equivalent)."
-  desc "The use of separate file systems for different paths can protect the system from failures resulting from a file system becoming full or failing."
-  desc "default", "The use of separate file systems for different paths can protect the system from failures resulting from a
-    file system becoming full or failing."
-  desc "check", "Verify that a separate file system/partition has been created for \"/tmp\".
+  title "The Red Hat Enterprise Linux operating system must use a separate file 
+    system for /tmp (or equivalent)."
+  desc "The use of separate file systems for different paths can protect the 
+    system from failures resulting from a file system becoming full or failing."
+  desc "default", "The use of separate file systems for different paths can 
+    protect the system from failures resulting from a file system becoming 
+    full or failing."
+  desc "check", "Verify that a separate file system/partition has been created 
+    for \"/tmp\".
 
-Check that a file system/partition has been created for \"/tmp\" with the following command:
+    Check that a file system/partition has been created for \"/tmp\" with the 
+    following command:
 
-# systemctl is-enabled tmp.mount
-enabled
+    # systemctl is-enabled tmp.mount
+    enabled
 
-If the \"tmp.mount\" service is not enabled, check to see if \"/tmp\" is defined in the fstab with a device and mount point:
+    If the \"tmp.mount\" service is not enabled, check to see if \"/tmp\" is defined 
+    in the fstab with a device and mount point:
 
-# grep -i /tmp /etc/fstab
-UUID=a411dc99-f2a1-4c87-9e05-184977be8539 /tmp   ext4   rw,relatime,discard,data=ordered,nosuid,noexec, 0 0
+    # grep -i /tmp /etc/fstab
+    UUID=a411dc99-f2a1-4c87-9e05-184977be8539 /tmp   ext4   rw,relatime,discard,data=ordered,nosuid,noexec, 0 0
 
-If \"tmp.mount\" service is not enabled or the \"/tmp\" directory is not defined in the fstab with a device and mount point, this is a finding."
+    If \"tmp.mount\" service is not enabled or the \"/tmp\" directory is not defined 
+    in the fstab with a device and mount point, this is a finding."
   desc "fix", "Start the \"tmp.mount\" service with the following command:
 
-# systemctl enable tmp.mount
-   
-OR
+    # systemctl enable tmp.mount
 
-Edit the \"/etc/fstab\" file and ensure the \"/tmp\" directory is defined in the fstab with a device and mount point."
+    OR
+
+    Edit the \"/etc/fstab\" file and ensure the \"/tmp\" directory is defined in 
+    the fstab with a device and mount point."
   impact 0.3
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["SV-86689", "V-72065"]

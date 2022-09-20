@@ -1,25 +1,35 @@
 # encoding: UTF-8
 
 control "SV-204457" do
-  title "The Red Hat Enterprise Linux operating system must define default permissions for all authenticated users in such a way that the user can only read and modify their own files."
-  desc "Setting the most restrictive default permissions ensures that when new accounts are created, they do not have unnecessary access."
-  desc "default", "Setting the most restrictive default permissions ensures that when new accounts are created, they do not
-    have unnecessary access."
-  desc "check", "Verify the operating system defines default permissions for all authenticated users in such a way that the user can only read and modify their own files.
+  title "The Red Hat Enterprise Linux operating system must define default 
+    permissions for all authenticated users in such a way that the user can 
+    only read and modify their own files."
+  desc "Setting the most restrictive default permissions ensures that when 
+    new accounts are created, they do not have unnecessary access."
+  desc "default", "Setting the most restrictive default permissions ensures 
+    that when new accounts are created, they do not have unnecessary access."
+  desc "check", "Verify the operating system defines default permissions for all 
+    authenticated users in such a way that the user can only read and modify 
+    their own files.
 
-Check for the value of the \"UMASK\" parameter in \"/etc/login.defs\" file with the following command:
+    Check for the value of the \"UMASK\" parameter in \"/etc/login.defs\" file with 
+    the following command:
 
-Note: If the value of the \"UMASK\" parameter is set to \"000\" in \"/etc/login.defs\" file, the Severity is raised to a CAT I.
+    Note: If the value of the \"UMASK\" parameter is set to \"000\" in \"/etc/login.defs\" 
+    file, the Severity is raised to a CAT I.
 
-# grep -i umask /etc/login.defs
-UMASK  077
+    # grep -i umask /etc/login.defs
+    UMASK  077
 
-If the value for the \"UMASK\" parameter is not \"077\", or the \"UMASK\" parameter is missing or is commented out, this is a finding."
-  desc "fix", "Configure the operating system to define default permissions for all authenticated users in such a way that the user can only read and modify their own files.
+    If the value for the \"UMASK\" parameter is not \"077\", or the \"UMASK\" 
+    parameter is missing or is commented out, this is a finding."
+  desc "fix", "Configure the operating system to define default permissions for 
+    all authenticated users in such a way that the user can only read and modify 
+    their own files.
 
-Add or edit the line for the \"UMASK\" parameter in \"/etc/login.defs\" file to \"077\":
-
-UMASK  077"
+    Add or edit the line for the \"UMASK\" parameter in \"/etc/login.defs\" file to \"077\":
+        
+    UMASK  077"
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["SV-86619", "V-71995"]

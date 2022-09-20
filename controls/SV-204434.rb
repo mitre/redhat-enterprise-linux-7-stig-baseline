@@ -1,24 +1,32 @@
 # encoding: UTF-8
 
 control "SV-204434" do
-  title "The Red Hat Enterprise Linux operating system must not allow users to override SSH environment variables."
-  desc "Failure to restrict system access to authenticated users negatively impacts operating system security."
-  desc "default", "Failure to restrict system access to authenticated users negatively impacts operating system security."
-  desc "check", "Verify the operating system does not allow users to override environment variables to the SSH daemon.
+  title "The Red Hat Enterprise Linux operating system must not allow users 
+    to override SSH environment variables."
+  desc "Failure to restrict system access to authenticated users negatively 
+    impacts operating system security."
+  desc "default", "Failure to restrict system access to authenticated users 
+    negatively impacts operating system security."
+  desc "check", "Verify the operating system does not allow users to override 
+    environment variables to the SSH daemon.
 
-Check for the value of the \"PermitUserEnvironment\" keyword with the following command:
+    Check for the value of the \"PermitUserEnvironment\" keyword with the 
+    following command:
 
-# grep -i permituserenvironment /etc/ssh/sshd_config
-PermitUserEnvironment no
+    # grep -i permituserenvironment /etc/ssh/sshd_config
+    PermitUserEnvironment no
 
-If the \"PermitUserEnvironment\" keyword is not set to \"no\", is missing, or is commented out, this is a finding."
-  desc "fix", "Configure the operating system to not allow users to override environment variables to the SSH daemon.
+    If the \"PermitUserEnvironment\" keyword is not set to \"no\", is missing, or 
+    is commented out, this is a finding."
+  desc "fix", "Configure the operating system to not allow users to override 
+    environment variables to the SSH daemon.
 
-Edit the \"/etc/ssh/sshd_config\" file to uncomment or add the line for \"PermitUserEnvironment\" keyword and set the value to \"no\":
+    Edit the \"/etc/ssh/sshd_config\" file to uncomment or add the line for 
+    \"PermitUserEnvironment\" keyword and set the value to \"no\":
 
-PermitUserEnvironment no
+    PermitUserEnvironment no
 
-The SSH service must be restarted for changes to take effect."
+    The SSH service must be restarted for changes to take effect."
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["SV-86581", "V-71957"]

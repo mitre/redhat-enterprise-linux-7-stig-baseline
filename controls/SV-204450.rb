@@ -1,43 +1,53 @@
 # encoding: UTF-8
 
 control "SV-204450" do
-  title "The Red Hat Enterprise Linux operating system must be configured so that the Datagram Congestion Control Protocol (DCCP) kernel module is disabled unless required."
-  desc "Disabling DCCP protects the system against exploitation of any flaws in the protocol implementation."
-  desc "default", "Disabling DCCP protects the system against exploitation of any flaws in the protocol implementation."
-  desc "check", "Verify the operating system disables the ability to load the DCCP kernel module.
+  title "The Red Hat Enterprise Linux operating system must be configured so that 
+    the Datagram Congestion Control Protocol (DCCP) kernel module is disabled 
+    unless required."
+  desc "Disabling DCCP protects the system against exploitation of any flaws 
+    in the protocol implementation."
+  desc "default", "Disabling DCCP protects the system against exploitation of 
+    any flaws in the protocol implementation."
+  desc "check", "Verify the operating system disables the ability to load the 
+    DCCP kernel module.
 
-# grep -r dccp /etc/modprobe.d/* | grep -i \"/bin/true\" | grep -v \"^#\"
+    # grep -r dccp /etc/modprobe.d/* | grep -i \"/bin/true\" | grep -v \"^#\"
 
-install dccp /bin/true
+    install dccp /bin/true
 
-If the command does not return any output, or the line is commented out, and use of DCCP is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding.
+    If the command does not return any output, or the line is commented out, and 
+    use of DCCP is not documented with the Information System Security Officer 
+    (ISSO) as an operational requirement, this is a finding.
 
-Verify the operating system disables the ability to use the DCCP kernel module.
+    Verify the operating system disables the ability to use the DCCP kernel module.
 
-Check to see if the DCCP kernel module is disabled with the following command:
+    Check to see if the DCCP kernel module is disabled with the following command:
 
-# grep -i dccp /etc/modprobe.d/* | grep -i \"blacklist\" | grep -v \"^#\"
+    # grep -i dccp /etc/modprobe.d/* | grep -i \"blacklist\" | grep -v \"^#\"
 
-blacklist dccp
+    blacklist dccp
 
-If the command does not return any output or the output is not \"blacklist dccp\", and use of the dccp kernel module is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding."
-  desc "fix", "Configure the operating system to disable the ability to use the DCCP kernel module.
+    If the command does not return any output or the output is not \"blacklist dccp\", 
+    and use of the dccp kernel module is not documented with the Information System 
+    Security Officer (ISSO) as an operational requirement, this is a finding."
+  desc "fix", "Configure the operating system to disable the ability to use the 
+  DCCP kernel module.
 
-Create a file under \"/etc/modprobe.d\" with the following command:
+    Create a file under \"/etc/modprobe.d\" with the following command:
 
-# touch /etc/modprobe.d/dccp.conf
-
-Add the following line to the created file:
-
-install dccp /bin/true
-
-Ensure that the DCCP module is blacklisted: 
-
-# vi /etc/modprobe.d/blacklist.conf
-
-Add or update the line:
-
-blacklist dccp"
+    # touch /etc/modprobe.d/dccp.conf
+        
+    Add the following line to the created file:
+        
+    install dccp /bin/true
+        
+    Ensure that the DCCP module is blacklisted: 
+        
+    # vi /etc/modprobe.d/blacklist.conf
+        
+    Add or update the line:
+        
+    blacklist dccp"
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["V-77821", "SV-92517"]

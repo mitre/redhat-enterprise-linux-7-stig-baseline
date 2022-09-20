@@ -1,42 +1,58 @@
 # encoding: UTF-8
 
 control "SV-204542" do
-  title "The Red Hat Enterprise Linux operating system must audit all uses of the passwd command."
-  desc "Reconstruction of harmful events or forensic analysis is not possible if audit records do not contain enough information.
+  title "The Red Hat Enterprise Linux operating system must audit all uses of 
+  the passwd command."
+  desc "Reconstruction of harmful events or forensic analysis is not possible 
+    if audit records do not contain enough information.
 
-At a minimum, the organization must audit the full-text recording of privileged password commands. The organization must maintain audit trails in sufficient detail to reconstruct events to determine the cause and impact of compromise.
+    At a minimum, the organization must audit the full-text recording of 
+    privileged password commands. The organization must maintain audit 
+    trails in sufficient detail to reconstruct events to determine the 
+    cause and impact of compromise.
 
-When a user logs on, the auid is set to the uid of the account that is being authenticated.  Daemons are not user sessions and have the loginuid set to -1.  The auid representation is an unsigned 32-bit integer, which equals 4294967295.  The audit system interprets -1, 4294967295, and \"unset\" in the same way."
-  desc "default", "Reconstruction of harmful events or forensic analysis is not possible if audit records do not contain enough
-    information.
-    At a minimum, the organization must audit the full-text recording of privileged password commands. The organization
-    must maintain audit trails in sufficient detail to reconstruct events to determine the cause and impact of
-    compromise.
-    When a user logs on, the auid is set to the uid of the account that is being authenticated.  Daemons are not user
-    sessions and have the loginuid set to -1.  The auid representation is an unsigned 32-bit integer, which equals
-    4294967295.  The audit system interprets -1, 4294967295, and \"unset\" in the same way."
-  desc "check", "Verify the operating system generates audit records when successful/unsuccessful attempts to use the \"passwd\" command occur.
+    When a user logs on, the auid is set to the uid of the account that is 
+    being authenticated.  Daemons are not user sessions and have the loginuid 
+    set to -1.  The auid representation is an unsigned 32-bit integer, which 
+    equals 4294967295.  The audit system interprets -1, 4294967295, and 
+    \"unset\" in the same way."
+  desc "default", "Reconstruction of harmful events or forensic analysis is 
+    not possible if audit records do not contain enough information.
+    At a minimum, the organization must audit the full-text recording of 
+    privileged password commands. The organization must maintain audit 
+    trails in sufficient detail to reconstruct events to determine the 
+    cause and impact of compromise. When a user logs on, the auid is set 
+    to the uid of the account that is being authenticated.  Daemons are 
+    not user sessions and have the loginuid set to -1.  The auid 
+    representation is an unsigned 32-bit integer, which equals
+    4294967295.  The audit system interprets -1, 4294967295, and 
+    \"unset\" in the same way."
+  desc "check", "Verify the operating system generates audit records when 
+    successful/unsuccessful attempts to use the \"passwd\" command occur.
 
-Check the file system rule in \"/etc/audit/audit.rules\" with the following command:
+    Check the file system rule in \"/etc/audit/audit.rules\" with the 
+    following command:
 
-# grep -i /usr/bin/passwd /etc/audit/audit.rules
+    # grep -i /usr/bin/passwd /etc/audit/audit.rules
 
--a always,exit -F path=/usr/bin/passwd -F auid>=1000 -F auid!=unset -k privileged-passwd
+    -a always,exit -F path=/usr/bin/passwd -F auid>=1000 -F auid!=unset -k privileged-passwd
 
-If the command does not return any output, this is a finding."
-  desc "fix", "Configure the operating system to generate audit records when successful/unsuccessful attempts to use the \"passwd\" command occur.
+    If the command does not return any output, this is a finding."
+  desc "fix", "Configure the operating system to generate audit records when 
+    successful/unsuccessful attempts to use the \"passwd\" command occur.
 
-Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
-
--a always,exit -F path=/usr/bin/passwd -F auid>=1000 -F auid!=unset -k privileged-passwd
-
-The audit daemon must be restarted for the changes to take effect."
+    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
+        
+    -a always,exit -F path=/usr/bin/passwd -F auid>=1000 -F auid!=unset -k privileged-passwd
+        
+    The audit daemon must be restarted for the changes to take effect."
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["SV-86773", "V-72149"]
   tag severity: "medium"
   tag gtitle: "SRG-OS-000042-GPOS-00020"
-  tag satisfies: ["SRG-OS-000042-GPOS-00020", "SRG-OS-000392-GPOS-00172", "SRG-OS-000471-GPOS-00215"]
+  tag satisfies: ["SRG-OS-000042-GPOS-00020", "SRG-OS-000392-GPOS-00172", 
+"SRG-OS-000471-GPOS-00215"]
   tag gid: "V-204542"
   tag rid: "SV-204542r603261_rule"
   tag stig_id: "RHEL-07-030630"

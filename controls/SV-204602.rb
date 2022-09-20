@@ -1,24 +1,36 @@
 # encoding: UTF-8
 
 control "SV-204602" do
-  title "The Red Hat Enterprise Linux operating system must be configured so that the SSH daemon does not allow compression or only allows compression after successful authentication."
-  desc "If compression is allowed in an SSH connection prior to authentication, vulnerabilities in the compression software could result in compromise of the system from an unauthenticated connection, potentially with root privileges."
-  desc "default", "If compression is allowed in an SSH connection prior to authentication, vulnerabilities in the compression
-    software could result in compromise of the system from an unauthenticated connection, potentially with root
+  title "The Red Hat Enterprise Linux operating system must be configured so 
+    that the SSH daemon does not allow compression or only allows compression 
+    after successful authentication."
+  desc "If compression is allowed in an SSH connection prior to authentication, 
+    vulnerabilities in the compression software could result in compromise of 
+    the system from an unauthenticated connection, potentially with root 
     privileges."
-  desc "check", "Verify the SSH daemon performs compression after a user successfully authenticates.
+  desc "default", "If compression is allowed in an SSH connection prior to 
+    authentication, vulnerabilities in the compression software could result 
+    in compromise of the system from an unauthenticated connection, 
+    potentially with root privileges."
+  desc "check", "Verify the SSH daemon performs compression after a user 
+    successfully authenticates.
 
-Check that the SSH daemon performs compression after a user successfully authenticates with the following command:
+    Check that the SSH daemon performs compression after a user successfully 
+    authenticates with the following command:
 
-# grep -i compression /etc/ssh/sshd_config
-Compression delayed
+    # grep -i compression /etc/ssh/sshd_config
+    Compression delayed
 
-If the \"Compression\" keyword is set to \"yes\", is missing, or the returned line is commented out, this is a finding."
-  desc "fix", "Uncomment the \"Compression\" keyword in \"/etc/ssh/sshd_config\" (this file may be named differently or be in a different location if using a version of SSH that is provided by a third-party vendor) on the system and set the value to \"delayed\" or \"no\":
+    If the \"Compression\" keyword is set to \"yes\", is missing, or the returned 
+    line is commented out, this is a finding."
+  desc "fix", "Uncomment the \"Compression\" keyword in \"/etc/ssh/sshd_config\" 
+    (this file may be named differently or be in a different location if using a 
+    version of SSH that is provided by a third-party vendor) on the system and 
+    set the value to \"delayed\" or \"no\":
 
-Compression no
-
-The SSH service must be restarted for changes to take effect."
+    Compression no
+        
+    The SSH service must be restarted for changes to take effect."
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["SV-86891", "V-72267"]

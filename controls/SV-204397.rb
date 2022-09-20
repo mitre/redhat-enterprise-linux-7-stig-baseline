@@ -1,47 +1,67 @@
 # encoding: UTF-8
 
 control "SV-204397" do
-  title "The Red Hat Enterprise Linux operating system must uniquely identify and must authenticate users using multifactor authentication via a graphical user logon."
-  desc "To assure accountability and prevent unauthenticated access, users must be identified and authenticated to prevent potential misuse and compromise of the system.
+  title "The Red Hat Enterprise Linux operating system must uniquely identify 
+    and must authenticate users using multifactor authentication via a 
+    graphical user logon."
+  desc "To assure accountability and prevent unauthenticated access, users must 
+    be identified and authenticated to prevent potential misuse and compromise 
+    of the system.
 
-Multifactor solutions that require devices separate from information systems gaining access include, for example, hardware tokens providing time-based or challenge-response authenticators and smart cards such as the U.S. Government Personal Identity Verification card and the DoD Common Access Card."
-  desc "default", "To assure accountability and prevent unauthenticated access, users must be identified and authenticated to
-    prevent potential misuse and compromise of the system.
-    Multifactor solutions that require devices separate from information systems gaining access include, for example,
-    hardware tokens providing time-based or challenge-response authenticators and smart cards such as the U.S.
+    Multifactor solutions that require devices separate from information systems 
+    gaining access include, for example, hardware tokens providing time-based 
+    or challenge-response authenticators and smart cards such as the U.S. 
     Government Personal Identity Verification card and the DoD Common Access Card."
-  desc "check", "Verify the operating system uniquely identifies and authenticates users using multifactor authentication via a graphical user logon.
+  desc "default", "To assure accountability and prevent unauthenticated access, 
+    users must be identified and authenticated to prevent potential misuse and 
+    compromise of the system. Multifactor solutions that require devices separate 
+    from information systems gaining access include, for example, hardware tokens 
+    providing time-based or challenge-response authenticators and smart cards 
+    such as the U.S. Government Personal Identity Verification card and the DoD 
+    Common Access Card."
+  desc "check", "Verify the operating system uniquely identifies and authenticates 
+    users using multifactor authentication via a graphical user logon.
 
-Note: If the system does not have GNOME installed, this requirement is Not Applicable. 
+    Note: If the system does not have GNOME installed, this requirement is Not 
+    Applicable. 
 
-Determine which profile the system database is using with the following command:
+    Determine which profile the system database is using with the following command:
 
-# grep system-db /etc/dconf/profile/user
+    # grep system-db /etc/dconf/profile/user
 
-system-db:local
+    system-db:local
 
-Note: The example is using the database local for the system, so the path is \"/etc/dconf/db/local.d\". This path must be modified if a database other than local is being used.
+    Note: The example is using the database local for the system, so the path is 
+    \"/etc/dconf/db/local.d\". This path must be modified if a database other than 
+    local is being used.
 
-# grep enable-smartcard-authentication /etc/dconf/db/local.d/*
+    # grep enable-smartcard-authentication /etc/dconf/db/local.d/*
 
-enable-smartcard-authentication=true
+    enable-smartcard-authentication=true
 
-If \"enable-smartcard-authentication\" is set to \"false\" or the keyword is missing, this is a finding."
-  desc "fix", "Configure the operating system to uniquely identify and authenticate users using multifactor authentication via a graphical user logon.
+    If \"enable-smartcard-authentication\" is set to \"false\" or the keyword is 
+    missing, this is a finding."
+  desc "fix", "Configure the operating system to uniquely identify and 
+    authenticate users using multifactor authentication via a graphical 
+    user logon.
 
-Note: If the system does not have GNOME installed, this requirement is Not Applicable.
+    Note: If the system does not have GNOME installed, this requirement 
+    is Not Applicable.
 
-Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following command: 
+    Create a database to contain the system-wide screensaver settings (if 
+    it does not already exist) with the following command: 
 
-Note: The example is using the database local for the system, so if the system is using another database in \"/etc/dconf/profile/user\", the file should be created under the appropriate subdirectory.
+    Note: The example is using the database local for the system, so if the 
+    system is using another database in \"/etc/dconf/profile/user\", the 
+    file should be created under the appropriate subdirectory.
 
-# touch /etc/dconf/db/local.d/00-defaults
+    # touch /etc/dconf/db/local.d/00-defaults
 
-Edit \"[org/gnome/login-screen]\" and add or update the following line:
-enable-smartcard-authentication=true   
+    Edit \"[org/gnome/login-screen]\" and add or update the following line:
+    enable-smartcard-authentication=true
 
-Update the system databases:
-# dconf update"
+    Update the system databases:
+    # dconf update"
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["V-77819", "SV-92515"]

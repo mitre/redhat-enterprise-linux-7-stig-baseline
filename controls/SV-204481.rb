@@ -1,22 +1,33 @@
 # encoding: UTF-8
 
 control "SV-204481" do
-  title "The Red Hat Enterprise Linux operating system must prevent files with the setuid and setgid bit set from being executed on file systems that are used with removable media."
-  desc "The \"nosuid\" mount option causes the system to not execute \"setuid\" and \"setgid\" files with owner privileges. This option must be used for mounting any file system not containing approved \"setuid\" and \"setguid\" files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative access."
-  desc "default", "The \"nosuid\" mount option causes the system to not execute \"setuid\" and \"setgid\" files with owner
-    privileges. This option must be used for mounting any file system not containing approved \"setuid\" and \"setguid\"
-    files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain
-    unauthorized administrative access."
-  desc "check", "Verify file systems that are used for removable media are mounted with the \"nosuid\" option.
+  title "The Red Hat Enterprise Linux operating system must prevent files with 
+    the setuid and setgid bit set from being executed on file systems that are 
+    used with removable media."
+  desc "The \"nosuid\" mount option causes the system to not execute \"setuid\" 
+    and \"setgid\" files with owner privileges. This option must be used for 
+    mounting any file system not containing approved \"setuid\" and \"setguid\" 
+    files. Executing files from untrusted file systems increases the opportunity 
+    for unprivileged users to attain unauthorized administrative access."
+  desc "default", "The \"nosuid\" mount option causes the system to not execute 
+    \"setuid\" and \"setgid\" files with owner privileges. This option must be 
+    used for mounting any file system not containing approved \"setuid\" and 
+    \"setguid\" files. Executing files from untrusted file systems increases 
+    the opportunity for unprivileged users to attain unauthorized 
+    administrative access."
+  desc "check", "Verify file systems that are used for removable media are 
+    mounted with the \"nosuid\" option.
 
-Check the file systems that are mounted at boot time with the following command:
+    Check the file systems that are mounted at boot time with the following command:
 
-# more /etc/fstab
+    # more /etc/fstab
 
-UUID=2bc871e4-e2a3-4f29-9ece-3be60c835222 /mnt/usbflash vfat noauto,owner,ro,nosuid 0 0
+    UUID=2bc871e4-e2a3-4f29-9ece-3be60c835222 /mnt/usbflash vfat noauto,owner,ro,nosuid 0 0
 
-If a file system found in \"/etc/fstab\" refers to removable media and it does not have the \"nosuid\" option set, this is a finding."
-  desc "fix", "Configure the \"/etc/fstab\" to use the \"nosuid\" option on file systems that are associated with removable media."
+    If a file system found in \"/etc/fstab\" refers to removable media and it does 
+    not have the \"nosuid\" option set, this is a finding."
+  desc "fix", "Configure the \"/etc/fstab\" to use the \"nosuid\" option on file 
+    systems that are associated with removable media."
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["SV-86667", "V-72043"]

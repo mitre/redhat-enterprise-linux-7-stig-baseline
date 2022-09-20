@@ -1,22 +1,33 @@
 # encoding: UTF-8
 
 control "SV-204424" do
-  title "The Red Hat Enterprise Linux operating system must not allow accounts configured with blank or null passwords."
-  desc "If an account has an empty password, anyone could log on and run commands with the privileges of that account. Accounts with empty passwords should never be used in operational environments."
-  desc "default", "If an account has an empty password, anyone could log on and run commands with the privileges of that
-    account. Accounts with empty passwords should never be used in operational environments."
-  desc "check", "To verify that null passwords cannot be used, run the following command: 
+  title "The Red Hat Enterprise Linux operating system must not allow accounts 
+    configured with blank or null passwords."
+  desc "If an account has an empty password, anyone could log on and run 
+    commands with the privileges of that account. Accounts with empty 
+    passwords should never be used in operational environments."
+  desc "default", "If an account has an empty password, anyone could log on and 
+    run commands with the privileges of that account. Accounts with empty 
+    passwords should never be used in operational environments."
+  desc "check", "To verify that null passwords cannot be used, run the 
+    following command: 
 
-# grep nullok /etc/pam.d/system-auth /etc/pam.d/password-auth
+    # grep nullok /etc/pam.d/system-auth /etc/pam.d/password-auth
 
-If this produces any output, it may be possible to log on with accounts with empty passwords.
+    If this produces any output, it may be possible to log on with accounts 
+    with empty passwords.
 
-If null passwords can be used, this is a finding."
-  desc "fix", "If an account is configured for password authentication but does not have an assigned password, it may be possible to log on to the account without authenticating.
+    If null passwords can be used, this is a finding."
+  desc "fix", "If an account is configured for password authentication but does 
+    not have an assigned password, it may be possible to log on to the account 
+    without authenticating.
 
-Remove any instances of the \"nullok\" option in \"/etc/pam.d/system-auth\" and \"/etc/pam.d/password-auth\" to prevent logons with empty passwords.
+    Remove any instances of the \"nullok\" option in \"/etc/pam.d/system-auth\" 
+    and \"/etc/pam.d/password-auth\" to prevent logons with empty passwords.
 
-Note: Manual changes to the listed files may be overwritten by the \"authconfig\" program. The \"authconfig\" program should not be used to update the configurations listed in this requirement."
+    Note: Manual changes to the listed files may be overwritten by the \"authconfig\" 
+    program. The \"authconfig\" program should not be used to update the configurations 
+    listed in this requirement."
   impact 0.7
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ["V-71937", "SV-86561"]
