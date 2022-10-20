@@ -24,48 +24,49 @@ inputs:
     type: Boolean
     value: false
 
-  # V-204504
+  # SV-204504
   - name: monitor_kernel_log
     description: Set this to false if your system availability concern is not documented or there is no monitoring of the kernel log
     type: Boolean
     value: true
 
-  # V-204392
+  # SV-204392
   - name: rpm_verify_perms_except
     description: List of system files that should be allowed to change from an rpm verify point of view
     type: Array
     value:
       - "/etc/issue"
 
-  # V-214799
+  # SV-214799
   - name: rpm_verify_integrity_except
     description: List of system files that should be allowed to change from an rpm verify point of view
     type: Array
     value: []
 
-  # V-204393
+  # SV-204393
   - name: banner_message_enabled
     description: Set to 'true' if the login banner message should be enabled
     type: Boolean
     value: true
 
-  # V-204575
+  # SV-204575
   - name: log_aggregation_server
     description: Set to 'true' if the system is being used as a log aggregation server
     type: Boolean
     value: false
 
-  # V-204624
   - name: x11_enabled
     description: Set to 'true' if X11 is needed on the system.
     type: Boolean
     value: false
 
+  # SV-204460
   - name: user_accounts
     description: Accounts of known managed users
     type: Array
     value: []
 
+  # SV-204460
   - name: known_system_accounts
     description: System accounts that support approved system activities.
     type: Array
@@ -91,7 +92,7 @@ inputs:
       - "sshd"
       - "ntp"
 
-  # V-204393/V-204397
+  # SV-204393, SV-204397
   - name: dconf_user
     description: User to use to check dconf settings. Nil means to use whatever user is running inspec currently.
     type: String
@@ -158,6 +159,7 @@ inputs:
       communications and work product are private and confidential. See User \
       Agreement for details."
 
+  # SV-204395
   - name: banner_message_text_cli_limited
     description: Banner message text for resource-limited command line interface logins.
     type: String
@@ -187,6 +189,7 @@ inputs:
       communications and work product are private and confidential. See User \
       Agreement for details."
 
+  # SV-204580
   - name: banner_message_text_ral_limited
     description: Banner message text for resource-limited remote access logins.
     type: String
@@ -270,6 +273,7 @@ inputs:
     type: Numeric
     value: 3
 
+  # SV-204427:
   - name: expected_fail_interval
     description: Interval of time in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
     type: Numeric
@@ -293,12 +297,13 @@ inputs:
     description: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
     value: 604800
 
-  # SV-204445
+  # SV-204445, SV-204446, SV-204498, SV-204499, SV-204500
   - name: file_integrity_tool
     description: Name of tool
     type: String
     value: "aide"
 
+  # SV-204445
   - name: file_integrity_interval
     description: Interval to run the file integrity tool (monthly, weekly, or daily).
     type: String
@@ -328,13 +333,13 @@ inputs:
     type: Numeric
     value: 600
 
-  # V-204441, V-204631, V-204633
+  # SV-204441, SV-204631, SV-204633
   - name: smart_card_status
     description: Smart card status (enabled or disabled)
     type: String
     value: "enabled"
 
-  # SV-204489/V-204574
+  # SV-204489, SV-204574
   - name: log_pkg_paths
     description: Paths to files and directories that may include logging config
     type: Array
@@ -342,14 +347,13 @@ inputs:
       - "/etc/rsyslog.conf"
       - "/etc/rsyslog.d/*"
 
-  # V-204467, V-204468, V-204469, V-204470, V-204471, V-204472
-  # V-204473, V-204474, V-204475, V-204476, V-204477, V-204478, V-204493
+  # SV-204467, SV-204468, SV-204469, SV-204470, SV-204471, SV-204472
+  # SV-204473, SV-204474, SV-204475, SV-204476, SV-204477, SV-204478, SV-204493
   - name: exempt_home_users
     description: Users exempt from home directory-based controls in array format
     type: Array
     value: []
 
-  # V-204436
   - name: grub_main_cfg
     description: Main grub boot config file
     type: String
@@ -365,38 +369,38 @@ inputs:
     type: String
     value: "root"
 
+  # SV-204438
   - name: grub_user_boot_files
     description: Grub boot config files
     type: Array
     value:
       - "/boot/grub2/user.cfg"
 
+  # SV-204440
   - name: grub_uefi_user_boot_files
     description: Grub boot config files
     type: Array
     value:
       - "/boot/efi/EFI/redhat/user.cfg"
 
-  # V-204439
   - name: efi_superusers
     description: Superusers for efi boot
     type: Array
     value:
       - "root"
 
-  # V-204444
+  # SV-204444
   - name: admin_logins
     description: System accounts that support approved system activities
     type: Array
     value: []
 
-  # V-204406
   - name: max_rety
     description: Maximum number of times to prompt user for new password
     type: Numeric
     value: 3
 
-  # V-204631
+  # SV-204631
   - name: mfa_pkg_list
     description: The list of packages needed for MFA on RHEL
     type: Array
@@ -417,7 +421,7 @@ inputs:
       - "pcsc-lite"
       - "pcsc-lite-libs"
 
-  # V-204397
+  # SV-204397
   - name: multifactor_enabled
     description: Should dconf have smart card authentication
     type: Boolean
@@ -434,13 +438,13 @@ inputs:
       - "/bin/sync"
       - "/bin/true"
 
-  # V-204493
+  # SV-204584
   - name: randomize_va_space
     description: Randomize virtual address space kernel parameter
     type: Numeric
     value: 2
 
-  # V-204488
+  # SV-204481
   - name: non_removable_media_fs
     description: File systems that don't correspond to removable media
     type: Array
@@ -450,13 +454,13 @@ inputs:
       - "swap"
       - "tmpfs"
 
-  # V-204629
+  # SV-204629
   - name: approved_tunnels
     description: Approved configured tunnels prepended with word 'conn' (e.g., ['conn myTunnel'])
     type: Array
     value: []
 
-  # V-204479
+  # SV-204479
   - name: virtual_machine
     description: Is the target expected to be a virtual machine
     type: Boolean
@@ -474,7 +478,7 @@ inputs:
     type: Numeric
     value: 3
 
-  # V-204628
+  # SV-204628:
   - name: firewalld_services
     description: "Services that firewalld should be configured to allow."
     type: Array
@@ -537,7 +541,7 @@ inputs:
     # '-P INPUT ACCEPT',
     value: []
 
-  # V-204577
+  # SV-204577:
   - name: firewalld_services_deny
     description: "Services that firewalld should be configured to deny."
     type: Hash
@@ -564,7 +568,7 @@ inputs:
     # - 'trusted'
     value: []
 
-  # SV-204604
+  # SV-204577, SV-204604, SV-204628
   - name: firewall_application_package
     description: "If a third-party firewall application is in use (other than firewalld or iptables), indicate the package name here. Otherwise, set this value to an empty string"
     type: String
@@ -715,7 +719,7 @@ inputs:
     type: String
     value: "0740"
 
-  # SV-204476
+  # SV-204488
   - name: user_umask
     description: Expected value for all user UMASK values (in octal format)
     type: String
@@ -745,26 +749,26 @@ inputs:
     type: Numeric
     value: 25
 
-  # SV-204581
+  # SV-204596
   - name: public_host_key_file_mode
     description: Maximum mode allowed for directories containing SSH public host keys (in octal format)
     type: String
     value: "0644"
 
-  # SV-204581
+  # SV-204596
   - name: public_host_key_directories
     description: "List of any directories containing SSH public host keys"
     type: Array
     value:
       - /etc/ssh
 
-  # SV-204596
+  # SV-204597
   - name: private_host_key_file_mode
     description: Maximum mode allowed for directories containing SSH private host keys (in octal format)
     type: String
     value: "0640"
 
-  # SV-204596
+  # SV-204597
   - name: private_host_key_directories
     description: "List of any directories containing SSH private host keys"
     type: Array
