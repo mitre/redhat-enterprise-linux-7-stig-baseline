@@ -5,7 +5,6 @@ control 'SV-204488' do
     to mode 700 or less permissive. Although umask can be represented as a four-digit number, the first digit
     representing special access modes is typically ignored or required to be "0". This requirement applies to the
     globally configured system defaults and the local interactive user defaults for each account on the system.'
-  desc 'rationale', ''
   desc 'check', 'Verify that the default umask for all local interactive users is "077".
     Identify the locations of all local interactive user home directories by looking at the "/etc/passwd" file.
     Check all local interactive user initialization files for interactive users with the following command:
@@ -19,18 +18,16 @@ control 'SV-204488' do
     local interactive user must log on to their account first and then switch the user to the application account with
     the correct option to gain the account's environment variables.)
   impact 0.5
-  tag 'legacy': ['V-72049', 'SV-86673']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204488'
-  tag 'rid': 'SV-204488r603261_rule'
-  tag 'stig_id': 'RHEL-07-021040'
-  tag 'fix_id': 'F-4612r88657_fix'
-  tag 'cci': ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813',
-              'CCI-001814']
+  tag legacy: ['V-72049', 'SV-86673']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204488'
+  tag rid: 'SV-204488r603261_rule'
+  tag stig_id: 'RHEL-07-021040'
+  tag fix_id: 'F-4612r88657_fix'
+  tag cci: ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813', 'CCI-001814']
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
   tag subsystems: ['init_files', 'home_dirs']
-  tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
@@ -74,19 +71,23 @@ control 'SV-204488' do
         # Get user's umask
         umasks.store(u.username,
                     command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
+                    command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
 
         # Check all local initialization files to see whether or not they are less restrictive than the input UMASK.
         dotfiles.each do |df|
+          findings += df if file(df).more_permissive_than?(input('user_umask'))
           findings += df if file(df).more_permissive_than?(input('user_umask'))
         end
 
         # Check umask for all interactive users
         umasks.each do |key, value|
           max_mode = (input('user_umask')).to_i(8)
+          max_mode = (input('user_umask')).to_i(8)
           inv_mode = 0777 ^ max_mode
           umask_findings += key if inv_mode & (value).to_i(8) != 0
         end
       else
+        describe 'This control skips non-local filesystems' do
         describe 'This control skips non-local filesystems' do
           skip "This control has skipped the #{u.home} home directory for #{u.username} because it is not a local filesystem."
         end
@@ -94,6 +95,7 @@ control 'SV-204488' do
     end
 
     # Report on any interactive files that are less restrictive than the input UMASK.
+    describe 'No interactive user initialization files with a less restrictive umask were found.' do
     describe 'No interactive user initialization files with a less restrictive umask were found.' do
       subject { findings.empty? }
       it { should eq true }
