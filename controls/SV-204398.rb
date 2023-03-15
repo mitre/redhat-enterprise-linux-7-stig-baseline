@@ -7,13 +7,16 @@ control 'SV-204398' do
     operating systems need to be able to identify when a user's session has idled and take action to initiate the
     session lock.
     The session lock is implemented at the point where session activity can be determined and/or controlled."
-  desc 'check', 'Verify the operating system initiates a screensaver after a 15-minute period of inactivity for
-    graphical user interfaces. The screen program must be installed to lock sessions on the console.
-    Note: If the system does not have GNOME installed, this requirement is Not Applicable.
-    Check to see if GNOME is configured to display a screensaver after a 15 minute delay with the following command:
-    # grep -i idle-delay /etc/dconf/db/local.d/*
-    idle-delay=uint32 900
-    If the "idle-delay" setting is missing or is not set to "900" or less, this is a finding.'
+  desc 'check', 'Verify the operating system initiates a screensaver after a 15-minute period of inactivity for graphical user interfaces.
+
+Note: If the system does not have GNOME installed, this requirement is Not Applicable.
+
+Check to see if GNOME is configured to display a screensaver after a 15 minute delay with the following command:
+
+     # grep -i idle-delay /etc/dconf/db/local.d/*
+     idle-delay=uint32 900
+
+If the "idle-delay" setting is missing or is not set to "900" or less, this is a finding.'
   desc 'fix', 'Configure the operating system to initiate a screensaver after a 15-minute period of inactivity for
     graphical user interfaces.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
@@ -27,13 +30,15 @@ control 'SV-204398' do
     Update the system databases:
     # dconf update
     Users must log out and back in again before the system-wide settings take effect.'
+  impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71893', 'SV-86517']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000029-GPOS-00010'
   tag gid: 'V-204398'
-  tag rid: 'SV-204398r603261_rule'
+  tag rid: 'SV-204398r880770_rule'
   tag stig_id: 'RHEL-07-010070'
-  tag fix_id: 'F-4522r88387_fix'
+  tag fix_id: 'F-4522r880769_fix'
   tag cci: ['CCI-000057']
   tag nist: ['AC-11 a']
   tag subsystems: ['gui', 'screensaver', 'session', 'lock']

@@ -20,6 +20,7 @@ control 'SV-204480' do
   desc 'fix', 'Configure the "/etc/fstab" to use the "nosuid" option on file systems that contain user home
     directories.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86665', 'V-72041']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

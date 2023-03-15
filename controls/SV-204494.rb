@@ -9,6 +9,7 @@ control 'SV-204494' do
     If a separate entry for "/var" is not in use, this is a finding.'
   desc 'fix', 'Migrate the "/var" path onto a separate file system.'
   impact 0.3
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72061', 'SV-86685']
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

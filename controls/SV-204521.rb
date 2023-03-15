@@ -28,6 +28,7 @@ control 'SV-204521' do
     -a always,exit -F arch=b64 -S chmod,fchmod,fchmodat -F auid>=1000 -F auid!=unset -k perm_mod
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86729', 'V-72105']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000458-GPOS-00203'

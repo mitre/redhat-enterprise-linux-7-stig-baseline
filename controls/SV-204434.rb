@@ -13,11 +13,12 @@ control 'SV-204434' do
     PermitUserEnvironment no
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86581', 'V-71957']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00229'
   tag gid: 'V-204434'
-  tag rid: 'SV-204434r603261_rule'
+  tag rid: 'SV-204434r877377_rule'
   tag stig_id: 'RHEL-07-010460'
   tag fix_id: 'F-4558r88495_fix'
   tag cci: ['CCI-000366']

@@ -19,12 +19,13 @@ control 'SV-204507' do
     The audit daemon must be restarted for changes to take effect:
     # service auditd restart'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-81019', 'SV-95731']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
   tag gid: 'V-204507'
-  tag rid: 'SV-204507r603261_rule'
+  tag rid: 'SV-204507r877390_rule'
   tag stig_id: 'RHEL-07-030210'
   tag fix_id: 'F-36312r602646_fix'
   tag cci: ['CCI-001851']

@@ -15,6 +15,7 @@ Edit the "/etc/ssh/sshd_config" file to uncomment or add the line for the "X11Us
 
 X11UseLocalhost yes'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-233307'

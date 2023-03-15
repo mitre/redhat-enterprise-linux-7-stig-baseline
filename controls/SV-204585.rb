@@ -19,12 +19,13 @@ control 'SV-204585' do
   desc 'fix', 'Install SSH packages onto the host with the following commands:
     # yum install openssh-server.x86_64'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86857', 'V-72233']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000423-GPOS-00187'
   tag satisfies: ['SRG-OS-000423-GPOS-00187', 'SRG-OS-000424-GPOS-00188', 'SRG-OS-000425-GPOS-00189', 'SRG-OS-000426-GPOS-00190']
   tag gid: 'V-204585'
-  tag rid: 'SV-204585r603261_rule'
+  tag rid: 'SV-204585r853989_rule'
   tag stig_id: 'RHEL-07-040300'
   tag fix_id: 'F-4709r88948_fix'
   tag cci: ['CCI-002418', 'CCI-002420', 'CCI-002421', 'CCI-002422']

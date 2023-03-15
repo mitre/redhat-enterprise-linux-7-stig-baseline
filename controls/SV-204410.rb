@@ -20,6 +20,7 @@ control 'SV-204410' do
     Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):
     ocredit = -1'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86533', 'V-71909']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000266-GPOS-00101'

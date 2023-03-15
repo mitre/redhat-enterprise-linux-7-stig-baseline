@@ -11,6 +11,7 @@ control 'SV-204462' do
     If the account is associated with system commands or applications, the UID should be changed to one greater than "0"
     but less than "1000". Otherwise, assign a UID of greater than "1000" that has not already been assigned.'
   impact 0.7
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86629', 'V-72005']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

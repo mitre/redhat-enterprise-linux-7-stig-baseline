@@ -12,16 +12,19 @@ control 'SV-204504' do
     audit records are stored), the centralized audit storage capacity of organizations (i.e., all audit data storage
     repositories combined), or both.'
   desc 'check', 'Confirm the audit configuration regarding how auditing processing failures are handled.
-    Check to see what level "auditctl" is set to with following command:
-    # auditctl -s | grep -i "fail"
-    failure 2
-    Note: If the value of "failure" is set to "2", the system is configured to panic (shut down) in the event of an
-    auditing failure. If the value of "failure" is set to "1", the system is configured to only send information to the
-    kernel log regarding the failure.
-    If the "failure" setting is set to any value other than "1" or "2", this is a finding.
-    If the "failure" setting is not set, this should be upgraded to a CAT I finding.
-    If the "failure" setting is set to "1" but the availability concern is not documented or there is no monitoring of
-    the kernel log, this should be downgraded to a CAT III finding.'
+
+Check to see what level "auditctl" is set to with following command: 
+
+     # auditctl -s | grep -i "fail"
+     failure 2
+
+Note: If the value of "failure" is set to "2", the system is configured to panic (shut down) in the event of an auditing failure. If the value of "failure" is set to "1", the system will not shut down and instead will record the audit failure in the kernel log. If the system is configured as per requirement RHEL-07-031000, the kernel log will be sent to a log aggregation server and generate an alert.
+
+If the "failure" setting is set to any value other than "1" or "2", this is a finding.
+
+If the "failure" setting is not set, this should be upgraded to a CAT I finding.
+
+If the "failure" setting is set to "1" but the availability concern is not documented or there is no monitoring of the kernel log, this should be downgraded to a CAT III finding.'
   desc 'fix', 'Configure the operating system to shut down in the event of an audit processing failure.
     Add or correct the option to shut down the operating system with the following command:
     # auditctl -f 2
@@ -36,14 +39,15 @@ control 'SV-204504' do
     Kernel log monitoring must also be configured to properly alert designated staff.
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72081', 'SV-86705']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000046-GPOS-00022'
   tag satisfies: ['SRG-OS-000046-GPOS-00022', 'SRG-OS-000047-GPOS-00023']
   tag gid: 'V-204504'
-  tag rid: 'SV-204504r603261_rule'
+  tag rid: 'SV-204504r880761_rule'
   tag stig_id: 'RHEL-07-030010'
-  tag fix_id: 'F-4628r462467_fix'
+  tag fix_id: 'F-4628r880760_fix'
   tag cci: ['CCI-000139']
   tag nist: ['AU-5 a']
   tag subsystems: ['audit', 'auditd']

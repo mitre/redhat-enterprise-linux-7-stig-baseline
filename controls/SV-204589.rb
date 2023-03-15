@@ -24,12 +24,13 @@ control 'SV-204589' do
     ClientAliveCountMax 0
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86865', 'V-72241']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000163-GPOS-00072'
   tag satisfies: ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000279-GPOS-00109']
   tag gid: 'V-204589'
-  tag rid: 'SV-204589r603261_rule'
+  tag rid: 'SV-204589r853992_rule'
   tag stig_id: 'RHEL-07-040340'
   tag fix_id: 'F-4713r88960_fix'
   tag cci: ['CCI-001133', 'CCI-002361']

@@ -66,6 +66,8 @@ control 'SV-204394' do
     Note: The "\n " characters are for formatting only. They will not be displayed on the Graphical User Interface.
     Run the following command to update the database:
     # dconf update)
+  impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71861', 'SV-86485']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000023-GPOS-00006'

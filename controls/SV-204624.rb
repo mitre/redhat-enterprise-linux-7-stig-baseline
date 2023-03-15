@@ -21,6 +21,7 @@ control 'SV-204624' do
     $ sudo yum remove xorg-x11-server-Xorg xorg-x11-server-common xorg-x11-server-utils
     A reboot is required for the changes to take effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86931', 'V-72307']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

@@ -21,11 +21,12 @@ control 'SV-204516' do
     -a always,exit -F arch=b64 -S execve -C gid!=egid -F egid=0 -k setgid
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72095', 'SV-86719']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000327-GPOS-00127'
   tag gid: 'V-204516'
-  tag rid: 'SV-204516r603261_rule'
+  tag rid: 'SV-204516r853914_rule'
   tag stig_id: 'RHEL-07-030360'
   tag fix_id: 'F-4640r88741_fix'
   tag cci: ['CCI-002234']

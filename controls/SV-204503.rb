@@ -22,6 +22,7 @@ control 'SV-204503' do
     Enable the auditd service with the following command:
     # systemctl start auditd.service'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86703', 'V-72079']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000038-GPOS-00016'
@@ -31,7 +32,7 @@ control 'SV-204503' do
   tag stig_id: 'RHEL-07-030000'
   tag fix_id: 'F-36311r602643_fix'
   tag cci: ['CCI-000126', 'CCI-000131']
-  tag nist: ['AU-2 d', 'AU-3']
+  tag nist: ['AU-2 d', 'AU-3', 'AU-2 c', 'AU-3 b']
   tag subsystems: ['audit', 'auditd']
 
   if virtualization.system.eql?('docker')

@@ -16,11 +16,12 @@ control 'SV-204452' do
     Set the "clean_requirements_on_remove" option to "1" in the "/etc/yum.conf" file:
     clean_requirements_on_remove=1'
   impact 0.3
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71987', 'SV-86611']
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000437-GPOS-00194'
   tag gid: 'V-204452'
-  tag rid: 'SV-204452r603261_rule'
+  tag rid: 'SV-204452r853894_rule'
   tag stig_id: 'RHEL-07-020200'
   tag fix_id: 'F-4576r88549_fix'
   tag cci: ['CCI-002617']

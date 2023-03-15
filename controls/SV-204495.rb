@@ -13,6 +13,7 @@ control 'SV-204495' do
     If no result is returned, or "/var/log/audit" is not on a separate file system, this is a finding.'
   desc 'fix', 'Migrate the system audit data path onto a separate file system.'
   impact 0.3
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86687', 'V-72063']
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

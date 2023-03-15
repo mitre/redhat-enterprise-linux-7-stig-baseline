@@ -16,11 +16,12 @@ control 'SV-204417' do
     Add or update the following line in "/etc/libuser.conf" in the [defaults] section:
     crypt_style = sha512'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71923', 'SV-86547']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000073-GPOS-00041'
   tag gid: 'V-204417'
-  tag rid: 'SV-204417r603261_rule'
+  tag rid: 'SV-204417r877397_rule'
   tag stig_id: 'RHEL-07-010220'
   tag fix_id: 'F-4541r88444_fix'
   tag cci: ['CCI-000196']

@@ -16,11 +16,13 @@ control 'SV-204432' do
     file to "false":
     [daemon]
     AutomaticLoginEnable=false'
+  impact 0.7
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71953', 'SV-86577']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00229'
   tag gid: 'V-204432'
-  tag rid: 'SV-204432r603261_rule'
+  tag rid: 'SV-204432r877377_rule'
   tag stig_id: 'RHEL-07-010440'
   tag fix_id: 'F-4556r88489_fix'
   tag cci: ['CCI-000366']

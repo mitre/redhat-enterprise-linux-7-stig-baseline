@@ -25,6 +25,7 @@ control 'SV-204604' do
     Start the firewall via "systemctl" with the following command:
     # systemctl start firewalld)
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86897', 'V-72273']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

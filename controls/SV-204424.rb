@@ -7,20 +7,20 @@ control 'SV-204424' do
     # grep nullok /etc/pam.d/system-auth /etc/pam.d/password-auth
     If this produces any output, it may be possible to log on with accounts with empty passwords.
     If null passwords can be used, this is a finding.'
-  desc 'fix', 'If an account is configured for password authentication but does not have an assigned password, it may
-    be possible to log on to the account without authenticating.
-    Remove any instances of the "nullok" option in "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" to prevent
-    logons with empty passwords.
-    Note: Manual changes to the listed files may be overwritten by the "authconfig" program. The "authconfig" program
-    should not be used to update the configurations listed in this requirement.'
+  desc 'fix', 'If an account is configured for password authentication but does not have an assigned password, it may be possible to log on to the account without authenticating.
+
+Remove any instances of the "nullok" option in "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" to prevent logons with empty passwords.
+
+Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite custom authentication configuration settings while using the authconfig utility, otherwise manual changes to the listed files will be overwritten whenever the authconfig utility is used.'
   impact 0.7
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71937', 'SV-86561']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204424'
-  tag rid: 'SV-204424r809187_rule'
+  tag rid: 'SV-204424r880839_rule'
   tag stig_id: 'RHEL-07-010290'
-  tag fix_id: 'F-4548r88465_fix'
+  tag fix_id: 'F-4548r880838_fix'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['pam', 'password']

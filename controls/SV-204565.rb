@@ -18,11 +18,12 @@ control 'SV-204565' do
     -w /etc/group -p wa -k identity
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-87817', 'V-73165']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000004-GPOS-00004'
   tag gid: 'V-204565'
-  tag rid: 'SV-204565r603261_rule'
+  tag rid: 'SV-204565r853979_rule'
   tag stig_id: 'RHEL-07-030871'
   tag fix_id: 'F-4689r88888_fix'
   tag cci: ['CCI-000018', 'CCI-000172', 'CCI-001403', 'CCI-002130']

@@ -5,14 +5,20 @@ control 'SV-204584' do
     ASLR also makes it more difficult for an attacker to know the location of existing code in order to repurpose it
     using return-oriented programming (ROP) techniques."
   desc 'check', 'Verify the operating system implements virtual address space randomization.
-    # grep kernel.randomize_va_space /etc/sysctl.conf /etc/sysctl.d/*
-    kernel.randomize_va_space = 2
-    If "kernel.randomize_va_space" is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/ directory, is
-    commented out or does not have a value of "2", this is a finding.
-    Check that the operating system implements virtual address space randomization with the following command:
-    # /sbin/sysctl -a | grep kernel.randomize_va_space
-    kernel.randomize_va_space = 2
-    If "kernel.randomize_va_space" does not have a value of "2", this is a finding.'
+
+     # grep -r kernel.randomize_va_space /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null
+     kernel.randomize_va_space = 2
+
+If "kernel.randomize_va_space" is not configured in the /etc/sysctl.conf file or or in any of the other sysctl.d directories, is commented out or does not have a value of "2", this is a finding.
+
+Check that the operating system implements virtual address space randomization with the following command:
+
+     # /sbin/sysctl -a | grep kernel.randomize_va_space 
+     kernel.randomize_va_space = 2
+
+If "kernel.randomize_va_space" does not have a value of "2", this is a finding.
+
+If conflicting results are returned, this is a finding.'
   desc 'fix', 'Configure the operating system implement virtual address space randomization.
     Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" or a config file
     in the /etc/sysctl.d/ directory (or modify the line to have the required value):
@@ -20,13 +26,14 @@ control 'SV-204584' do
     Issue the following command to make the changes take effect:
     # sysctl --system'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-92521', 'V-77825']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204584'
-  tag rid: 'SV-204584r603261_rule'
+  tag rid: 'SV-204584r880794_rule'
   tag stig_id: 'RHEL-07-040201'
-  tag fix_id: 'F-4708r88945_fix'
+  tag fix_id: 'F-4708r880793_fix'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['aslr', 'kernel_parameter']

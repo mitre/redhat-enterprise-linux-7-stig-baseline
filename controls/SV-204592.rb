@@ -16,6 +16,7 @@ control 'SV-204592' do
     PermitRootLogin no
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72247', 'SV-86871']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

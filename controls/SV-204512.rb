@@ -22,11 +22,12 @@ control 'SV-204512' do
     or "halt".
     network_failure_action = syslog'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-73163', 'SV-87815']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag gid: 'V-204512'
-  tag rid: 'SV-204512r603261_rule'
+  tag rid: 'SV-204512r877390_rule'
   tag stig_id: 'RHEL-07-030321'
   tag fix_id: 'F-36315r602655_fix'
   tag cci: ['CCI-001851']

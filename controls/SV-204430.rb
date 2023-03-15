@@ -17,12 +17,13 @@ control 'SV-204430' do
     # grep -i authenticate /etc/sudoers /etc/sudoers.d/*
     Remove any occurrences of "!authenticate" tags in the file(s).'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71949', 'SV-86573']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000373-GPOS-00156'
   tag satisfies: ['SRG-OS-000373-GPOS-00156', 'SRG-OS-000373-GPOS-00157', 'SRG-OS-000373-GPOS-00158']
   tag gid: 'V-204430'
-  tag rid: 'SV-204430r603261_rule'
+  tag rid: 'SV-204430r853885_rule'
   tag stig_id: 'RHEL-07-010350'
   tag fix_id: 'F-4554r88483_fix'
   tag cci: ['CCI-002038']

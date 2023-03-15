@@ -24,11 +24,12 @@ control 'SV-204450' do
     Add or update the line:
     blacklist dccp'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-77821', 'SV-92517']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000378-GPOS-00163'
   tag gid: 'V-204450'
-  tag rid: 'SV-204450r603261_rule'
+  tag rid: 'SV-204450r853892_rule'
   tag stig_id: 'RHEL-07-020101'
   tag fix_id: 'F-4574r88543_fix'
   tag cci: ['CCI-001958']

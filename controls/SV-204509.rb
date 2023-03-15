@@ -15,12 +15,13 @@ control 'SV-204509' do
     system being audited.
     Set the remote server option in "/etc/audisp/audisp-remote.conf" with the IP address of the log aggregation server.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72083', 'SV-86707']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
   tag gid: 'V-204509'
-  tag rid: 'SV-204509r603261_rule'
+  tag rid: 'SV-204509r877390_rule'
   tag stig_id: 'RHEL-07-030300'
   tag fix_id: 'F-4633r88720_fix'
   tag cci: ['CCI-001851']

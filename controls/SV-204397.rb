@@ -29,12 +29,14 @@ control 'SV-204397' do
     enable-smartcard-authentication=true
     Update the system databases:
     # dconf update'
+  impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-77819', 'SV-92515']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000375-GPOS-00160'
   tag satisfies: ['SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']
   tag gid: 'V-204397'
-  tag rid: 'SV-204397r603261_rule'
+  tag rid: 'SV-204397r853879_rule'
   tag stig_id: 'RHEL-07-010061'
   tag fix_id: 'F-4521r88384_fix'
   tag cci: ['CCI-001948', 'CCI-001953', 'CCI-001954']

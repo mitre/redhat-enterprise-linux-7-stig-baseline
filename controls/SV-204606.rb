@@ -11,6 +11,7 @@ control 'SV-204606' do
   desc 'fix', 'Remove any found ".shosts" files from the system.
     # rm /[path]/[to]/[file]/.shosts'
   impact 0.7
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86901', 'V-72277']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

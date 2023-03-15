@@ -27,6 +27,7 @@ control 'SV-204472' do
     users group.
     # chgrp users /home/smithj/<file>)
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72025', 'SV-86649']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

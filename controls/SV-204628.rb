@@ -43,6 +43,7 @@ control 'SV-204628' do
     If "firewalld" is not "active", enable "tcpwrappers" by configuring "/etc/hosts.allow" and "/etc/hosts.deny" to
     allow or deny access to specific hosts.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86939', 'V-72315']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

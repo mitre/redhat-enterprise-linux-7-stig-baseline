@@ -13,6 +13,7 @@ control 'SV-204469' do
     Note: The example will be for the user smithj, who has a home directory of "/home/smithj".
     # chown smithj /home/smithj)
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86643', 'V-72019']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

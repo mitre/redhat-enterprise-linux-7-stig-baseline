@@ -19,6 +19,7 @@ the following command:
 
     # chmod 0755 <file>'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86661', 'V-72037']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

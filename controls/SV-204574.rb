@@ -16,6 +16,7 @@ control 'SV-204574' do
     send all "rsyslog" output to a log aggregation system:
     *.* @@<log aggregation system name>'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86833', 'V-72209']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

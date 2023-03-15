@@ -32,6 +32,7 @@ control 'SV-204524' do
     auid!=unset -k perm_mod
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86735', 'V-72111']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000458-GPOS-00203'

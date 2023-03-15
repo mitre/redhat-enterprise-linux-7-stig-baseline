@@ -27,11 +27,12 @@ control 'SV-204448' do
     the following option in the "/etc/yum.conf" file:
     localpkg_gpgcheck=1'
   impact 0.7
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71979', 'SV-86603']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000366-GPOS-00153'
   tag gid: 'V-204448'
-  tag rid: 'SV-204448r603261_rule'
+  tag rid: 'SV-204448r877463_rule'
   tag stig_id: 'RHEL-07-020060'
   tag fix_id: 'F-4572r88537_fix'
   tag cci: ['CCI-001749']

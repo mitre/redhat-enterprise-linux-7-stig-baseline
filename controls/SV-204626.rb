@@ -16,6 +16,7 @@ control 'SV-204626' do
     "sec" option does not have the "sys" setting.
     Ensure the "sec" option is defined as "krb5:krb5i:krb5p".'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86935', 'V-72311']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

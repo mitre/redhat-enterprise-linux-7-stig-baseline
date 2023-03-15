@@ -21,11 +21,12 @@ control 'SV-204511' do
     "single", or "halt", such as the following line:
     disk_full_action = single'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72087', 'SV-86711']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag gid: 'V-204511'
-  tag rid: 'SV-204511r603261_rule'
+  tag rid: 'SV-204511r877390_rule'
   tag stig_id: 'RHEL-07-030320'
   tag fix_id: 'F-36314r602652_fix'
   tag cci: ['CCI-001851']

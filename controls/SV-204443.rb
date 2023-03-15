@@ -11,6 +11,7 @@ control 'SV-204443' do
     from the system with the following command:
     # yum remove ypserv'
   impact 0.7
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71969', 'SV-86593']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000095-GPOS-00049'

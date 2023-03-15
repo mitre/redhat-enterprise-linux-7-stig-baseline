@@ -20,11 +20,12 @@ control 'SV-204576' do
     /etc/security/limits.d/ :
     * hard maxlogins 10'
   impact 0.3
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72217', 'SV-86841']
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000027-GPOS-00008'
   tag gid: 'V-204576'
-  tag rid: 'SV-204576r603261_rule'
+  tag rid: 'SV-204576r877399_rule'
   tag stig_id: 'RHEL-07-040000'
   tag fix_id: 'F-4700r88921_fix'
   tag cci: ['CCI-000054']

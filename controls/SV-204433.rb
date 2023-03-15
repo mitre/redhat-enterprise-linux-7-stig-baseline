@@ -15,11 +15,13 @@ control 'SV-204433' do
     to "false":
     [daemon]
     TimedLoginEnable=false'
+  impact 0.7
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71955', 'SV-86579']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00229'
   tag gid: 'V-204433'
-  tag rid: 'SV-204433r603261_rule'
+  tag rid: 'SV-204433r877377_rule'
   tag stig_id: 'RHEL-07-010450'
   tag fix_id: 'F-4557r88492_fix'
   tag cci: ['CCI-000366']

@@ -17,6 +17,7 @@ control 'SV-204496' do
     OR
     Edit the "/etc/fstab" file and ensure the "/tmp" directory is defined in the fstab with a device and mount point.'
   impact 0.3
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86689', 'V-72065']
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

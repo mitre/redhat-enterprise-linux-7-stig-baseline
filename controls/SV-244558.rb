@@ -15,17 +15,23 @@ $ sudo grep -iw "superusers" /boot/efi/EFI/redhat/grub.cfg
 If "superusers" is identical to any OS account name or is missing a name, this is a finding.'
   desc 'fix', 'Configure the system to have a unique name for the grub superusers account.
 
-Edit the /boot/efi/EFI/redhat/grub.cfg file and add or modify the following lines in the "### BEGIN /etc/grub.d/01_users ###" section:
+Edit the /etc/grub.d/01_users file and add or modify the following lines:
 
 set superusers="[someuniquestringhere]"
 export superusers
-password_pbkdf2 [someuniquestringhere] ${GRUB2_PASSWORD}'
+password_pbkdf2 [someuniquestringhere] ${GRUB2_PASSWORD}
+
+Generate a new grub.cfg file with the following command:
+
+$ sudo grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg'
+  impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag gid: 'V-244558'
-  tag rid: 'SV-244558r792840_rule'
+  tag rid: 'SV-244558r833187_rule'
   tag stig_id: 'RHEL-07-010492'
-  tag fix_id: 'F-47790r744065_fix'
+  tag fix_id: 'F-47790r833186_fix'
   tag cci: ['CCI-000213']
   tag legacy: []
   tag subsystems: ['grub']

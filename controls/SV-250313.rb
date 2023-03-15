@@ -23,10 +23,11 @@ $ sudo setsebool -P ssh_sysadm_login on
 
 This must be documented with the ISSO as an operational requirement.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000324-GPOS-00125'
   tag gid: 'V-250313'
-  tag rid: 'SV-250313r792846_rule'
+  tag rid: 'SV-250313r877392_rule'
   tag stig_id: 'RHEL-07-020022'
   tag fix_id: 'F-53701r792845_fix'
   tag cci: ['CCI-002165', 'CCI-002235']

@@ -6,14 +6,20 @@ control 'SV-204609' do
     requirement applies only to the forwarding of source-routed traffic, such as when IPv4 forwarding is enabled and the
     system is functioning as a router.'
   desc 'check', 'Verify the system does not accept IPv4 source-routed packets.
-    # grep net.ipv4.conf.all.accept_source_route /etc/sysctl.conf /etc/sysctl.d/*
-    net.ipv4.conf.all.accept_source_route = 0
-    If " net.ipv4.conf.all.accept_source_route " is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/
-    directory, is commented out, or does not have a value of "0", this is a finding.
-    Check that the operating system implements the accept source route variable with the following command:
-    # /sbin/sysctl -a | grep net.ipv4.conf.all.accept_source_route
-    net.ipv4.conf.all.accept_source_route = 0
-    If the returned line does not have a value of "0", this is a finding.'
+
+     # grep -r net.ipv4.conf.all.accept_source_route /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null
+     net.ipv4.conf.all.accept_source_route = 0
+
+If "net.ipv4.conf.all.accept_source_route" is not configured in the /etc/sysctl.conf file or in any of the other sysctl.d directories, is commented out, or does not have a value of "0", this is a finding.
+
+Check that the operating system implements the accept source route variable with the following command:
+
+     # /sbin/sysctl -a | grep net.ipv4.conf.all.accept_source_route
+     net.ipv4.conf.all.accept_source_route = 0
+
+If the returned line does not have a value of "0", this is a finding.
+
+If conflicting results are returned, this is a finding.'
   desc 'fix', 'Set the system to the required kernel parameter by adding the following
 line to "/etc/sysctl.conf" or a configuration file in the /etc/sysctl.d/
 directory (or modify the line to have the required value):
@@ -24,13 +30,14 @@ directory (or modify the line to have the required value):
 
     # sysctl -system'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72283', 'SV-86907']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204609'
-  tag rid: 'SV-204609r603261_rule'
+  tag rid: 'SV-204609r880797_rule'
   tag stig_id: 'RHEL-07-040610'
-  tag fix_id: 'F-4733r89020_fix'
+  tag fix_id: 'F-4733r880796_fix'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['kernel_parameter', 'ipv4']

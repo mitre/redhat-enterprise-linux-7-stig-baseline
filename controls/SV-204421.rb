@@ -10,6 +10,7 @@ control 'SV-204421' do
   desc 'fix', 'Configure non-compliant accounts to enforce a 60-day maximum password lifetime restriction.
     # chage -M 60 [user]'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71931', 'SV-86555']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000076-GPOS-00044'

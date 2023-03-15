@@ -15,18 +15,23 @@ Verify that a unique name is set as the "superusers" account:
 If "superusers" is identical to any OS account name or is missing a name, this is a finding.'
   desc 'fix', 'Configure the system to have a unique name for the grub superusers account.
 
-Edit the /boot/grub2/grub.cfg file and add or modify the following lines in the "### BEGIN /etc/grub.d/01_users ###" section:
+Edit the /etc/grub.d/01_users file and add or modify the following lines:
 
 set superusers="[someuniquestringhere]"
 export superusers
-password_pbkdf2 [someuniquestringhere] ${GRUB2_PASSWORD}'
+password_pbkdf2 [someuniquestringhere] ${GRUB2_PASSWORD}
+
+Generate a new grub.cfg file with the following command:
+
+$ sudo grub2-mkconfig -o /boot/grub2/grub.cfg'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag gid: 'V-244557'
-  tag rid: 'SV-244557r792838_rule'
+  tag rid: 'SV-244557r833185_rule'
   tag stig_id: 'RHEL-07-010483'
-  tag fix_id: 'F-47789r744062_fix'
+  tag fix_id: 'F-47789r833184_fix'
   tag cci: ['CCI-000213']
   tag legacy: []
   tag subsystems: ['grub']
