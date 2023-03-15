@@ -71,23 +71,19 @@ control 'SV-204488' do
         # Get user's umask
         umasks.store(u.username,
                     command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
-                    command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
 
         # Check all local initialization files to see whether or not they are less restrictive than the input UMASK.
         dotfiles.each do |df|
-          findings += df if file(df).more_permissive_than?(input('user_umask'))
           findings += df if file(df).more_permissive_than?(input('user_umask'))
         end
 
         # Check umask for all interactive users
         umasks.each do |key, value|
           max_mode = (input('user_umask')).to_i(8)
-          max_mode = (input('user_umask')).to_i(8)
           inv_mode = 0777 ^ max_mode
           umask_findings += key if inv_mode & (value).to_i(8) != 0
         end
       else
-        describe 'This control skips non-local filesystems' do
         describe 'This control skips non-local filesystems' do
           skip "This control has skipped the #{u.home} home directory for #{u.username} because it is not a local filesystem."
         end
@@ -95,7 +91,6 @@ control 'SV-204488' do
     end
 
     # Report on any interactive files that are less restrictive than the input UMASK.
-    describe 'No interactive user initialization files with a less restrictive umask were found.' do
     describe 'No interactive user initialization files with a less restrictive umask were found.' do
       subject { findings.empty? }
       it { should eq true }
