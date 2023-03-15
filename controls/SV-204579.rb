@@ -51,7 +51,6 @@ control 'SV-204579' do
 
     # Skip to next file if TMOUT isn't present. Otherwise, get the last occurrence of TMOUT
     if (values = command("grep -Po '.*TMOUT.*' #{file}").stdout.split("\n")).empty?
-    if (values = command("grep -Po '.*TMOUT.*' #{file}").stdout.split("\n")).empty?
       next
     end
 

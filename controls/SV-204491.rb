@@ -27,11 +27,9 @@ following command:
   describe.one do
     # case where file doesn't exist
     describe file('/etc/cron.allow') do
-    describe file('/etc/cron.allow') do
       it { should_not exist }
     end
     # case where file exists
-    describe file('/etc/cron.allow') do
     describe file('/etc/cron.allow') do
       its('group') { should eq 'root' }
     end
