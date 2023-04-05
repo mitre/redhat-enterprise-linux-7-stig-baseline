@@ -71,7 +71,7 @@ Run the following command to update the database:
     end
   elsif package('gnome-desktop3').installed?
     options = {
-        assignment_regex: /^\s*([^=]*?)\s*=\s*(.*?)\s*$/,
+        assignment_regex: /^\s*([^=]*?)\s*=\s*(.*?)\s*$/
       }
 
     describe parse_config_file(input('automount_config'), options) do

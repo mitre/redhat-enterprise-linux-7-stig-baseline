@@ -50,7 +50,7 @@ $ sudo semanage -m user_u -R user_r'
 
     expected_mapping = {
       'staff_u' => ['staff_r', 'sysadm_r'],
-      'user_u' => ['user_r'],
+      'user_u' => ['user_r']
     }
 
     selinux_users = command('semanage user -l').stdout.strip

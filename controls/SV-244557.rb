@@ -43,7 +43,7 @@ password_pbkdf2 [someuniquestringhere] ${GRUB2_PASSWORD}'
     end
   elsif os[:release] >= '7.2'
     options = {
-        assignment_regex: /^\s*(.*)=\"?([^\"]+)\"?$/,
+        assignment_regex: /^\s*(.*)=\"?([^\"]+)\"?$/
       }
 
     describe parse_config_file(input('grub_main_cfg'), options) do
