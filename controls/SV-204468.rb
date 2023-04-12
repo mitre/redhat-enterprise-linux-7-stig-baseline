@@ -16,7 +16,6 @@ control 'SV-204468' do
     Note: The example will be for the user "smithj".
     # chmod 0750 /home/smithj)
   impact 0.5
-  tag 'rationale'
   tag legacy: ['SV-86641', 'V-72017']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

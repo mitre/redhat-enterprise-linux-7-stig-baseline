@@ -15,7 +15,7 @@ control 'SV-204623' do
   desc 'fix', 'Configure the TFTP daemon to operate in secure mode by adding the following line to
     "/etc/xinetd.d/tftp" (or modify the line to have the required value):
     server_args = -s /var/lib/tftpboot'
-  impact 0.0
+  impact 0.5
   tag legacy: ['SV-86929', 'V-72305']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

@@ -17,7 +17,7 @@ X11UseLocalhost yes'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag 'satisfies'
+  tag satisfies: nil
   tag gid: 'V-233307'
   tag rid: 'SV-233307r603301_rule'
   tag stig_id: 'RHEL-07-040711'

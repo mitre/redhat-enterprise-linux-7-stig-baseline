@@ -29,7 +29,7 @@ control 'SV-204397' do
     enable-smartcard-authentication=true
     Update the system databases:
     # dconf update'
-  impact 0.0
+  impact 0.5
   tag legacy: ['V-77819', 'SV-92515']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000375-GPOS-00160'

@@ -26,7 +26,7 @@ control 'SV-204581' do
     authentication sessions.
     Add or modify the following line in "/etc/sssd/sssd.conf":
     ldap_id_use_start_tls = true'
-  impact 0.0
+  impact 0.5
   tag legacy: ['V-72227', 'SV-86851']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000250-GPOS-00093'

@@ -22,7 +22,7 @@ Defaults !runaspw'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag 'satisfies'
+  tag satisfies: nil
   tag gid: 'V-237634'
   tag rid: 'SV-237634r809213_rule'
   tag stig_id: 'RHEL-07-010342'

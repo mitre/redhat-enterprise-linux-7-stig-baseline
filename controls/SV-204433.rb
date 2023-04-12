@@ -15,7 +15,7 @@ control 'SV-204433' do
     to "false":
     [daemon]
     TimedLoginEnable=false'
-  impact 0.0
+  impact 0.7
   tag legacy: ['V-71955', 'SV-86579']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00229'

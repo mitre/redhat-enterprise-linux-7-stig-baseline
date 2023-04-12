@@ -23,7 +23,7 @@ Note: The "[value]" must be a number that is greater than or equal to "0".'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000373-GPOS-00156'
-  tag 'satisfies'
+  tag satisfies: nil
   tag gid: 'V-237635'
   tag rid: 'SV-237635r809215_rule'
   tag stig_id: 'RHEL-07-010343'

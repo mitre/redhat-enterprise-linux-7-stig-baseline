@@ -29,7 +29,7 @@ control 'SV-204403' do
     # touch /etc/dconf/db/local.d/locks/session
     Add the setting to lock the screensaver idle-activation-enabled setting:
     /org/gnome/desktop/screensaver/idle-activation-enabled'
-  impact 0.0
+  impact 0.5
   tag legacy: ['V-78997', 'SV-93703']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000029-GPOS-00010'

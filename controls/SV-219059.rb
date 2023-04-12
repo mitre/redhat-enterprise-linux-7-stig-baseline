@@ -53,7 +53,7 @@ Create or edit the /etc/dconf/db/local.d/locks/00-No-Automount file and add the 
 Run the following command to update the database:
 
 # dconf update'
-  impact 0.0
+  impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000114-GPOS-00059'
   tag satisfies: ['SRG-OS-000114-GPOS-00059', 'SRG-OS-000378-GPOS-00163', 'SRG-OS-000480-GPOS-00227']

@@ -19,7 +19,7 @@ control 'SV-204456' do
     Add the setting to disable the Ctrl-Alt-Delete sequence for the graphical user interface:
     [org/gnome/settings-daemon/plugins/media-keys]
     logout=''"
-  impact 0.0
+  impact 0.7
   tag legacy: ['V-94843', 'SV-104673']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

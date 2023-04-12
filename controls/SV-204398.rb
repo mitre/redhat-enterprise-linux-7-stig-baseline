@@ -27,7 +27,7 @@ control 'SV-204398' do
     Update the system databases:
     # dconf update
     Users must log out and back in again before the system-wide settings take effect.'
-  impact 0.0
+  impact 0.5
   tag legacy: ['V-71893', 'SV-86517']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000029-GPOS-00010'

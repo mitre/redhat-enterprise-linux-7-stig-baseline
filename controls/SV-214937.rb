@@ -29,7 +29,7 @@ control 'SV-214937' do
     # touch /etc/dconf/db/local.d/locks/session
     Add the setting to lock the screensaver lock-enabled setting:
     /org/gnome/desktop/screensaver/lock-enabled'
-  impact 0.0
+  impact 0.5
   tag legacy: ['V-78995', 'SV-93701']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000029-GPOS-00010'

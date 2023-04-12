@@ -20,7 +20,7 @@ $ sudo yum install aide'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000445-GPOS-00199'
-  tag 'satisfies'
+  tag satisfies: nil
   tag gid: 'V-251705'
   tag rid: 'SV-251705r809229_rule'
   tag stig_id: 'RHEL-07-020029'

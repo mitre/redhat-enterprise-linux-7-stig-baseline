@@ -20,10 +20,10 @@ Edit the /boot/efi/EFI/redhat/grub.cfg file and add or modify the following line
 set superusers="[someuniquestringhere]"
 export superusers
 password_pbkdf2 [someuniquestringhere] ${GRUB2_PASSWORD}'
-  impact 0.0
+  impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
-  tag 'satisfies'
+  tag satisfies: nil
   tag gid: 'V-244558'
   tag rid: 'SV-244558r792840_rule'
   tag stig_id: 'RHEL-07-010492'

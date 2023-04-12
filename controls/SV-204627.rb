@@ -16,7 +16,7 @@ control 'SV-204627' do
     If either of these commands returns any output, this is a finding.'
   desc 'fix', 'If the "/etc/snmp/snmpd.conf" file exists, modify any lines that contain a community string value of
     "public" or "private" to another string value.'
-  impact 0.0
+  impact 0.7
   tag legacy: ['SV-86937', 'V-72313']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

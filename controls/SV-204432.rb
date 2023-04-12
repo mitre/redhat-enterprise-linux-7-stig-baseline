@@ -16,7 +16,7 @@ control 'SV-204432' do
     file to "false":
     [daemon]
     AutomaticLoginEnable=false'
-  impact 0.0
+  impact 0.7
   tag legacy: ['V-71953', 'SV-86577']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00229'

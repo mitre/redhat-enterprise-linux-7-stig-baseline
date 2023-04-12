@@ -29,7 +29,7 @@ control 'SV-204399' do
     # touch /etc/dconf/db/local.d/locks/session
     Add the setting to lock the screensaver lock delay:
     /org/gnome/desktop/screensaver/lock-delay'
-  impact 0.0
+  impact 0.5
   tag legacy: ['V-73155', 'SV-87807']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000029-GPOS-00010'

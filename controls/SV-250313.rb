@@ -25,7 +25,7 @@ This must be documented with the ISSO as an operational requirement.'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000324-GPOS-00125'
-  tag 'satisfies'
+  tag satisfies: nil
   tag gid: 'V-250313'
   tag rid: 'SV-250313r792846_rule'
   tag stig_id: 'RHEL-07-020022'

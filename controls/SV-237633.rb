@@ -13,7 +13,7 @@ ALL     ALL=(ALL:ALL) ALL'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag 'satisfies'
+  tag satisfies: nil
   tag gid: 'V-237633'
   tag rid: 'SV-237633r646850_rule'
   tag stig_id: 'RHEL-07-010341'

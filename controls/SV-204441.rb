@@ -31,7 +31,6 @@ control 'SV-204441' do
     #/usr/X11R6/bin/xscreensaver-command -lock
     Modify the "/etc/pam_pkcs11/pam_pkcs11.conf" file to use the cackey module if required.'
   impact 0.5
-  tag 'rationale'
   tag legacy: ['V-71965', 'SV-86589']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000104-GPOS-00051'

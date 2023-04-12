@@ -20,7 +20,6 @@ control 'SV-204489' do
     The rsyslog daemon must be restarted for the changes to take effect:
     $ sudo systemctl restart rsyslog.service'
   impact 0.5
-  tag 'rationale'
   tag legacy: ['V-72051', 'SV-86675']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

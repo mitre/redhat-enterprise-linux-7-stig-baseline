@@ -27,7 +27,7 @@ Add or modify the following line:
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag 'satisfies'
+  tag satisfies: nil
   tag gid: 'V-251703'
   tag rid: 'SV-251703r809566_rule'
   tag stig_id: 'RHEL-07-010339'

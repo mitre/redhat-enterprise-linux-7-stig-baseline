@@ -15,7 +15,7 @@ $ sudo passwd -l [username]'
   impact 0.7
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag 'satisfies'
+  tag satisfies: nil
   tag gid: 'V-251702'
   tag rid: 'SV-251702r809220_rule'
   tag stig_id: 'RHEL-07-010291'

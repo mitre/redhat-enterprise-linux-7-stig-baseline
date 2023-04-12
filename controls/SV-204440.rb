@@ -17,7 +17,7 @@ control 'SV-204440' do
     $ sudo grub2-setpassword
     Enter password:
     Confirm password:'
-  impact 0.0
+  impact 0.7
   tag legacy: ['SV-95719', 'V-81007']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
