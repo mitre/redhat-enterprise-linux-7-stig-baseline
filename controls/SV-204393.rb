@@ -42,6 +42,7 @@ control 'SV-204393' do
     # dconf update
     Users must log out and back in again before the system-wide settings take effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71859', 'SV-86483']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000023-GPOS-00006'
