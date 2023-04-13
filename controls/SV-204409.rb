@@ -18,6 +18,7 @@ control 'SV-204409' do
     Add the following line to /etc/security/pwquality.conf (or modify the line to have the required value):
     dcredit = -1'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86531', 'V-71907']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000071-GPOS-00039'

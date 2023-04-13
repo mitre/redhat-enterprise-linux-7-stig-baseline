@@ -19,6 +19,7 @@ control 'SV-204408' do
     in "/etc/security/pwquality.conf":
     lcredit = -1'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86529', 'V-71905']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000070-GPOS-00038'

@@ -12,6 +12,7 @@ control 'SV-204590' do
     Add the following line in "/etc/ssh/sshd_config", or uncomment the line and set the value to "yes":
     IgnoreRhosts yes'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72243', 'SV-86867']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

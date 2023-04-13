@@ -63,6 +63,7 @@ control 'SV-204395' do
     services by attorneys, psychotherapists, or clergy, and their assistants.  Such communications and work product are
     private and confidential.  See User Agreement for details."'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71863', 'SV-86487']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000023-GPOS-00006'

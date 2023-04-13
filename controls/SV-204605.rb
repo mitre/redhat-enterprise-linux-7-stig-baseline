@@ -13,15 +13,16 @@ control 'SV-204605' do
     Add the following line to the top of "/etc/pam.d/postlogin":
     session required pam_lastlog.so showfailed'
   impact 0.3
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86899', 'V-72275']
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-204605'
-  tag rid: 'SV-204605r603261_rule'
+  tag rid: 'SV-204605r858478_rule'
   tag stig_id: 'RHEL-07-040530'
   tag fix_id: 'F-4729r89008_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag cci: ['CCI-000366', 'CCI-000052']
+  tag nist: ['CM-6 b', 'AC-9']
   tag subsystems: ['pam', 'lastlog', 'ssh']
   tag 'host'
   tag 'container'

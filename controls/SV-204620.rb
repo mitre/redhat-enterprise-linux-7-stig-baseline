@@ -15,6 +15,7 @@ control 'SV-204620' do
     with the following command:
     # yum remove vsftpd'
   impact 0.7
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86923', 'V-72299']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

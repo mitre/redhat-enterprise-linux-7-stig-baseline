@@ -21,11 +21,12 @@ control 'SV-204513' do
     space_left = 25%
     Reload the auditd daemon to apply changes made to the "/etc/audit/auditd.conf" file.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72089', 'SV-86713']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000343-GPOS-00134'
   tag gid: 'V-204513'
-  tag rid: 'SV-204513r744112_rule'
+  tag rid: 'SV-204513r877389_rule'
   tag stig_id: 'RHEL-07-030330'
   tag fix_id: 'F-4637r744111_fix'
   tag cci: ['CCI-001855']

@@ -18,6 +18,7 @@ control 'SV-204438' do
     Enter password:
     Confirm password:'
   impact 0.7
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-95717', 'V-81005']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'

@@ -21,6 +21,7 @@ control 'SV-204502' do
     package from the system with the following command:
     # yum remove telnet-server'
   impact 0.7
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72077', 'SV-86701']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000095-GPOS-00049'

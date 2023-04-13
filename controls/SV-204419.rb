@@ -12,6 +12,7 @@ control 'SV-204419' do
   desc 'fix', 'Configure non-compliant accounts to enforce a 24 hours/1 day minimum password lifetime:
     # chage -m 1 [user]'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86551', 'V-71927']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000075-GPOS-00043'

@@ -15,11 +15,12 @@ control 'SV-204416' do
     Add or update the following line in "/etc/login.defs":
     ENCRYPT_METHOD SHA512'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71921', 'SV-86545']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000073-GPOS-00041'
   tag gid: 'V-204416'
-  tag rid: 'SV-204416r603261_rule'
+  tag rid: 'SV-204416r877397_rule'
   tag stig_id: 'RHEL-07-010210'
   tag fix_id: 'F-4540r88441_fix'
   tag cci: ['CCI-000196']

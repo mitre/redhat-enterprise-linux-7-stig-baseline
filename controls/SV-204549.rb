@@ -22,16 +22,17 @@ control 'SV-204549' do
     -w /etc/sudoers.d/ -p wa -k privileged-actions
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72163', 'SV-86787']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000037-GPOS-00015'
   tag satisfies: ['SRG-OS-000037-GPOS-00015', 'SRG-OS-000042-GPOS-00020', 'SRG-OS-000392-GPOS-00172', 'SRG-OS-000462-GPOS-00206', 'SRG-OS-000471-GPOS-00215']
   tag gid: 'V-204549'
-  tag rid: 'SV-204549r603261_rule'
+  tag rid: 'SV-204549r853953_rule'
   tag stig_id: 'RHEL-07-030700'
   tag fix_id: 'F-4673r88840_fix'
   tag cci: ['CCI-000130', 'CCI-000135', 'CCI-000172', 'CCI-002884']
-  tag nist: ['AU-3', 'AU-3 (1)', 'AU-12 c', 'MA-4 (1) (a)']
+  tag nist: ['AU-3', 'AU-3 (1)', 'AU-12 c', 'MA-4 (1) (a)', 'AU-3 a']
   tag subsystems: ['audit', 'auditd', 'audit_rule']
   tag 'host'
 

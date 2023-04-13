@@ -15,6 +15,7 @@ control 'SV-204618' do
     Set the promiscuous mode of an interface to off with the following command:
     #ip link set dev <devicename> multicast off promisc off'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72295', 'SV-86919']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

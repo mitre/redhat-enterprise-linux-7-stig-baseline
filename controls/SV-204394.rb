@@ -67,6 +67,7 @@ control 'SV-204394' do
     Run the following command to update the database:
     # dconf update)
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71861', 'SV-86485']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000023-GPOS-00006'

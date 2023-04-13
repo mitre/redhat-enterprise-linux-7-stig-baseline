@@ -12,6 +12,7 @@ control 'SV-204405' do
     Add the following line to "/etc/pam.d/passwd" (or modify the line to have the required value):
     password     substack    system-auth'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-95715', 'V-81003']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000069-GPOS-00037'

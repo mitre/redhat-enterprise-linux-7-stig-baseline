@@ -42,14 +42,15 @@ control 'SV-204531' do
     -F auid!=unset -k access
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86749', 'V-72125']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000064-GPOS-00033'
   tag satisfies: ['SRG-OS-000064-GPOS-00033', 'SRG-OS-000458-GPOS-00203', 'SRG-OS-000461-GPOS-00205', 'SRG-OS-000392-GPOS-00172']
   tag gid: 'V-204531'
-  tag rid: 'SV-204531r809815_rule'
+  tag rid: 'SV-204531r853917_rule'
   tag stig_id: 'RHEL-07-030510'
-  tag fix_id: 'F-4655r809814_fix'
+  tag fix_id: 'F-4655r853916_fix'
   tag cci: ['CCI-000172', 'CCI-002884']
   tag nist: ['AU-12 c', 'MA-4 (1) (a)']
   tag subsystems: ['audit', 'auditd', 'audit_rule']

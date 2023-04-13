@@ -25,6 +25,7 @@ control 'SV-204460' do
     administrative-level actions.
     Document all authorized accounts on the system.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86625', 'V-72001']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

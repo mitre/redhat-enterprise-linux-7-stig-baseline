@@ -17,6 +17,7 @@ control 'SV-204471' do
     Note: The example will be for the user smithj, who has a home directory of "/home/smithj".
     $ sudo chown smithj /home/smithj/<file or directory>'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86647', 'V-72023']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

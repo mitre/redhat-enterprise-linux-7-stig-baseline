@@ -15,6 +15,7 @@ control 'SV-204437' do
     Add or modify the "ExecStart" line in "/usr/lib/systemd/system/rescue.service" to include "/usr/sbin/sulogin":
     ExecStart=-/bin/sh -c "/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-77823', 'SV-92519']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'

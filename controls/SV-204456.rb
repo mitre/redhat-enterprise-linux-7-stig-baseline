@@ -20,6 +20,7 @@ control 'SV-204456' do
     [org/gnome/settings-daemon/plugins/media-keys]
     logout=''"
   impact 0.7
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-94843', 'SV-104673']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

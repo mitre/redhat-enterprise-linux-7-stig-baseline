@@ -25,11 +25,12 @@ command:
 
     # sudo rpm -Uvh <packagename>'
   impact 0.7
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86479', 'V-71855']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-214799'
-  tag rid: 'SV-214799r603261_rule'
+  tag rid: 'SV-214799r854001_rule'
   tag stig_id: 'RHEL-07-010020'
   tag fix_id: 'F-15997r192363_fix'
   tag cci: ['CCI-001749']

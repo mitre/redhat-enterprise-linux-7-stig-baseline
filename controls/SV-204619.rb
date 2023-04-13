@@ -17,6 +17,7 @@ control 'SV-204619' do
     the local network with the following command:
     # postconf -e 'smtpd_client_restrictions = permit_mynetworks,reject')
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86921', 'V-72297']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

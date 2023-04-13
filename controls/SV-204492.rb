@@ -18,6 +18,7 @@ control 'SV-204492' do
     # systemctl disable kdump.service
     If kernel core dumps are required, document the need with the ISSO.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86681', 'V-72057']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

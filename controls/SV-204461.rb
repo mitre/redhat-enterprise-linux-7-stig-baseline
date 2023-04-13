@@ -11,6 +11,7 @@ control 'SV-204461' do
     file to add any non-existent group referenced in the "/etc/passwd" file, or change the GIDs referenced in the
     "/etc/passwd" file to a group that exists in "/etc/group".'
   impact 0.3
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72003', 'SV-86627']
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000104-GPOS-00051'

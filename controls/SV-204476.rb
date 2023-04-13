@@ -19,6 +19,7 @@ of "/home/smithj".
 
     # chmod 0740 /home/smithj/.[^.]*'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86657', 'V-72033']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

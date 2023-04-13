@@ -17,11 +17,12 @@ control 'SV-204514' do
     Uncomment or edit the "space_left_action" keyword in "/etc/audit/auditd.conf" and set it to "email".
     space_left_action = email'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72091', 'SV-86715']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000343-GPOS-00134'
   tag gid: 'V-204514'
-  tag rid: 'SV-204514r603261_rule'
+  tag rid: 'SV-204514r877389_rule'
   tag stig_id: 'RHEL-07-030340'
   tag fix_id: 'F-4638r88735_fix'
   tag cci: ['CCI-001855']
