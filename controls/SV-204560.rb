@@ -10,29 +10,36 @@ control 'SV-204560' do
     system. Therefore, it is very important to use syscall rules only when absolutely necessary since these affect
     performance. The more rules, the bigger the performance hit. The performance can be helped, however, by combining
     syscalls into one rule whenever possible.'
-  desc 'check', 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
-    "init_module" and "finit_module" syscalls.
-    Check the auditing rules in "/etc/audit/audit.rules" with the following command:
-    # grep init_module /etc/audit/audit.rules
-    -a always,exit -F arch=b32 -S init_module,finit_module -k modulechange
-    -a always,exit -F arch=b64 -S init_module,finit_module -k modulechange
-    If both the "b32" and "b64" audit rules are not defined for the "init_module" and "finit_module" syscalls, this is a
-    finding.'
-  desc 'fix', 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
-    the "init_module" and "finit_module" syscalls.
-    Add or update the following rules in "/etc/audit/rules.d/audit.rules":
-    -a always,exit -F arch=b32 -S init_module,finit_module -k modulechange
-    -a always,exit -F arch=b64 -S init_module,finit_module -k modulechange
-    The audit daemon must be restarted for the changes to take effect.'
+  desc 'check', 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the "init_module" and "finit_module" syscalls. 
+
+Check the auditing rules in "/etc/audit/audit.rules" with the following command:
+
+$ sudo grep init_module /etc/audit/audit.rules 
+
+-a always,exit -F arch=b32 -S init_module,finit_module -F auid>=1000 -F auid!=unset -k modulechange
+
+-a always,exit -F arch=b64 -S init_module,finit_module -F auid>=1000 -F auid!=unset -k modulechange
+
+If both the "b32" and "b64" audit rules are not defined for the "init_module" and "finit_module" syscalls, this is a finding.'
+  desc 'fix', 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use the "init_module" and "finit_module" syscalls. 
+
+Add or update the following rules in "/etc/audit/rules.d/audit.rules":
+
+-a always,exit -F arch=b32 -S init_module,finit_module -F auid>=1000 -F auid!=unset -k modulechange
+
+-a always,exit -F arch=b64 -S init_module,finit_module -F auid>=1000 -F auid!=unset -k modulechange
+
+The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72187', 'SV-86811']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000471-GPOS-00216'
   tag satisfies: ['SRG-OS-000471-GPOS-00216', 'SRG-OS-000477-GPOS-00222']
   tag gid: 'V-204560'
-  tag rid: 'SV-204560r809822_rule'
+  tag rid: 'SV-204560r833172_rule'
   tag stig_id: 'RHEL-07-030820'
-  tag fix_id: 'F-4684r809821_fix'
+  tag fix_id: 'F-4684r833171_fix'
   tag cci: ['CCI-000172']
   tag nist: ['AU-12 c']
   tag subsystems: ['audit', 'auditd', 'audit_rule']

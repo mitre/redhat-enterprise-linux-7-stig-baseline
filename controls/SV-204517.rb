@@ -23,14 +23,13 @@ control 'SV-204517' do
     syscalls, this is a finding.'
   desc 'fix', 'Add or update the following rule in "/etc/audit/rules.d/audit.rules":
 
-    -a always,exit -F arch=b32 -S chown -F auid>=1000 -F auid!=4294967295 -k
-perm_mod
+-a always,exit -F arch=b32 -S chown,fchown,fchownat,lchown -F auid>=1000 -F auid!=unset -k perm_mod
 
-    -a always,exit -F arch=b64 -S chown -F auid>=1000 -F auid!=4294967295 -k
-perm_mod
+-a always,exit -F arch=b64 -S chown,fchown,fchownat,lchown -F auid>=1000 -F auid!=unset -k perm_mod
 
-    The audit daemon must be restarted for the changes to take effect.'
+The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86721', 'V-72097']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000064-GPOS-00033'
@@ -40,7 +39,7 @@ perm_mod
   tag stig_id: 'RHEL-07-030370'
   tag fix_id: 'F-4641r809192_fix'
   tag cci: ['CCI-000126', 'CCI-000172']
-  tag nist: ['AU-2 d', 'AU-12 c']
+  tag nist: ['AU-2 d', 'AU-12 c', 'AU-2 c']
   tag subsystems: ['audit', 'auditd', 'audit_rule']
   tag 'host'
 

@@ -13,19 +13,21 @@ control 'SV-204422' do
     If the line containing the "pam_pwhistory.so" line does not have the "remember" module argument set, is commented
     out, or the value of the "remember" module argument is set to less than "5", this is a finding.'
   desc 'fix', 'Configure the operating system to prohibit password reuse for a minimum of five generations.
-    Add the following line in "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" (or modify the line to have the
-    required value):
-    password    requisite     pam_pwhistory.so use_authtok remember=5 retry=3
-    Note: Manual changes to the listed files may be overwritten by the "authconfig" program. The "authconfig" program
-    should not be used to update the configurations listed in this requirement.'
+
+Add the following line in "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" (or modify the line to have the required value):
+
+     password     requisite     pam_pwhistory.so use_authtok remember=5 retry=3
+   
+Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite custom authentication configuration settings while using the authconfig utility, otherwise manual changes to the listed files will be overwritten whenever the authconfig utility is used.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71933', 'SV-86557']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000077-GPOS-00045'
   tag gid: 'V-204422'
-  tag rid: 'SV-204422r603261_rule'
+  tag rid: 'SV-204422r880836_rule'
   tag stig_id: 'RHEL-07-010270'
-  tag fix_id: 'F-4546r88459_fix'
+  tag fix_id: 'F-4546r880835_fix'
   tag cci: ['CCI-000200']
   tag nist: ['IA-5 (1) (e)']
   tag subsystems: ['pam', 'password']

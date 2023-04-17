@@ -19,20 +19,19 @@ control 'SV-204631' do
     # yum list installed pam_pkcs11
     pam_pkcs11-0.6.2-14.el7.noarch.rpm
     If the "pam_pkcs11" package is not installed, this is a finding.'
-  desc 'fix', 'Configure the operating system to implement multifactor authentication by
-installing the required packages.
+  desc 'fix', 'Configure the operating system to implement multifactor authentication by installing the required packages.
 
-Install the "esc" and "pam_pkcs11" packages on the system with the
-following command:
+Install the pam_pkcs11 package with the following command:
 
-# yum install esc pam_pkcs11'
+# yum install pam_pkcs11'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-87041', 'V-72417']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000375-GPOS-00160'
   tag satisfies: ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']
   tag gid: 'V-204631'
-  tag rid: 'SV-204631r603261_rule'
+  tag rid: 'SV-204631r853997_rule'
   tag stig_id: 'RHEL-07-041001'
   tag fix_id: 'F-4755r462473_fix'
   tag cci: ['CCI-001948', 'CCI-001953', 'CCI-001954']

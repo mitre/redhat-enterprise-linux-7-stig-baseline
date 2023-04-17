@@ -33,25 +33,26 @@ control 'SV-204427' do
     with the "pam_faillock.so" module or is missing from these lines, this is a finding.
     Note: The maximum configurable value for "unlock_time" is "604800".
     If any line referencing the "pam_faillock.so" module is commented out, this is a finding.'
-  desc 'fix', 'Configure the operating system to lock an account for the maximum period when three unsuccessful logon
-    attempts in 15 minutes are made.
-    Add/Modify the appropriate sections of the "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" files to match
-    the following lines:
-    auth required pam_faillock.so preauth silent audit deny=3 even_deny_root fail_interval=900 unlock_time=900
-    auth sufficient pam_unix.so try_first_pass
-    auth [default=die] pam_faillock.so authfail audit deny=3 even_deny_root fail_interval=900 unlock_time=900
-    account required pam_faillock.so
-    Note: Manual changes to the listed files may be overwritten by the "authconfig" program. The "authconfig" program
-    should not be used to update the configurations listed in this requirement.'
+  desc 'fix', 'Configure the operating system to lock an account for the maximum period when three unsuccessful logon attempts in 15 minutes are made.
+
+Add/Modify the appropriate sections of the "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" files to match the following lines:
+
+auth        required      pam_faillock.so preauth silent audit deny=3 even_deny_root fail_interval=900 unlock_time=900
+auth        sufficient    pam_unix.so try_first_pass
+auth        [default=die] pam_faillock.so authfail audit deny=3 even_deny_root fail_interval=900 unlock_time=900
+account     required      pam_faillock.so   
+
+Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite custom authentication configuration settings while using the authconfig utility, otherwise manual changes to the listed files will be overwritten whenever the authconfig utility is used.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71943', 'SV-86567']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000329-GPOS-00128'
   tag satisfies: ['SRG-OS-000329-GPOS-00128', 'SRG-OS-000021-GPOS-00005']
   tag gid: 'V-204427'
-  tag rid: 'SV-204427r603824_rule'
+  tag rid: 'SV-204427r880842_rule'
   tag stig_id: 'RHEL-07-010320'
-  tag fix_id: 'F-4551r622287_fix'
+  tag fix_id: 'F-4551r880841_fix'
   tag cci: ['CCI-000044', 'CCI-002236', 'CCI-002237', 'CCI-002238']
   tag nist: ['AC-7 a', 'AC-7 b', 'AC-7 b', 'AC-7 b']
   tag subsystems: ['pam', 'faillock']
