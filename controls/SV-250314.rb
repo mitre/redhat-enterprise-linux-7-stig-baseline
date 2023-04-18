@@ -26,7 +26,7 @@ Remove any configurations that conflict with the above from the following locati
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000324-GPOS-00125'
-  tag 'satisfies'
+  tag satisfies: nil
   tag gid: 'V-250314'
   tag rid: 'SV-250314r877392_rule'
   tag stig_id: 'RHEL-07-020023'

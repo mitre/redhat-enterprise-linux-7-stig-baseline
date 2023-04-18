@@ -26,7 +26,7 @@ Remove any duplicate or conflicting lines from /etc/sudoers and /etc/sudoers.d/ 
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000373-GPOS-00156'
-  tag 'satisfies'
+  tag satisfies: nil
   tag gid: 'V-237635'
   tag rid: 'SV-237635r861075_rule'
   tag stig_id: 'RHEL-07-010343'

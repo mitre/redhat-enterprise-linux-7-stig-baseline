@@ -30,7 +30,7 @@ Add or modify the following line:
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag 'satisfies'
+  tag satisfies: nil
   tag gid: 'V-251703'
   tag rid: 'SV-251703r833183_rule'
   tag stig_id: 'RHEL-07-010339'

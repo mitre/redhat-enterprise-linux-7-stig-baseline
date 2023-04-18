@@ -28,7 +28,7 @@ $ sudo grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg'
   ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
-  tag 'satisfies'
+  tag satisfies: nil
   tag gid: 'V-244558'
   tag rid: 'SV-244558r833187_rule'
   tag stig_id: 'RHEL-07-010492'
