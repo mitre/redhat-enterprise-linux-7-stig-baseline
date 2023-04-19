@@ -292,12 +292,13 @@ inputs:
     description: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
     value: 604800
 
-  # SV-204445
+  # SV-204445 SV-251705
   - name: file_integrity_tool
     description: Name of tool
     type: String
     value: "aide"
 
+  # SV-204445
   - name: file_integrity_interval
     description: Interval to run the file integrity tool (monthly, weekly, or daily).
     type: String
