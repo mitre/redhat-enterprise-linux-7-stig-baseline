@@ -56,19 +56,19 @@ The following example output is generic. It will set cron to run AIDE daily and 
   end
   describe.one do
     describe file("/etc/cron.daily/#{file_integrity_tool}") do
-      its('content') { should match %r{/bin/mail} }
+      its('content') { should match %r{/var/spool/mail} }
     end
     describe file("/etc/cron.weekly/#{file_integrity_tool}") do
-      its('content') { should match %r{/bin/mail} }
+      its('content') { should match %r{/var/spool/mail} }
     end
     describe crontab('root').where {
                command =~ /#{file_integrity_tool}/
              } do
-      its('commands.flatten') { should include(match %r{/bin/mail}) }
+      its('commands.flatten') { should include(match %r{/var/spool/mail}) }
     end
     if file("/etc/cron.d/#{file_integrity_tool}").exist?
       describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
-        its('commands') { should include(match %r{/bin/mail}) }
+        its('commands') { should include(match %r{/var/spool/mail}) }
       end
     end
   end
