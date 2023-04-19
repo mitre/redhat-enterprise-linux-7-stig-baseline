@@ -55,7 +55,22 @@ Done.'
   tag 'host'
   tag 'container'
 
-  describe package(input('file_integrity_tool')) do
-    it { should be_installed }
+  tool = input('file_integrity_tool')
+
+  if tool == 'aide'
+    describe package('aide') do
+      it { should be_installed }
+    end
+
+    aide_initialization = command('sudo /usr/sbin/aide --check').stdout.strip
+
+    describe "File integrity tool #{tool} should be initialized" do
+      subject { aide_initialization }
+      it { should_not match /Couldn't\sopen\sfile/ }
+    end
+  else
+    describe "Manually review that #{tool} is installed and configured to perform file integrity checks" do
+      skip "Manually review that #{tool} is installed and configured to perform file integrity checks"
+    end
   end
 end
