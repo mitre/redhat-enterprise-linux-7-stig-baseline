@@ -33,7 +33,6 @@ If the command does not return a result, this is a finding.'
     Add the setting to lock the session idle delay:
     /org/gnome/desktop/session/idle-delay'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-73157', 'SV-87809']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000029-GPOS-00010'

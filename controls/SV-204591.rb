@@ -17,7 +17,6 @@ control 'SV-204591' do
     PrintLastLog yes
     The SSH service must be restarted for changes to "sshd_config" to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72245', 'SV-86869']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

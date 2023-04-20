@@ -38,7 +38,6 @@ control 'SV-204444' do
     Use the following command to map an existing user to the "user_u" SELinux user:
     $ sudo semanage login -m -s user_u <username>'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86595', 'V-71971']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000324-GPOS-00125'

@@ -13,7 +13,6 @@ Remove any instances of the "nullok" option in "/etc/pam.d/system-auth" and "/et
 
 Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite custom authentication configuration settings while using the authconfig utility, otherwise manual changes to the listed files will be overwritten whenever the authconfig utility is used.'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71937', 'SV-86561']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

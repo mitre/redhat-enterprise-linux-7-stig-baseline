@@ -31,7 +31,6 @@ Use the following command to map the "user_u" SELinux user to the "user_r" role:
 
 $ sudo semanage -m user_u -R user_r'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000324-GPOS-00125'
   tag satisfies: nil

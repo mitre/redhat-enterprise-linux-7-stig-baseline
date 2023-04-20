@@ -16,7 +16,6 @@ If any file has a mode more permissive than "0640", this is a finding.)
 
 # chmod 0640 /path/to/file/ssh_host*key'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72257', 'SV-86881']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

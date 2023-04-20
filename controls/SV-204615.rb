@@ -28,7 +28,6 @@ following line to "/etc/sysctl.conf" or a configuration file in the
 
     # sysctl --system'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-87827', 'V-73175']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

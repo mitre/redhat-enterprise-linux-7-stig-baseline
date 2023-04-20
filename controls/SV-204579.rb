@@ -27,7 +27,6 @@ If "TMOUT" is not set to "900" or less to enforce session termination after inac
     #!/bin/bash
     declare -xr TMOUT=900'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86847', 'V-72223']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000163-GPOS-00072'

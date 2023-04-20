@@ -25,7 +25,6 @@ control 'SV-204632' do
     Modify all of the services lines in "/etc/sssd/sssd.conf" or in configuration files found under "/etc/sssd/conf.d"
     to include pam.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72427', 'SV-87051']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000375-GPOS-00160'

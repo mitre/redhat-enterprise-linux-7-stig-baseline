@@ -22,7 +22,6 @@ control 'SV-204503' do
     Enable the auditd service with the following command:
     # systemctl start auditd.service'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86703', 'V-72079']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000038-GPOS-00016'

@@ -19,7 +19,6 @@ $ sudo chage -E `date -d "+3 days" +%Y-%m-%d` system_account_name
 
 The automatic expiration or disabling time period may be extended as needed until the crisis is resolved.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag check_id: 'C-58007r858499_chk'
   tag severity: 'medium'
   tag gid: 'V-254523'

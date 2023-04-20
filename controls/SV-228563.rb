@@ -10,7 +10,6 @@ The only authorized public directories are those temporary directories supplied 
 If there is output, this is a finding.'
   desc 'fix', 'All directories in local partitions which are world-writable should be owned by root or another system account. If any world-writable directories are not owned by a system account, this should be investigated. Following this, the files should be deleted or assigned to an appropriate group.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag satisfies: nil

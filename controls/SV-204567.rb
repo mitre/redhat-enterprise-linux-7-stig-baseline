@@ -18,7 +18,6 @@ control 'SV-204567' do
     -w /etc/shadow -p wa -k identity
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-87823', 'V-73171']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000004-GPOS-00004'

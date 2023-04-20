@@ -19,7 +19,6 @@ control 'SV-204634' do
   desc 'fix', 'Configure the system to disable all wireless network interfaces with the following command:
     #nmcli radio wifi off'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-73177', 'SV-87829']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000424-GPOS-00188'

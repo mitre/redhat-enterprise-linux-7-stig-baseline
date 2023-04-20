@@ -28,7 +28,6 @@ control 'SV-204583' do
     Add or modify the following line in "/etc/sssd/sssd.conf":
     ldap_tls_cacert = /etc/pki/tls/certs/ca-bundle.crt'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86855', 'V-72231']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000250-GPOS-00093'

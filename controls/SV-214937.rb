@@ -33,7 +33,6 @@ If the command does not return a result, this is a finding.'
     Add the setting to lock the screensaver lock-enabled setting:
     /org/gnome/desktop/screensaver/lock-enabled'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-78995', 'SV-93701']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000029-GPOS-00010'

@@ -17,7 +17,6 @@ $ sudo vi /etc/pam.d/sudo
 
 Remove any occurrences of "pam_succeed_if" in the file.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000373-GPOS-00156'
   tag satisfies: ['SRG-OS-000373-GPOS-00156', 'SRG-OS-000373-GPOS-00157', 'SRG-OS-000373-GPOS-00158']

@@ -13,7 +13,6 @@ control 'SV-204605' do
     Add the following line to the top of "/etc/pam.d/postlogin":
     session required pam_lastlog.so showfailed'
   impact 0.3
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86899', 'V-72275']
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

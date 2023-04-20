@@ -33,7 +33,6 @@ control 'SV-204454' do
     SELINUXTYPE=targeted
     A reboot is required for the changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71991', 'SV-86615']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000445-GPOS-00199'

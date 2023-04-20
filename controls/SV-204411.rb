@@ -18,7 +18,6 @@ control 'SV-204411' do
     Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):
     difok = 8'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71911', 'SV-86535']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000072-GPOS-00040'

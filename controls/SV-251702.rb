@@ -13,7 +13,6 @@ $ sudo passwd [username]
 Lock an account:
 $ sudo passwd -l [username]'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag satisfies: nil

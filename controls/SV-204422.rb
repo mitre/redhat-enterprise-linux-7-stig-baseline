@@ -20,7 +20,6 @@ Add the following line in "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth
    
 Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite custom authentication configuration settings while using the authconfig utility, otherwise manual changes to the listed files will be overwritten whenever the authconfig utility is used.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71933', 'SV-86557']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000077-GPOS-00045'

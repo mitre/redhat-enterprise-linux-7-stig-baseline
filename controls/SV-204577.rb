@@ -33,7 +33,6 @@ control 'SV-204577' do
   desc 'fix', "Update the host's firewall settings and/or running services to comply with the PPSM CLSA for the site
     or program and the PPSM CAL."
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72219', 'SV-86843']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000096-GPOS-00050'

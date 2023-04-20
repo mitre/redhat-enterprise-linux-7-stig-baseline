@@ -28,7 +28,6 @@ account     required      pam_faillock.so
 
 Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite custom authentication configuration settings while using the authconfig utility, otherwise manual changes to the listed files will be overwritten whenever the authconfig utility is used.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71945', 'SV-86569']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000329-GPOS-00128'

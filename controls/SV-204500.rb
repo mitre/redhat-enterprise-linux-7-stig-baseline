@@ -28,7 +28,6 @@ If the "sha512" rule is not being used on all uncommented selection lines in the
     If AIDE is installed, ensure the "sha512" rule is present on all uncommented file and directory selection lists.
     Exclude any log files, or files expected to change frequently, to reduce unnecessary notifications.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86697', 'V-72073']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

@@ -39,7 +39,6 @@ If the "failure" setting is set to "1" but the availability concern is not docum
     Kernel log monitoring must also be configured to properly alert designated staff.
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72081', 'SV-86705']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000046-GPOS-00022'

@@ -17,7 +17,6 @@ control 'SV-204432' do
     [daemon]
     AutomaticLoginEnable=false'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71953', 'SV-86577']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00229'

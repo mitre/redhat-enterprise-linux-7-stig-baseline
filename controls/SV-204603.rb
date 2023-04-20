@@ -40,7 +40,6 @@ control 'SV-204603' do
     If "chronyd" was not running, it must be started:
     # systemctl start chronyd.service'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72269', 'SV-86893']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000355-GPOS-00143'

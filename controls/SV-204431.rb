@@ -20,7 +20,6 @@ control 'SV-204431' do
     Modify the "/etc/login.defs" file to set the "FAIL_DELAY" parameter to "4" or greater:
     FAIL_DELAY 4'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86575', 'V-71951']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00226'

@@ -14,7 +14,6 @@ control 'SV-204420' do
     Add the following line in "/etc/login.defs" (or modify the line to have the required value):
     PASS_MAX_DAYS     60'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71929', 'SV-86553']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000076-GPOS-00044'

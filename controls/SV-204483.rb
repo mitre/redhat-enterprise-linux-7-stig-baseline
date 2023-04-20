@@ -19,7 +19,6 @@ control 'SV-204483' do
   desc 'fix', 'Configure the "/etc/fstab" to use the "noexec" option on file systems that are being imported via
     NFS.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-87813', 'V-73161']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

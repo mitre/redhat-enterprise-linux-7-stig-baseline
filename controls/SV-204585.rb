@@ -19,7 +19,6 @@ control 'SV-204585' do
   desc 'fix', 'Install SSH packages onto the host with the following commands:
     # yum install openssh-server.x86_64'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86857', 'V-72233']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000423-GPOS-00187'

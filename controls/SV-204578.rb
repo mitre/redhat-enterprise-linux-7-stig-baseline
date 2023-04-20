@@ -27,7 +27,6 @@ control 'SV-204578' do
     Ciphers aes256-ctr,aes192-ctr,aes128-ctr
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72221', 'SV-86845']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000033-GPOS-00014'

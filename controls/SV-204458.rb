@@ -16,7 +16,6 @@ control 'SV-204458' do
     If the release is not supported by the vendor, this is a finding.'
   desc 'fix', 'Upgrade to a supported version of the operating system.'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86621', 'V-71997']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

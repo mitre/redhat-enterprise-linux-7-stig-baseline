@@ -21,7 +21,6 @@ control 'SV-204575' do
   desc 'fix', 'Modify the "/etc/rsyslog.conf" file to remove the "ModLoad imtcp", "ModLoad imudp", and "ModLoad
     imrelp" configuration lines, or document the system as being used for log aggregation.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86835', 'V-72211']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

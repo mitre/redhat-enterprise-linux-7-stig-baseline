@@ -28,7 +28,6 @@ Install the tmux program (if it is not on the system) with the following command
 
      # yum install tmux'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag check_id: 'C-59603r880777_chk'
   tag severity: 'medium'
   tag gid: 'V-255926'

@@ -12,7 +12,6 @@ control 'SV-204621' do
   desc 'fix', 'Remove the TFTP package from the system with the following command:
     # yum remove tftp-server'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86925', 'V-72301']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

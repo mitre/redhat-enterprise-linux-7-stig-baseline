@@ -26,7 +26,6 @@ control 'SV-204447' do
     by setting the following option in the "/etc/yum.conf" file:
     gpgcheck=1'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71977', 'SV-86601']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000366-GPOS-00153'

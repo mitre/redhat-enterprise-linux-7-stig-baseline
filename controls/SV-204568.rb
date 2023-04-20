@@ -19,7 +19,6 @@ control 'SV-204568' do
     The audit daemon must be restarted for the changes to take effect:
     # systemctl restart auditd'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-87825', 'V-73173']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000004-GPOS-00004'

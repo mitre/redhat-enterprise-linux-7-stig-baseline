@@ -23,7 +23,6 @@ If the user home directory referenced in "/etc/passwd" is not group-owned by tha
     of users.
     # chgrp users /home/smithj)
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86645', 'V-72021']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

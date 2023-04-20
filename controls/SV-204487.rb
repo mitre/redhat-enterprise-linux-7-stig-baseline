@@ -15,7 +15,6 @@ control 'SV-204487' do
     system account. If any world-writable directories are not group-owned by a system account, this should be
     investigated. Following this, the directories should be deleted or assigned to an appropriate group.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72047', 'SV-86671']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

@@ -20,7 +20,6 @@ If the "Compression" keyword is set to "yes", is missing, or the returned line i
     Compression no
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86891', 'V-72267']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

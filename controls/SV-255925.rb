@@ -15,7 +15,6 @@ Restart the "sshd" service for changes to take effect:
 
      $ sudo systemctl restart sshd'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag check_id: 'C-59602r880747_chk'
   tag severity: 'medium'
   tag gid: 'V-255925'

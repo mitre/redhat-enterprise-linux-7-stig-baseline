@@ -35,7 +35,6 @@ If the command does not return a result, this is a finding.'
     Add the setting to lock the screensaver idle-activation-enabled setting:
     /org/gnome/desktop/screensaver/idle-activation-enabled'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-78997', 'SV-93703']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000029-GPOS-00010'

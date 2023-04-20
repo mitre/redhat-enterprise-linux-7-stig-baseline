@@ -37,7 +37,6 @@ following command:
 
     #rpm --setperms <packagename>'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71849', 'SV-86473']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000257-GPOS-00098'

@@ -24,7 +24,6 @@ control 'SV-204586' do
   desc 'fix', 'Configure the SSH service to automatically start after reboot with the following command:
     # systemctl enable sshd.service'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86859', 'V-72235']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000423-GPOS-00187'

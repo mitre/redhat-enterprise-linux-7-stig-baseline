@@ -14,7 +14,6 @@ control 'SV-204466' do
     setting the "CREATE_HOME" parameter in "/etc/login.defs" to "yes" as follows.
     CREATE_HOME yes'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72013', 'SV-86637']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

@@ -73,7 +73,6 @@ control 'SV-204580' do
     private and confidential. See User Agreement for details."
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72225', 'SV-86849']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000023-GPOS-00006'

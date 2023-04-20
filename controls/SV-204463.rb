@@ -12,7 +12,6 @@ control 'SV-204463' do
     valid user to all unowned files and directories on the system with the "chown" command:
     # chown <user> <file>'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86631', 'V-72007']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

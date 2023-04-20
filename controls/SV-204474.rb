@@ -24,7 +24,6 @@ either the directory owner or root with the following command:
 
     # chown smithj /home/smithj/.[^.]*'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72029', 'SV-86653']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

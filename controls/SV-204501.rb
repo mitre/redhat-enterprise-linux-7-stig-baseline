@@ -26,7 +26,6 @@ If the system is using an alternate boot loader on removable media, and document
   desc 'fix', 'Remove alternate methods of booting the system from removable media or document the configuration to
     boot from removable media with the ISSO.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86699', 'V-72075']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000364-GPOS-00151'

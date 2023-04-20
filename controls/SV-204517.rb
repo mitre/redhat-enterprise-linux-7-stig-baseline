@@ -29,7 +29,6 @@ control 'SV-204517' do
 
 The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86721', 'V-72097']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000064-GPOS-00033'

@@ -16,7 +16,6 @@ control 'SV-204406' do
     password required pam_pwquality.so retry=3
     Note: The value of "retry" should be between "1" and "3".'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-87811', 'V-73159']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000069-GPOS-00037'

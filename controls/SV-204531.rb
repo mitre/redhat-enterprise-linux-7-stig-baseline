@@ -42,7 +42,6 @@ control 'SV-204531' do
     -F auid!=unset -k access
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86749', 'V-72125']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000064-GPOS-00033'

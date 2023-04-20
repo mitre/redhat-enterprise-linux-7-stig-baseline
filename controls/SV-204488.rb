@@ -22,7 +22,6 @@ If any local interactive user initialization files are found to have a umask sta
     local interactive user must log on to their account first and then switch the user to the application account with
     the correct option to gain the account's environment variables.)
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72049', 'SV-86673']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

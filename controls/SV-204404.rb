@@ -30,7 +30,6 @@ If the "lock-delay" setting is missing, or is not set to "5" or less, this is a 
     # dconf update
     Users must log out and back in again before the system-wide settings take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71901', 'SV-86525']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000029-GPOS-00010'

@@ -22,7 +22,6 @@ control 'SV-204512' do
     or "halt".
     network_failure_action = syslog'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-73163', 'SV-87815']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000342-GPOS-00133'

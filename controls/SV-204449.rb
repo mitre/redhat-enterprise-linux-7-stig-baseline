@@ -23,7 +23,6 @@ control 'SV-204449' do
     Add or update the line:
     blacklist usb-storage'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86607', 'V-71983']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000114-GPOS-00059'

@@ -72,7 +72,6 @@ Done.
 
 Note: With this solution in place any custom settings to "system-auth" and "password-auth" will be retained and not overwritten by the use of the authconfig utility.  The authconfig utility will write its settings to "system-auth-ac" and "password-auth-ac" and continue to function as expected.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag check_id: 'C-59605r880828_chk'
   tag severity: 'medium'
   tag gid: 'V-255928'

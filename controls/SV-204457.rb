@@ -17,7 +17,6 @@ control 'SV-204457' do
     Add or edit the line for the "UMASK" parameter in "/etc/login.defs" file to "077":
     UMASK  077'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86619', 'V-71995']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00228'

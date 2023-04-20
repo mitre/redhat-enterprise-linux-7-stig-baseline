@@ -30,7 +30,6 @@ The audit daemon must be restarted for changes to take effect:
 
 # service auditd restart'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-95729', 'V-81017']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000342-GPOS-00133'

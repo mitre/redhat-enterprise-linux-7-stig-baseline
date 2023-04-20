@@ -35,7 +35,6 @@ control 'SV-204608' do
     If the "/etc/resolv.conf" file must be mutable, the required configuration must be documented with the Information
     System Security Officer (ISSO) and the file must be verified by the system file integrity tool.'
   impact 0.3
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86905', 'V-72281']
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

@@ -25,7 +25,6 @@ Install the pam_pkcs11 package with the following command:
 
 # yum install pam_pkcs11'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-87041', 'V-72417']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000375-GPOS-00160'

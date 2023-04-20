@@ -27,7 +27,6 @@ control 'SV-204587' do
     ClientAliveInterval 600
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72237', 'SV-86861']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000163-GPOS-00072'

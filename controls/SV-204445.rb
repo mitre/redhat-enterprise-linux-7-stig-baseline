@@ -27,7 +27,6 @@ If the file integrity application does not exist, or a script file controlling t
 
      /usr/sbin/aide --check | /var/spool/mail -s "$HOSTNAME - Daily aide integrity check run" root@sysname.mil'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86597', 'V-71973']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000363-GPOS-00150'

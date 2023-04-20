@@ -25,7 +25,6 @@ Add or update the following rule in "/etc/audit/rules.d/audit.rules":
 
 The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72161', 'SV-86785']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000037-GPOS-00015'

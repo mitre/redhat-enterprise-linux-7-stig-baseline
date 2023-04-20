@@ -21,7 +21,6 @@ control 'SV-204595' do
     MACs hmac-sha2-512,hmac-sha2-256
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86877', 'V-72253']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000250-GPOS-00093'

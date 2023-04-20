@@ -11,7 +11,6 @@ control 'SV-214801' do
     If there is no anti-virus solution installed on the system, this is a finding.'
   desc 'fix', 'Install an antivirus solution on the system.'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72213', 'SV-86837']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

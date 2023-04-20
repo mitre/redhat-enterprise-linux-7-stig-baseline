@@ -24,7 +24,6 @@ $ sudo grep -ir nopasswd /etc/sudoers.d
 
 Remove any occurrences of "NOPASSWD" tags in the file.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71947', 'SV-86571']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000373-GPOS-00156'

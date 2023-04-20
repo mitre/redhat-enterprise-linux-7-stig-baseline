@@ -15,7 +15,6 @@ control 'SV-204416' do
     Add or update the following line in "/etc/login.defs":
     ENCRYPT_METHOD SHA512'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71921', 'SV-86545']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000073-GPOS-00041'

@@ -17,7 +17,6 @@ control 'SV-204540' do
     -w /var/run/faillock -p wa -k logins
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72145', 'SV-86769']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000392-GPOS-00172'

@@ -19,7 +19,6 @@ control 'SV-204515' do
     accounts associated with security personnel.
     action_mail_acct = root'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72093', 'SV-86717']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000343-GPOS-00134'

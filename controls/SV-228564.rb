@@ -27,7 +27,6 @@ Change the owner and group owner of the audit log files with the following comma
 
 # chown root:root [audit_file]'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000057-GPOS-00027'
   tag satisfies: ['SRG-OS-000057-GPOS-00027', 'SRG-OS-000058-GPOS-00028', 'SRG-OS-000059-GPOS-00029', 'SRG-OS-000206-GPOS-00084']

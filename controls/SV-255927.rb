@@ -35,7 +35,6 @@ Reload settings from all system configuration files with the following command:
 
      $ sudo sysctl --system'
   impact 0.3
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag check_id: 'C-59604r880789_chk'
   tag severity: 'low'
   tag gid: 'V-255927'

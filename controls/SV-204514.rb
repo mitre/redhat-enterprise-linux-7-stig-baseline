@@ -17,7 +17,6 @@ control 'SV-204514' do
     Uncomment or edit the "space_left_action" keyword in "/etc/audit/auditd.conf" and set it to "email".
     space_left_action = email'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72091', 'SV-86715']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000343-GPOS-00134'

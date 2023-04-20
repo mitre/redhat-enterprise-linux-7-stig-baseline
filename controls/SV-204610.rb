@@ -27,7 +27,6 @@ directory (or modify the line to have the required value):
 
     # sysctl --system'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-92251', 'SV-102353']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

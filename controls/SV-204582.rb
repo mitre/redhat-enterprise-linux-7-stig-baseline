@@ -28,7 +28,6 @@ control 'SV-204582' do
     Add or modify the following line in "/etc/sssd/sssd.conf":
     ldap_tls_reqcert = demand'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72229', 'SV-86853']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000250-GPOS-00093'

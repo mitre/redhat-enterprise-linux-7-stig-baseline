@@ -17,7 +17,6 @@ control 'SV-204510' do
     Uncomment the "enable_krb5" option in "/etc/audisp/audisp-remote.conf" and set it with the following line:
     enable_krb5 = yes'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72085', 'SV-86709']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000342-GPOS-00133'

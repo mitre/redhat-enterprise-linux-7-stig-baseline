@@ -23,7 +23,6 @@ control 'SV-204493' do
     directories does not exist, this is a finding."
   desc 'fix', 'Migrate the "/home" directory onto a separate file system/partition.'
   impact 0.3
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86683', 'V-72059']
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

@@ -23,7 +23,6 @@ Note: The "[value]" must be a number that is greater than or equal to "0".
 
 Remove any duplicate or conflicting lines from /etc/sudoers and /etc/sudoers.d/ files.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000373-GPOS-00156'
   tag satisfies: nil

@@ -18,7 +18,6 @@ control 'SV-204598' do
     If GSSAPI authentication is required, it must be documented, to include the location of the configuration file, with
     the ISSO.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72259', 'SV-86883']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000364-GPOS-00151'

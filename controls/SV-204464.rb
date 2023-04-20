@@ -12,7 +12,6 @@ control 'SV-204464' do
     valid group to all files and directories on the system with the "chgrp" command:
     # chgrp <group> <file>'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72009', 'SV-86633']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

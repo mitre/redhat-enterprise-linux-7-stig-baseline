@@ -16,7 +16,6 @@ control 'SV-204451' do
     # systemctl disable autofs
     If "autofs" is required for Network File System (NFS), it must be documented with the ISSO.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71985', 'SV-86609']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000114-GPOS-00059'

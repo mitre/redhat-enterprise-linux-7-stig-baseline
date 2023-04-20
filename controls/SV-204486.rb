@@ -23,7 +23,6 @@ control 'SV-204486' do
     adding /modifying the /etc/fstab with the following line:
     tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0'
   impact 0.3
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-95725', 'V-81013']
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000368-GPOS-00154'

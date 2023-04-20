@@ -22,7 +22,6 @@ directory with the following command:
 
     # chmod 0750 /home/smithj/<file>'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72027', 'SV-86651']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

@@ -22,7 +22,6 @@ If the "xattrs" rule is not being used on all uncommented selection lines in the
   desc 'fix', 'Configure the file integrity tool to check file and directory extended attributes.
     If AIDE is installed, ensure the "xattrs" rule is present on all uncommented file and directory selection lists.'
   impact 0.3
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86695', 'V-72071']
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

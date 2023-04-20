@@ -25,7 +25,6 @@ Generate a new grub.cfg file with the following command:
 
 $ sudo grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag satisfies: nil

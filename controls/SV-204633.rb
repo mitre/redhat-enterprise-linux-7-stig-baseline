@@ -36,7 +36,6 @@ authentication.
     Modify all of the "cert_policy" lines in
 "/etc/pam_pkcs11/pam_pkcs11.conf" to include "ocsp_on".'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72433', 'SV-87057']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000375-GPOS-00160'

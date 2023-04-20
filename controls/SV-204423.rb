@@ -17,7 +17,6 @@ control 'SV-204423' do
     Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):
     minlen = 15'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71935', 'SV-86559']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000078-GPOS-00046'

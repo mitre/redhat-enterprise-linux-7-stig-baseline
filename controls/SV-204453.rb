@@ -21,7 +21,6 @@ control 'SV-204453' do
     SELINUX=enforcing
     A reboot is required for the changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71989', 'SV-86613']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000445-GPOS-00199'

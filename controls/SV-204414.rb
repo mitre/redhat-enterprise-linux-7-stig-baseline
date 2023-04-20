@@ -18,7 +18,6 @@ control 'SV-204414' do
     Add the following line to "/etc/security/pwquality.conf" conf (or modify the line to have the required value):
     maxclassrepeat = 4'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86541', 'V-71917']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000072-GPOS-00040'

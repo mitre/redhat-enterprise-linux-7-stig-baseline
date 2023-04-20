@@ -14,7 +14,6 @@ control 'SV-204481' do
   desc 'fix', 'Configure the "/etc/fstab" to use the "nosuid" option on file systems that are associated with
     removable media.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86667', 'V-72043']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

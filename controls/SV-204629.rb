@@ -19,7 +19,6 @@ control 'SV-204629' do
     If "libreswan" is installed, "IPsec" is active, and an undocumented tunnel is active, this is a finding.'
   desc 'fix', 'Remove all unapproved tunnels from the system, or document them with the ISSO.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72317', 'SV-86941']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

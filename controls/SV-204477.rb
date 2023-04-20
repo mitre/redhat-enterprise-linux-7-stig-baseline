@@ -22,7 +22,6 @@ control 'SV-204477' do
     If a local interactive user requires path variables to reference a directory owned by the application, it must be
     documented with the ISSO.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72035', 'SV-86659']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

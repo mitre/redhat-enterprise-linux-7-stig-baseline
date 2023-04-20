@@ -19,7 +19,6 @@ control 'SV-204426' do
     DoD recommendation is 35 days, but a lower value is acceptable. The value "-1" will disable this feature, and "0"
     will disable the account immediately after the password expires.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86565', 'V-71941']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000118-GPOS-00060'

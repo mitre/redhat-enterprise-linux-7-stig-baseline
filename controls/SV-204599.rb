@@ -20,7 +20,6 @@ control 'SV-204599' do
     If Kerberos authentication is required, it must be documented, to include the location of the configuration file,
     with the ISSO.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72261', 'SV-86885']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000364-GPOS-00151'

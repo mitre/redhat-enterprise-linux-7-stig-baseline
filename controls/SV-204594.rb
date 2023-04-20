@@ -18,7 +18,6 @@ control 'SV-204594' do
     Protocol 2
     The SSH service must be restarted for changes to take effect.'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86875', 'V-72251']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000074-GPOS-00042'

@@ -15,7 +15,6 @@ control 'SV-204596' do
     Change the mode of public host key files under "/etc/ssh" to "0644" with the following command:
     # chmod 0644 /etc/ssh/*.key.pub'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72255', 'SV-86879']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

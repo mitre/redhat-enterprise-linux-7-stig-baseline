@@ -25,7 +25,6 @@ $ sudo systemctl disable ctrl-alt-del.target
 
 $ sudo systemctl mask ctrl-alt-del.target'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86617', 'V-71993']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

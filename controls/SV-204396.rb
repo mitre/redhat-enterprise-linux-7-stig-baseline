@@ -28,7 +28,6 @@ If the "lock-enabled" setting is missing or is not set to "true", this is a find
     # dconf update
     Users must log out and back in again before the system-wide settings take effect.)
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86515', 'V-71891']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000028-GPOS-00009'

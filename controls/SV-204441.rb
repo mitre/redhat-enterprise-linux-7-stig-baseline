@@ -36,7 +36,6 @@ If any of the above checks are not configured, ask the administrator to indicate
     #/usr/X11R6/bin/xscreensaver-command -lock
     Modify the "/etc/pam_pkcs11/pam_pkcs11.conf" file to use the cackey module if required.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71965', 'SV-86589']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000104-GPOS-00051'

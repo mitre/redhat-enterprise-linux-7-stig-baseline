@@ -16,7 +16,6 @@ control 'SV-204588' do
     RhostsRSAAuthentication no
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72239', 'SV-86863']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

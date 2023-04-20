@@ -16,7 +16,6 @@ control 'SV-214800' do
     If the daemon is not running, this is a finding.'
   desc 'fix', 'Install and enable the latest McAfee ENSLTP package.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-92255', 'SV-102357']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'

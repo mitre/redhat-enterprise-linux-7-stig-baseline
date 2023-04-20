@@ -67,7 +67,6 @@ control 'SV-204497' do
     # touch /etc/ system-fips
     Reboot the system for the changes to take effect.'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['SV-86691', 'V-72067']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000033-GPOS-00014'

@@ -16,7 +16,6 @@ control 'SV-204433' do
     [daemon]
     TimedLoginEnable=false'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-71955', 'SV-86579']
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00229'

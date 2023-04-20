@@ -25,7 +25,6 @@ If conflicting results are returned, this is a finding.'
     Issue the following command to make the changes take effect:
     # sysctl --system'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 7'
   tag legacy: ['V-72291', 'SV-86915']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
