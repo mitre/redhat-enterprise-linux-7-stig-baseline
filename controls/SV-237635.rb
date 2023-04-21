@@ -42,7 +42,7 @@ Remove any duplicate or conflicting lines from /etc/sudoers and /etc/sudoers.d/ 
       skip 'Control not applicable within a container without sudo enabled'
     end
   else
-    describe command("grep -i 'timestamp_timeout' /etc/sudoers /etc/sudoers.d/*").stdout.strip do
+    describe command("grep -ir 'timestamp_timeout' /etc/sudoers /etc/sudoers.d").stdout.strip do
       it { should match /^[^#].*Defaults timestamp_timeout=\d/ }
       it { should_not match /\n/ }
     end
