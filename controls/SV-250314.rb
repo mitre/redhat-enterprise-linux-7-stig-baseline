@@ -42,7 +42,7 @@ Remove any configurations that conflict with the above from the following locati
       skip 'Control not applicable within a container -- kernel config'
     end
   else
-    describe command('grep sysadm_r /etc/sudoers /etc/sudoers.d/*').stdout.strip do
+    describe command('grep -r sysadm_r /etc/sudoers /etc/sudoers.d').stdout.strip do
       it { should match /TYPE=sysadm_t\s+ROLE=sysadm_r/ }
       it { should_not match /\n/ }
     end
