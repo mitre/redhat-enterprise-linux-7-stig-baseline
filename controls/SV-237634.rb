@@ -42,7 +42,7 @@ Remove any configurations that conflict with the above from the following locati
       skip 'Control not applicable within a container without sudo enabled'
     end
   else
-    sudoers_settings = command("egrep -i '(!rootpw|!targetpw|!runaspw)' /etc/sudoers /etc/sudoers.d/* | grep -v '#'").stdout.strip
+    sudoers_settings = command("grep -Eir '(rootpw|targetpw|runaspw)' /etc/sudoers /etc/sudoers.d | grep -v '#'").stdout.strip
 
     target_match = sudoers_settings.scan(/^([^:]+):Defaults\s+!targetpw$/).flatten
     root_match = sudoers_settings.scan(/^([^:]+):Defaults\s+!rootpw$/).flatten
