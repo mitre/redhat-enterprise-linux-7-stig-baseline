@@ -40,20 +40,24 @@ Add or modify the following line:
   tag subsystems: ['sudo']
   tag 'host'
 
-  if virtualization.system.eql?('docker') && !command('sudo').exist?
+  if command('grep include /etc/sudoers').stdout.empty?
+    impact 0.0
+    describe 'This requirement is not applicable as "include" and "includedir" directives are not present in the /etc/sudoers file' do
+      skip 'This requirement is not applicable as "include" and "includedir" directives are not present in the /etc/sudoers file'
+    end
+  elsif virtualization.system.eql?('docker') && !command('sudo').exist?
     impact 0.0
     describe 'Control not applicable within a container without sudo enabled' do
       skip 'Control not applicable within a container without sudo enabled'
     end
   else
-    options = {
-      assignment_regex: /^(#includedirs?)\s*(.*?)\s*$/
-    }
-    describe parse_config_file('/etc/sudoers', options) do
-      its('#includedirs') { should cmp '/etc/sudoers.d' }
+    describe 'Only the default "include" directory for /etc/sudoers file should be specified' do
+      subject { command('grep include /etc/sudoers').stdout.strip }
+      it { should cmp "#includedir /etc/sudoers.d"}
     end
-    describe command('grep include /etc/sudoers.d') do
-      its('stdout') { should be_empty }
+    describe 'Nested "include" files or directories within /etc/sudoers.d directory should not exist' do
+      subject { command('grep -r include /etc/sudoers.d').stdout }
+      it { should be_empty }
     end
   end
 end
