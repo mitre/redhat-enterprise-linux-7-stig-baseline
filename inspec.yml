@@ -355,6 +355,7 @@ inputs:
     type: String
     value: "/boot/grub2/grub.cfg"
 
+  # SV-204440 SV-244558
   - name: grub_uefi_main_cfg
     description: Main grub boot config file
     type: String
