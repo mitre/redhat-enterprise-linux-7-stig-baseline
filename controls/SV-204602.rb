@@ -37,6 +37,13 @@ If the "Compression" keyword is set to "yes", is missing, or the returned line i
     describe 'Control not applicable - SSH is not installed within containerized RHEL' do
       skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
+
+  elsif os.release.to_f >= 7.4
+    impact 0.0
+    describe "The release is #{os.release}" do
+      skip 'For RHEL 7.4 and above, this requirement is not applicable.'
+    end
+
   else
 
     describe.one do
