@@ -82,7 +82,7 @@ control 'SV-204580' do
   tag stig_id: 'RHEL-07-040170'
   tag fix_id: 'F-4704r297486_fix'
   tag cci: ['CCI-000048', 'CCI-000050', 'CCI-001384', 'CCI-001385', 'CCI-001386', 'CCI-001387', 'CCI-001388']
-  tag nist: ['AC-8 a', 'AC-8 b', 'AC-8 c 1', 'AC-8 c 2', 'AC-8 c\\n2', 'AC-8 c 3']
+  tag nist: ['AC-8 a', 'AC-8 b', 'AC-8 c 1', 'AC-8 c 2', 'AC-8 c 2', 'AC-8 c 3']
   tag subsystems: ['ssh', 'banner']
   tag 'host'
 
