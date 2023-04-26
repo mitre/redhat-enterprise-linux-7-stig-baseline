@@ -64,8 +64,6 @@ If the "failure" setting is set to "1" but the availability concern is not docum
       impact 0.5
     elsif auditd.status['failure'].match?(/^1$/) && !monitor_kernel_log
       impact 0.3
-    else
-      impact 0.5
     end
 
     if !monitor_kernel_log
