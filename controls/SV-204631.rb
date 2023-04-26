@@ -54,13 +54,13 @@ Install the pam_pkcs11 package with the following command:
         skip 'The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.'
       end
     elsif mfa_pkg_list.empty?
-      describe 'The required Smartcard packages have not beed defined, plese define them in your `inputs`.' do
+      describe 'The required Smartcard packages have not beed defined, plese define them in your `inputs`' do
         subject { mfa_pkg_list }
         it { should_not be_empty }
       end
     else
       mfa_pkg_list.each do |pkg|
-        describe 'The package' do
+        describe "As required for MFA, the package '#{pkg}'" do
           subject { package(pkg.to_s) }
           it { should be_installed }
         end

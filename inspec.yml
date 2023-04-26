@@ -399,7 +399,7 @@ inputs:
 
   # V-204631
   - name: mfa_pkg_list
-    description: The list of packages needed for MFA on RHEL
+    description: The list of packages (including dependencies) needed for MFA
     type: Array
     value:
       - "nss-tools"
