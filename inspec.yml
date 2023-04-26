@@ -746,26 +746,26 @@ inputs:
     type: Numeric
     value: 25
 
-  # SV-204581
+  # SV-204596
   - name: public_host_key_file_mode
     description: Maximum mode allowed for directories containing SSH public host keys (in octal format)
     type: String
     value: "0644"
 
-  # SV-204581
+  # SV-204596
   - name: public_host_key_directories
     description: "List of any directories containing SSH public host keys"
     type: Array
     value:
       - /etc/ssh
 
-  # SV-204596
+  # SV-204597
   - name: private_host_key_file_mode
     description: Maximum mode allowed for directories containing SSH private host keys (in octal format)
     type: String
     value: "0640"
 
-  # SV-204596
+  # SV-204597
   - name: private_host_key_directories
     description: "List of any directories containing SSH private host keys"
     type: Array
