@@ -71,7 +71,7 @@ If any local interactive user initialization files are found to have a umask sta
 
       if is_local == 0
         # Get user's initialization files
-        dotfiles += command("find #{u.home} -xdev -maxdepth 2 ( -name '.*' ! -name '.bash_history' ) -type f").stdout.split("\n")
+        dotfiles += command("find #{u.home} -xdev -maxdepth 2 -name '.*' ! -name '.bash_history' -type f").stdout.split("\n")
 
         # Get user's umask
         umasks.store(u.username,
