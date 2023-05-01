@@ -52,7 +52,7 @@ The audit daemon must be restarted for the changes to take effect.'
         expect(audit_rule).to exist
         expect(audit_rule.action.uniq).to cmp 'always'
         expect(audit_rule.list.uniq).to cmp 'exit'
-        expect(audit_rule.fields.flatten).to include('auid>=1000', 'auid!=-1')
+        expect(audit_rule.fields.flatten).to include('perm=x', 'auid>=1000', 'auid!=-1')
         expect(audit_rule.key.uniq).to cmp 'privileged-postfix'
       end
     end
