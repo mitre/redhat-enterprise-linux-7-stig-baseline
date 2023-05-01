@@ -64,6 +64,7 @@ The audit daemon must be restarted for the changes to take effect.'
           else
             expect(audit_rule.arch.uniq).to cmp 'b32'
           end
+          expect(audit_rule.fields.flatten).to include('auid>=1000', 'auid!=-1')
           expect(audit_rule.key.uniq).to cmp 'modulechange'
         end
       end

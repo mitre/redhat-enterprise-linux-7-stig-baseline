@@ -50,9 +50,10 @@ The audit daemon must be restarted for the changes to take effect.'
       it "#{audit_command} is audited properly" do
         audit_rule = auditd.file(audit_command)
         expect(audit_rule).to exist
-        expect(audit_rule.key).to cmp 'module-change'
-        expect(audit_rule.permissions.flatten).to cmp 'x'
-        expect(audit_rule.fields.flatten).to include 'auid!=-1'
+        expect(audit_rule.action.uniq).to cmp 'always'
+        expect(audit_rule.list.uniq).to cmp 'exit'
+        expect(audit_rule.fields.flatten).to include('perm=x', 'auid>=1000', 'auid!=-1')
+        expect(audit_rule.key).to cmp 'modules'
       end
     end
   end
