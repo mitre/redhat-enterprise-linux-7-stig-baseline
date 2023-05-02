@@ -45,7 +45,22 @@ If conflicting results are returned, this is a finding.'
     end
   else
     randomize_va_space = input('randomize_va_space')
+    results_in_files = command("grep -r kernel.randomize_va_space /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null").stdout.strip.split("\n")
+    
+    values = []
+    results_in_files.each do |result|
+      values.append(parse_config(result).params.values)
+    end
 
+    unique_values = values.uniq.flatten
+    describe 'kernel.randomize_va_space' do
+      it "should be set to #{randomize_va_space} in the configuration files" do
+        expect(unique_values.length).to be_in [0, 1]
+        if(unique_values.length > 0)
+          expect(unique_values[0]).to cmp randomize_va_space
+        end
+      end
+    end
     describe kernel_parameter('kernel.randomize_va_space') do
       its('value') { should eq randomize_va_space }
     end
