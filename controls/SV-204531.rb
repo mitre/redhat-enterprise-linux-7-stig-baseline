@@ -76,7 +76,7 @@ control 'SV-204531' do
             expect(audit_rule.arch.uniq).to cmp 'b32'
           end
           expect(audit_rule.fields.flatten).to include('auid>=1000', 'auid!=-1', 'exit=-EACCES', 'exit=-EPERM')
-          expect(audit_rule.key.uniq).to cmp 'access'
+          expect(audit_rule.key.uniq).to include('access')
         end
       end
     end

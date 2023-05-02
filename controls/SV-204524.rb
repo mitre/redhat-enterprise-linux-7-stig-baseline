@@ -66,7 +66,7 @@ control 'SV-204524' do
             expect(audit_rule.arch.uniq).to cmp 'b32'
           end
           expect(audit_rule.fields.flatten).to include('auid>=1000', 'auid!=-1')
-          expect(audit_rule.key.uniq).to cmp 'perm_mod'
+          expect(audit_rule.key.uniq).to include('perm_mod')
         end
       end
     end
