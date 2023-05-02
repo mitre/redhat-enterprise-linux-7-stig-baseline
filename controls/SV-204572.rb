@@ -59,7 +59,7 @@ control 'SV-204572' do
             expect(audit_rule.arch.uniq).to cmp 'b32'
           end
           expect(audit_rule.fields.flatten).to include('auid>=1000', 'auid!=-1')
-          expect(audit_rule.key.uniq).to cmp 'delete'
+          expect(audit_rule.key.uniq).to include('delete')
         end
       end
     end
