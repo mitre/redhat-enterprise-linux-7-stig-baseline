@@ -30,15 +30,15 @@ The automatic expiration or disabling time period may be extended as needed unti
   tag cci: ['CCI-001682']
   tag nist: ['AC-2 (2)']
 
-  temporary_accounts = input('temporary_accounts')
+  emergency_accounts = input('emergency_accounts')
 
-  if temporary_accounts.empty?
-    describe 'Temporary accounts' do
-      subject { temporary_accounts }
+  if emergency_accounts.empty?
+    describe 'Emergency accounts' do
+      subject { emergency_accounts }
       it { should be_empty }
     end
   else
-    temporary_accounts.each do |acct|
+    emergency_accounts.each do |acct|
       describe user(acct.to_s) do
         its('maxdays') { should cmp <= 3 }
         its('maxdays') { should cmp > 0 }

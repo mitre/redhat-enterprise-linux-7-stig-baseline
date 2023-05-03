@@ -821,7 +821,7 @@ inputs:
     value: 60
   
   #SV-254523
-  - name: temporary_accounts
-    description: Temporary user accounts
+  - name: emergency_accounts
+    description: Emergency user accounts
     type: Array
     value: []
