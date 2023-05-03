@@ -13,7 +13,7 @@ If "kernel.randomize_va_space" is not configured in the /etc/sysctl.conf file or
 
 Check that the operating system implements virtual address space randomization with the following command:
 
-     # /sbin/sysctl -a | grep kernel.randomize_va_space 
+     # /sbin/sysctl -a | grep kernel.randomize_va_space
      kernel.randomize_va_space = 2
 
 If "kernel.randomize_va_space" does not have a value of "2", this is a finding.
@@ -45,19 +45,19 @@ If conflicting results are returned, this is a finding.'
     end
   else
     randomize_va_space = input('randomize_va_space')
-    results_in_files = command("grep -r kernel.randomize_va_space /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null").stdout.strip.split("\n")
-    
+    results_in_files = command('grep -r kernel.randomize_va_space /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
+
     values = []
-    results_in_files.each do |result|
-      values.append(parse_config(result).params.values)
-    end
+    results_in_files.each { |result| values.append(parse_config(result).params.values) }
 
     unique_values = values.uniq.flatten
     describe 'kernel.randomize_va_space' do
       it "should be set to #{randomize_va_space} in the configuration files" do
-        expect(unique_values.length).to be_in [0, 1]
-        if(unique_values.length > 0)
-          expect(unique_values[0]).to cmp randomize_va_space
+        conflicting_values_fail_message = "kernel.randomize_va_space is set to conflicting values as follows: #{unique_values}"
+        incorrect_value_fail_message = "The kernel.randomize_va_space value is set to #{unique_values[0]} and should be set to #{randomize_va_space}"
+        unless unique_values.empty?
+          expect(unique_values.length).to cmp(1), conflicting_values_fail_message
+          expect(unique_values[0]).to cmp(randomize_va_space), incorrect_value_fail_message
         end
       end
     end

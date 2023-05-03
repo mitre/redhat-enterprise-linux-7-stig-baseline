@@ -48,8 +48,26 @@ directory (or modify the line to have the required value):
       skip 'Control not applicable - Kernel config must be done on the host'
     end
   else
+    results_in_files = command('grep -r net.ipv4.conf.all.accept_source_route /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
+
+    values = []
+    results_in_files.each { |result| values.append(parse_config(result).params.values) }
+
+    accept_source_route = 0
+    unique_values = values.uniq.flatten
+    describe 'net.ipv4.conf.all.accept_source_route' do
+      it "should be set to #{accept_source_route} in the configuration files" do
+        conflicting_values_fail_message = "net.ipv4.conf.all.accept_source_route is set to conflicting values as follows: #{unique_values}"
+        incorrect_value_fail_message = "The net.ipv4.conf.all.accept_source_route value is set to #{unique_values[0]} and should be set to #{accept_source_route}"
+        unless unique_values.empty?
+          expect(unique_values.length).to cmp(1), conflicting_values_fail_message
+          expect(unique_values[0]).to cmp(accept_source_route), incorrect_value_fail_message
+        end
+      end
+    end
+
     describe kernel_parameter('net.ipv4.conf.all.accept_source_route') do
-      its('value') { should eq 0 }
+      its('value') { should eq accept_source_route }
     end
   end
 end

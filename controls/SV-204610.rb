@@ -45,8 +45,25 @@ directory (or modify the line to have the required value):
       skip 'Control not applicable - Kernel config must be done on the host'
     end
   else
+    results_in_files = command('grep -r net.ipv4.conf.all.rp_filter /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
+
+    values = []
+    results_in_files.each { |result| values.append(parse_config(result).params.values) }
+
+    rp_filter = 1
+    unique_values = values.uniq.flatten
+    describe 'net.ipv4.conf.all.rp_filter' do
+      it "should be set to #{rp_filter} in the configuration files" do
+        conflicting_values_fail_message = "net.ipv4.conf.all.rp_filter is set to conflicting values as follows: #{unique_values}"
+        incorrect_value_fail_message = "The net.ipv4.conf.all.rp_filter value is set to #{unique_values[0]} and should be set to #{rp_filter}"
+        unless unique_values.empty?
+          expect(unique_values.length).to cmp(1), conflicting_values_fail_message
+          expect(unique_values[0]).to cmp(rp_filter), incorrect_value_fail_message
+        end
+      end
+    end
     describe kernel_parameter('net.ipv4.conf.all.rp_filter') do
-      its('value') { should eq 1 }
+      its('value') { should eq rp_filter }
     end
   end
 end
