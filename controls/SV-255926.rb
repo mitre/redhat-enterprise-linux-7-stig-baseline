@@ -38,4 +38,20 @@ Install the tmux program (if it is not on the system) with the following command
   tag 'documentable'
   tag cci: ['CCI-000057']
   tag nist: ['AC-11 a']
+
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe 'Control not applicable within a container' do
+      skip 'Control not applicable within a container'
+    end
+  else
+    describe.one do
+      describe package('screen') do
+        it { should be_installed }
+      end
+      describe package('tmux') do
+        it { should be_installed }
+      end
+    end
+  end
 end

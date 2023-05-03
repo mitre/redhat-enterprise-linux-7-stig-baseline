@@ -819,3 +819,9 @@ inputs:
     description: "Maximum value for the maximum lifetime of a password before it needs a reset, as allowed by policy"
     type: Numeric
     value: 60
+  
+  #SV-254523
+  - name: temporary_accounts
+    description: Temporary user accounts
+    type: Array
+    value: []

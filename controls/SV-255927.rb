@@ -23,7 +23,7 @@ Set the system to the required kernel parameter by adding or modifying the follo
 
      kernel.dmesg_restrict = 1
 
-Remove any configurations that conflict with the above from the following locations: 
+Remove any configurations that conflict with the above from the following locations:
      /run/sysctl.d/
      /etc/sysctl.d/
      /usr/local/lib/sysctl.d/
@@ -45,4 +45,32 @@ Reload settings from all system configuration files with the following command:
   tag 'documentable'
   tag cci: ['CCI-001090']
   tag nist: ['SC-4']
+
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe 'Control not applicable within a container' do
+      skip 'Control not applicable within a container'
+    end
+  else
+    results_in_files = command('grep -r kernel.dmesg_restrict /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
+
+    values = []
+    results_in_files.each { |result| values.append(parse_config(result).params.values) }
+
+    dmesg_restrict = 1
+    unique_values = values.uniq.flatten
+    describe 'kernel.dmesg_restrict' do
+      it "should be set to #{dmesg_restrict} in the configuration files" do
+        conflicting_values_fail_message = "kernel.dmesg_restrict is set to conflicting values as follows: #{unique_values}"
+        incorrect_value_fail_message = "The kernel.dmesg_restrict value is set to #{unique_values[0]} and should be set to #{dmesg_restrict}"
+        unless unique_values.empty?
+          expect(unique_values.length).to cmp(1), conflicting_values_fail_message
+          expect(unique_values[0]).to cmp(dmesg_restrict), incorrect_value_fail_message
+        end
+      end
+    end
+    describe kernel_parameter('kernel.dmesg_restrict') do
+      its('value') { should eq dmesg_restrict }
+    end
+  end
 end
