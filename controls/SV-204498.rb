@@ -53,7 +53,8 @@ If the "acl" rule is not being used on all uncommented selection lines in the "/
         it { should be_empty }
       end
     else
-      describe aide_conf(aide_conf_file_path) do
+      describe "AIDE configuration file at: #{aide_conf_file_path}" do
+        subject { aide_conf(aide_conf_file_path) }
         it { should exist }
       end
     end
