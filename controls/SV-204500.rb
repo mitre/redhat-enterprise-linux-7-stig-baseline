@@ -8,7 +8,7 @@ control 'SV-204500' do
     assumes the "aide.conf" file is under the "/etc" directory.'
   desc 'check', 'Verify the file integrity tool is configured to use FIPS 140-2-approved cryptographic hashes for validating file contents and directories.
 
-Note: AIDE is highly configurable at install time. These commands assume the "aide.conf" file is under the "/etc" directory. 
+Note: AIDE is highly configurable at install time. These commands assume the "aide.conf" file is under the "/etc" directory.
 
 Use the following command to determine if the file is in another location:
 
@@ -17,10 +17,10 @@ Use the following command to determine if the file is in another location:
 Check the "aide.conf" file to determine if the "sha512" rule has been added to the rule list being applied to the files and directories selection lists. Exclude any log files, or files expected to change frequently, to reduce unnecessary notifications.
 
 An example rule that includes the "sha512" rule follows:
- 
+
      All=p+i+n+u+g+s+m+S+sha512+acl+xattrs+selinux
-     /bin All # apply the custom rule to the files in bin 
-     /sbin All # apply the same custom rule to the files in sbin 
+     /bin All # apply the custom rule to the files in bin
+     /sbin All # apply the same custom rule to the files in sbin
 
 If the "sha512" rule is not being used on all uncommented selection lines in the "/etc/aide.conf" file, or another file integrity tool is not using FIPS 140-2-approved cryptographic hashes for validating file contents and directories, this is a finding.'
   desc 'fix', 'Configure the file integrity tool to use FIPS 140-2 cryptographic hashes for validating file and

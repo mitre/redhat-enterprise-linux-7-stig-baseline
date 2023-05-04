@@ -10,7 +10,7 @@ control 'SV-204552' do
     4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
   desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the "mount" command and syscall occur.
 
-Check that the following system call is being audited by performing the following series of commands to check the file system rules in "/etc/audit/audit.rules": 
+Check that the following system call is being audited by performing the following series of commands to check the file system rules in "/etc/audit/audit.rules":
 
 $ sudo grep -w "mount" /etc/audit/audit.rules
 

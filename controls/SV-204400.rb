@@ -7,7 +7,7 @@ control 'SV-204400' do
     operating systems need to be able to identify when a user's session has idled and take action to initiate the
     session lock.
     The session lock is implemented at the point where session activity can be determined and/or controlled."
-  desc 'check', 'Verify the operating system prevents a user from overriding session idle delay after a 15-minute period of inactivity for graphical user interfaces. 
+  desc 'check', 'Verify the operating system prevents a user from overriding session idle delay after a 15-minute period of inactivity for graphical user interfaces.
 
 Note: If the system does not have GNOME installed, this requirement is Not Applicable.
 

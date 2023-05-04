@@ -40,7 +40,7 @@ Add/Modify the appropriate sections of the "/etc/pam.d/system-auth" and "/etc/pa
 auth        required      pam_faillock.so preauth silent audit deny=3 even_deny_root fail_interval=900 unlock_time=900
 auth        sufficient    pam_unix.so try_first_pass
 auth        [default=die] pam_faillock.so authfail audit deny=3 even_deny_root fail_interval=900 unlock_time=900
-account     required      pam_faillock.so   
+account     required      pam_faillock.so
 
 Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite custom authentication configuration settings while using the authconfig utility, otherwise manual changes to the listed files will be overwritten whenever the authconfig utility is used.'
   impact 0.5

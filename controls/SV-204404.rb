@@ -7,7 +7,7 @@ control 'SV-204404' do
     operating systems need to be able to identify when a user's session has idled and take action to initiate the
     session lock.
     The session lock is implemented at the point where session activity can be determined and/or controlled."
-  desc 'check', 'Verify the operating system initiates a session lock a for graphical user interfaces when the screensaver is activated. 
+  desc 'check', 'Verify the operating system initiates a session lock a for graphical user interfaces when the screensaver is activated.
 
 Note: If the system does not have GNOME installed, this requirement is Not Applicable.
 

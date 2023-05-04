@@ -11,7 +11,7 @@ Note: A file integrity tool other than Advanced Intrusion Detection Environment 
 Check for the presence of a cron job running routinely on the system that executes AIDE to scan for changes to the system baseline. The commands used in the example will use a daily occurrence.
 
 Check the cron directories for a "crontab" script file controlling the execution of the file integrity application. For example, if AIDE is installed on the system, use the following command:
-    
+
      # ls -al /etc/cron.* | grep aide
      -rwxr-xr-x 1 root root 602 Mar 6 20:02 aide
 
@@ -27,9 +27,9 @@ AIDE does not have a configuration that will send a notification, so the cron jo
      /usr/sbin/aide --check | /var/spool/mail -s "$HOSTNAME - Daily aide integrity check run" root@sysname.mil
 
 If the file integrity application does not notify designated personnel of changes, this is a finding.'
-  desc 'fix', 'Configure the operating system to notify designated personnel if baseline configurations are changed in an unauthorized manner. The AIDE tool can be configured to email designated personnel with the use of the cron system. 
+  desc 'fix', 'Configure the operating system to notify designated personnel if baseline configurations are changed in an unauthorized manner. The AIDE tool can be configured to email designated personnel with the use of the cron system.
 
-The following example output is generic. It will set cron to run AIDE daily and to send email at the completion of the analysis. 
+The following example output is generic. It will set cron to run AIDE daily and to send email at the completion of the analysis.
 
      # more /etc/cron.daily/aide
 

@@ -14,7 +14,7 @@ SELinuxUser LabelingPrefix MLS/MCSLevel MLS/MCSRange SELinuxRoles
 guest_u            user  s0  s0  guest_r
 root                   user  s0  s0-s0:c0.c1023  staff_r sysadm_r system_r unconfined_r
 staff_u              user  s0  s0-s0:c0.c1023  staff_r sysadm_r
-sysadm_u         user  s0  s0-s0:c0.c1023  sysadm_r 
+sysadm_u         user  s0  s0-s0:c0.c1023  sysadm_r
 system_u          user  s0  s0-s0:c0.c1023  system_r unconfined_r
 unconfined_u  user  s0  s0-s0:c0.c1023  system_r unconfined_r
 user_u               user  s0  s0  user_r

@@ -10,7 +10,7 @@ control 'SV-204554' do
     4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
   desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the "postdrop" command occur.
 
-Check that the following system call is being audited by performing the following command to check the file system rules in "/etc/audit/audit.rules": 
+Check that the following system call is being audited by performing the following command to check the file system rules in "/etc/audit/audit.rules":
 
 $ sudo grep -w "/usr/sbin/postdrop" /etc/audit/audit.rules
 
@@ -19,7 +19,7 @@ $ sudo grep -w "/usr/sbin/postdrop" /etc/audit/audit.rules
 If the command does not return any output, this is a finding.'
   desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use the "postdrop" command occur.
 
-Add or update the following rule in "/etc/audit/rules.d/audit.rules": 
+Add or update the following rule in "/etc/audit/rules.d/audit.rules":
 
 -a always,exit -F path=/usr/sbin/postdrop -F perm=x -F auid>=1000 -F auid!=unset -k privileged-postfix
 

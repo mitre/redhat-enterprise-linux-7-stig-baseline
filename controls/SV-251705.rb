@@ -10,7 +10,7 @@ Check that the AIDE package is installed with the following command:
 
      aide-0.15.1-13.el7.x86_64
 
-If AIDE is not installed, ask the System Administrator how file integrity checks are performed on the system. 
+If AIDE is not installed, ask the System Administrator how file integrity checks are performed on the system.
 
 If there is no application installed to perform integrity checks, this is a finding.
 

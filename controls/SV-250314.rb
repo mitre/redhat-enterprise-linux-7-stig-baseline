@@ -19,7 +19,7 @@ $ sudo visudo -f /etc/sudoers.d/<customfile>
 Use the following example to build the <customfile> in the /etc/sudoers.d directory to allow any administrator belonging to a designated sudoers admin group to elevate their SELinux context with the use of the sudo command:
 %wheel ALL=(ALL) TYPE=sysadm_t ROLE=sysadm_r ALL
 
-Remove any configurations that conflict with the above from the following locations: 
+Remove any configurations that conflict with the above from the following locations:
 /etc/sudoers
 /etc/sudoers.d/'
   impact 0.5

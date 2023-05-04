@@ -6,18 +6,18 @@ control 'SV-204558' do
     When a user logs on, the auid is set to the uid of the account that is being authenticated. Daemons are not user
     sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals
     4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
-  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the "pam_timestamp_check" command occur. 
+  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the "pam_timestamp_check" command occur.
 
 Check the auditing rules in "/etc/audit/audit.rules" with the following command:
 
 $ sudo grep -w "/usr/sbin/pam_timestamp_check" /etc/audit/audit.rules
 
--a always,exit -F path=/usr/sbin/pam_timestamp_check -F perm=x -F auid>=1000 -F auid!=unset -k privileged-pam 
+-a always,exit -F path=/usr/sbin/pam_timestamp_check -F perm=x -F auid>=1000 -F auid!=unset -k privileged-pam
 
 If the command does not return any output, this is a finding.'
-  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use the "pam_timestamp_check" command occur. 
+  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use the "pam_timestamp_check" command occur.
 
-Add or update the following rule in "/etc/audit/rules.d/audit.rules": 
+Add or update the following rule in "/etc/audit/rules.d/audit.rules":
 
 -a always,exit -F path=/usr/sbin/pam_timestamp_check -F perm=x -F auid>=1000 -F auid!=unset -k privileged-pam
 

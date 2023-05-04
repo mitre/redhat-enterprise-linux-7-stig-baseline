@@ -17,7 +17,7 @@ control 'SV-204422' do
 Add the following line in "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" (or modify the line to have the required value):
 
      password     requisite     pam_pwhistory.so use_authtok remember=5 retry=3
-   
+
 Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite custom authentication configuration settings while using the authconfig utility, otherwise manual changes to the listed files will be overwritten whenever the authconfig utility is used.'
   impact 0.5
   tag legacy: ['V-71933', 'SV-86557']

@@ -20,7 +20,7 @@ Check the cron directories for a script file controlling the execution of the fi
      /var/spool/cron/root: 30 04 * * * /usr/sbin/aide  --check
 
 If the file integrity application does not exist, or a script file controlling the execution of the file integrity application does not exist, this is a finding.'
-  desc 'fix', 'Configure the file integrity tool to run automatically on the system at least weekly. The following example output is generic. It will set cron to run AIDE daily, but other file integrity tools may be used:  
+  desc 'fix', 'Configure the file integrity tool to run automatically on the system at least weekly. The following example output is generic. It will set cron to run AIDE daily, but other file integrity tools may be used:
 
      # more /etc/cron.daily/aide
      #!/bin/bash
@@ -47,7 +47,14 @@ If the file integrity application does not exist, or a script file controlling t
     it { should be_installed }
   end
 
-  if file_integrity_interval == 'monthly'
+  if file_integrity_tool != 'aide'
+    describe 'The system is not set to ' do
+      skip "The system is set to a `disconnected` state and you must validate
+        the state of the system packages manually, or through another process, if you
+        have an established update and patch process, please set this control as
+        `Not Applicable` with a `caevat` via an overlay."
+    end
+  elsif file_integrity_interval == 'monthly'
     describe.one do
       describe file("/etc/cron.daily/#{file_integrity_tool}") do
         it { should exist }

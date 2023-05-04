@@ -9,21 +9,21 @@ Audit information includes all information (e.g., audit records, audit settings,
 
 List the full permissions and ownership of the audit log files with the following command.
 
-# ls -la /var/log/audit 
+# ls -la /var/log/audit
 total 4512
 drwx------. 2 root root 23 Apr 25 16:53 .
 drwxr-xr-x. 17 root root 4096 Aug 9 13:09 ..
 -rw-------. 1 root root 8675309 Aug 9 12:54 audit.log
 
-Audit logs must be mode 0600 or less permissive. 
+Audit logs must be mode 0600 or less permissive.
 If any are more permissive, this is a finding.
 
 The owner and group owner of all audit log files must both be "root". If any other owner or group owner is listed, this is a finding.'
-  desc 'fix', 'Change the mode of the audit log files with the following command: 
+  desc 'fix', 'Change the mode of the audit log files with the following command:
 
 # chmod 0600 [audit_file]
 
-Change the owner and group owner of the audit log files with the following command: 
+Change the owner and group owner of the audit log files with the following command:
 
 # chown root:root [audit_file]'
   impact 0.5

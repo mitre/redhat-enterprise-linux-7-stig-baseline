@@ -33,7 +33,7 @@ If the output does not match the example, this is a finding.'
 
 Note: The example below is using the database "local" for the system, so the path is "/etc/dconf/db/local.d". This path must be modified if a database other than "local" is being used.
 
-Create or edit the /etc/dconf/db/local.d/00-No-Automount file and add the following:  
+Create or edit the /etc/dconf/db/local.d/00-No-Automount file and add the following:
 
 [org/gnome/desktop/media-handling]
 

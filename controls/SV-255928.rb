@@ -6,7 +6,7 @@ control 'SV-255928' do
 
      lrwxrwxrwx. 1 root root 30 Apr 1 11:59 /etc/pam.d/password-auth -> /etc/pam.d/password-auth-local
      lrwxrwxrwx. 1 root root 28 Apr 1 11:59 /etc/pam.d/system-auth -> /etc/pam.d/system-auth-local
-	
+
 If system-auth and password-auth files are not symbolic links, this is a finding.
 
 If system-auth and password-auth are symbolic links but do not point to "system-auth-local" and "password-auth-local", this is a finding.'
@@ -15,12 +15,12 @@ If system-auth and password-auth are symbolic links but do not point to "system-
 Rename the existing configuration files (skip this step if symbolic links are already present):
      $ sudo mv /etc/pam.d/system-auth /etc/pam.d/system-auth-ac
      $ sudo mv /etc/pam.d/password-auth /etc/pam.d/password-auth-ac
-	
+
 Create custom system-auth configuration file:
      $ sudo vi /etc/pam.d/system-auth-local
-	
+
 The new file, at minimum, must contain the following lines:
-	
+
 auth        required      pam_faillock.so preauth silent audit deny=3 even_deny_root fail_interval=900 unlock_time=900
 auth        include       system-auth-ac
 auth        sufficient    pam_unix.so try_first_pass
@@ -37,7 +37,7 @@ session     include       system-auth-ac
 
 Create custom password-auth configuration file:
      $ sudo vi /etc/pam.d/password-auth-local
-	
+
 The new file, at minimum, must contain the following lines:
 
 auth        required      pam_faillock.so preauth silent audit deny=3 even_deny_root fail_interval=900 unlock_time=900
@@ -53,7 +53,7 @@ password    include       password-auth-ac
 password    sufficient    pam_unix.so sha512 shadow try_first_pass use_authtok
 
 session     include       password-auth-ac
-	
+
 Create new or move existing symbolic links to the new custom configuration files:
      $ sudo ln -sf /etc/pam.d/system-auth-local /etc/pam.d/system-auth
      $ sudo ln -sf /etc/pam.d/password-auth-local /etc/pam.d/password-auth

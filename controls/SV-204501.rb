@@ -13,7 +13,7 @@ Check for the existence of alternate boot loader configuration files with the fo
 # find / -name grub.cfg
 /boot/grub2/grub.cfg
 
-If a "grub.cfg" is found in any subdirectories other than "/boot/grub2" and "/boot/efi/EFI/redhat", ask the System Administrator if there is documentation signed by the ISSO to approve the use of removable media as a boot loader. 
+If a "grub.cfg" is found in any subdirectories other than "/boot/grub2" and "/boot/efi/EFI/redhat", ask the System Administrator if there is documentation signed by the ISSO to approve the use of removable media as a boot loader.
 
 Check that the grub configuration file has the set root command in each menu entry with the following commands:
 

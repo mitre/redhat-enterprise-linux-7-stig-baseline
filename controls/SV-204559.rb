@@ -5,7 +5,7 @@ control 'SV-204559' do
     responsible for one.
     Audit records can be generated from various components within the information system (e.g., module or policy
     filter).'
-  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the "create_module" syscall occur. 
+  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the "create_module" syscall occur.
 
 Check the auditing rules in "/etc/audit/audit.rules" with the following command:
 

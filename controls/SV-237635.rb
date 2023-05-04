@@ -1,6 +1,6 @@
 control 'SV-237635' do
   title 'The Red Hat Enterprise Linux operating system must require re-authentication when using the "sudo" command.'
-  desc %q(Without re-authentication, users may access resources or perform tasks for which they do not have authorization. 
+  desc %q(Without re-authentication, users may access resources or perform tasks for which they do not have authorization.
 
 When operating systems provide the capability to escalate a functional capability, it is critical the organization requires the user to re-authenticate when using the "sudo" command.
 

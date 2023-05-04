@@ -13,7 +13,7 @@ control 'SV-204504' do
     repositories combined), or both.'
   desc 'check', 'Confirm the audit configuration regarding how auditing processing failures are handled.
 
-Check to see what level "auditctl" is set to with following command: 
+Check to see what level "auditctl" is set to with following command:
 
      # auditctl -s | grep -i "fail"
      failure 2

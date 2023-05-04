@@ -7,7 +7,7 @@ control 'SV-204403' do
     The ability to enable/disable a session lock is given to the user by default. Disabling the user's ability to
     disengage the graphical user interface session lock provides the assurance that all sessions will lock after the
     specified period of time."
-  desc 'check', 'Verify the operating system prevents a user from overriding the screensaver idle-activation-enabled setting for the graphical user interface. 
+  desc 'check', 'Verify the operating system prevents a user from overriding the screensaver idle-activation-enabled setting for the graphical user interface.
 
 Note: If the system does not have GNOME installed, this requirement is Not Applicable.
 
