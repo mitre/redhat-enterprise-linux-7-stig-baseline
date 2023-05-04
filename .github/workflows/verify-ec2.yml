@@ -48,6 +48,10 @@ jobs:
         run: bundle exec inspec check .
       - name: Run kitchen test
         run: bundle exec kitchen test --destroy=always ${{ matrix.suite }}-rhel-7 || true
+      - name: Save Test Result JSON
+        uses: actions/upload-artifact@v3
+        with:
+          path: spec/results/
       - name: Display our ${{ matrix.suite }} results summary
         uses: mitre/saf_action@main
         with:
@@ -56,7 +60,3 @@ jobs:
         uses: mitre/saf_action@main
         with:
           command_string: 'validate threshold -i spec/results/ec2_rhel-7_${{ matrix.suite }}.json -F ${{ matrix.suite }}.threshold.yml'
-      - name: Save Test Result JSON
-        uses: actions/upload-artifact@v3
-        with:
-          path: spec/results/
