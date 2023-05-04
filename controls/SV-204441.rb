@@ -58,10 +58,11 @@ If any of the above checks are not configured, ask the administrator to indicate
     smart_card_status = input('smart_card_status')
     if smart_card_status.eql?('enabled')
       impact 0.5
+      describe command("authconfig --test | grep 'pam_pkcs11'") do
+        its('stdout') { should match(/pam_pkcs11\sis\senabled/) }
+      end
       describe command('authconfig --test | grep -i smartcard') do
-        its('stdout') do
-          should match(/use\sonly\ssmartcard\sfor\slogin\sis\s#{smart_card_status}/)
-        end
+        its('stdout') { should match(/use\sonly\ssmartcard\sfor\slogin\sis\s#{smart_card_status}/) }
         its('stdout') { should match(/smartcard\smodule\s=\s".+"/) }
         its('stdout') { should match(/smartcard\sremoval\saction\s=\s".+"/) }
       end
