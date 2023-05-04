@@ -105,6 +105,10 @@ file_integrity_tool: ''
 # Interval to run the file integrity tool (monthly, weekly, or daily).
 file_integrity_interval: ''
 
+# Used by InSpec checks SV-204498 SV-204499 SV-204500 (default: "/etc/aide.conf")
+# Path to the aide.conf file
+aide_conf_path:
+
 # System activity timeout (time in seconds).
 system_activity_timeout: 600
 

@@ -42,22 +42,25 @@ If the "sha512" rule is not being used on all uncommented selection lines in the
   tag 'container'
 
   file_integrity_tool = input('file_integrity_tool')
+  aide_conf_file_path = input('aide_conf_path')
 
   if file_integrity_tool == 'aide'
+    if aide_conf(aide_conf_file_path).exist?
+      exclude_patterns = input('aide_exclude_patterns')
 
-    describe package('aide') do
-      it { should be_installed }
-    end
+      findings = aide_conf.where do
+        !selection_line.start_with?('!') && !exclude_patterns.include?(selection_line) && !rules.include?('sha512')
+      end
 
-    exclude_patterns = input('aide_exclude_patterns')
-
-    findings = aide_conf.where do
-      !selection_line.start_with?('!') && !exclude_patterns.include?(selection_line) && !rules.include?('sha512')
-    end
-
-    describe "List of monitored files/directories without 'sha512' rule" do
-      subject { findings.selection_lines }
-      it { should be_empty }
+      describe "List of monitored files/directories without 'sha512' rule" do
+        subject { findings.selection_lines }
+        it { should be_empty }
+      end
+    else
+      describe "AIDE configuration file at: #{aide_conf_file_path}" do
+        subject { aide_conf(aide_conf_file_path) }
+        it { should exist }
+      end
     end
   else
     describe 'Need manual review of file integrity tool' do

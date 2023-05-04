@@ -36,25 +36,26 @@ If the "xattrs" rule is not being used on all uncommented selection lines in the
   tag 'container'
 
   file_integrity_tool = input('file_integrity_tool')
+  aide_conf_file_path = input('aide_conf_path')
 
   if file_integrity_tool == 'aide'
-
-    describe package('aide') do
-      it { should be_installed }
-    end
-
-    findings = []
-    aide_conf.where do
-      !selection_line.start_with? '!'
-    end.entries.each do |selection|
-      unless selection.rules.include? 'xattrs'
-        findings.append(selection.selection_line)
+    if aide_conf(aide_conf_file_path).exist?
+      findings = []
+      aide_conf.where { !selection_line.start_with? '!' }.entries.each do |selection|
+        unless selection.rules.include? 'xattrs'
+          findings.append(selection.selection_line)
+        end
       end
-    end
 
-    describe "List of monitored files/directories without 'xattrs' rule" do
-      subject { findings }
-      it { should be_empty }
+      describe "List of monitored files/directories without 'xattrs' rule" do
+        subject { findings }
+        it { should be_empty }
+      end
+    else
+      describe "AIDE configuration file at: #{aide_conf_file_path}" do
+        subject { aide_conf(aide_conf_file_path) }
+        it { should exist }
+      end
     end
   else
     describe 'Need manual review of file integrity tool' do
