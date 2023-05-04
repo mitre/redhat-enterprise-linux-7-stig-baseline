@@ -5,7 +5,7 @@ control 'SV-204498' do
     integrity tools.'
   desc 'check', 'Verify the file integrity tool is configured to verify ACLs.
 
-Note: AIDE is highly configurable at install time. These commands assume the "aide.conf" file is under the "/etc" directory.
+Note: AIDE is highly configurable at install time. These commands assume the "aide.conf" file is under the "/etc" directory. 
 
 Use the following command to determine if the file is in another location:
 
@@ -16,8 +16,8 @@ Check the "aide.conf" file to determine if the "acl" rule has been added to the 
 An example rule that includes the "acl" rule is below:
 
      All= p+i+n+u+g+s+m+S+sha512+acl+xattrs+selinux
-     /bin All # apply the custom rule to the files in bin
-     /sbin All # apply the same custom rule to the files in sbin
+     /bin All # apply the custom rule to the files in bin 
+     /sbin All # apply the same custom rule to the files in sbin 
 
 If the "acl" rule is not being used on all uncommented selection lines in the "/etc/aide.conf" file, or ACLs are not being checked by another file integrity tool, this is a finding.'
   desc 'fix', 'Configure the file integrity tool to check file and directory ACLs.
@@ -37,25 +37,25 @@ If the "acl" rule is not being used on all uncommented selection lines in the "/
   tag 'container'
 
   file_integrity_tool = input('file_integrity_tool')
+  aide_conf_file_path = input('aide_conf_path')
 
   if file_integrity_tool == 'aide'
-
-    describe package('aide') do
-      it { should be_installed }
-    end
-
-    findings = []
-    aide_conf.where do
-      !selection_line.start_with? '!'
-    end.entries.each do |selection|
-      unless selection.rules.include? 'acl'
-        findings.append(selection.selection_line)
+    if aide_conf(aide_conf_file_path).exist?
+      findings = []
+      aide_conf.where { !selection_line.start_with? '!' }.entries.each do |selection|
+        unless selection.rules.include? 'acl'
+          findings.append(selection.selection_line)
+        end
       end
-    end
 
-    describe "List of monitored files/directories without 'acl' rule" do
-      subject { findings }
-      it { should be_empty }
+      describe "List of monitored files/directories without 'acl' rule" do
+        subject { findings }
+        it { should be_empty }
+      end
+    else
+      describe aide_conf(aide_conf_file_path) do
+        it { should exist }
+      end
     end
   else
     describe 'Need manual review of file integrity tool' do
