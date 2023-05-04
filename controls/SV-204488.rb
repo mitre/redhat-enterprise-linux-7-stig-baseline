@@ -85,8 +85,8 @@ If any local interactive user initialization files are found to have a umask sta
         # Check umask for all interactive users
         umasks.each do |key, value|
           max_mode = (input('user_umask')).to_i(8)
-          inv_mode = 0777 ^ max_mode
-          umask_findings += key if inv_mode & (value).to_i(8) != 0
+          inverse_mode = 0777 ^ max_mode
+          umask_findings += key if inverse_mode & (value).to_i(8) != 0
         end
       else
         describe 'This control skips non-local filesystems' do
