@@ -37,10 +37,10 @@ Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite
 
   describe.one do
     describe pam('/etc/pam.d/system-auth') do
-      its('lines') { should match_pam_rule("password (required|requisite|sufficient) pam_(unix|pwhistory).so remember=#{reuse_generations}") }
+      its('lines') { should match_pam_rule("password (required|requisite|sufficient) pam_(unix|pwhistory).so use_authtok remember=#{reuse_generations}") }
     end
     describe pam('/etc/pam.d/password-auth') do
-      its('lines') { should match_pam_rule("password (required|requisite|sufficient) pam_(unix|pwhistory).soremember=#{reuse_generations}") }
+      its('lines') { should match_pam_rule("password (required|requisite|sufficient) pam_(unix|pwhistory).so use_authtok remember=#{reuse_generations}") }
     end
   end
 
