@@ -45,23 +45,21 @@ If conflicting results are returned, this is a finding.'
     end
   else
     randomize_va_space = input('randomize_va_space')
-    results_in_files = command('grep -r kernel.randomize_va_space /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
+    config_file_values = command('grep -r kernel.randomize_va_space /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
 
-    values = []
-    results_in_files.each { |result| values.append(parse_config(result).params.values) }
-
-    unique_values = values.uniq.flatten
     describe 'kernel.randomize_va_space' do
-      it "should be set to #{randomize_va_space} in the configuration files" do
-        conflicting_values_fail_message = "kernel.randomize_va_space is set to conflicting values as follows: #{unique_values}"
-        incorrect_value_fail_message = "The kernel.randomize_va_space value is set to #{unique_values[0]} and should be set to #{randomize_va_space}"
-        unless unique_values.empty?
-          expect(unique_values.length).to cmp(1), conflicting_values_fail_message
-          expect(unique_values[0]).to cmp(randomize_va_space), incorrect_value_fail_message
+      unless config_file_values.empty?
+        config_file_values.each do |result|
+          incorrect_value_fail_message = "Found value: #{parse_config(result).params.values[0]} in #{parse_config(result).params.keys[0]}"
+          it "should be set to #{randomize_va_space}" do
+            expect(parse_config(result).params.values[0].to_i).to eq(randomize_va_space), incorrect_value_fail_message
+          end
         end
       end
     end
-    describe kernel_parameter('kernel.randomize_va_space') do
+
+    describe 'The runtime kernel parameter kernel.randomize_va_space' do
+      subject { kernel_parameter('kernel.randomize_va_space') }
       its('value') { should eq randomize_va_space }
     end
   end

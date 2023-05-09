@@ -47,20 +47,16 @@ directory (or modify the line to have the required value):
       skip 'Control not applicable - Kernel config must be done on the host'
     end
   else
-    results_in_files = command('grep -r net.ipv4.ip_forward /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
+    ip_forward = 1
+    config_file_values = command('grep -r net.ipv4.ip_forward /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
 
-    values = []
-    results_in_files.each { |result| values.append(parse_config(result).params.values) }
-
-    ip_forward = 0
-    unique_values = values.uniq.flatten
     describe 'net.ipv4.ip_forward' do
-      it "should be set to #{ip_forward} in the configuration files" do
-        conflicting_values_fail_message = "net.ipv4.ip_forward is set to conflicting values as follows: #{unique_values}"
-        incorrect_value_fail_message = "The net.ipv4.ip_forward value is set to #{unique_values[0]} and should be set to #{ip_forward}"
-        unless unique_values.empty?
-          expect(unique_values.length).to cmp(1), conflicting_values_fail_message
-          expect(unique_values[0]).to cmp(ip_forward), incorrect_value_fail_message
+      unless config_file_values.empty?
+        config_file_values.each do |result|
+          incorrect_value_fail_message = "Found value: #{parse_config(result).params.values[0]} in #{parse_config(result).params.keys[0]}"
+          it "should be set to #{ip_forward}" do
+            expect(parse_config(result).params.values[0].to_i).to eq(ip_forward), incorrect_value_fail_message
+          end
         end
       end
     end

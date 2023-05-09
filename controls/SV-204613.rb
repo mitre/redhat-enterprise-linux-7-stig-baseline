@@ -45,25 +45,22 @@ directory (or modify the line to have the required value):
       skip 'Control not applicable - Kernel config must be done on the host'
     end
   else
-    results_in_files = command('grep -r net.ipv4.icmp_echo_ignore_broadcasts /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
-
-    values = []
-    results_in_files.each { |result| values.append(parse_config(result).params.values) }
-
     icmp_echo_ignore_broadcasts = 1
-    unique_values = values.uniq.flatten
+    config_file_values = command('grep -r net.ipv4.icmp_echo_ignore_broadcasts /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
+
     describe 'net.ipv4.icmp_echo_ignore_broadcasts' do
-      it "should be set to #{icmp_echo_ignore_broadcasts} in the configuration files" do
-        conflicting_values_fail_message = "net.ipv4.icmp_echo_ignore_broadcasts is set to conflicting values as follows: #{unique_values}"
-        incorrect_value_fail_message = "The net.ipv4.icmp_echo_ignore_broadcasts value is set to #{unique_values[0]} and should be set to #{icmp_echo_ignore_broadcasts}"
-        unless unique_values.empty?
-          expect(unique_values.length).to cmp(1), conflicting_values_fail_message
-          expect(unique_values[0]).to cmp(icmp_echo_ignore_broadcasts), incorrect_value_fail_message
+      unless config_file_values.empty?
+        config_file_values.each do |result|
+          incorrect_value_fail_message = "Found value: #{parse_config(result).params.values[0]} in #{parse_config(result).params.keys[0]}"
+          it "should be set to #{icmp_echo_ignore_broadcasts}" do
+            expect(parse_config(result).params.values[0].to_i).to eq(icmp_echo_ignore_broadcasts), incorrect_value_fail_message
+          end
         end
       end
     end
 
-    describe kernel_parameter('net.ipv4.icmp_echo_ignore_broadcasts') do
+    describe 'The runtime kernel parameter net.ipv4.icmp_echo_ignore_broadcasts' do
+      subject { kernel_parameter('net.ipv4.icmp_echo_ignore_broadcasts') }
       its('value') { should eq icmp_echo_ignore_broadcasts }
     end
   end

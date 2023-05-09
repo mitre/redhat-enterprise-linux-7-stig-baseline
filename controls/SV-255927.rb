@@ -52,24 +52,22 @@ Reload settings from all system configuration files with the following command:
       skip 'Control not applicable within a container'
     end
   else
-    results_in_files = command('grep -r kernel.dmesg_restrict /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
-
-    values = []
-    results_in_files.each { |result| values.append(parse_config(result).params.values) }
-
     dmesg_restrict = 1
-    unique_values = values.uniq.flatten
+    config_file_values = command('grep -r kernel.dmesg_restrict /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
+
     describe 'kernel.dmesg_restrict' do
-      it "should be set to #{dmesg_restrict} in the configuration files" do
-        conflicting_values_fail_message = "kernel.dmesg_restrict is set to conflicting values as follows: #{unique_values}"
-        incorrect_value_fail_message = "The kernel.dmesg_restrict value is set to #{unique_values[0]} and should be set to #{dmesg_restrict}"
-        unless unique_values.empty?
-          expect(unique_values.length).to cmp(1), conflicting_values_fail_message
-          expect(unique_values[0]).to cmp(dmesg_restrict), incorrect_value_fail_message
+      unless config_file_values.empty?
+        config_file_values.each do |result|
+          incorrect_value_fail_message = "Found value: #{parse_config(result).params.values[0]} in #{parse_config(result).params.keys[0]}"
+          it "should be set to #{dmesg_restrict}" do
+            expect(parse_config(result).params.values[0].to_i).to eq(dmesg_restrict), incorrect_value_fail_message
+          end
         end
       end
     end
-    describe kernel_parameter('kernel.dmesg_restrict') do
+
+    describe 'The runtime kernel parameter kernel.dmesg_restrict' do
+      subject { kernel_parameter('kernel.dmesg_restrict') }
       its('value') { should eq dmesg_restrict }
     end
   end

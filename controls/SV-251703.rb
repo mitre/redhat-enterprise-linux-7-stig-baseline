@@ -53,7 +53,7 @@ Add or modify the following line:
   else
     describe 'Only the default "include" directory for /etc/sudoers file should be specified' do
       subject { command('grep include /etc/sudoers').stdout.strip }
-      it { should match /#includedir\s*\/etc\/sudoers.d\s*$/}
+      it { should match %r{#includedir\s*/etc/sudoers.d\s*$} }
     end
     describe 'Nested "include" files or directories within /etc/sudoers.d directory should not exist' do
       subject { command('grep -r include /etc/sudoers.d').stdout }
