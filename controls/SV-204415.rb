@@ -36,14 +36,12 @@ Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite
   tag 'host'
   tag 'container'
 
-  describe.one do
-    describe pam('/etc/pam.d/password-auth') do
-      its('lines') { should match_pam_rule('password sufficient pam_unix.so sha512') }
-      its('lines') { should_not match_pam_rule('password .* pam_unix.so (md5|bigcrypt|sha256|blowfish)') }
-    end
-    describe pam('/etc/pam.d/system-auth') do
-      its('lines') { should match_pam_rule('password sufficient pam_unix.so sha512') }
-      its('lines') { should_not match_pam_rule('password .* pam_unix.so (md5|bigcrypt|sha256|blowfish)') }
-    end
+  describe pam('/etc/pam.d/password-auth') do
+    its('lines') { should match_pam_rule('password sufficient pam_unix.so sha512') }
+    its('lines') { should_not match_pam_rule('password .* pam_unix.so (md5|bigcrypt|sha256|blowfish)') }
+  end
+  describe pam('/etc/pam.d/system-auth') do
+    its('lines') { should match_pam_rule('password sufficient pam_unix.so sha512') }
+    its('lines') { should_not match_pam_rule('password .* pam_unix.so (md5|bigcrypt|sha256|blowfish)') }
   end
 end

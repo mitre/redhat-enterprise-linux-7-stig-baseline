@@ -42,22 +42,20 @@ Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite
   tag 'host'
   tag 'container'
 
-  describe.one do
-    describe pam('/etc/pam.d/password-auth') do
-      its('lines') do
-        should match_pam_rule('auth .* pam_faillock.so preauth even_deny_root')
-      end
-      its('lines') do
-        should match_pam_rule('auth .* pam_faillock.so authfail even_deny_root')
-      end
+  describe pam('/etc/pam.d/password-auth') do
+    its('lines') do
+      should match_pam_rule('auth .* pam_faillock.so preauth even_deny_root')
     end
-    describe pam('/etc/pam.d/system-auth') do
-      its('lines') do
-        should match_pam_rule('auth .* pam_faillock.so preauth even_deny_root')
-      end
-      its('lines') do
-        should match_pam_rule('auth .* pam_faillock.so authfail even_deny_root')
-      end
+    its('lines') do
+      should match_pam_rule('auth .* pam_faillock.so authfail even_deny_root')
+    end
+  end
+  describe pam('/etc/pam.d/system-auth') do
+    its('lines') do
+      should match_pam_rule('auth .* pam_faillock.so preauth even_deny_root')
+    end
+    its('lines') do
+      should match_pam_rule('auth .* pam_faillock.so authfail even_deny_root')
     end
   end
 end

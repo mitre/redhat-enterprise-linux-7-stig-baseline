@@ -26,12 +26,10 @@ Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite
   tag 'host'
   tag 'container'
 
-  describe.one do
-    describe pam('/etc/pam.d/system-auth') do
-      its('lines') { should_not match_pam_rule('.* .* pam_unix.so nullok') }
-    end
-    describe pam('/etc/pam.d/password-auth') do
-      its('lines') { should_not match_pam_rule('.* .* pam_unix.so nullok') }
-    end
+  describe pam('/etc/pam.d/system-auth') do
+    its('lines') { should_not match_pam_rule('.* .* pam_unix.so nullok') }
+  end
+  describe pam('/etc/pam.d/password-auth') do
+    its('lines') { should_not match_pam_rule('.* .* pam_unix.so nullok') }
   end
 end
