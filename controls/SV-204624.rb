@@ -38,7 +38,7 @@ control 'SV-204624' do
     describe 'Control not applicable to a container' do
       skip 'Control not applicable to a container'
     end
-  elsif input('x11-enabled')
+  elsif input('x11_enabled')
     describe 'System default target' do
       subject { command('systemctl get-default').stdout.strip }
       it { should eq 'multi-user.target' }
