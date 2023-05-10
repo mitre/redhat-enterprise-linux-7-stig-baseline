@@ -173,7 +173,7 @@ class Pam < Inspec.resource(1)
     def service
       svcs = self.collect{|l| l.service}.sort.uniq
       if svcs.length > 1
-        raise PamError, %(More than one service found: '[#{svcs.join("', '")}]')
+        raise PamError, %q(More than one service found: '[#{svcs.join("', '")}]')
       end
 
       svcs.first
