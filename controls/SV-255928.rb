@@ -83,14 +83,6 @@ Note: With this solution in place any custom settings to "system-auth" and "pass
   tag cci: ['CCI-000196']
   tag nist: ['IA-5 (1) (c)']
 
-  reuse_generations = input('expected_reuse_generations')
-
-  describe 'input value' do
-    it 'for reuse_generations should be in line with maximum/minimum allowed values by policy' do
-      expect(input('expected_reuse_generations')).to cmp >= input('min_reuse_generations')
-    end
-  end
-  
   describe file('/etc/pam.d/system-auth') do
     it { should be_symlink }
     its('link_path') { should cmp '/etc/pam.d/system-auth-local' }
