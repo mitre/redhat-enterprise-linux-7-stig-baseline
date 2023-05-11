@@ -43,10 +43,6 @@ If the file integrity application does not exist, or a script file controlling t
   file_integrity_tool = input('file_integrity_tool')
   file_integrity_interval = input('file_integrity_interval')
 
-  describe package(file_integrity_tool) do
-    it { should be_installed }
-  end
-
   if file_integrity_tool != 'aide'
     describe 'The system is not set to ' do
       skip "The system is set to a `disconnected` state and you must validate

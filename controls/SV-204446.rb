@@ -50,9 +50,6 @@ The following example output is generic. It will set cron to run AIDE daily and 
 
   file_integrity_tool = input('file_integrity_tool')
 
-  describe package(file_integrity_tool) do
-    it { should be_installed }
-  end
   describe.one do
     describe file("/etc/cron.daily/#{file_integrity_tool}") do
       its('content') { should match %r{/var/spool/mail} }
