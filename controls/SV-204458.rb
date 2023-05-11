@@ -30,18 +30,27 @@ control 'SV-204458' do
   tag 'container'
 
   release = os.release
+  supported_releases = ['7.6', '7.7', '7.9']
 
-  EOMS_DATE = case release
-              when /^7\.6/
-                '31 May 2021'
-              when /^7\.7/
-                '30 August 2021'
-              when /^7\.9/
-                '30 June 2024'
-              end
+  if !supported_releases.include? release
+    describe "RHEL \"#{release}\" is not a supported release" do
+      subject { release }
+      it { should be_in supported_releases }
+    end
 
-  describe "The release \"#{release}\" must still be within the support window, ending #{EOMS_DATE}" do
-    subject { Date.today <= Date.parse(EOMS_DATE) }
-    it { should be true }
+  else
+    EOMS_DATE = case release
+                when /^7\.6/
+                  '31 May 2021'
+                when /^7\.7/
+                  '30 August 2021'
+                when /^7\.9/
+                  '30 June 2024'
+                end
+
+    describe "The release \"#{release}\" must still be within the support window, ending #{EOMS_DATE}" do
+      subject { Date.today <= Date.parse(EOMS_DATE) }
+      it { should be true }
+    end
   end
 end
