@@ -25,4 +25,8 @@ Restart the "sshd" service for changes to take effect:
   tag 'documentable'
   tag cci: ['CCI-001453']
   tag nist: ['AC-17 (2)']
+
+  describe sshd_config('/etc/ssh/sshd_config') do
+    its('KexAlgorithms') { should cmp 'ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256' }
+  end
 end
