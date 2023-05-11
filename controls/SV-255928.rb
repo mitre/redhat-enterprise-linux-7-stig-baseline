@@ -82,4 +82,56 @@ Note: With this solution in place any custom settings to "system-auth" and "pass
   tag 'documentable'
   tag cci: ['CCI-000196']
   tag nist: ['IA-5 (1) (c)']
+
+  reuse_generations = input('expected_reuse_generations')
+
+  describe 'input value' do
+    it 'for reuse_generations should be in line with maximum/minimum allowed values by policy' do
+      expect(input('expected_reuse_generations')).to cmp >= input('min_reuse_generations')
+    end
+  end
+  
+  describe file('/etc/pam.d/system-auth') do
+    it { should be_symlink }
+    its('link_path') { should cmp '/etc/pam.d/system-auth-local' }
+  end
+
+  if file('/etc/pam.d/system-auth').symlink? && file('/etc/pam.d/system-auth').link_path == '/etc/pam.d/system-auth-local'
+    describe '/etc/pam.d/system-auth-local should contain the minimum configuration settings' do
+      subject { parse_config_file('/etc/pam.d/system-auth-local').content.strip }
+      it { should match /auth.*required.*pam_faillock.so.*preauth.*silent.*audit.*deny=3.*even_deny_root.*fail_interval=900.*unlock_time=900/ }
+      it { should match /auth.*include.*system-auth-ac/ }
+      it { should match /auth.*sufficient.*pam_unix.so.*try_first_pass/ }
+      it { should match /auth.*default=die.*pam_faillock.so.*authfail.*audit.*deny=3.*even_deny_root.*fail_interval=900.*unlock_time=900/ }
+      it { should match /account.*required.*pam_faillock.so/ }
+      it { should match /account.*include.*system-auth-ac/ }
+      it { should match /password.*requisite.*pam_pwhistory.so.*use_authtok.*remember=5.*retry=3/ }
+      it { should match /password.*include.*system-auth-ac/ }
+      it { should match /password.*sufficient.*pam_unix.so.*sha512.*shadow.*try_first_pass.*use_authtok/ }
+      it { should match /session.*include.*system-auth-ac/ }
+    end
+  end
+
+  describe file('/etc/pam.d/password-auth') do
+    it { should be_symlink }
+    its('link_path') { should cmp '/etc/pam.d/password-auth-local' }
+  end
+
+  if file('/etc/pam.d/password-auth').symlink? && file('/etc/pam.d/password-auth').link_path == '/etc/pam.d/password-auth-local'
+
+    describe '/etc/pam.d/password-auth-local should contain the minimum configuration settings' do
+      subject { parse_config_file('/etc/pam.d/password-auth-local').content.strip }
+      it { should match /auth.*required.*pam_faillock.so.*preauth.*silent.*audit.*deny=3.*even_deny_root.*fail_interval=900.*unlock_time=900/ }
+      it { should match /auth.*include.*password-auth-ac/ }
+      it { should match /auth.*sufficient.*pam_unix.so.*try_first_pass/ }
+      it { should match /auth.*default=die.*pam_faillock.so.*authfail.*audit.*deny=3.*even_deny_root.*fail_interval=900.*unlock_time=900/ }
+      it { should match /account.*required.*pam_faillock.so/ }
+      it { should match /account.*include.*password-auth-ac/ }
+      it { should match /password.*requisite.*pam_pwhistory.so.*use_authtok.*remember=5.*retry=3/ }
+      it { should match /password.*include.*password-auth-ac/ }
+      it { should match /password.*sufficient.*pam_unix.so.*sha512.*shadow.*try_first_pass.*use_authtok/ }
+      it { should match /session.*include.*password-auth-ac/ }
+    end
+  end
+
 end
