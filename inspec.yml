@@ -23,38 +23,38 @@ inputs:
     type: Boolean
     value: false
 
-  # V-204504
+  # SV-204504
   - name: monitor_kernel_log
     desc: Set this to false if your system availability concern is not documented or there is no monitoring of the kernel log
     type: Boolean
     value: true
 
-  # V-204392
+  # SV-204392
   - name: rpm_verify_perms_except
     desc: List of system files that should be allowed to change from an rpm verify point of view
     type: Array
     value:
       - "/etc/issue"
 
-  # V-214799
+  # SV-214799
   - name: rpm_verify_integrity_except
     desc: List of system files that should be allowed to change from an rpm verify point of view
     type: Array
     value: []
 
-  # V-204393
+  # SV-204393
   - name: banner_message_enabled
     desc: Set to 'true' if the login banner message should be enabled
     type: Boolean
     value: true
 
-  # V-204575
+  # SV-204575
   - name: log_aggregation_server
     desc: Set to 'true' if the system is being used as a log aggregation server
     type: Boolean
     value: false
 
-  # V-204624
+  # SV-204624
   - name: x11_enabled
     desc: Set to 'true' if X11 is needed on the system.
     type: Boolean
@@ -90,7 +90,7 @@ inputs:
       - "sshd"
       - "ntp"
 
-  # V-204393/V-204397
+  # SV-204393/SV-204397
   - name: dconf_user
     desc: User to use to check dconf settings. Nil means to use whatever user is running inspec currently.
     type: String
@@ -194,12 +194,6 @@ inputs:
   # SV-204404
   - name: expected_lock_delay
     desc: Expected value for the screensaver lock-delay
-    type: Numeric
-    value: 5
-
-  # SV-204404
-  - name: expected_lock_delay
-    desc: Maximum screensaver lock-delay, by policy
     type: Numeric
     value: 5
 
@@ -334,7 +328,7 @@ inputs:
     type: Numeric
     value: 600
 
-  # V-204441, V-204631, V-204633
+  # SV-204441, SV-204631, SV-204633
   - name: smart_card_status
     desc: Smart card status (enabled or disabled)
     type: String
@@ -348,14 +342,14 @@ inputs:
       - "/etc/rsyslog.conf"
       - "/etc/rsyslog.d/*"
 
-  # V-204467, V-204468, V-204469, V-204470, V-204471, V-204472
-  # V-204473, V-204474, V-204475, V-204476, V-204477, V-204478, V-204493
+  # SV-204467, SV-204468, SV-204469, SV-204470, SV-204471, SV-204472
+  # SV-204473, SV-204474, SV-204475, SV-204476, SV-204477, SV-204478, SV-204493
   - name: exempt_home_users
     desc: Users exempt from home directory-based controls in array format
     type: Array
     value: []
 
-  # V-204436
+  # SV-244557
   - name: grub_main_cfg
     desc: Main grub boot config file
     type: String
@@ -366,11 +360,6 @@ inputs:
     desc: Main grub boot config file
     type: String
     value: "/boot/efi/EFI/redhat/grub.cfg"
-
-  - name: grub_superuser
-    desc: superusers for grub boot
-    type: String
-    value: "root"
 
   - name: grub_user_boot_files
     desc: Grub boot config files
@@ -384,26 +373,13 @@ inputs:
     value:
       - "/boot/efi/EFI/redhat/user.cfg"
 
-  # V-204439
-  - name: efi_superusers
-    desc: Superusers for efi boot
-    type: Array
-    value:
-      - "root"
-
-  # V-204444
+  # SV-204444
   - name: admin_logins
     desc: System accounts that support approved system activities
     type: Array
     value: []
 
-  # V-204406
-  - name: max_rety
-    desc: Maximum number of times to prompt user for new password
-    type: Numeric
-    value: 3
-
-  # V-204631
+  # SV-204631
   - name: mfa_pkg_list
     desc: The list of packages (including dependencies) needed for MFA
     type: Array
@@ -424,7 +400,7 @@ inputs:
       - "pcsc-lite"
       - "pcsc-lite-libs"
 
-  # V-204397
+  # SV-204397
   - name: multifactor_enabled
     desc: Should dconf have smart card authentication
     type: Boolean
@@ -441,13 +417,13 @@ inputs:
       - "/bin/sync"
       - "/bin/true"
 
-  # V-204493
+  # SV-204584
   - name: randomize_va_space
     desc: Randomize virtual address space kernel parameter
     type: Numeric
     value: 2
 
-  # V-204488
+  # SV-204481
   - name: non_removable_media_fs
     desc: File systems that don't correspond to removable media
     type: Array
@@ -457,13 +433,13 @@ inputs:
       - "swap"
       - "tmpfs"
 
-  # V-204629
+  # SV-204629
   - name: approved_tunnels
     desc: Approved configured tunnels prepended with word 'conn' (e.g., ['conn myTunnel'])
     type: Array
     value: []
 
-  # V-204479
+  # SV-204479
   - name: virtual_machine
     desc: Is the target expected to be a virtual machine
     type: Boolean
@@ -481,7 +457,7 @@ inputs:
     type: Numeric
     value: 3
 
-  # V-204628
+  # SV-204628, SV-204577
   - name: firewalld_services
     desc: "Services that firewalld should be configured to allow."
     type: Array
@@ -544,7 +520,7 @@ inputs:
     # '-P INPUT ACCEPT',
     value: []
 
-  # V-204577
+  # SV-204577
   - name: firewalld_services_deny
     desc: "Services that firewalld should be configured to deny."
     type: Hash
@@ -629,11 +605,6 @@ inputs:
       - "auth sufficient pam_sss.so forward_pass"
       - "auth sufficient pam_unix.so try_first_pass"
       - "auth [default=die] pam_faillock.so unlock_time=.*"
-
-  - name: data_loss_prevention_installed
-    desc: "is an HBSS with a Device Control Module and a Data Loss Prevention mechanism"
-    type: Boolean
-    value: true
 
   - name: alternate_logs
     desc: "An alternate method is used for logs than rsyslog"

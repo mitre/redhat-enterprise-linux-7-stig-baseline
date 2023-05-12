@@ -1,6 +1,6 @@
 # red-hat-enterprise-linux-7-stig-baseline
 
-InSpec profile to validate the secure configuration of Red Hat Enterprise Linux 7 against [DISA's](https://iase.disa.mil/stigs/Pages/index.aspx) Red Hat Enterprise Linux 7 STIG Version 3 Release 6.
+InSpec profile to validate the secure configuration of Red Hat Enterprise Linux 7 against [DISA's](https://public.cyber.mil/stigs/downloads/) Red Hat Enterprise Linux 7 STIG Version 3 Release 10.
 
 ## Getting Started  
 It is intended and recommended that InSpec and this profile be run from a __"runner"__ host (such as a DevOps orchestration server, an administrative management system, or a developer's workstation/laptop) against the target remotely over __ssh__.
@@ -14,8 +14,8 @@ Latest versions and installation options are available at the [InSpec](http://in
 The following inputs may be configured in an inputs ".yml" file for the profile to run correctly for your specific environment. More information about InSpec inputs can be found in the [InSpec Profile Documentation](https://www.inspec.io/docs/reference/profiles/).
 
 ```yaml
-# Used by InSpec checks V-71849, V-71855, V-72037
-# InSpec Tests that are known to consistently have long run times (V-71849, V-71855, V-72037) can be disabled with this attribute
+# Used by InSpec checks SV-204392, SV-204478, SV-214799
+# InSpec Tests that are known to consistently have long run times can be disabled with this attribute
 # Acceptable values: false, true
 # (default: false)
 disable_slow_controls: 
@@ -24,11 +24,11 @@ disable_slow_controls:
 # (default: true)
 monitor_kernel_log: 
 
-# Used by InSpec check V-71849
+# Used by InSpec check SV-204392
 # list of system files that should be allowed to change from an rpm verify point of view
 rpm_verify_perms_except: []
 
-# Used by InSpec check V-71855
+# Used by InSpec check SV-214799
 # list of system files that should be allowed to change from an rpm verify point of view
 rpm_verify_integrity_except: []
 
@@ -36,15 +36,11 @@ rpm_verify_integrity_except: []
 # (default: true)
 banner_message_enabled: 
 
-# Used by InSpec check V-72211 (default: false)
+# Used by InSpec check SV-204575 (default: false)
 # Do NOT set to 'true' UNLESS the server is documented as being used as a log aggregation server. 
 log_aggregation_server: 
 
-# Used by InSpec check V-72047 (default: [])
-# Known application groups that are allowed to have world-writeable files or directories
-application_groups: []
-
-# Used by InSpec check V-72307 (default: false)
+# Used by InSpec check SV-204624 (default: false)
 # Do NOT set to 'true' UNLESS use of X Windows System is documented and approved. 
 x11_enabled: 
 
@@ -84,9 +80,6 @@ difok: 8
 # Number of reuse generations
 min_reuse_generations: 5
 
-# Number of characters
-min_len: 15
-
 # Number of days
 days_of_inactivity: 0
 
@@ -115,43 +108,33 @@ system_activity_timeout: 600
 # Client alive interval (time in seconds).
 client_alive_interval: 600
 
-# V-71965, V-72417, V-72433
+# SV-204441, SV-204631, SV-204633
 # (enabled or disabled)
 smart_card_status: "enabled"
 
-# V-72051/V-72209
+# SV-204489, SV-204574
 # The path to the logging package
 log_pkg_path: "/etc/rsyslog.conf"
 
-# V-72011, V-72015, V-72017, V-72019, V-72021, V-72023, V-72025
-# V-72027, V-72029, V-72031, V-72033, V-72035, V-72037, V-72059
+# SV-204467, SV-204468, SV-204469, SV-204470, SV-204471, SV-204472, SV-204473
+# SV-204474, SV-204475, SV-204476, SV-204477, SV-204478, SV-204493
 # Users exempt from home directory-based controls in array
 # format
 exempt_home_users: []
 
-# V-71961
+# SV-244557
 # main grub boot config file
 grub_main_cfg: ""
 
 # Main grub boot config file
 grub_uefi_main_cfg: ''
 
-# superusers for grub boot ( array )
-grub_superusers: ''
-
 # grub boot config files
 grub_user_boot_files: []
 
-# V-71963
-# superusers for efi boot ( array )
-efi_superusers: []
-
-# V-71971
+# SV-204444
 # system accounts that support approved system activities
 admin_logins: []
-
-# Maximum number of times to prompt user for new password
-max_rety: 3
 
 # The list of packages needed for MFA on RHEL
 mfa_pkg_list: []
@@ -169,12 +152,12 @@ randomize_va_space: 2
 # File systems that don't correspond to removable media
 non_removable_media_fs: []
 
-# V-72317
+# SV-204629
 # approved configured tunnels prepended with word 'conn'
 # Example: ['conn myTunnel']
 approved_tunnels: []
 
-# V-72039
+# SV-204479
 # Is the target expected to be a virtual machine
 virtual_machine: false
 
@@ -220,29 +203,14 @@ custom_antivirus: false
 # Description of custom antivirus solution, when in use.
 custom_antivirus_description: ''
 
-# Whether an HIPS solution, other than HBSS, is in use.
-custom_hips: false
-
-# Description of custom HIPS solution, when in use.
-custom_hips_description: ''
-
-# Restrict the number of returned processes to account for invalid inputs, such as nil(~), that will match all processes while allowing for 3rd party software that may spawn multiple similarly named processes.
-max_daemon_processes: 1
-
 # It is reasonable and advisable to skip checksum on frequently changing files
 aide_exclude_patterns: []
-
-# A list of acceptable terminal multiplexers
-terminal_mux_pkgs: []
 
 # Required PAM rules
 required_rules: []
 
 # Alternate PAM rules
 alternate_rules: []
-
-# is an HBSS with a Device Control Module and a Data Loss Prevention mechanism
-data_loss_prevention_installed: true
 
 # An alternate method is used for logs than rsyslog
 alternate_logs: false
