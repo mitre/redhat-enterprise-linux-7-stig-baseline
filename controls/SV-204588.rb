@@ -33,6 +33,11 @@ control 'SV-204588' do
     describe 'Control not applicable - SSH is not installed within containerized RHEL' do
       skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
+  elsif os.release.to_f >= 7.4
+    impact 0.0
+    describe "The release is #{os.release}" do
+      skip 'For RHEL 7.4 and above, this requirement is not applicable.'
+    end
   else
     describe sshd_config do
       its('RhostsRSAAuthentication') { should cmp 'no' }
