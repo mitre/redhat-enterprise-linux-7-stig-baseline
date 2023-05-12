@@ -51,10 +51,10 @@ Install the pam_pkcs11 package with the following command:
     if smart_card_status.eql?('disabled')
       impact 0.5
       describe 'The system is not smartcard enabled thus this control is Not Applicable' do
-        skip 'The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.'
+        skip 'The system is not using Smartcards / PIVs to fulfill the MFA requirement, this control is Not Applicable.'
       end
     elsif mfa_pkg_list.empty?
-      describe 'The required Smartcard packages have not beed defined, plese define them in your `inputs`' do
+      describe 'The required Smartcard packages have not been defined, please define them in your `inputs`' do
         subject { mfa_pkg_list }
         it { should_not be_empty }
       end
