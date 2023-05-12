@@ -1,2 +1,4 @@
-- src: https://github.com/mitre/ansible-rhel7-stig-hardening
+- src: https://github.com/ansible-lockdown/RHEL7-STIG
   name: rhel7STIG
+# - src: https://github.com/mitre/ansible-rhel7-stig-hardening
+#   name: rhel7STIG
