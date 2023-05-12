@@ -47,7 +47,7 @@ directory (or modify the line to have the required value):
       skip 'Control not applicable - Kernel config must be done on the host'
     end
   else
-    ip_forward = 1
+    ip_forward = 0
     config_file_values = command('grep -r net.ipv4.ip_forward /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
 
     describe 'net.ipv4.ip_forward' do
@@ -61,7 +61,8 @@ directory (or modify the line to have the required value):
       end
     end
 
-    describe kernel_parameter('net.ipv4.ip_forward') do
+    describe 'The runtime kernel parameter net.ipv4.ip_forward' do
+      subject { kernel_parameter('net.ipv4.ip_forward') }
       its('value') { should eq ip_forward }
     end
   end

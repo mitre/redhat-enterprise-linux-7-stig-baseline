@@ -125,5 +125,4 @@ Note: With this solution in place any custom settings to "system-auth" and "pass
       it { should match /session.*include.*password-auth-ac/ }
     end
   end
-
 end

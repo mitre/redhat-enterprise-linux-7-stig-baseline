@@ -48,7 +48,7 @@ directory (or modify the line to have the required value):
       skip 'Control not applicable - Kernel config must be done on the host'
     end
   else
-    accept_source_route = 1
+    accept_source_route = 0
     config_file_values = command('grep -r net.ipv4.conf.all.accept_source_route /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
 
     describe 'net.ipv4.conf.all.accept_source_route' do
