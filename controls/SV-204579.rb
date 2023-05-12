@@ -43,7 +43,6 @@ If "TMOUT" is not set to "900" or less to enforce session termination after inac
   # Get current TMOUT environment variable (active test)
   describe 'Environment variable TMOUT' do
     subject { os_env('TMOUT').content.to_i }
-    it { should cmp input('expected_system_activity_timeout') }
     it { should cmp <= input('max_system_activity_timeout') }
   end
 
@@ -94,7 +93,6 @@ If "TMOUT" is not set to "900" or less to enforce session termination after inac
   else
     describe 'The TMOUT setting is configured properly' do
       subject { latest_val }
-      it { should cmp input('expected_system_activity_timeout') }
       it { should cmp <= input('max_system_activity_timeout') }
     end
   end

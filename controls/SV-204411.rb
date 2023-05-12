@@ -32,7 +32,6 @@ control 'SV-204411' do
   tag 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('difok') { should cmp input('expected_difok') }
-    its('difok') { should cmp <= input('max_difok') }
+    its('difok') { should cmp <= input('difok') }
   end
 end

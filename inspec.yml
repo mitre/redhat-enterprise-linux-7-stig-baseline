@@ -192,85 +192,40 @@ inputs:
     value: "I've read & consent to terms in IS user agreem't."
 
   # SV-204404
-  - name: expected_lock_delay
-    desc: Expected value for the screensaver lock-delay
+  - name: lock_delay
+    desc: Maximum value for the screensaver lock-delay
     type: Numeric
     value: 5
 
   # SV-204411
-  - name: expected_difok
-    desc: Number of characters that must be different from previous password
-    type: Numeric
-    value: 8
-
-  # SV-204411
-  - name: max_difok
+  - name: difok
     desc: Minimum number of characters that must be different from previous password, by policy
     type: Numeric
     value: 8
 
   # SV-204413
-  - name: expected_passwd_repeats
-    desc: Number of allowed same consecutive characters in a new password
-    type: Numeric
-    value: 3
-
-  # SV-204413
-  - name: max_passwd_repeats
+  - name: passwd_repeats
     desc: Maximum number of allowed same consecutive characters in a new password, by policy
     type: Numeric
     value: 3
 
   # SV-204422
-  - name: expected_reuse_generations
-    desc: Number of reuse generations for passwords
-    type: Numeric
-    value: 5
-
-  # SV-204422
-  - name: min_reuse_generations
+  - name: reuse_generations
     desc: Minimum number of reuse generations for passwords by policy
     type: Numeric
     value: 5
 
   # SV-204423
-  - name: expected_minlen
-    desc: Expected value for the minimum number of characters a password needs
-    type: Numeric
-    value: 15
-
-  # SV-204423
-  - name: min_minlen
+  - name: minlen
     desc: Minimum number of characters a password needs, by policy
     type: Numeric
     value: 15
-
-  # SV-204426
-  - name: expected_days_of_inactivity
-    desc: System setting for number of days an account can stay inactive before deactivation.
-    type: Numeric
-    value: 35
 
   # SV-204426
   - name: max_days_of_inactivity
     desc: Maximum allowable number of days an account can stay inactive before deactivation.
     type: Numeric
     value: 35
-
-  # SV-204427
-  - name: expected_unsuccessful_attempts
-    desc: number of unsuccessful attempts
-    type: Numeric
-    value: 3
-
-  - name: expected_fail_interval
-    desc: Interval of time in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
-    type: Numeric
-    value: 900
-
-  - name: expected_lockout_time
-    desc: Amount of time account must be locked out after failed logins. This attribute should never be set greater than 604800 (time in seconds).
-    value: 604800
 
   - name: max_unsuccessful_attempts
     desc: Maximum number of unsuccessful attempts by policy
@@ -305,26 +260,14 @@ inputs:
     value: "weekly"
 
   # SV-204579
-  - name: expected_system_activity_timeout
-    desc: System activity timeout (time in seconds).
-    type: Numeric
-    value: 600
-
-  # SV-204579
   - name: max_system_activity_timeout
-    desc: Maximum system activity timeout (time in seconds) allowed by policy.
-    type: Numeric
-    value: 600
-
-  # SV-204587
-  - name: expected_client_alive_interval
-    desc: Expected specific value of the client alive interval (time in seconds).
+    desc: System activity timeout (time in seconds).
     type: Numeric
     value: 600
 
   # SV-204587
   - name: max_client_alive_interval
-    desc: Maximum allowed client alive interval (time in seconds).
+    desc: Value of the client alive interval (time in seconds).
     type: Numeric
     value: 600
 
@@ -560,14 +503,8 @@ inputs:
     value: ""
 
   # SV-204576
-  - name: expected_maxlogins_limit
-    desc: "Expected value for the maxlogins setting."
-    type: Numeric
-    value: 10
-
-  # SV-204576
-  - name: max_maxlogins_limit
-    desc: "The maxium value that can be used for maxlogins by policy."
+  - name: maxlogins_limit
+    desc: "Value for the maxlogins setting."
     type: Numeric
     value: 10
 
@@ -634,14 +571,8 @@ inputs:
     value: "/etc/dconf/db/local.d/locks/00-No-Automount"
 
   # SV-204414
-  - name: classrepeat
-    desc: "Expected system setting for the maximum number of allowed same consecutive characters in the same class of a new password. Maximum of 4"
-    type: Numeric
-    value: 4
-
-  # SV-204414
   - name: max_classrepeat
-    desc: "Maximum allowable value for classrepeat by policy."
+    desc: "System setting for the maximum number of allowed same consecutive characters in the same class of a new password."
     type: Numeric
     value: 4
 
@@ -657,21 +588,9 @@ inputs:
     type: Numeric
     value: 60
 
-  #SV-204420
-  - name: max_pass_max_days
-    desc: "Maximum password lifetime restriction for new user accounts, by policy"
-    type: Numeric
-    value: 60
-
   #SV-204431
   - name: fail_delay
-    desc: "Expected value for the delay between logon prompts following a failed console logon attempt in seconds"
-    type: Numeric
-    value: 4
-
-  #SV-204431
-  - name: min_fail_delay
-    desc: "Minimum value for the delay between logon prompts following a failed console logon attempt in seconds, by policy"
+    desc: "Value for the delay between logon prompts following a failed console logon attempt in seconds"
     type: Numeric
     value: 4
 
@@ -750,50 +669,26 @@ inputs:
       - /
 
   # SV-228564
-  - name: expected_audit_file_mode
-    desc: Expected mode for the audit log (in octal format)
-    type: String
-    value: "0600"
-
-  # SV-228564
   - name: max_audit_file_mode
     desc: Maximum mode allowed for the audit log (in octal format)
     type: String
     value: "0600"
 
   #SV-204412
-  - name: expected_minclass
+  - name: minclass
     desc: "Value for the minimum number of characters that must change between password resets"
     type: Numeric
     value: 4
 
-  #SV-204412
-  - name: min_minclass
-    desc: "Minimum value for the minimum number of characters that must change between password resets, as allowed by policy"
-    type: Numeric
-    value: 4
-
   #SV-204419
-  - name: expected_password_lifetime
-    desc: "Expected value for the minimum lifetime of a password before it can be a reset"
+  - name: password_lifetime
+    desc: "Minimum lifetime of a password before it can be a reset"
     type: Numeric
     value: 1
-
-  #SV-204419
-  - name: min_password_lifetime
-    desc: "Minimum value for the lifetime of a password before it needs a reset, as allowed by policy"
-    type: Numeric
-    value: 1
-
-  #SV-204421
-  - name: expected_max_password_lifetime
-    desc: "Expected value for the maximum lifetime of a password before it needs a reset"
-    type: Numeric
-    value: 60
 
   #SV-204421
   - name: max_password_lifetime
-    desc: "Maximum value for the maximum lifetime of a password before it needs a reset, as allowed by policy"
+    desc: "Maximum lifetime of a password before it needs a reset"
     type: Numeric
     value: 60
   

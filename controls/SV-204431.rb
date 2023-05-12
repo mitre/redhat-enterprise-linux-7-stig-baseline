@@ -34,7 +34,6 @@ control 'SV-204431' do
   tag 'container'
 
   describe login_defs do
-    its('FAIL_DELAY') { should cmp input('fail_delay') }
-    its('FAIL_DELAY') { should cmp >= input('min_fail_delay') }
+    its('FAIL_DELAY') { should cmp >= input('fail_delay') }
   end
 end
