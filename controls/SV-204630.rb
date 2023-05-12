@@ -65,13 +65,11 @@ the /etc/sysctl.d/ directory (or modify the line to have the required value):
     end
 
     describe.one do
-      describe 'The runtime kernel parameter net.ipv6.conf.all.accept_source_route' do
-        subject { kernel_parameter('net.ipv6.conf.all.accept_source_route') }
+      describe kernel_parameter('net.ipv6.conf.all.accept_source_route') do
         its('value') { should eq accept_source_route }
       end
       # If IPv6 is disabled in the kernel it will return NIL
-      describe 'The runtime kernel parameter net.ipv6.conf.all.accept_source_route' do
-        subject { kernel_parameter('net.ipv6.conf.all.accept_source_route') }
+      describe kernel_parameter('net.ipv6.conf.all.accept_source_route') do
         its('value') { should eq nil }
       end
     end
