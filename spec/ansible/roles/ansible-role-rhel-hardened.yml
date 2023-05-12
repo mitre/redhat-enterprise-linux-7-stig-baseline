@@ -11,3 +11,4 @@
     rhel7stig_using_password_auth: false
     rhel_07_020022: false
     rhel_07_021340: false
+    rhel_07_010340: false
