@@ -210,34 +210,34 @@ inputs:
     value: 3
 
   # SV-204422
-  - name: reuse_generations
+  - name: min_reuse_generations
     desc: Minimum number of reuse generations for passwords by policy
     type: Numeric
     value: 5
 
   # SV-204423
-  - name: minlen
+  - name: min_len
     desc: Minimum number of characters a password needs, by policy
     type: Numeric
     value: 15
 
   # SV-204426
-  - name: max_days_of_inactivity
+  - name: days_of_inactivity
     desc: Maximum allowable number of days an account can stay inactive before deactivation.
     type: Numeric
     value: 35
 
-  - name: max_unsuccessful_attempts
+  - name: unsuccessful_attempts
     desc: Maximum number of unsuccessful attempts by policy
     type: Numeric
     value: 3
 
-  - name: max_fail_interval
+  - name: fail_interval
     desc: Maximum interval of time, according to policy, in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
     type: Numeric
     value: 900
 
-  - name: min_lockout_time
+  - name: lockout_time
     desc: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
     value: 604800
 

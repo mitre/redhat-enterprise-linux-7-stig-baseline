@@ -64,9 +64,9 @@ Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite
 
   # rule patterns to match for
   faillock_rule_pattern = 'auth [default=die]|required pam_faillock.so'
-  deny_pattern = faillock_rule_pattern + " deny=#{input('max_unsuccessful_attempts')}"
-  fail_interval_pattern = faillock_rule_pattern + " fail_interval=#{input('max_fail_interval')}"
-  unlock_time_pattern = faillock_rule_pattern + " unlock_time=(0|never|#{input('min_lockout_time')})"
+  deny_pattern = faillock_rule_pattern + " deny=#{input('unsuccessful_attempts')}"
+  fail_interval_pattern = faillock_rule_pattern + " fail_interval=#{input('fail_interval')}"
+  unlock_time_pattern = faillock_rule_pattern + " unlock_time=(0|never|#{input('lockout_time')})"
 
   # explicit rulesets to look for
   req = input('required_rules')

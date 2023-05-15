@@ -33,12 +33,12 @@ Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite
   tag 'host'
   tag 'container'
 
-  reuse_generations = input('reuse_generations')
+  min_reuse_generations = input('min_reuse_generations')
 
   describe pam('/etc/pam.d/system-auth') do
-    its('lines') { should match_pam_rule("password (required|requisite|sufficient) pam_(unix|pwhistory).so use_authtok remember=#{reuse_generations}") }
+    its('lines') { should match_pam_rule("password (required|requisite|sufficient) pam_(unix|pwhistory).so use_authtok remember=#{min_reuse_generations}") }
   end
   describe pam('/etc/pam.d/password-auth') do
-    its('lines') { should match_pam_rule("password (required|requisite|sufficient) pam_(unix|pwhistory).so use_authtok remember=#{reuse_generations}") }
+    its('lines') { should match_pam_rule("password (required|requisite|sufficient) pam_(unix|pwhistory).so use_authtok remember=#{min_reuse_generations}") }
   end
 end
