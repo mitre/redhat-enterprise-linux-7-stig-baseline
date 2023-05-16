@@ -1,11 +1,12 @@
 control 'SV-204397' do
   title 'The Red Hat Enterprise Linux operating system must uniquely identify and must authenticate users using
     multifactor authentication via a graphical user logon.'
-  desc 'To assure accountability and prevent unauthenticated access, users must be identified and authenticated to
+  desc "To assure accountability and prevent unauthenticated access, users must be identified and authenticated to
     prevent potential misuse and compromise of the system.
     Multifactor solutions that require devices separate from information systems gaining access include, for example,
     hardware tokens providing time-based or challenge-response authenticators and smart cards such as the U.S.
-    Government Personal Identity Verification card and the DoD Common Access Card.'
+    Government Personal Identity Verification card and the #{input('org_name')} Common Access Card."
+  desc 'rationale', ''
   desc 'check', 'Verify the operating system uniquely identifies and authenticates users using multifactor
     authentication via a graphical user logon.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.

@@ -16,8 +16,18 @@ supports:
   - platform-name: amazon
     release: 2*
 
+<<<<<<< HEAD
 # The following defines the default inputs for the configurable controls used in the RHEL 7 DISA STIG.
+=======
+inspec_version: ">= 4.26"
+>>>>>>> 92547a6 (added org_name input + paramaterized controls w/ that input)
 inputs:
+  - name: org_name
+    desc: "Name of the organization running this profile"
+    type: Hash
+    value: "DoD"
+
+# The following defines the default inputs for the configurable controls used in the RHEL 7 DISA STIG.
   - name: disable_slow_controls
     desc: Controls that are known to consistently have long run times can be disabled with this attribute
     type: Boolean

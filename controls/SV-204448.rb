@@ -11,7 +11,7 @@ control 'SV-204448' do
     Verifying the authenticity of the software prior to installation validates the integrity of the patch or upgrade
     received from a vendor. This verifies the software has not been tampered with and that it has been provided by a
     trusted vendor. Self-signed certificates are disallowed by this requirement. The operating system should not have to
-    verify the software again. This requirement does not mandate DoD certificates for this purpose; however, the
+    verify the software again. This requirement does not mandate #{input('org_name')} certificates for this purpose; however, the
     certificate used to verify the software must be from an approved CA.'
   desc 'check', 'Verify the operating system prevents the installation of patches, service packs, device drivers, or
     operating system components of local packages without verification that they have been digitally signed using a

@@ -1,16 +1,16 @@
 control 'SV-204578' do
-  title 'The Red Hat Enterprise Linux 7 operating system must implement DoD-approved encryption to protect the
-    confidentiality of SSH connections.'
-  desc 'Unapproved mechanisms that are used for authentication to the cryptographic module are not verified and
-    therefore cannot be relied upon to provide confidentiality or integrity, and DoD data may be compromised.
+  title "The Red Hat Enterprise Linux 7 operating system must implement #{input('org_name')}-approved encryption to protect the
+    confidentiality of SSH connections."
+  desc "Unapproved mechanisms that are used for authentication to the cryptographic module are not verified and
+    therefore cannot be relied upon to provide confidentiality or integrity, and #{input('org_name')} data may be compromised.
     Operating systems utilizing encryption are required to use FIPS-compliant mechanisms for authenticating to
     cryptographic modules.
     FIPS 140-2 is the current standard for validating that mechanisms used to access cryptographic modules utilize
-    authentication that meets DoD requirements. This allows for Security Levels 1, 2, 3, or 4 for use on a general
+    authentication that meets #{input('org_name')} requirements. This allows for Security Levels 1, 2, 3, or 4 for use on a general
     purpose computing system.
     The system will attempt to use the first cipher presented by the client that matches the server list. Listing the
     values "strongest to weakest" is a method to ensure the use of the strongest cipher available to secure the SSH
-    connection.'
+    connection."
   desc 'check', 'Verify the operating system uses mechanisms meeting the requirements of applicable federal laws,
     Executive orders, directives, policies, regulations, standards, and guidance for authentication to a cryptographic
     module.
