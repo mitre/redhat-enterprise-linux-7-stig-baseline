@@ -260,13 +260,13 @@ inputs:
     value: "weekly"
 
   # SV-204579
-  - name: max_system_activity_timeout
+  - name: system_activity_timeout
     desc: System activity timeout (time in seconds).
     type: Numeric
     value: 600
 
   # SV-204587
-  - name: max_client_alive_interval
+  - name: client_alive_interval
     desc: Value of the client alive interval (time in seconds).
     type: Numeric
     value: 600

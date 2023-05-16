@@ -51,7 +51,7 @@ control 'SV-204587' do
     # convert it to an integer using to_i it will convert it to 0 and pass the
     # <= client_alive_interval check. However, the control as a whole will still fail.
     describe sshd_config do
-      its('ClientAliveInterval') { should be_between(1, input('max_client_alive_interval')) }
+      its('ClientAliveInterval') { should be_between(1, input('client_alive_interval')) }
       its('ClientAliveInterval') { should_not eq nil }
     end
   end
