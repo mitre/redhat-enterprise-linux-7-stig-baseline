@@ -1,6 +1,6 @@
 control 'SV-204393' do
-  title 'The Red Hat Enterprise Linux operating system must display the Standard Mandatory #{input('org_name')} Notice and Consent
-    Banner before granting local or remote access to the system via a graphical user logon.'
+  title "The Red Hat Enterprise Linux operating system must display the Standard Mandatory #{input('org_name')} Notice and Consent
+    Banner before granting local or remote access to the system via a graphical user logon."
   desc "Display of a standardized and approved use notification before granting access to the operating system
     ensures privacy and security notification verbiage used is consistent with applicable federal laws, Executive
     Orders, directives, policies, regulations, standards, and guidance.
