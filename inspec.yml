@@ -681,7 +681,7 @@ inputs:
     value: 4
 
   #SV-204419
-  - name: password_lifetime
+  - name: min_password_lifetime
     desc: "Minimum lifetime of a password before it can be a reset"
     type: Numeric
     value: 1
