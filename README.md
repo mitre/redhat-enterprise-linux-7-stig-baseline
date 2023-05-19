@@ -118,8 +118,7 @@ log_pkg_path: "/etc/rsyslog.conf"
 
 # SV-204467, SV-204468, SV-204469, SV-204470, SV-204471, SV-204472, SV-204473
 # SV-204474, SV-204475, SV-204476, SV-204477, SV-204478, SV-204493
-# Users exempt from home directory-based controls in array
-# format
+# Users exempt from home directory-based controls in array format
 exempt_home_users: []
 
 # SV-244557
@@ -139,7 +138,7 @@ admin_logins: []
 # The list of packages needed for MFA on RHEL
 mfa_pkg_list: []
 
-# V-77819
+# SV-204397
 # should dconf have smart card authentication (e.g., true or false <- no quotes!)
 multifactor_enabled: true
 

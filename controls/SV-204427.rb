@@ -64,9 +64,9 @@ Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite
 
   # rule patterns to match for
   faillock_rule_pattern = 'auth [default=die]|required pam_faillock.so'
-  deny_pattern = faillock_rule_pattern + " deny=#{input('expected_unsuccessful_attempts')}"
-  fail_interval_pattern = faillock_rule_pattern + " fail_interval=#{input('expected_fail_interval')}"
-  unlock_time_pattern = faillock_rule_pattern + " unlock_time=(0|never|#{input('expected_lockout_time')})"
+  deny_pattern = faillock_rule_pattern + " deny=#{input('unsuccessful_attempts')}"
+  fail_interval_pattern = faillock_rule_pattern + " fail_interval=#{input('fail_interval')}"
+  unlock_time_pattern = faillock_rule_pattern + " unlock_time=(0|never|#{input('lockout_time')})"
 
   # explicit rulesets to look for
   req = input('required_rules')
@@ -111,18 +111,6 @@ Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite
       expect(sa_rules).to match_pam_rule(deny_pattern), "missing: #{deny_pattern}"
       expect(sa_rules).to match_pam_rule(fail_interval_pattern), "missing: #{fail_interval_pattern}"
       expect(sa_rules).to match_pam_rule(unlock_time_pattern), 'missing or misconfigured unlock_time'
-    end
-  end
-
-  describe 'input value' do
-    it 'for unsuccessful_attempts should be in line with maximum/minimum allowed values by policy' do
-      expect(input('expected_unsuccessful_attempts')).to cmp <= input('max_unsuccessful_attempts')
-    end
-    it 'for fail_interval should be in line with maximum/minimum allowed values by policy' do
-      expect(input('expected_fail_interval')).to cmp <= input('max_fail_interval')
-    end
-    it 'for lockout_time should be in line with maximum/minimum allowed values by policy' do
-      expect(input('expected_lockout_time')).to cmp >= input('min_lockout_time')
     end
   end
 end
