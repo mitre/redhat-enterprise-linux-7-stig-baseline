@@ -82,17 +82,20 @@ following command:
       potentially_misconfigured_files.each do |path, size, mtime, digest, mode, owner, group, isconfig, isdoc, rdev, symlink|
         pp "package info:", path, size, mtime, digest, mode, owner, group, isconfig, isdoc, rdev, symlink
         file_obj = file(path)
-        describe file_obj do
-          pp "file info:", file_obj.path, file_obj.exist?, file_obj.mode, file_obj.owner, file_obj.group
-          it { should_not be_more_permissive_than(mode) }
-          if ownership_allowlist.include? path
-            it { should be_owned_by owner }
+        pp "file info:", file_obj.path, file_obj.exist?, file_obj.mode, file_obj.owner, file_obj.group
+        if file_obj.exist?
+          describe file_obj do
+            it { should_not be_more_permissive_than(mode) }
+            if ownership_allowlist.include? path
+              it { should be_owned_by owner }
+            end
+            if group_membership_allowlist.include? path
+              it { should be_grouped_into group }
+            end
           end
-          if group_membership_allowlist.include? path
-            it { should be_grouped_into group }
-          end
+          pp "created control"
         end
-        pp "created control"
+        pp "finished if/else for exists"
       end
       pp "created all describes"
     end
