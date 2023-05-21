@@ -1,3 +1,5 @@
+require 'shellwords'
+
 control 'SV-204392' do
   title 'The Red Hat Enterprise Linux operating system must be configured so that the file permissions, ownership,
     and group membership of system files and commands match the vendor values.'
@@ -59,25 +61,42 @@ following command:
             full accredidation for production."
     end
   else
+    ownership_allowlist = input('rpm_verify_ownership_except')
+    pp "ownership allowlist", ownership_allowlist
+    group_membership_allowlist = input('rpm_verify_group_membership_except')
+    pp "group membership allowlist", group_membership_allowlist
 
-    allowlist = input('rpm_verify_perms_except')
+    identified_files = command('rpm -Va | awk \'/^.{1}M|^.{5}U|^.{6}G/ {print $NF}\'').stdout.split("\n")
+    pp "identified files", identified_files
 
-    misconfigured_packages = command('rpm -Va').stdout.split("\n")
-                                               .select { |package| package[0..7].match(/M|U|G/) }
-                                               .map { |package| package.match(/\S+$/)[0] }
-
-    if misconfigured_packages.empty?
-      describe 'The list of rpm packages with permissions changed from the vendor values' do
-        subject { misconfigured_packages }
+    if identified_files.empty?
+      describe 'The list of system files and commands with permissions, ownership, or group membership changed from the vendor values' do
+        subject { identified_files }
         it { should be_empty }
       end
     else
-      describe 'The list of rpm packages with permissions changed from the vendor values' do
-        fail_msg = "Files that have been modified from vendor-approved permissions but are not in the allowlist: #{(misconfigured_packages - allowlist).join(', ')}"
-        it 'should all appear in the allowlist' do
-          expect(misconfigured_packages).to all(be_in allowlist), fail_msg
+      misconfigured_packages = identified_files.flat_map { |f| command("rpm -qf #{f}").stdout.split("\n") }.uniq
+      pp "misconfigured packages", misconfigured_packages
+      potentially_misconfigured_files = misconfigured_packages.flat_map { |p| command("rpm -ql #{p} --dump").stdout.split("\n") }.uniq.map(&:shellsplit)
+      pp "all files", potentially_misconfigured_files
+      potentially_misconfigured_files.each do |path, size, mtime, digest, mode, owner, group, isconfig, isdoc, rdev, symlink|
+        pp "package info:", path, size, mtime, digest, mode, owner, group, isconfig, isdoc, rdev, symlink
+        file_obj = file(path)
+        describe file_obj do
+          pp "file info:", file_obj.path, file_obj.exist?, file_obj.mode, file_obj.owner, file_obj.group
+          it { should_not be_more_permissive_than(mode) }
+          if ownership_allowlist.include? path
+            it { should be_owned_by owner }
+          end
+          if group_membership_allowlist.include? path
+            it { should be_grouped_into group }
+          end
         end
+        pp "created control"
       end
+      pp "created all describes"
     end
+    pp "finished if/else for identified files being empty"
   end
+  pp "finished if/else for disabled slow controls"
 end

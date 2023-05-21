@@ -30,11 +30,16 @@ inputs:
     value: true
 
   # SV-204392
-  - name: rpm_verify_perms_except
-    desc: List of system files that should be allowed to change from an rpm verify point of view
+  - name: rpm_verify_ownership_except
+    desc: List of system files that should be allowed to have a different ownership from the default as determined by 'rpm verify'
     type: Array
-    value:
-      - "/etc/issue"
+    value: []
+
+  # SV-204392
+  - name: rpm_verify_group_membership_except
+    desc: List of system files that should be allowed to have a different group membership from the default as determined by 'rpm verify'
+    type: Array
+    value: []
 
   # SV-214799
   - name: rpm_verify_integrity_except
