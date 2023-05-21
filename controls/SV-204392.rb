@@ -83,7 +83,7 @@ following command:
         pp "package info:", path, size, mtime, digest, mode, owner, group, isconfig, isdoc, rdev, symlink
         file_obj = file(path)
         if file_obj.exist?
-          pp "file info:", file_obj.path, file_obj.exist?, file_obj.mode, file_obj.owner, file_obj.group
+          pp "file info:", file_obj.path, file_obj.exist?, (file_obj.mode.to_s 8), file_obj.owner, file_obj.group
           describe file_obj do
             it { should_not be_more_permissive_than(mode) }
             unless ownership_allowlist.include? path
