@@ -62,12 +62,9 @@ following command:
     end
   else
     ownership_allowlist = input('rpm_verify_ownership_except')
-    pp "ownership allowlist", ownership_allowlist
     group_membership_allowlist = input('rpm_verify_group_membership_except')
-    pp "group membership allowlist", group_membership_allowlist
 
     identified_files = command('rpm -Va | awk \'/^.{1}M|^.{5}U|^.{6}G/ {print $NF}\'').stdout.split("\n")
-    pp "identified files", identified_files
 
     if identified_files.empty?
       describe 'The list of system files and commands with permissions, ownership, or group membership changed from the vendor values' do
@@ -76,14 +73,10 @@ following command:
       end
     else
       misconfigured_packages = identified_files.flat_map { |f| command("rpm -qf #{f}").stdout.split("\n") }.uniq
-      pp "misconfigured packages", misconfigured_packages
       potentially_misconfigured_files = misconfigured_packages.flat_map { |p| command("rpm -ql #{p} --dump").stdout.split("\n") }.uniq.map(&:shellsplit)
-      pp "all files", potentially_misconfigured_files
       potentially_misconfigured_files.each do |path, size, mtime, digest, mode, owner, group, isconfig, isdoc, rdev, symlink|
-        pp "package info:", path, size, mtime, digest, mode, owner, group, isconfig, isdoc, rdev, symlink
         file_obj = file(path)
         if file_obj.exist?
-          pp "file info:", file_obj.path, file_obj.exist?, (file_obj.mode.to_s 8), file_obj.owner, file_obj.group
           describe file_obj do
             it { should_not be_more_permissive_than(mode) }
             unless ownership_allowlist.include? path
@@ -93,13 +86,8 @@ following command:
               it { should be_grouped_into group }
             end
           end
-          pp "created control"
         end
-        pp "finished if/else for exists"
       end
-      pp "created all describes"
     end
-    pp "finished if/else for identified files being empty"
   end
-  pp "finished if/else for disabled slow controls"
 end
