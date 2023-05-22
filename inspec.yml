@@ -5,7 +5,7 @@ copyright: MITRE, 2022
 copyright_email: saf@groups.mitre.org
 license: Apache-2.0
 summary: "Inspec Validation Profile for Red Hat Enterprise Linux 7 STIG"
-version: 3.6.0
+version: 3.10.0
 inspec_version: ">= 4.26"
 
 supports:
