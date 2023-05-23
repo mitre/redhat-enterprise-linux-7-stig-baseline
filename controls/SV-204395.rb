@@ -15,7 +15,7 @@ control 'SV-204395' do
     Check to see if the operating system displays a banner at the command line logon screen with the following command:
     # more /etc/issue
     The command should return the following text:
-    \"#{input('banner_message_text_gui')}\"
+    \"#{input('banner_message_text_cli')}\"
     If the operating system does not display a graphical logon banner or the banner does not match the Standard
     Mandatory #{input('org_name')} Notice and Consent Banner, this is a finding.
     If the text in the "/etc/issue" file does not match the Standard Mandatory #{input('org_name')} Notice and Consent Banner, this is a
@@ -23,7 +23,7 @@ control 'SV-204395' do
   desc 'fix', "Configure the operating system to display the Standard Mandatory #{input('org_name')} Notice and Consent Banner before
     granting access to the system via the command line by editing the "/etc/issue" file.
     Replace the default text with the Standard Mandatory #{input('org_name')} Notice and Consent Banner. The #{input('org_name')} required text is:
-    \"#{input('banner_message_text_gui')}\" "
+    \"#{input('banner_message_text_cli')}\" "
   impact 0.5
   tag legacy: ['V-71863', 'SV-86487']
   tag severity: 'medium'
