@@ -7,7 +7,7 @@ control 'SV-204402' do
     operating systems need to be able to identify when a user's session has idled and take action to initiate the
     session lock.
     The session lock is implemented at the point where session activity can be determined and/or controlled."
-  desc 'check', 'Verify the operating system initiates a session lock after a 15-minute period of inactivity for graphical user interfaces.
+  desc 'check', "Verify the operating system initiates a session lock after a #{input('lockout_time')}-minute period of inactivity for graphical user interfaces.
 
 Note: If the system does not have a GNOME installed, this requirement is Not Applicable.
 
@@ -16,18 +16,18 @@ Check for the session lock settings with the following commands:
      # grep -i idle-activation-enabled /etc/dconf/db/local.d/*
      idle-activation-enabled=true
 
-If "idle-activation-enabled" is not set to "true", this is a finding.'
-  desc 'fix', 'Configure the operating system to initiate a session lock after a 15-minute period of inactivity for
+If "idle-activation-enabled" is not set to "true", this is a finding."
+  desc 'fix', "Configure the operating system to initiate a session lock after a #{input('lockout_time')}-minute period of inactivity for
     graphical user interfaces.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
     command:
     # touch /etc/dconf/db/local.d/00-screensaver
-    Add the setting to enable screensaver locking after 15 minutes of inactivity:
+    Add the setting to enable screensaver locking after #{input('lockout_time')} minutes of inactivity:
     [org/gnome/desktop/screensaver]
     idle-activation-enabled=true
     Update the system databases:
     # dconf update
-    Users must log out and back in again before the system-wide settings take effect.'
+    Users must log out and back in again before the system-wide settings take effect."
   impact 0.5
   tag legacy: ['V-71899', 'SV-86523']
   tag severity: 'medium'

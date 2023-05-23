@@ -41,6 +41,12 @@ inputs:
     type: Numeric
     value: 25
 
+  # SV-204398, SV-204399, SV-204400, SV-204402, SV-204403
+  - name: lockout_time
+    desc: Minimum amount of time account must be locked out after failed logins (in minutes)
+    type: Numeric
+    value: 15
+
   # SV-204504
   - name: monitor_kernel_log
     desc: Set this to false if your system availability concern is not documented or there is no monitoring of the kernel log
