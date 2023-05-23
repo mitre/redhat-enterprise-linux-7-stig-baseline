@@ -38,3 +38,4 @@ Rake*
 _config*
 inputs.nolong*
 profile.json
+*.DS_Store
