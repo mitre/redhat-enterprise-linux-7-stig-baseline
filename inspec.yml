@@ -281,7 +281,7 @@ inputs:
     type: Numeric
     value: 35
 
-  # SV-204427
+  # SV-204427, SV-204428
   - name: expected_unsuccessful_attempts
     desc: number of unsuccessful attempts
     type: Numeric
@@ -826,3 +826,9 @@ inputs:
     desc: Emergency user accounts
     type: Array
     value: []
+    
+  #SV-254523
+  - name: emergency_account_disable
+    desc: Expiration time for an emergency account (in hours)
+    type: Numeric
+    value : 72
