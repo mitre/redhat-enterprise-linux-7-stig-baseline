@@ -30,20 +30,22 @@ control 'SV-204458' do
   tag 'container'
 
   release = os.release
-  supported_releases = ['7.6', '7.7', '7.9']
-
-  if !supported_releases.include? release
-    describe "RHEL \"#{release}\" is not a supported release" do
-      subject { release }
-      it { should be_in supported_releases }
+  if !release.match(/^7\.[6789]/)
+    describe "RHEL #{release}" do
+      it 'is not a supported release' do
+        supported_releases = ['7.6', '7.7', '7.8', '7.9']
+        fail_msg = "It should be one of the following supported releases: #{supported_releases}"
+        expect(release).to be_between(7.6, 7.9), fail_msg
+      end
     end
-
   else
     EOMS_DATE = case release
                 when /^7\.6/
                   '31 May 2021'
                 when /^7\.7/
                   '30 August 2021'
+                when /^7\.8/
+                  '30 June 2024'
                 when /^7\.9/
                   '30 June 2024'
                 end
