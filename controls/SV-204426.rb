@@ -36,6 +36,7 @@ control 'SV-204426' do
     describe parse_config_file('/etc/default/useradd') do
       its('INACTIVE') { should cmp <= input('days_of_inactivity') }
       its('INACTIVE') { should_not cmp -1 }
+      its('INACTIVE') { should_not be_nil }
     end
   else
     impact 0.0

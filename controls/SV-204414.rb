@@ -34,5 +34,6 @@ control 'SV-204414' do
   describe parse_config_file('/etc/security/pwquality.conf') do
     its('maxclassrepeat') { should_not cmp > input('max_classrepeat') }
     its('maxclassrepeat') { should_not cmp <= 0 }
+    its('maxclassrepeat') { should_not be_nil }
   end
 end

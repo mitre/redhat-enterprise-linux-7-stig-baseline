@@ -35,5 +35,6 @@ control 'SV-204431' do
 
   describe login_defs do
     its('FAIL_DELAY') { should cmp >= input('fail_delay') }
+    its('FAIL_DELAY') { should_not be_nil }
   end
 end
