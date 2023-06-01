@@ -71,22 +71,22 @@ If any local interactive user initialization files are found to have a umask sta
 
       if is_local == 0
         # Get user's initialization files
-        dotfiles << command("find #{u.home} -xdev -maxdepth 2 -name '.*' ! -name '.bash_history' -type f").stdout.split("\n")
+        dotfiles.add(command("find #{u.home} -xdev -maxdepth 2 -name '.*' ! -name '.bash_history' -type f").stdout.split("\n"))
 
         # Get user's umask
         umasks.store(u.username,
                     command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
 
         # Check all local initialization files to see whether or not they are less restrictive than the input UMASK.
-        dotfiles.each do |df|
-          findings += df if file(df).more_permissive_than?(input('user_umask'))
+        dotfiles.to_a.flatten.each do |df|
+          findings.add(df) if file(df).more_permissive_than?(input('user_umask'))
         end
 
         # Check umask for all interactive users
         umasks.each do |key, value|
           max_mode = (input('user_umask')).to_i(8)
           inverse_mode = 0777 ^ max_mode
-          umask_findings += key if inverse_mode & (value).to_i(8) != 0
+          umask_findings.add(key) if inverse_mode & (value).to_i(8) != 0
         end
       else
         describe 'This control skips non-local filesystems' do
