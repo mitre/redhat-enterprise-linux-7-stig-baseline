@@ -1,3 +1,5 @@
+require 'shellwords'
+
 control 'SV-204392' do
   title 'The Red Hat Enterprise Linux operating system must be configured so that the file permissions, ownership,
     and group membership of system files and commands match the vendor values.'
@@ -59,23 +61,31 @@ following command:
             full accredidation for production."
     end
   else
+    ownership_allowlist = input('rpm_verify_ownership_except')
+    group_membership_allowlist = input('rpm_verify_group_membership_except')
 
-    allowlist = input('rpm_verify_perms_except')
+    identified_files = command('rpm -Va | awk \'/^.{1}M|^.{5}U|^.{6}G/ {print $NF}\'').stdout.split("\n")
 
-    misconfigured_packages = command('rpm -Va').stdout.split("\n")
-                                               .select { |package| package[0..7].match(/M|U|G/) }
-                                               .map { |package| package.match(/\S+$/)[0] }
-
-    if misconfigured_packages.empty?
-      describe 'The list of rpm packages with permissions changed from the vendor values' do
-        subject { misconfigured_packages }
+    if identified_files.empty?
+      describe 'The list of system files and commands with permissions, ownership, or group membership changed from the vendor values' do
+        subject { identified_files }
         it { should be_empty }
       end
     else
-      describe 'The list of rpm packages with permissions changed from the vendor values' do
-        fail_msg = "Files that have been modified from vendor-approved permissions but are not in the allowlist: #{(misconfigured_packages - allowlist).join(', ')}"
-        it 'should all appear in the allowlist' do
-          expect(misconfigured_packages).to all(be_in allowlist), fail_msg
+      misconfigured_packages = identified_files.flat_map { |f| command("rpm -qf #{f}").stdout.split("\n") }.uniq
+      potentially_misconfigured_files = misconfigured_packages.flat_map { |p| command("rpm -ql #{p} --dump").stdout.split("\n") }.uniq.map(&:shellsplit)
+      potentially_misconfigured_files.each do |path, size, mtime, digest, mode, owner, group, isconfig, isdoc, rdev, symlink|
+        file_obj = file(path)
+        if file_obj.exist?
+          describe file_obj do
+            it { should_not be_more_permissive_than(mode) }
+            unless ownership_allowlist.include? path
+              it { should be_owned_by owner }
+            end
+            unless group_membership_allowlist.include? path
+              it { should be_grouped_into group }
+            end
+          end
         end
       end
     end
