@@ -78,7 +78,7 @@ If any local interactive user initialization files are found to have a umask sta
                     command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
 
         # Check all local initialization files to see whether or not they are less restrictive than the input UMASK.
-        dotfiles.to_a.flatten.each do |df|
+        dotfiles.to_a.flatten.uniq.each do |df|
           findings.add(df) if file(df).more_permissive_than?(input('user_umask'))
         end
 
