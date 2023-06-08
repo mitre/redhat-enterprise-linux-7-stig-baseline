@@ -53,15 +53,16 @@ Reload settings from all system configuration files with the following command:
     end
   else
     dmesg_restrict = 1
-    config_file_values = command('grep -r kernel.dmesg_restrict /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
+    config_file_values = command('grep -r kernel.dmesg_restrict /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null')
+                         .stdout.strip.split("\n")
+                         .map { |file| parse_config(file).params }
+    config_file_values_uncompliant = config_file_values.select { |entry| entry.values != [dmesg_restrict.to_s] }
 
-    describe 'kernel.dmesg_restrict' do
-      unless config_file_values.empty?
-        config_file_values.each do |result|
-          incorrect_value_fail_message = "Found value: #{parse_config(result).params.values[0]} in #{parse_config(result).params.keys[0]}"
-          it "should be set to #{dmesg_restrict}" do
-            expect(parse_config(result).params.values[0].to_i).to eq(dmesg_restrict), incorrect_value_fail_message
-          end
+    unless config_file_values_uncompliant.empty?
+      describe 'All configuration files' do
+        it "should set dmesg_restrict to #{dmesg_restrict}, or not define it at all" do
+          fail_msg = "Found incorrect configuration:\n#{config_file_values_uncompliant.join("\n")}"
+          expect(config_file_values_uncompliant).to be_empty, fail_msg
         end
       end
     end

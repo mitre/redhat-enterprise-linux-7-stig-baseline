@@ -6,12 +6,7 @@ control 'SV-204497' do
   desc 'Use of weak or untested encryption algorithms undermines the purposes of using encryption to protect data.
     The operating system must implement cryptographic modules adhering to the higher standards approved by the federal
     government since this provides assurance they have been tested and validated.'
-<<<<<<< HEAD
-  desc 'check', 'Verify the operating system implements DoD-approved encryption to protect the confidentiality of
-=======
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system implements #{input('org_name')}-approved encryption to protect the confidentiality of
->>>>>>> 92547a6 (added org_name input + paramaterized controls w/ that input)
     remote access sessions.
     Check to see if the "dracut-fips" package is installed with the following command:
     # yum list installed dracut-fips

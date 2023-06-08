@@ -49,15 +49,16 @@ directory (or modify the line to have the required value):
     end
   else
     accept_source_route = 0
-    config_file_values = command('grep -r net.ipv4.conf.all.accept_source_route /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null').stdout.strip.split("\n")
+    config_file_values = command('grep -r net.ipv4.conf.all.accept_source_route /run/sysctl.d/* /etc/sysctl.d/* /usr/local/lib/sysctl.d/* /usr/lib/sysctl.d/* /lib/sysctl.d/* /etc/sysctl.conf 2> /dev/null')
+                         .stdout.strip.split("\n")
+                         .map { |file| parse_config(file).params }
+    config_file_values_uncompliant = config_file_values.select { |entry| entry.values != [accept_source_route.to_s] }
 
-    describe 'net.ipv4.conf.all.accept_source_route' do
-      unless config_file_values.empty?
-        config_file_values.each do |result|
-          incorrect_value_fail_message = "Found value: #{parse_config(result).params.values[0]} in #{parse_config(result).params.keys[0]}"
-          it "should be set to #{accept_source_route} in #{parse_config(result).params.keys[0].split(':')[0]}" do
-            expect(parse_config(result).params.values[0].to_i).to eq(accept_source_route), incorrect_value_fail_message
-          end
+    unless config_file_values_uncompliant.empty?
+      describe 'All configuration files' do
+        it "should set accept_source_route to #{accept_source_route}, or not define it at all" do
+          fail_msg = "Found incorrect configuration:\n#{config_file_values_uncompliant.join("\n")}"
+          expect(config_file_values_uncompliant).to be_empty, fail_msg
         end
       end
     end

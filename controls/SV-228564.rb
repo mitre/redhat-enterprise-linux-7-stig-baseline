@@ -47,7 +47,6 @@ Change the owner and group owner of the audit log files with the following comma
     end
   else
     describe file(auditd_conf.log_file) do
-      its('mode') { should cmp input('expected_audit_file_mode') }
       it { should_not be_more_permissive_than(input('max_audit_file_mode')) }
       its('group') { should cmp 'root' }
       its('owner') { should cmp 'root' }

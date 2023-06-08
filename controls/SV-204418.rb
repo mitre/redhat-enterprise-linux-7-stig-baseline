@@ -28,5 +28,6 @@ control 'SV-204418' do
 
   describe login_defs do
     its('PASS_MIN_DAYS') { should cmp >= 1 }
+    its('PASS_MIN_DAYS') { should_not be_nil }
   end
 end

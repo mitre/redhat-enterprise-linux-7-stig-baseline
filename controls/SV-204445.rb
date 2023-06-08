@@ -43,87 +43,86 @@ If the file integrity application does not exist, or a script file controlling t
   file_integrity_tool = input('file_integrity_tool')
   file_integrity_interval = input('file_integrity_interval')
 
-  if file_integrity_tool != 'aide'
-    describe 'The system is not set to ' do
-      skip "The system is set to a `disconnected` state and you must validate
-        the state of the system packages manually, or through another process, if you
-        have an established update and patch process, please set this control as
-        `Not Applicable` with a `caevat` via an overlay."
-    end
-  elsif file_integrity_interval == 'monthly'
-    describe.one do
-      describe file("/etc/cron.daily/#{file_integrity_tool}") do
-        it { should exist }
-      end
-      describe file("/etc/cron.weekly/#{file_integrity_tool}") do
-        it { should exist }
-      end
-      describe file("/etc/cron.monthly/#{file_integrity_tool}") do
-        it { should exist }
-      end
-      if file("/etc/cron.d/#{file_integrity_tool}").exist?
-        describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+  if file_integrity_tool == 'aide'
+    if file_integrity_interval == 'monthly'
+      describe.one do
+        describe file("/etc/cron.daily/#{file_integrity_tool}") do
+          it { should exist }
+        end
+        describe file("/etc/cron.weekly/#{file_integrity_tool}") do
+          it { should exist }
+        end
+        describe file("/etc/cron.monthly/#{file_integrity_tool}") do
+          it { should exist }
+        end
+        if file("/etc/cron.d/#{file_integrity_tool}").exist?
+          describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+            its('months') { should cmp '*' }
+            its('weekdays') { should cmp '*' }
+          end
+          describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+            its('days') { should cmp '*' }
+            its('months') { should cmp '*' }
+          end
+        end
+        describe crontab('root').where {
+                  command =~ /#{file_integrity_tool}/
+                }                do
           its('months') { should cmp '*' }
           its('weekdays') { should cmp '*' }
         end
-        describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+        describe crontab('root').where {
+                  command =~ /#{file_integrity_tool}/
+                }                do
           its('days') { should cmp '*' }
           its('months') { should cmp '*' }
         end
       end
-      describe crontab('root').where {
-                 command =~ /#{file_integrity_tool}/
-               }                do
-        its('months') { should cmp '*' }
-        its('weekdays') { should cmp '*' }
-      end
-      describe crontab('root').where {
-                 command =~ /#{file_integrity_tool}/
-               }                do
-        its('days') { should cmp '*' }
-        its('months') { should cmp '*' }
-      end
-    end
-  elsif file_integrity_interval == 'weekly'
-    describe.one do
-      describe file("/etc/cron.daily/#{file_integrity_tool}") do
-        it { should exist }
-      end
-      describe file("/etc/cron.weekly/#{file_integrity_tool}") do
-        it { should exist }
-      end
-      if file("/etc/cron.d/#{file_integrity_tool}").exist?
-        describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+    elsif file_integrity_interval == 'weekly'
+      describe.one do
+        describe file("/etc/cron.daily/#{file_integrity_tool}") do
+          it { should exist }
+        end
+        describe file("/etc/cron.weekly/#{file_integrity_tool}") do
+          it { should exist }
+        end
+        if file("/etc/cron.d/#{file_integrity_tool}").exist?
+          describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+            its('days') { should cmp '*' }
+            its('months') { should cmp '*' }
+          end
+        end
+        describe crontab('root').where {
+                  command =~ /#{file_integrity_tool}/
+                }                do
           its('days') { should cmp '*' }
           its('months') { should cmp '*' }
         end
       end
-      describe crontab('root').where {
-                 command =~ /#{file_integrity_tool}/
-               }                do
-        its('days') { should cmp '*' }
-        its('months') { should cmp '*' }
-      end
-    end
-  elsif file_integrity_interval == 'daily'
-    describe.one do
-      describe file("/etc/cron.daily/#{file_integrity_tool}") do
-        it { should exist }
-      end
-      if file("/etc/cron.d/#{file_integrity_tool}").exist?
-        describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+    elsif file_integrity_interval == 'daily'
+      describe.one do
+        describe file("/etc/cron.daily/#{file_integrity_tool}") do
+          it { should exist }
+        end
+        if file("/etc/cron.d/#{file_integrity_tool}").exist?
+          describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+            its('days') { should cmp '*' }
+            its('months') { should cmp '*' }
+            its('weekdays') { should cmp '*' }
+          end
+        end
+        describe crontab('root').where {
+                  command =~ /#{file_integrity_tool}/
+                }                do
           its('days') { should cmp '*' }
           its('months') { should cmp '*' }
           its('weekdays') { should cmp '*' }
         end
       end
-      describe crontab('root').where {
-                 command =~ /#{file_integrity_tool}/
-               }                do
-        its('days') { should cmp '*' }
-        its('months') { should cmp '*' }
-        its('weekdays') { should cmp '*' }
-      end
+    end
+  else
+    describe 'Need manual review of file integrity tool' do
+      skip 'A manual review of the file integrity tool is required to ensure that it verifies the baseline operating system configuration at least weekly.'
     end
   end
 end

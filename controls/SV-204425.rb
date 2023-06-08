@@ -32,8 +32,13 @@ control 'SV-204425' do
       skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
   else
-    describe sshd_config do
-      its('PermitEmptyPasswords') { should eq 'no' }
+    describe.one do
+      describe sshd_config do
+        its('PermitEmptyPasswords') { should eq 'no' }
+      end
+      describe sshd_config do
+        its('PermitEmptyPasswords') { should be_nil }
+      end
     end
   end
 end

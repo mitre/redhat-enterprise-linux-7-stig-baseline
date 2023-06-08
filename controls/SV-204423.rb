@@ -31,7 +31,6 @@ control 'SV-204423' do
   tag 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('minlen') { should cmp input('expected_minlen') }
-    its('minlen') { should cmp input('min_minlen') }
+    its('minlen') { should cmp >= input('min_len') }
   end
 end

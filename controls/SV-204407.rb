@@ -33,5 +33,6 @@ control 'SV-204407' do
 
   describe parse_config_file('/etc/security/pwquality.conf') do
     its('ucredit') { should cmp < 0 }
+    its('ucredit') { should_not be_nil }
   end
 end
