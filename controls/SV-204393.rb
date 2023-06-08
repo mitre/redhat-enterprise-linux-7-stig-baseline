@@ -16,7 +16,7 @@ control 'SV-204393' do
     Check to see if the operating system displays a banner at the logon screen with the following command:
     # grep banner-message-enable /etc/dconf/db/local.d/*
     banner-message-enable=true
-    If "banner-message-enable" is set to "false" or is missing, this is a finding."
+    If \"banner-message-enable\" is set to \"false\" or is missing, this is a finding."
   desc 'fix', "Configure the operating system to display the Standard Mandatory #{input('org_name')} Notice and Consent Banner before
     granting access to the system.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
