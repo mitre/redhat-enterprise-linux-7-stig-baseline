@@ -118,12 +118,7 @@ log_pkg_path: "/etc/rsyslog.conf"
 
 # SV-204467, SV-204468, SV-204469, SV-204470, SV-204471, SV-204472, SV-204473
 # SV-204474, SV-204475, SV-204476, SV-204477, SV-204478, SV-204493
-<<<<<<< HEAD
-# Users exempt from home directory-based controls in array
-# format
-=======
 # Users exempt from home directory-based controls in array format
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
 exempt_home_users: []
 
 # SV-244557
