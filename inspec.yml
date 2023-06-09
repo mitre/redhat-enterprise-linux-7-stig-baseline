@@ -29,7 +29,6 @@ inputs:
     type: Boolean
     value: false
 
-<<<<<<< HEAD
   # SV-204513, SV-204514
   - name: storage_volume
     desc: Amount of audit storage volume
@@ -48,8 +47,6 @@ inputs:
     type: Numeric
     value: 15
 
-=======
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
   # SV-204504
   - name: monitor_kernel_log
     desc: Set this to false if your system availability concern is not documented or there is no monitoring of the kernel log
@@ -219,18 +216,12 @@ inputs:
     value: "I've read & consent to terms in IS user agreem't."
 
   # SV-204404
-<<<<<<< HEAD
   - name: expected_lock_delay
     desc: Expected value for the screensaver lock-delay
-=======
-  - name: lock_delay
-    desc: Maximum value for the screensaver lock-delay
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
     type: Numeric
     value: 5
 
   # SV-204411
-<<<<<<< HEAD
   - name: expected_difok
     desc: Number of characters that must be different from previous password
     type: Numeric
@@ -238,15 +229,11 @@ inputs:
 
   # SV-204411
   - name: max_difok
-=======
-  - name: difok
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
     desc: Minimum number of characters that must be different from previous password, by policy
     type: Numeric
     value: 8
 
   # SV-204413
-<<<<<<< HEAD
   - name: expected_passwd_repeats
     desc: Number of allowed same consecutive characters in a new password
     type: Numeric
@@ -264,13 +251,6 @@ inputs:
     type: Numeric
     value: 5
 
-=======
-  - name: passwd_repeats
-    desc: Maximum number of allowed same consecutive characters in a new password, by policy
-    type: Numeric
-    value: 3
-
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
   # SV-204422
   - name: min_reuse_generations
     desc: Minimum number of reuse generations for passwords by policy
@@ -278,65 +258,12 @@ inputs:
     value: 5
 
   # SV-204423
-<<<<<<< HEAD
-  - name: expected_minlen
-    desc: Expected value for the minimum number of characters a password needs
-    type: Numeric
-    value: 15
-
-  # SV-204423
-  - name: min_minlen
-=======
   - name: min_len
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
     desc: Minimum number of characters a password needs, by policy
     type: Numeric
     value: 15
 
   # SV-204426
-<<<<<<< HEAD
-  - name: expected_days_of_inactivity
-    desc: System setting for number of days an account can stay inactive before deactivation.
-    type: Numeric
-    value: 35
-
-  # SV-204426
-  - name: max_days_of_inactivity
-    desc: Maximum allowable number of days an account can stay inactive before deactivation.
-    type: Numeric
-    value: 35
-
-  # SV-204427, SV-204428, SV-255928
-  - name: expected_unsuccessful_attempts
-    desc: number of unsuccessful attempts
-    type: Numeric
-    value: 3
-
-  # SV-204427, SV-204428, SV-255928
-  - name: expected_fail_interval
-    desc: Interval of time in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
-    type: Numeric
-    value: 900
-
-  - name: expected_lockout_time
-    desc: Amount of time account must be locked out after failed logins. This attribute should never be set greater than 604800 (time in seconds).
-    value: 604800
-
-  - name: max_unsuccessful_attempts
-    desc: Maximum number of unsuccessful attempts by policy
-    type: Numeric
-    value: 3
-
-  - name: max_fail_interval
-    desc: Maximum interval of time, according to policy, in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
-    type: Numeric
-    value: 900
-
-  - name: min_lockout_time
-    desc: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
-    value: 604800
-
-=======
   - name: days_of_inactivity
     desc: Maximum allowable number of days an account can stay inactive before deactivation.
     type: Numeric
@@ -356,7 +283,6 @@ inputs:
     desc: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
     value: 604800
 
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
   # SV-204445 SV-251705
   - name: file_integrity_tool
     desc: Name of tool
@@ -376,42 +302,17 @@ inputs:
     value: "weekly"
 
   # SV-204579
-<<<<<<< HEAD
-  - name: expected_system_activity_timeout
-    desc: System activity timeout (time in seconds).
-    type: Numeric
-    value: 600
-
-  # SV-204579
-  - name: max_system_activity_timeout
-    desc: Maximum system activity timeout (time in seconds) allowed by policy.
-=======
   - name: system_activity_timeout
     desc: System activity timeout (time in seconds).
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
     type: Numeric
     value: 600
 
   # SV-204587
-<<<<<<< HEAD
-  - name: expected_client_alive_interval
-    desc: Expected specific value of the client alive interval (time in seconds).
-    type: Numeric
-    value: 600
-
-  # SV-204587
-  - name: max_client_alive_interval
-    desc: Maximum allowed client alive interval (time in seconds).
-    type: Numeric
-    value: 600
-
-=======
   - name: client_alive_interval
     desc: Value of the client alive interval (time in seconds).
     type: Numeric
     value: 600
 
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
   # SV-204441, SV-204631, SV-204633
   - name: smart_card_status
     desc: Smart card status (enabled or disabled)
@@ -644,19 +545,8 @@ inputs:
     value: ""
 
   # SV-204576
-<<<<<<< HEAD
-  - name: expected_maxlogins_limit
-    desc: "Expected value for the maxlogins setting."
-    type: Numeric
-    value: 10
-
-  # SV-204576
-  - name: max_maxlogins_limit
-    desc: "The maxium value that can be used for maxlogins by policy."
-=======
   - name: maxlogins_limit
     desc: "Value for the maxlogins setting."
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
     type: Numeric
     value: 10
 
@@ -723,19 +613,8 @@ inputs:
     value: "/etc/dconf/db/local.d/locks/00-No-Automount"
 
   # SV-204414
-<<<<<<< HEAD
-  - name: classrepeat
-    desc: "Expected system setting for the maximum number of allowed same consecutive characters in the same class of a new password. Maximum of 4"
-    type: Numeric
-    value: 4
-
-  # SV-204414
-  - name: max_classrepeat
-    desc: "Maximum allowable value for classrepeat by policy."
-=======
   - name: max_classrepeat
     desc: "System setting for the maximum number of allowed same consecutive characters in the same class of a new password."
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
     type: Numeric
     value: 4
 
@@ -748,31 +627,12 @@ inputs:
   #SV-204420
   - name: pass_max_days
     desc: "Password lifetime restriction for new user accounts"
-<<<<<<< HEAD
-    type: Numeric
-    value: 60
-
-  #SV-204420
-  - name: max_pass_max_days
-    desc: "Maximum password lifetime restriction for new user accounts, by policy"
-=======
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
     type: Numeric
     value: 60
 
   #SV-204431
   - name: fail_delay
-<<<<<<< HEAD
-    desc: "Expected value for the delay between logon prompts following a failed console logon attempt in seconds"
-    type: Numeric
-    value: 4
-
-  #SV-204431
-  - name: min_fail_delay
-    desc: "Minimum value for the delay between logon prompts following a failed console logon attempt in seconds, by policy"
-=======
     desc: "Value for the delay between logon prompts following a failed console logon attempt in seconds"
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
     type: Numeric
     value: 4
 
@@ -851,68 +711,26 @@ inputs:
       - /
 
   # SV-228564
-<<<<<<< HEAD
-  - name: expected_audit_file_mode
-    desc: Expected mode for the audit log (in octal format)
-    type: String
-    value: "0600"
-
-  # SV-228564
-=======
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
   - name: max_audit_file_mode
     desc: Maximum mode allowed for the audit log (in octal format)
     type: String
     value: "0600"
 
   #SV-204412
-<<<<<<< HEAD
-  - name: expected_minclass
-=======
   - name: minclass
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
     desc: "Value for the minimum number of characters that must change between password resets"
     type: Numeric
     value: 4
 
-<<<<<<< HEAD
-  #SV-204412
-  - name: min_minclass
-    desc: "Minimum value for the minimum number of characters that must change between password resets, as allowed by policy"
-    type: Numeric
-    value: 4
-
-  #SV-204419
-  - name: expected_password_lifetime
-    desc: "Expected value for the minimum lifetime of a password before it can be a reset"
-    type: Numeric
-    value: 1
-
-  #SV-204419
-  - name: min_password_lifetime
-    desc: "Minimum value for the lifetime of a password before it needs a reset, as allowed by policy"
-=======
   #SV-204419
   - name: min_password_lifetime
     desc: "Minimum lifetime of a password before it can be a reset"
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
     type: Numeric
     value: 1
 
   #SV-204421
-<<<<<<< HEAD
-  - name: expected_max_password_lifetime
-    desc: "Expected value for the maximum lifetime of a password before it needs a reset"
-    type: Numeric
-    value: 60
-
-  #SV-204421
-  - name: max_password_lifetime
-    desc: "Maximum value for the maximum lifetime of a password before it needs a reset, as allowed by policy"
-=======
   - name: max_password_lifetime
     desc: "Maximum lifetime of a password before it needs a reset"
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
     type: Numeric
     value: 60
   
@@ -921,12 +739,3 @@ inputs:
     desc: Emergency user accounts
     type: Array
     value: []
-<<<<<<< HEAD
-
-  #SV-254523
-  - name: emergency_account_disable
-    desc: Expiration time for an emergency account (in hours)
-    type: Numeric
-    value : 72
-=======
->>>>>>> 790232a0e1364fbeef798a5f1c3d39c44a651f50
