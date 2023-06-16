@@ -11,12 +11,12 @@ control 'SV-204426' do
     password expires with the following command:
     # grep -i inactive /etc/default/useradd
     INACTIVE=35
-    If "INACTIVE" is set to "-1", a value greater than '#{input('max_days_of_inactivity')}', is commented out, or is not defined, this is a finding."
+    If \"INACTIVE\" is set to \"-1\", a value greater than '#{input('max_days_of_inactivity')}', is commented out, or is not defined, this is a finding."
   desc 'fix', "Configure the operating system to disable account identifiers (individuals, groups, roles, and
     devices) 35 days after the password expires.
-    Add the following line to "/etc/default/useradd" (or modify the line to have the required value):
+    Add the following line to \"/etc/default/useradd\" (or modify the line to have the required value):
     INACTIVE=35
-    #{input('org_name')} recommendation is #{input('max_days_of_inactivity')} days, but a lower value is acceptable. The value "-1" will disable this feature, and "0"
+    #{input('org_name')} recommendation is #{input('max_days_of_inactivity')} days, but a lower value is acceptable. The value \"-1\" will disable this feature, and \"0\"
     will disable the account immediately after the password expires."
   impact 0.5
   tag legacy: ['SV-86565', 'V-71941']

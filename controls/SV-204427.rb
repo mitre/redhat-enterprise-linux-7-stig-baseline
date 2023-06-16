@@ -9,33 +9,33 @@ control 'SV-204427' do
     auth required pam_faillock.so preauth silent audit deny=#{input('expected_unsuccessful_attempts')} even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
     auth [default=die] pam_faillock.so authfail audit deny=#{input('expected_unsuccessful_attempts')} even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
     account required pam_faillock.so
-    If the "deny" parameter is set to "0" or a value greater than '#{input('expected_unsuccessful_attempts')}' on both "auth" lines with the "pam_faillock.so"
+    If the \"deny\" parameter is set to \"0\" or a value greater than '#{input('expected_unsuccessful_attempts')}' on both \"auth\" lines with the \"pam_faillock.so\"
     module, or is missing from these lines, this is a finding.
-    If the "even_deny_root" parameter is not set on both "auth" lines with the "pam_faillock.so" module, or is missing
+    If the \"even_deny_root\" parameter is not set on both \"auth\" lines with the \"pam_faillock.so\" module, or is missing
     from these lines, this is a finding.
-    If the "fail_interval" parameter is set to "0" or is set to a value less than '#{input('expected_fail_interval')}' on both "auth" lines with the
-    "pam_faillock.so" module, or is missing from these lines, this is a finding.
-    If the "unlock_time" parameter is not set to "0", "never", or is set to a value less than '#{input('expected_fail_interval')}' on both "auth" lines
-    with the "pam_faillock.so" module, or is missing from these lines, this is a finding.
-    Note: The maximum configurable value for "unlock_time" is "604800".
-    If any line referencing the "pam_faillock.so" module is commented out, this is a finding.
+    If the \"fail_interval\" parameter is set to \"0\" or is set to a value less than '#{input('expected_fail_interval')}' on both \"auth\" lines with the
+    \"pam_faillock.so\" module, or is missing from these lines, this is a finding.
+    If the \"unlock_time\" parameter is not set to \"0\", \"never\", or is set to a value less than '#{input('expected_fail_interval')}' on both \"auth\" lines
+    with the \"pam_faillock.so\" module, or is missing from these lines, this is a finding.
+    Note: The maximum configurable value for \"unlock_time\" is \"604800\".
+    If any line referencing the \"pam_faillock.so\" module is commented out, this is a finding.
     # grep pam_faillock.so /etc/pam.d/system-auth
     auth required pam_faillock.so preauth silent audit deny=#{input('expected_unsuccessful_attempts')} even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
     auth [default=die] pam_faillock.so authfail audit deny=#{input('expected_unsuccessful_attempts')} even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
     account required pam_faillock.so
-    If the "deny" parameter is set to "0" or a value greater than '#{input('expected_unsuccessful_attempts')}' on both "auth" lines with the "pam_faillock.so"
+    If the \"deny\" parameter is set to \"0\" or a value greater than '#{input('expected_unsuccessful_attempts')}' on both \"auth\" lines with the \"pam_faillock.so\"
     module, or is missing from these lines, this is a finding.
-    If the "even_deny_root" parameter is not set on both "auth" lines with the "pam_faillock.so" module, or is missing
+    If the \"even_deny_root\" parameter is not set on both \"auth\" lines with the \"pam_faillock.so\" module, or is missing
     from these lines, this is a finding.
-    If the "fail_interval" parameter is set to "0" or is set to a value less than '#{input('expected_fail_interval')}' on both "auth" lines with the
-    "pam_faillock.so" module, or is missing from these lines, this is a finding.
-    If the "unlock_time" parameter is not set to "0", "never", or is set to a value less than '#{input('expected_fail_interval')}' on both "auth" lines
-    with the "pam_faillock.so" module or is missing from these lines, this is a finding.
-    Note: The maximum configurable value for "unlock_time" is "604800".
-    If any line referencing the "pam_faillock.so" module is commented out, this is a finding."
+    If the \"fail_interval\" parameter is set to \"0\" or is set to a value less than '#{input('expected_fail_interval')}' on both \"auth\" lines with the
+    \"pam_faillock.so\" module, or is missing from these lines, this is a finding.
+    If the \"unlock_time\" parameter is not set to \"0\", \"never\", or is set to a value less than '#{input('expected_fail_interval')}' on both \"auth\" lines
+    with the \"pam_faillock.so\" module or is missing from these lines, this is a finding.
+    Note: The maximum configurable value for \"unlock_time\" is \"604800\".
+    If any line referencing the \"pam_faillock.so\" module is commented out, this is a finding."
   desc 'fix', "Configure the operating system to lock an account for the maximum period when three unsuccessful logon attempts in #{input('expected_fail_interval')/60} minutes are made.
 
-Add/Modify the appropriate sections of the "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" files to match the following lines:
+Add/Modify the appropriate sections of the \"/etc/pam.d/system-auth\" and \"/etc/pam.d/password-auth\" files to match the following lines:
 
 auth        required      pam_faillock.so preauth silent audit deny=#{input('expected_unsuccessful_attempts')} even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
 auth        sufficient    pam_unix.so try_first_pass

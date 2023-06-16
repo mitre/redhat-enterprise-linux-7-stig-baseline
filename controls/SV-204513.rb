@@ -14,12 +14,12 @@ control 'SV-204513' do
     storage capacity is reached:
     $ sudo grep -iw space_left /etc/audit/auditd.conf
     space_left = #{input('min_space_left')}%
-    If the value of the "space_left" keyword is not set to #{input('min_space_left')} percent of the total partition size, this is a finding."
+    If the value of the \"space_left\" keyword is not set to #{input('min_space_left')} percent of the total partition size, this is a finding."
   desc 'fix', "Configure the operating system to initiate an action to notify the SA and ISSO (at a minimum) when
     allocated audit record storage volume reaches #{input('storage_volume')} percent of the repository maximum audit record storage capacity.
-    Set the value of the "space_left" keyword in "/etc/audit/auditd.conf" to #{input('min_space_left')} percent of the partition size.
+    Set the value of the \"space_left\" keyword in \"/etc/audit/auditd.conf\" to #{input('min_space_left')} percent of the partition size.
     space_left = #{input('min_space_left')}%
-    Reload the auditd daemon to apply changes made to the "/etc/audit/auditd.conf" file."
+    Reload the auditd daemon to apply changes made to the \"/etc/audit/auditd.conf\" file."
   impact 0.5
   tag legacy: ['V-72089', 'SV-86713']
   tag severity: 'medium'
