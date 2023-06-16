@@ -22,7 +22,9 @@ inputs:
   - name: org_name
     desc: "Name of the organization running this profile"
     type: Hash
-    value: "DoD"
+    value:
+      acronym: "DoD"
+      full_form: "Department of Defense"
 
   - name: disable_slow_controls
     desc: Controls that are known to consistently have long run times can be disabled with this attribute

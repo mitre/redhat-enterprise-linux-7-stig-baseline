@@ -17,7 +17,7 @@ Determine which profile the system database is using with the following command:
 
 Check for the lock delay setting with the following command:
 
-Note: The example below is using the database "local" for the system, so the path is "/etc/dconf/db/local.d". This path must be modified if a database other than "local" is being used.
+Note: The example below is using the database \"local\" for the system, so the path is \"/etc/dconf/db/local.d\". This path must be modified if a database other than \"local\" is being used.
 
      # grep -i lock-delay /etc/dconf/db/local.d/locks/*
      /org/gnome/desktop/screensaver/lock-delay
@@ -27,8 +27,8 @@ If the command does not return a result, this is a finding."
     period of inactivity for graphical user interfaces.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
     command:
-    Note: The example below is using the database "local" for the system, so if the system is using another database in
-    "/etc/dconf/profile/user", the file should be created under the appropriate subdirectory.
+    Note: The example below is using the database \"local\" for the system, so if the system is using another database in
+    \"/etc/dconf/profile/user\", the file should be created under the appropriate subdirectory.
     # touch /etc/dconf/db/local.d/locks/session
     Add the setting to lock the screensaver lock delay:
     /org/gnome/desktop/screensaver/lock-delay"

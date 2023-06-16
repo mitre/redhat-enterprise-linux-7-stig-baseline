@@ -23,7 +23,7 @@ control 'SV-204393' do
     Create a database to contain the system-wide graphical user logon settings (if it does not already exist) with the
     following command:
     # touch /etc/dconf/db/local.d/01-banner-message
-    Add the following line to the [org/gnome/login-screen] section of the "/etc/dconf/db/local.d/01-banner-message":
+    Add the following line to the [org/gnome/login-screen] section of the \"/etc/dconf/db/local.d/01-banner-message\":
     [org/gnome/login-screen]
     banner-message-enable=true
     Update the system databases:

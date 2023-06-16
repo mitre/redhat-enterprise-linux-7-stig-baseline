@@ -30,7 +30,7 @@ control 'SV-204394' do
     banner-message-text='#{input('banner_message_text_gui')}'
     Note: The "\n " characters are for formatting only. They will not be displayed on the Graphical User Interface.
     Run the following command to update the database:
-    # dconf update)
+    # dconf update)}
   impact 0.5
   tag legacy: ['V-71861', 'SV-86485']
   tag severity: 'medium'

@@ -16,7 +16,7 @@ Check to see if GNOME is configured to display a screensaver after a #{input('lo
      # grep -i idle-delay /etc/dconf/db/local.d/*
      idle-delay=uint32 900
 
-If the "idle-delay" setting is missing or is not set to "900" or less, this is a finding.'
+If the \"idle-delay\" setting is missing or is not set to \"900\" or less, this is a finding.'
   desc 'fix', 'Configure the operating system to initiate a screensaver after a #{input('lockout_time')}-minute period of inactivity for
     graphical user interfaces.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
@@ -26,7 +26,7 @@ If the "idle-delay" setting is missing or is not set to "900" or less, this is a
     [org/gnome/desktop/session]
     # Set the lock time out to 900 seconds before the session is considered idle
     idle-delay=uint32 900
-    You must include the "uint32" along with the integer key values as shown.
+    You must include the \"uint32\" along with the integer key values as shown.
     Update the system databases:
     # dconf update
     Users must log out and back in again before the system-wide settings take effect."
