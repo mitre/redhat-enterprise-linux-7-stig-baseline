@@ -20,20 +20,24 @@ Check the cron directories for a script file controlling the execution of the fi
      /var/spool/cron/root: 30 04 * * * /usr/sbin/aide  --check
 
 If the file integrity application does not exist, or a script file controlling the execution of the file integrity application does not exist, this is a finding.'
-  desc 'fix', 'Configure the file integrity tool to run automatically on the system at least weekly. The following example output is generic. It will set cron to run AIDE daily, but other file integrity tools may be used:
+  desc 'fix', 'Configure the file integrity tool to run automatically on the system at least weekly. 
+
+The following example output is generic. It will set cron to run AIDE daily, but other file integrity tools may be used:  
 
      # more /etc/cron.daily/aide
      #!/bin/bash
 
-     /usr/sbin/aide --check | /var/spool/mail -s "$HOSTNAME - Daily aide integrity check run" root@sysname.mil'
+     /usr/sbin/aide --check | /bin/mail -s "$HOSTNAME - Daily AIDE integrity check run" root@example_server_name.mil
+
+Note: Per requirement RHEL-07-020028, the "mailx" package must be installed on the system to enable email functionality.'
   impact 0.5
   tag legacy: ['SV-86597', 'V-71973']
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000363-GPOS-00150'
   tag gid: 'V-204445'
-  tag rid: 'SV-204445r880848_rule'
+  tag rid: 'SV-204445r902698_rule'
   tag stig_id: 'RHEL-07-020030'
-  tag fix_id: 'F-36304r880847_fix'
+  tag fix_id: 'F-36304r902697_fix'
   tag cci: ['CCI-001744']
   tag nist: ['CM-3 (5)']
   tag subsystems: ['file_integrity_tool']

@@ -30,6 +30,7 @@ account     required      pam_faillock.so
 account     include       system-auth-ac
 
 password    requisite     pam_pwhistory.so use_authtok remember=5 retry=3
+password    requisite     pam_pwquality.so retry=3
 password    include       system-auth-ac
 password    sufficient    pam_unix.so sha512 shadow try_first_pass use_authtok
 
@@ -49,6 +50,7 @@ account     required      pam_faillock.so
 account     include       password-auth-ac
 
 password    requisite     pam_pwhistory.so use_authtok remember=5 retry=3
+password    requisite     pam_pwquality.so retry=3
 password    include       password-auth-ac
 password    sufficient    pam_unix.so sha512 shadow try_first_pass use_authtok
 
@@ -58,7 +60,7 @@ Create new or move existing symbolic links to the new custom configuration files
      $ sudo ln -sf /etc/pam.d/system-auth-local /etc/pam.d/system-auth
      $ sudo ln -sf /etc/pam.d/password-auth-local /etc/pam.d/password-auth
 
-Once finished you should have the following file structure:
+Once finished, the following file structure should be present:
     $ sudo ls -1 /etc/pam.d/{password,system}-auth*
 
     /etc/pam.d/password-auth
@@ -68,17 +70,15 @@ Once finished you should have the following file structure:
     /etc/pam.d/system-auth-ac
     /etc/pam.d/system-auth-local
 
-Done.
-
 Note: With this solution in place any custom settings to "system-auth" and "password-auth" will be retained and not overwritten by the use of the authconfig utility.  The authconfig utility will write its settings to "system-auth-ac" and "password-auth-ac" and continue to function as expected.'
   impact 0.5
   tag check_id: 'C-59605r880828_chk'
   tag severity: 'medium'
   tag gid: 'V-255928'
-  tag rid: 'SV-255928r880830_rule'
+  tag rid: 'SV-255928r902706_rule'
   tag stig_id: 'RHEL-07-010199'
   tag gtitle: 'SRG-OS-000073-GPOS-00041'
-  tag fix_id: 'F-59548r880829_fix'
+  tag fix_id: 'F-59548r902705_fix'
   tag 'documentable'
   tag cci: ['CCI-000196']
   tag nist: ['IA-5 (1) (c)']
@@ -98,6 +98,7 @@ Note: With this solution in place any custom settings to "system-auth" and "pass
       it { should match /account.*required.*pam_faillock.so/ }
       it { should match /account.*include.*system-auth-ac/ }
       it { should match /password.*requisite.*pam_pwhistory.so.*use_authtok.*remember=5.*retry=3/ }
+      it { should match /password.*requisite.*pam_pwquality.so.*retry=3/ }
       it { should match /password.*include.*system-auth-ac/ }
       it { should match /password.*sufficient.*pam_unix.so.*sha512.*shadow.*try_first_pass.*use_authtok/ }
       it { should match /session.*include.*system-auth-ac/ }
@@ -120,6 +121,7 @@ Note: With this solution in place any custom settings to "system-auth" and "pass
       it { should match /account.*required.*pam_faillock.so/ }
       it { should match /account.*include.*password-auth-ac/ }
       it { should match /password.*requisite.*pam_pwhistory.so.*use_authtok.*remember=5.*retry=3/ }
+      it { should match /password.*requisite.*pam_pwquality.so.*retry=3/ }
       it { should match /password.*include.*password-auth-ac/ }
       it { should match /password.*sufficient.*pam_unix.so.*sha512.*shadow.*try_first_pass.*use_authtok/ }
       it { should match /session.*include.*password-auth-ac/ }

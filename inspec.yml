@@ -389,14 +389,8 @@ inputs:
     value: false
 
   # SV-204406
-  - name: retry
-    desc: number of allowed password retries
-    type: Numeric
-    value: 3
-
-  # SV-204406
   - name: max_retry
-    desc: maximum number of password retries by policy
+    desc: maximum number of password retries
     type: Numeric
     value: 3
 
