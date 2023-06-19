@@ -37,13 +37,10 @@ Note: The value of "retry" should be between "1" and "3".'
   tag 'host'
   tag 'container'
 
+  max_retry = input('max_retry')
   describe pam('/etc/pam.d/system-auth') do
-    its('lines') { should match_pam_rule("password required pam_pwquality.so retry=#{input('retry')}") }
-  end
-
-  describe 'input value' do
-    it 'for retry should be in line with maximum/minimum allowed values by policy' do
-      expect(input('retry')).to be_between(1, input('max_retry'))
-    end
+    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so') }
+    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '>=', 1) }
+    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '<=', max_retry) }
   end
 end
