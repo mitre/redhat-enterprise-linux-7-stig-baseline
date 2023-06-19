@@ -5,7 +5,7 @@ control 'SV-204406' do
     Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing
     and brute-force attacks. "pwquality" enforces complex password construction configuration and has the ability to
     limit brute-force attacks on the system.'
-  desc 'check', 'Verify the operating system uses "pwquality" to enforce the password complexity rules. 
+  desc 'check', 'Verify the operating system uses "pwquality" to enforce the password complexity rules.
 
 Check for the use of "pwquality" with the following command:
 
