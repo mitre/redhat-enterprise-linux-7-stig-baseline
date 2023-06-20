@@ -9,7 +9,7 @@ control 'SV-204578' do
     authentication that meets #{input('org_name')} requirements. This allows for Security Levels 1, 2, 3, or 4 for use on a general
     purpose computing system.
     The system will attempt to use the first cipher presented by the client that matches the server list. Listing the
-    values "strongest to weakest" is a method to ensure the use of the strongest cipher available to secure the SSH
+    values \"strongest to weakest\" is a method to ensure the use of the strongest cipher available to secure the SSH
     connection."
   desc 'check', 'Verify the operating system uses mechanisms meeting the requirements of applicable federal laws,
     Executive orders, directives, policies, regulations, standards, and guidance for authentication to a cryptographic

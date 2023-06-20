@@ -13,15 +13,15 @@ control 'SV-204587' do
     session and releases the resources associated with that session.'
   desc 'check', "Verify the operating system automatically terminates a user session after inactivity time-outs have
     expired.
-    Check for the value of the "ClientAliveInterval" keyword with the following command:
+    Check for the value of the \"ClientAliveInterval\" keyword with the following command:
     # grep -iw clientaliveinterval /etc/ssh/sshd_config
     ClientAliveInterval #{input('max_client_alive_interval')}
-    If "ClientAliveInterval" is not configured, commented out, or has a value of "0", this is a finding.
-    If "ClientAliveInterval" has a value that is greater than '#{input('max_client_alive_interval')} and is not documented with the Information System
+    If \"ClientAliveInterval\" is not configured, commented out, or has a value of \"0\", this is a finding.
+    If \"ClientAliveInterval\" has a value that is greater than '#{input('max_client_alive_interval')} and is not documented with the Information System
     Security Officer (ISSO) as an operational requirement, this is a finding."
   desc 'fix', "Configure the operating system to automatically terminate a user session after inactivity time-outs
     have expired or at shutdown.
-    Add the following line (or modify the line to have the required value) to the "/etc/ssh/sshd_config" file (this file
+    Add the following line (or modify the line to have the required value) to the \"/etc/ssh/sshd_config\" file (this file
     may be named differently or be in a different location if using a version of SSH that is provided by a third-party
     vendor):
     ClientAliveInterval #{input('max_client_alive_interval')}

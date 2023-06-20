@@ -15,7 +15,7 @@ control 'SV-204580' do
     # grep -i banner /etc/ssh/sshd_config
     banner /etc/issue
     This command will return the banner keyword and the name of the file that contains the ssh banner (in this case
-    "/etc/issue").
+    \"/etc/issue\").
     If the line is commented out, this is a finding.
     View the file specified by the banner keyword to check that it matches the text of the Standard Mandatory #{input('org_name')} Notice
     and Consent Banner:
@@ -25,7 +25,7 @@ control 'SV-204580' do
     If the text in the file does not match the Standard Mandatory #{input('org_name')} Notice and Consent Banner, this is a finding."
   desc 'fix', "Configure the operating system to display the Standard Mandatory #{input('org_name')} Notice and Consent Banner before
     granting access to the system via the ssh.
-    Edit the "/etc/ssh/sshd_config" file to uncomment the banner keyword and configure it to point to a file that will
+    Edit the \"/etc/ssh/sshd_config\" file to uncomment the banner keyword and configure it to point to a file that will
     contain the logon banner (this file may be named differently or be in a different location if using a version of SSH
     that is provided by a third-party vendor). An example configuration line is:
     banner /etc/issue
