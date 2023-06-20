@@ -1,7 +1,7 @@
 control 'SV-255928' do
-  title 'The Red Hat Enterprise Linux operating system must be configured to prevent overwriting of custom authentication configuration settings by the authconfig utility.'
-  desc 'When using the authconfig utility to modify authentication configuration settings, the "system-auth" and "password-auth" files and any custom settings that they may contain are overwritten. This can be avoided by creating new local configuration files and creating new or moving existing symbolic links to them. The authconfig utility will recognize the local configuration files and not overwrite them, while writing its own settings to the original configuration files.'
-  desc 'check', 'Verify "system-auth" and "password-auth" files are symbolic links pointing to "system-auth-local" and "password-auth-local":
+  title "The Red Hat Enterprise Linux operating system must be configured to prevent overwriting of custom authentication configuration settings by the authconfig utility."
+  desc "When using the authconfig utility to modify authentication configuration settings, the \"system-auth\" and \"password-auth\" files and any custom settings that they may contain are overwritten. This can be avoided by creating new local configuration files and creating new or moving existing symbolic links to them. The authconfig utility will recognize the local configuration files and not overwrite them, while writing its own settings to the original configuration files."
+  desc 'check', "Verify \"system-auth\" and \"password-auth\" files are symbolic links pointing to \"system-auth-local\" and \"password-auth-local\":
      $ sudo ls -l /etc/pam.d/{password,system}-auth
 
      lrwxrwxrwx. 1 root root 30 Apr 1 11:59 /etc/pam.d/password-auth -> /etc/pam.d/password-auth-local
@@ -9,7 +9,7 @@ control 'SV-255928' do
 
 If system-auth and password-auth files are not symbolic links, this is a finding.
 
-If system-auth and password-auth are symbolic links but do not point to "system-auth-local" and "password-auth-local", this is a finding.'
+If system-auth and password-auth are symbolic links but do not point to \"system-auth-local\" and \"password-auth-local\", this is a finding."
   desc 'fix', "Create custom configuration files and their corresponding symbolic links:
 
 Rename the existing configuration files (skip this step if symbolic links are already present):
@@ -70,7 +70,7 @@ Once finished you should have the following file structure:
 
 Done.
 
-Note: With this solution in place any custom settings to "system-auth" and "password-auth" will be retained and not overwritten by the use of the authconfig utility.  The authconfig utility will write its settings to "system-auth-ac" and "password-auth-ac" and continue to function as expected.'
+Note: With this solution in place any custom settings to \"system-auth\" and \"password-auth\" will be retained and not overwritten by the use of the authconfig utility.  The authconfig utility will write its settings to \"system-auth-ac\" and \"password-auth-ac\" and continue to function as expected."
   impact 0.5
   tag check_id: 'C-59605r880828_chk'
   tag severity: 'medium'
