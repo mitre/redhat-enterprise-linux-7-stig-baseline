@@ -224,13 +224,7 @@ inputs:
     value: 5
 
   # SV-204411
-  - name: expected_difok
-    desc: Number of characters that must be different from previous password
-    type: Numeric
-    value: 8
-
-  # SV-204411
-  - name: max_difok
+  - name: difok
     desc: Minimum number of characters that must be different from previous password, by policy
     type: Numeric
     value: 8
