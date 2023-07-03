@@ -236,13 +236,7 @@ inputs:
     value: 8
 
   # SV-204413
-  - name: expected_passwd_repeats
-    desc: Number of allowed same consecutive characters in a new password
-    type: Numeric
-    value: 3
-
-  # SV-204413
-  - name: max_passwd_repeats
+  - name: passwd_repeats
     desc: Maximum number of allowed same consecutive characters in a new password, by policy
     type: Numeric
     value: 3
