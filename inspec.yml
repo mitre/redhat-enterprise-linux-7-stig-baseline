@@ -218,8 +218,8 @@ inputs:
     value: "I've read & consent to terms in IS user agreem't."
 
   # SV-204404
-  - name: expected_lock_delay
-    desc: Expected value for the screensaver lock-delay
+  - name: lock_delay
+    desc: Maximum value for the screensaver lock-delay
     type: Numeric
     value: 5
 
