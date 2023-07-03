@@ -720,7 +720,7 @@ inputs:
 
   #SV-204412
   - name: minclass
-    desc: "Value for the minimum number of characters that must change between password resets"
+    desc: "Value for the minimum number of character classes that must change between password resets"
     type: Numeric
     value: 4
 
