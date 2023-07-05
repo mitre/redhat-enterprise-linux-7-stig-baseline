@@ -236,12 +236,6 @@ inputs:
     value: 3
 
   # SV-204422
-  - name: expected_reuse_generations
-    desc: Number of reuse generations for passwords
-    type: Numeric
-    value: 5
-
-  # SV-204422
   - name: min_reuse_generations
     desc: Minimum number of reuse generations for passwords by policy
     type: Numeric
