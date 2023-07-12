@@ -43,7 +43,7 @@ inputs:
     type: Numeric
     value: 25
 
-  # SV-204398, SV-204399, SV-204400, SV-204402, SV-204403, SV-214397
+  # SV-204399, SV-204400, SV-204402, SV-204403, SV-214397
   - name: lockout_time
     desc: Minimum amount of time account must be locked out after failed logins (in minutes)
     type: Numeric

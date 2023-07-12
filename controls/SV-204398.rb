@@ -1,5 +1,5 @@
 control 'SV-204398' do
-  title "The Red Hat Enterprise Linux operating system must initiate a screensaver after a #{input('lockout_time')}-minute period of
+  title "The Red Hat Enterprise Linux operating system must initiate a screensaver after a 15-minute period of
     inactivity for graphical user interfaces."
   desc "A session time-out lock is a temporary action taken when a user stops work and moves away from the immediate
     physical vicinity of the information system but does not log out because of the temporary nature of the absence.
@@ -7,17 +7,17 @@ control 'SV-204398' do
     operating systems need to be able to identify when a user's session has idled and take action to initiate the
     session lock.
     The session lock is implemented at the point where session activity can be determined and/or controlled."
-  desc 'check', "Verify the operating system initiates a screensaver after a #{input('lockout_time')}-minute period of inactivity for graphical user interfaces.
+  desc 'check', "Verify the operating system initiates a screensaver after a 15-minute period of inactivity for graphical user interfaces.
 
 Note: If the system does not have GNOME installed, this requirement is Not Applicable.
 
-Check to see if GNOME is configured to display a screensaver after a #{input('lockout_time')} minute delay with the following command:
+Check to see if GNOME is configured to display a screensaver after a 15 minute delay with the following command:
 
      # grep -i idle-delay /etc/dconf/db/local.d/*
      idle-delay=uint32 900
 
 If the \"idle-delay\" setting is missing or is not set to \"900\" or less, this is a finding.'
-  desc 'fix', 'Configure the operating system to initiate a screensaver after a #{input('lockout_time')}-minute period of inactivity for
+  desc 'fix', 'Configure the operating system to initiate a screensaver after a 15-minute period of inactivity for
     graphical user interfaces.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
     command:
