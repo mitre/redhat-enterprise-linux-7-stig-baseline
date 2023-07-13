@@ -416,7 +416,7 @@ inputs:
 
   # SV-204406
   - name: retry
-    desc: number of allowed password retries
+    desc: Number of chances the user gets to create a strong password
     type: Numeric
     value: 3
 
