@@ -21,15 +21,15 @@ Create custom system-auth configuration file:
 
 The new file, at minimum, must contain the following lines:
 
-auth        required      pam_faillock.so preauth silent audit deny=#{input('expected_unsuccessful_attempts')} even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
+auth        required      pam_faillock.so preauth silent audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
 auth        include       system-auth-ac
 auth        sufficient    pam_unix.so try_first_pass
-auth        [default=die] pam_faillock.so authfail audit deny=#{input('expected_unsuccessful_attempts')} even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
+auth        [default=die] pam_faillock.so authfail audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
 
 account     required      pam_faillock.so
 account     include       system-auth-ac
 
-password    requisite     pam_pwhistory.so use_authtok remember=5 retry=#{input('expected_unsuccessful_attempts')}
+password    requisite     pam_pwhistory.so use_authtok remember=5 retry=#{input('unsuccessful_attempts')}
 password    include       system-auth-ac
 password    sufficient    pam_unix.so sha512 shadow try_first_pass use_authtok
 
@@ -40,15 +40,15 @@ Create custom password-auth configuration file:
 
 The new file, at minimum, must contain the following lines:
 
-auth        required      pam_faillock.so preauth silent audit deny=#{input('expected_unsuccessful_attempts')} even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
+auth        required      pam_faillock.so preauth silent audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
 auth        include       password-auth-ac
 auth        sufficient    pam_unix.so try_first_pass
-auth        [default=die] pam_faillock.so authfail audit deny=#{input('expected_unsuccessful_attempts')} even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
+auth        [default=die] pam_faillock.so authfail audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
 
 account     required      pam_faillock.so
 account     include       password-auth-ac
 
-password    requisite     pam_pwhistory.so use_authtok remember=5 retry=#{input('expected_unsuccessful_attempts')}
+password    requisite     pam_pwhistory.so use_authtok remember=5 retry=#{input('unsuccessful_attempts')}
 password    include       password-auth-ac
 password    sufficient    pam_unix.so sha512 shadow try_first_pass use_authtok
 
@@ -91,13 +91,13 @@ Note: With this solution in place any custom settings to \"system-auth\" and \"p
   if file('/etc/pam.d/system-auth').symlink? && file('/etc/pam.d/system-auth').link_path == '/etc/pam.d/system-auth-local'
     describe '/etc/pam.d/system-auth-local should contain the minimum configuration settings' do
       subject { parse_config_file('/etc/pam.d/system-auth-local').content.strip }
-      it { should match /auth.*required.*pam_faillock.so.*preauth.*silent.*audit.*deny=#{input('expected_unsuccessful_attempts')}.*even_deny_root.*fail_interval=#{input('expected_fail_interval')}.*unlock_time=#{input('expected_fail_interval')}/ }
+      it { should match /auth.*required.*pam_faillock.so.*preauth.*silent.*audit.*deny=#{input('unsuccessful_attempts')}.*even_deny_root.*fail_interval=#{input('fail_interval')}.*unlock_time=#{input('fail_interval')}/ }
       it { should match /auth.*include.*system-auth-ac/ }
       it { should match /auth.*sufficient.*pam_unix.so.*try_first_pass/ }
-      it { should match /auth.*default=die.*pam_faillock.so.*authfail.*audit.*deny=#{input('expected_unsuccessful_attempts')}.*even_deny_root.*fail_interval=#{input('expected_fail_interval')}.*unlock_time=#{input('expected_fail_interval')}/ }
+      it { should match /auth.*default=die.*pam_faillock.so.*authfail.*audit.*deny=#{input('unsuccessful_attempts')}.*even_deny_root.*fail_interval=#{input('fail_interval')}.*unlock_time=#{input('fail_interval')}/ }
       it { should match /account.*required.*pam_faillock.so/ }
       it { should match /account.*include.*system-auth-ac/ }
-      it { should match /password.*requisite.*pam_pwhistory.so.*use_authtok.*remember=5.*retry=#{input('expected_unsuccessful_attempts')}/ }
+      it { should match /password.*requisite.*pam_pwhistory.so.*use_authtok.*remember=5.*retry=#{input('unsuccessful_attempts')}/ }
       it { should match /password.*include.*system-auth-ac/ }
       it { should match /password.*sufficient.*pam_unix.so.*sha512.*shadow.*try_first_pass.*use_authtok/ }
       it { should match /session.*include.*system-auth-ac/ }
@@ -113,13 +113,13 @@ Note: With this solution in place any custom settings to \"system-auth\" and \"p
 
     describe '/etc/pam.d/password-auth-local should contain the minimum configuration settings' do
       subject { parse_config_file('/etc/pam.d/password-auth-local').content.strip }
-      it { should match /auth.*required.*pam_faillock.so.*preauth.*silent.*audit.*deny=#{input('expected_unsuccessful_attempts')}.*even_deny_root.*fail_interval=#{input('expected_fail_interval')}.*unlock_time=#{input('expected_fail_interval')}/ }
+      it { should match /auth.*required.*pam_faillock.so.*preauth.*silent.*audit.*deny=#{input('unsuccessful_attempts')}.*even_deny_root.*fail_interval=#{input('fail_interval')}.*unlock_time=#{input('fail_interval')}/ }
       it { should match /auth.*include.*password-auth-ac/ }
       it { should match /auth.*sufficient.*pam_unix.so.*try_first_pass/ }
-      it { should match /auth.*default=die.*pam_faillock.so.*authfail.*audit.*deny=#{input('expected_unsuccessful_attempts')}.*even_deny_root.*fail_interval=#{input('expected_fail_interval')}.*unlock_time=#{input('expected_fail_interval')}/ }
+      it { should match /auth.*default=die.*pam_faillock.so.*authfail.*audit.*deny=#{input('unsuccessful_attempts')}.*even_deny_root.*fail_interval=#{input('fail_interval')}.*unlock_time=#{input('fail_interval')}/ }
       it { should match /account.*required.*pam_faillock.so/ }
       it { should match /account.*include.*password-auth-ac/ }
-      it { should match /password.*requisite.*pam_pwhistory.so.*use_authtok.*remember=5.*retry=#{input('expected_unsuccessful_attempts')}/ }
+      it { should match /password.*requisite.*pam_pwhistory.so.*use_authtok.*remember=5.*retry=#{input('unsuccessful_attempts')}/ }
       it { should match /password.*include.*password-auth-ac/ }
       it { should match /password.*sufficient.*pam_unix.so.*sha512.*shadow.*try_first_pass.*use_authtok/ }
       it { should match /session.*include.*password-auth-ac/ }

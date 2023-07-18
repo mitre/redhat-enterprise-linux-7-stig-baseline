@@ -86,6 +86,7 @@ inputs:
     type: Boolean
     value: false
 
+# SV-204460
   - name: user_accounts
     desc: Accounts of known managed users
     type: Array
@@ -253,6 +254,12 @@ inputs:
     type: Numeric
     value: 35
 
+# SV-204399, SV-204400, SV-204402, SV-204403, SV-204427, SV-214937
+  - name: lockout_time
+    desc: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
+    value: 604800
+
+# SV-SV-204427, SV-204428, SV-255928
   - name: unsuccessful_attempts
     desc: Maximum number of unsuccessful attempts by policy
     type: Numeric
@@ -262,10 +269,6 @@ inputs:
     desc: Maximum interval of time, according to policy, in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
     type: Numeric
     value: 900
-
-  - name: lockout_time
-    desc: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
-    value: 604800
 
   # SV-204445 SV-251705
   - name: file_integrity_tool
@@ -552,6 +555,7 @@ inputs:
     type: Array
     value: []
 
+  # SV-204427
   - name: required_rules
     desc: "Required PAM rules"
     type: Array
@@ -574,11 +578,13 @@ inputs:
     type: Boolean
     value: false
 
+  # SV-204598
   - name: gssapi_approved
     desc: "is GSSAPI authentication approved"
     type: Boolean
     value: true
 
+  # SV-204599
   - name: disconnected_system
     desc: "Set flag to true if the target system is disconnected"
     type: Boolean
@@ -638,7 +644,7 @@ inputs:
     type: String
     value: "0740"
 
-  # SV-204476
+  # SV-204488
   - name: user_umask
     desc: Expected value for all user UMASK values (in octal format)
     type: String

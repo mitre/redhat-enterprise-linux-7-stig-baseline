@@ -1,29 +1,29 @@
 control 'SV-204428' do
-  title "The Red Hat Enterprise Linux operating system must lock the associated account after #{input('expected_unsuccessful_attempts')} unsuccessful
-    root logon attempts are made within a #{input('expected_fail_interval')/60}-minute period.'
+  title "The Red Hat Enterprise Linux operating system must lock the associated account after #{input('unsuccessful_attempts')} unsuccessful
+    root logon attempts are made within a #{input('fail_interval')/60}-minute period.'
   desc 'By limiting the number of failed logon attempts, the risk of unauthorized system access via user password
     guessing, otherwise known as brute forcing, is reduced. Limits are imposed by locking the account."
-  desc 'check', "Verify the operating system automatically locks the root account, for a minimum of #{input('expected_fail_interval')/60} minutes, when
-    #{input('expected_unsuccessful_attempts')} unsuccessful logon attempts in #{input('expected_fail_interval')/60} minutes are made.
+  desc 'check', "Verify the operating system automatically locks the root account, for a minimum of #{input('fail_interval')/60} minutes, when
+    #{input('unsuccessful_attempts')} unsuccessful logon attempts in #{input('fail_interval')/60} minutes are made.
     # grep pam_faillock.so /etc/pam.d/password-auth
-    auth required pam_faillock.so preauth silent audit deny=#{input('expected_unsuccessful_attempts')}even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
-    auth [default=die] pam_faillock.so authfail audit deny=#{input('expected_unsuccessful_attempts')}even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
+    auth required pam_faillock.so preauth silent audit deny=#{input('unsuccessful_attempts')}even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
+    auth [default=die] pam_faillock.so authfail audit deny=#{input('unsuccessful_attempts')}even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
     account required pam_faillock.so
     If the \"even_deny_root\" setting is not defined on both lines with the \"pam_faillock.so\" module, is commented out, or
     is missing from a line, this is a finding.
     # grep pam_faillock.so /etc/pam.d/system-auth
-    auth required pam_faillock.so preauth silent audit deny=#{input('expected_unsuccessful_attempts')}even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
-    auth [default=die] pam_faillock.so authfail audit deny=#{input('expected_unsuccessful_attempts')}even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
+    auth required pam_faillock.so preauth silent audit deny=#{input('unsuccessful_attempts')}even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
+    auth [default=die] pam_faillock.so authfail audit deny=#{input('unsuccessful_attempts')}even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
     account required pam_faillock.so
     If the \"even_deny_root\" setting is not defined on both lines with the \"pam_faillock.so\" module, is commented out, or
     is missing from a line, this is a finding."
-  desc 'fix', "Configure the operating system to automatically lock the root account, for a minimum of #{input('expected_fail_interval')/60} minutes, when #{input('expected_unsuccessful_attempts')} unsuccessful logon attempts in #{input('expected_fail_interval')/60} minutes are made.
+  desc 'fix', "Configure the operating system to automatically lock the root account, for a minimum of #{input('fail_interval')/60} minutes, when #{input('unsuccessful_attempts')} unsuccessful logon attempts in #{input('fail_interval')/60} minutes are made.
 
-Modify the first #{input('expected_unsuccessful_attempts')} lines of the auth section and the first line of the account section of the \"/etc/pam.d/system-auth\" and \"/etc/pam.d/password-auth\" files to match the following lines:
+Modify the first #{input('unsuccessful_attempts')} lines of the auth section and the first line of the account section of the \"/etc/pam.d/system-auth\" and \"/etc/pam.d/password-auth\" files to match the following lines:
 
-auth        required      pam_faillock.so preauth silent audit deny=#{input('expected_unsuccessful_attempts')}even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
+auth        required      pam_faillock.so preauth silent audit deny=#{input('unsuccessful_attempts')}even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
 auth        sufficient    pam_unix.so try_first_pass
-auth        [default=die] pam_faillock.so authfail audit deny=#{input('expected_unsuccessful_attempts')}even_deny_root fail_interval=#{input('expected_fail_interval')} unlock_time=#{input('expected_fail_interval')}
+auth        [default=die] pam_faillock.so authfail audit deny=#{input('unsuccessful_attempts')}even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
 account     required      pam_faillock.so
 
 Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite custom authentication configuration settings while using the authconfig utility, otherwise manual changes to the listed files will be overwritten whenever the authconfig utility is used."
