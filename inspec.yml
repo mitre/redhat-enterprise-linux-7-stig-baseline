@@ -555,6 +555,7 @@ inputs:
     type: Array
     value: []
 
+  # SV-204427
   - name: required_rules
     desc: "Required PAM rules"
     type: Array
@@ -577,11 +578,13 @@ inputs:
     type: Boolean
     value: false
 
+  # SV-204598
   - name: gssapi_approved
     desc: "is GSSAPI authentication approved"
     type: Boolean
     value: true
 
+  # SV-204599
   - name: disconnected_system
     desc: "Set flag to true if the target system is disconnected"
     type: Boolean
@@ -641,7 +644,7 @@ inputs:
     type: String
     value: "0740"
 
-  # SV-204476
+  # SV-204488
   - name: user_umask
     desc: Expected value for all user UMASK values (in octal format)
     type: String
