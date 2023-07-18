@@ -86,6 +86,7 @@ inputs:
     type: Boolean
     value: false
 
+# SV-204460
   - name: user_accounts
     desc: Accounts of known managed users
     type: Array
@@ -253,10 +254,12 @@ inputs:
     type: Numeric
     value: 35
 
+# SV-204399, SV-204400, SV-204402, SV-204403, SV-204427, SV-214937
   - name: lockout_time
     desc: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
     value: 604800
-    
+
+# SV-SV-204427, SV-204428, SV-255928
   - name: unsuccessful_attempts
     desc: Maximum number of unsuccessful attempts by policy
     type: Numeric
