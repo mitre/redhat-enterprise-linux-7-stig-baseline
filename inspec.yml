@@ -253,6 +253,10 @@ inputs:
     type: Numeric
     value: 35
 
+  - name: lockout_time
+    desc: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
+    value: 604800
+    
   - name: unsuccessful_attempts
     desc: Maximum number of unsuccessful attempts by policy
     type: Numeric
@@ -262,10 +266,6 @@ inputs:
     desc: Maximum interval of time, according to policy, in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
     type: Numeric
     value: 900
-
-  - name: lockout_time
-    desc: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
-    value: 604800
 
   # SV-204445 SV-251705
   - name: file_integrity_tool
