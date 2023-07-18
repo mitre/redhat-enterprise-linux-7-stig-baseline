@@ -270,6 +270,10 @@ inputs:
     type: Numeric
     value: 900
 
+  - name: lockout_time
+    desc: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
+    value: 604800
+
   # SV-204445 SV-251705
   - name: file_integrity_tool
     desc: Name of tool
@@ -732,12 +736,12 @@ inputs:
 
   #SV-204407
   - name: min_uppercase_characters
-    desc: "New password must contain at least one upper-case character"
+    desc: "The new password must contain the minimum number of upper-case characters"
     type: Numeric
-    value: -1
+    value: 1
 
     #SV-204408
   - name: min_lowercase_characters
-    desc: "New password must contain at least one lower-case character"
+    desc: "The new password must contain the minimum number of lower-case characters"
     type: Numeric
-    value: -1
+    value: 1
