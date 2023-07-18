@@ -723,3 +723,15 @@ inputs:
     desc: Emergency user accounts
     type: Array
     value: []
+
+  #SV-204407
+  - name: min_uppercase_characters
+    desc: "New password must contain at least one upper-case character"
+    type: Numeric
+    value: -1
+
+    #SV-204408
+  - name: min_lowercase_characters
+    desc: "New password must contain at least one lower-case character"
+    type: Numeric
+    value: -1
