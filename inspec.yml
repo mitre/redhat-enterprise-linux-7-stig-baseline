@@ -725,6 +725,12 @@ inputs:
     type: Array
     value: []
 
+  #SV-254523
+  - name: emergency_account_disable
+    desc: Expiration time for an emergency account (in hours)
+    type: Numeric
+    value: 24
+
   #SV-204407
   - name: min_uppercase_characters
     desc: "The new password must contain the minimum number of upper-case characters"
