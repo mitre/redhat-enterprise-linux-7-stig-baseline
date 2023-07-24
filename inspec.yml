@@ -737,7 +737,14 @@ inputs:
     type: Numeric
     value: 1
 
+  # SV-204409
   - name: min_numeric_characters
     desc: The number of minimum numeric characters needed in a password
+    type: Numeric
+    value: -1
+
+  # SV-204410
+  - name: min_special_characters
+    desc: The number of minimum special characters needed in a password
     type: Numeric
     value: -1

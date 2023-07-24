@@ -16,7 +16,7 @@ control 'SV-204409' do
   desc 'fix', "Configure the operating system to enforce password complexity by requiring that at least #{input('min_numeric_characters')} numeric
     character be used by setting the \"dcredit\" option.
     Add the following line to /etc/security/pwquality.conf (or modify the line to have the required value):
-    dcredit = -1"
+    dcredit = #{input('min_numeric_characters')}"
   impact 0.5
   tag legacy: ['SV-86531', 'V-71907']
   tag severity: 'medium'
