@@ -736,3 +736,8 @@ inputs:
     desc: "The new password must contain the minimum number of lower-case characters"
     type: Numeric
     value: 1
+
+  - name: min_numeric_characters
+    desc: The number of minimum numeric characters needed in a password
+    type: Numeric
+    value: -1

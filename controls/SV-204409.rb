@@ -1,6 +1,6 @@
 control 'SV-204409' do
-  title 'The Red Hat Enterprise Linux operating system must be configured so that when passwords are changed or new
-    passwords are assigned, the new password must contain at least one numeric character.'
+  title "The Red Hat Enterprise Linux operating system must be configured so that when passwords are changed or new
+    passwords are assigned, the new password must contain at least #{input('min_numeric_characters')} numeric character."
   desc 'Use of a complex password helps to increase the time and resources required to compromise the password.
     Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing
     and brute-force attacks.
@@ -13,10 +13,10 @@ control 'SV-204409' do
     # grep dcredit /etc/security/pwquality.conf
     dcredit = -1
     If the value of "dcredit" is not set to a negative value, this is a finding.'
-  desc 'fix', 'Configure the operating system to enforce password complexity by requiring that at least one numeric
-    character be used by setting the "dcredit" option.
+  desc 'fix', "Configure the operating system to enforce password complexity by requiring that at least #{input('min_numeric_characters')} numeric
+    character be used by setting the \"dcredit\" option.
     Add the following line to /etc/security/pwquality.conf (or modify the line to have the required value):
-    dcredit = -1'
+    dcredit = -1"
   impact 0.5
   tag legacy: ['SV-86531', 'V-71907']
   tag severity: 'medium'
