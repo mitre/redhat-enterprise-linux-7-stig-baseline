@@ -283,7 +283,7 @@ inputs:
     type: String
     value: "weekly"
 
-  # SV-204579
+  # SV-204579, SV-255926
   - name: system_activity_timeout
     desc: System activity timeout (time in seconds).
     type: Numeric
