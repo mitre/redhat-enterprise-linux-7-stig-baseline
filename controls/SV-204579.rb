@@ -1,6 +1,6 @@
 control 'SV-204579' do
   title "The Red Hat Enterprise Linux operating system must be configured so that all network connections associated
-    with a communication session are terminated at the end of the session or after #{input('max_system_activity_timeout')} minutes of inactivity from the
+    with a communication session are terminated at the end of the session or after #{input('system_activity_timeout')} minutes of inactivity from the
     user at a command prompt, except to fulfill documented and validated mission requirements."
   desc 'Terminating an idle session within a short time period reduces the window of opportunity for unauthorized
     personnel to take control of a management session enabled on the console or console port that has been left
@@ -11,21 +11,21 @@ control 'SV-204579' do
     application level if multiple application sessions are using a single operating system-level network connection.
     This does not mean that the operating system terminates all sessions or network access; it only ends the inactive
     session and releases the resources associated with that session.'
-  desc 'check', 'Verify the operating system terminates all network connections associated with a communications session at the end of the session or based on inactivity.
+  desc 'check', "Verify the operating system terminates all network connections associated with a communications session at the end of the session or based on inactivity.
 
 Check the value of the system inactivity timeout with the following command:
 
 $ sudo grep -irw tmout /etc/profile /etc/bashrc /etc/profile.d
 
-etc/profile.d/tmout.sh:declare -xr TMOUT=900
+etc/profile.d/tmout.sh:declare -xr TMOUT=#{input('system_activity_timeout')}
 
 If conflicting results are returned, this is a finding.
-If "TMOUT" is not set to "900" or less to enforce session termination after inactivity, this is a finding.'
-  desc 'fix', 'Configure the operating system to terminate all network connections associated with a communications
+If "TMOUT" is not set to #{input('system_activity_timeout')} or less to enforce session termination after inactivity, this is a finding."
+  desc 'fix', "Configure the operating system to terminate all network connections associated with a communications
     session at the end of the session or after a period of inactivity.
     Create a script to enforce the inactivity timeout (for example /etc/profile.d/tmout.sh) such as:
     #!/bin/bash
-    declare -xr TMOUT=900'
+    declare -xr TMOUT=#{input('system_activity_timeout')}"
   impact 0.5
   tag legacy: ['SV-86847', 'V-72223']
   tag severity: 'medium'
