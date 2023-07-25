@@ -5,7 +5,7 @@ control 'SV-204397' do
     prevent potential misuse and compromise of the system.
     Multifactor solutions that require devices separate from information systems gaining access include, for example,
     hardware tokens providing time-based or challenge-response authenticators and smart cards such as the U.S.
-    Government Personal Identity Verification card and the #{input('org_name')} Common Access Card."
+    Government Personal Identity Verification card and the #{input('org_name')[:acronym]} Common Access Card."
   desc 'rationale', ''
   desc 'check', 'Verify the operating system uniquely identifies and authenticates users using multifactor
     authentication via a graphical user logon.

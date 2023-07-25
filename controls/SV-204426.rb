@@ -16,7 +16,7 @@ control 'SV-204426' do
     devices) 35 days after the password expires.
     Add the following line to \"/etc/default/useradd\" (or modify the line to have the required value):
     INACTIVE=35
-    #{input('org_name')} recommendation is #{input('days_of_inactivity')} days, but a lower value is acceptable. The value \"-1\" will disable this feature, and \"0\"
+    #{input('org_name')[:acronym]} recommendation is #{input('days_of_inactivity')} days, but a lower value is acceptable. The value \"-1\" will disable this feature, and \"0\"
     will disable the account immediately after the password expires."
   impact 0.5
   tag legacy: ['SV-86565', 'V-71941']

@@ -1,36 +1,36 @@
 control 'SV-204580' do
-  title "The Red Hat Enterprise Linux operating system must display the Standard Mandatory #{input('org_name')} Notice and Consent
+  title "The Red Hat Enterprise Linux operating system must display the Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent
     Banner immediately prior to, or as part of, remote access logon prompts."
   desc "Display of a standardized and approved use notification before granting access to the publicly accessible
     operating system ensures privacy and security notification verbiage used is consistent with applicable federal laws,
     Executive Orders, directives, policies, regulations, standards, and guidance.
     System use notifications are required only for access via logon interfaces with human users and are not required
     when such human interfaces do not exist.
-    The banner must be formatted in accordance with applicable #{input('org_name')} policy. Use the following verbiage for operating
+    The banner must be formatted in accordance with applicable #{input('org_name')[:acronym]} policy. Use the following verbiage for operating
     systems that can accommodate banners of 1300 characters:
     \"#{input('banner_message_text_ral')}\" "
   desc 'check', "Verify any publicly accessible connection to the operating system displays the Standard Mandatory
-    #{input('org_name')} Notice and Consent Banner before granting access to the system.
+    #{input('org_name')[:acronym]} Notice and Consent Banner before granting access to the system.
     Check for the location of the banner file being used with the following command:
     # grep -i banner /etc/ssh/sshd_config
     banner /etc/issue
     This command will return the banner keyword and the name of the file that contains the ssh banner (in this case
     \"/etc/issue\").
     If the line is commented out, this is a finding.
-    View the file specified by the banner keyword to check that it matches the text of the Standard Mandatory #{input('org_name')} Notice
+    View the file specified by the banner keyword to check that it matches the text of the Standard Mandatory #{input('org_name')[:acronym]} Notice
     and Consent Banner:
     \"#{input('banner_message_text_ral')}\"
-    If the system does not display a graphical logon banner or the banner does not match the Standard Mandatory #{input('org_name')}
+    If the system does not display a graphical logon banner or the banner does not match the Standard Mandatory #{input('org_name')[:acronym]}
     Notice and Consent Banner, this is a finding.
-    If the text in the file does not match the Standard Mandatory #{input('org_name')} Notice and Consent Banner, this is a finding."
-  desc 'fix', "Configure the operating system to display the Standard Mandatory #{input('org_name')} Notice and Consent Banner before
+    If the text in the file does not match the Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner, this is a finding."
+  desc 'fix', "Configure the operating system to display the Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner before
     granting access to the system via the ssh.
     Edit the \"/etc/ssh/sshd_config\" file to uncomment the banner keyword and configure it to point to a file that will
     contain the logon banner (this file may be named differently or be in a different location if using a version of SSH
     that is provided by a third-party vendor). An example configuration line is:
     banner /etc/issue
-    Either create the file containing the banner or replace the text in the file with the Standard Mandatory #{input('org_name')} Notice
-    and Consent Banner. The #{input('org_name')} required text is:
+    Either create the file containing the banner or replace the text in the file with the Standard Mandatory #{input('org_name')[:acronym]} Notice
+    and Consent Banner. The #{input('org_name')[:acronym]} required text is:
     \"#{input('banner_message_text_ral')}\"
     The SSH service must be restarted for changes to take effect."
   impact 0.5

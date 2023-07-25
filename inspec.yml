@@ -18,7 +18,8 @@ supports:
 
 # The following defines the default inputs for the configurable controls used in the RHEL 7 DISA STIG.
 inputs:
-  # SV-204393, SV-204394, SV-204395, SV-204397, SV-204426, SV-204431, SV-204447, SV-204448, SV-204578, SV-204580, SV-204595, SV-204603, SV-204631, SV-204632, SV-204633
+  # SV-204393, SV-204394, SV-204395, SV-204397, SV-204426, SV-204431, SV-204447, SV-204448
+  # SV-204578, SV-204580, SV-204595, SV-204603, SV-204631, SV-204632, SV-204633
   - name: org_name
     desc: "Name of the organization running this profile"
     type: Hash

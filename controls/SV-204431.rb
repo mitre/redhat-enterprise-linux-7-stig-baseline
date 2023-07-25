@@ -2,7 +2,7 @@ control 'SV-204431' do
   title 'The Red Hat Enterprise Linux operating system must be configured so that the delay between logon prompts
     following a failed console logon attempt is at least four seconds.'
   desc "Configuring the operating system to implement organization-wide security implementation guides and security
-    checklists verifies compliance with federal standards and establishes a common security baseline across #{input('org_name')} that
+    checklists verifies compliance with federal standards and establishes a common security baseline across #{input('org_name')[:acronym]} that
     reflects the most restrictive security posture consistent with operational requirements.
     Configuration settings are the set of parameters that can be changed in hardware, software, or firmware components
     of the system that affect the security posture and/or functionality of the system. Security-related parameters are

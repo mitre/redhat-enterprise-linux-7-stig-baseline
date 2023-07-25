@@ -1,28 +1,28 @@
 control 'SV-204395' do
-  title "The Red Hat Enterprise Linux operating system must display the Standard Mandatory #{input('org_name')} Notice and Consent
+  title "The Red Hat Enterprise Linux operating system must display the Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent
     Banner before granting local or remote access to the system via a command line user logon."
   desc "Display of a standardized and approved use notification before granting access to the operating system
     ensures privacy and security notification verbiage used is consistent with applicable federal laws, Executive
     Orders, directives, policies, regulations, standards, and guidance.
     System use notifications are required only for access via logon interfaces with human users and are not required
     when such human interfaces do not exist.
-    The banner must be formatted in accordance with applicable #{input('org_name')} policy. Use the following verbiage for operating
+    The banner must be formatted in accordance with applicable #{input('org_name')[:acronym]} policy. Use the following verbiage for operating
     systems that can accommodate banners of 1300 characters:
     \"#{input('banner_message_text_cli')}\""
   desc 'rationale', ''
-  desc 'check', "Verify the operating system displays the Standard Mandatory #{input('org_name')} Notice and Consent Banner before
+  desc 'check', "Verify the operating system displays the Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner before
     granting access to the operating system via a command line user logon.
     Check to see if the operating system displays a banner at the command line logon screen with the following command:
     # more /etc/issue
     The command should return the following text:
     \"#{input('banner_message_text_cli')}\"
     If the operating system does not display a graphical logon banner or the banner does not match the Standard
-    Mandatory #{input('org_name')} Notice and Consent Banner, this is a finding.
-    If the text in the \"/etc/issue\" file does not match the Standard Mandatory #{input('org_name')} Notice and Consent Banner, this is a
+    Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner, this is a finding.
+    If the text in the \"/etc/issue\" file does not match the Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner, this is a
     finding."
-  desc 'fix', "Configure the operating system to display the Standard Mandatory #{input('org_name')} Notice and Consent Banner before
+  desc 'fix', "Configure the operating system to display the Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner before
     granting access to the system via the command line by editing the \"/etc/issue\" file.
-    Replace the default text with the Standard Mandatory #{input('org_name')} Notice and Consent Banner. The #{input('org_name')} required text is:
+    Replace the default text with the Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner. The #{input('org_name')[:acronym]} required text is:
     \"#{input('banner_message_text_cli')}\" "
   impact 0.5
   tag legacy: ['V-71863', 'SV-86487']

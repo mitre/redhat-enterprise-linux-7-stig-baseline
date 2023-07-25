@@ -1,7 +1,7 @@
 control 'SV-204595' do
   title "The Red Hat Enterprise Linux operating system must be configured so that the SSH daemon is configured to
     only use Message Authentication Codes (MACs) employing FIPS 140-2 approved cryptographic hash algorithms."
-  desc "#{input('org_name')} information systems are required to use FIPS 140-2 approved cryptographic hash functions. The only SSHv2
+  desc "#{input('org_name')[:acronym]} information systems are required to use FIPS 140-2 approved cryptographic hash functions. The only SSHv2
     hash algorithm meeting this requirement is SHA.
     The system will attempt to use the first hash presented by the client that matches the server list. Listing the
     values \"strongest to weakest\" is a method to ensure the use of the strongest hash available to secure the SSH

@@ -1,7 +1,7 @@
 control 'SV-204603' do
   title "The Red Hat Enterprise Linux operating system must, for networked systems, synchronize clocks with a server
     that is synchronized to one of the redundant United States Naval Observatory (USNO) time servers, a time server
-    designated for the appropriate #{input('org_name')} network (NIPRNet/SIPRNet), and/or the Global Positioning System (GPS)."
+    designated for the appropriate #{input('org_name')[:acronym]} network (NIPRNet/SIPRNet), and/or the Global Positioning System (GPS)."
   desc 'Inaccurate time stamps make it more difficult to correlate events and can lead to an inaccurate analysis.
     Determining the correct time a particular event occurred on a system is critical when conducting forensic analysis
     and investigating system events. Sources outside the configured acceptable allowance (drift) may be inaccurate.

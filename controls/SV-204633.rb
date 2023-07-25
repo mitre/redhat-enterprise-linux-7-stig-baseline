@@ -6,9 +6,9 @@ control 'SV-204633' do
     authentication device.
     Multifactor solutions that require devices separate from information systems gaining access include, for example,
     hardware tokens providing time-based or challenge-response authenticators and smart cards such as the U.S.
-    Government Personal Identity Verification card and the #{input('org_name')} Common Access Card.
+    Government Personal Identity Verification card and the #{input('org_name')[:acronym]} Common Access Card.
     A privileged account is defined as an information system account with authorizations of a privileged user.
-    Remote access is access to #{input('org_name')} nonpublic information systems by an authorized user (or an information system)
+    Remote access is access to #{input('org_name')[:acronym]} nonpublic information systems by an authorized user (or an information system)
     communicating through an external, non-organization-controlled network. Remote access methods include, for example,
     dial-up, broadband, and wireless.
     This requirement only applies to components where this is specific to the function of the device or has the concept

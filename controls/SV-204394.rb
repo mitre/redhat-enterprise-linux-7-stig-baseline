@@ -1,24 +1,24 @@
 control 'SV-204394' do
-  title "The Red Hat Enterprise Linux operating system must display the approved Standard Mandatory #{input('org_name')} Notice and
+  title "The Red Hat Enterprise Linux operating system must display the approved Standard Mandatory #{input('org_name')[:acronym]} Notice and
     Consent Banner before granting local or remote access to the system via a graphical user logon."
   desc "Display of a standardized and approved use notification before granting access to the operating system
     ensures privacy and security notification verbiage used is consistent with applicable federal laws, Executive
     Orders, directives, policies, regulations, standards, and guidance.
     System use notifications are required only for access via logon interfaces with human users and are not required
     when such human interfaces do not exist.
-    The banner must be formatted in accordance with applicable #{input('org_name')} policy.
+    The banner must be formatted in accordance with applicable #{input('org_name')[:acronym]} policy.
     \"#{input('banner_message_text_gui')}\" "
   desc 'rationale', ''
-  desc 'check', %q{Verify the operating system displays the approved Standard Mandatory #{input('org_name')} Notice and Consent Banner
+  desc 'check', %q{Verify the operating system displays the approved Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner
     before granting access to the operating system via a graphical user logon.
     Note: If the system does not have a Graphical User Interface installed, this requirement is Not Applicable.
-    Check that the operating system displays the exact approved Standard Mandatory #{input('org_name')} Notice and Consent Banner text
+    Check that the operating system displays the exact approved Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner text
     with the command:
     # grep banner-message-text /etc/dconf/db/local.d/*
     banner-message-text='#{input('banner_message_text_gui')}'
     Note: The "\n " characters are for formatting only. They will not be displayed on the Graphical User Interface.
-    If the banner does not match the approved Standard Mandatory #{input('org_name')} Notice and Consent Banner, this is a finding.}
-  desc 'fix', %q{Configure the operating system to display the approved Standard Mandatory #{input('org_name')} Notice and Consent
+    If the banner does not match the approved Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner, this is a finding.}
+  desc 'fix', %q{Configure the operating system to display the approved Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent
     Banner before granting access to the system.
     Note: If the system does not have a Graphical User Interface installed, this requirement is Not Applicable.
     Create a database to contain the system-wide graphical user logon settings (if it does not already exist) with the
