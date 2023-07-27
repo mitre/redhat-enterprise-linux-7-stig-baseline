@@ -13,12 +13,12 @@ control 'SV-204410' do
     \"/etc/security/pwquality.conf\".
     Check the value for \"ocredit\" in \"/etc/security/pwquality.conf\" with the following command:
     # grep ocredit /etc/security/pwquality.conf
-    ocredit=-1
+    ocredit=-#{input('min_special_characters')}
     If the value of \"ocredit\" is not set to a negative value, this is a finding."
   desc 'fix', "Configure the operating system to enforce password complexity by requiring that at least #{input('min_special_characters')} special
     character be used by setting the \"ocredit\" option.
     Add the following line to \"/etc/security/pwquality.conf\" (or modify the line to have the required value):
-    ocredit = #{input('min_special_characters')}"
+    ocredit = -#{input('min_special_characters')}"
   impact 0.5
   tag legacy: ['SV-86533', 'V-71909']
   tag severity: 'medium'
@@ -34,6 +34,6 @@ control 'SV-204410' do
   tag 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('ocredit') { should cmp < 0 }
+    its('ocredit') { should cmp < -input('min_special_characters') }
   end
 end

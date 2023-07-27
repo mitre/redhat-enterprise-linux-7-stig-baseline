@@ -7,16 +7,16 @@ control 'SV-204409' do
     Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
-  desc 'check', 'Note: The value to require a number of numeric characters to be set is expressed as a negative
+  desc 'check', "Note: The value to require a number of numeric characters to be set is expressed as a negative
     number in "/etc/security/pwquality.conf".
     Check the value for "dcredit" in "/etc/security/pwquality.conf" with the following command:
     # grep dcredit /etc/security/pwquality.conf
-    dcredit = -1
-    If the value of "dcredit" is not set to a negative value, this is a finding.'
+    dcredit = -#{input('min_numeric_characters')}
+    If the value of "dcredit" is not set to a negative value, this is a finding."
   desc 'fix', "Configure the operating system to enforce password complexity by requiring that at least #{input('min_numeric_characters')} numeric
     character be used by setting the \"dcredit\" option.
     Add the following line to /etc/security/pwquality.conf (or modify the line to have the required value):
-    dcredit = #{input('min_numeric_characters')}"
+    dcredit = -#{input('min_numeric_characters')}"
   impact 0.5
   tag legacy: ['SV-86531', 'V-71907']
   tag severity: 'medium'
@@ -32,6 +32,6 @@ control 'SV-204409' do
   tag 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('dcredit') { should cmp < 0 }
+    its('dcredit') { should cmp < -input('min_numeric_characters') }
   end
 end
