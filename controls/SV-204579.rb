@@ -20,7 +20,7 @@ $ sudo grep -irw tmout /etc/profile /etc/bashrc /etc/profile.d
 etc/profile.d/tmout.sh:declare -xr TMOUT=#{input('system_activity_timeout')}
 
 If conflicting results are returned, this is a finding.
-If "TMOUT" is not set to #{input('system_activity_timeout')} or less to enforce session termination after inactivity, this is a finding."
+If 'TMOUT' is not set to #{input('system_activity_timeout')} or less to enforce session termination after inactivity, this is a finding."
   desc 'fix', "Configure the operating system to terminate all network connections associated with a communications
     session at the end of the session or after a period of inactivity.
     Create a script to enforce the inactivity timeout (for example /etc/profile.d/tmout.sh) such as:

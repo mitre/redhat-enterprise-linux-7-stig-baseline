@@ -32,7 +32,7 @@ control 'SV-204407' do
   tag 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('ucredit') { should cmp <= -('min_uppercase_characters')}
+    its('ucredit') { should cmp <= -input('min_uppercase_characters')}
     its('ucredit') { should_not be_nil }
   end
 end

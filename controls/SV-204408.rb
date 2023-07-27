@@ -33,7 +33,7 @@ control 'SV-204408' do
   tag 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('lcredit') { should cmp <= -('min_lowercase_characters')}
+    its('lcredit') { should cmp <= -input('min_lowercase_characters')}
     its('lcredit') { should_not be_nil }
   end
 end
