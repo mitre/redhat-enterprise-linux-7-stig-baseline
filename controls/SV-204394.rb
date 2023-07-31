@@ -9,28 +9,28 @@ control 'SV-204394' do
     The banner must be formatted in accordance with applicable #{input('org_name')[:acronym]} policy.
     \"#{input('banner_message_text_gui')}\" "
   desc 'rationale', ''
-  desc 'check', %q{Verify the operating system displays the approved Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner
+  desc 'check', "Verify the operating system displays the approved Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner
     before granting access to the operating system via a graphical user logon.
     Note: If the system does not have a Graphical User Interface installed, this requirement is Not Applicable.
     Check that the operating system displays the exact approved Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner text
     with the command:
     # grep banner-message-text /etc/dconf/db/local.d/*
     banner-message-text='#{input('banner_message_text_gui')}'
-    Note: The "\n " characters are for formatting only. They will not be displayed on the Graphical User Interface.
-    If the banner does not match the approved Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner, this is a finding.}
-  desc 'fix', %q{Configure the operating system to display the approved Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent
+    Note: The \"\n \" characters are for formatting only. They will not be displayed on the Graphical User Interface.
+    If the banner does not match the approved Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner, this is a finding."
+  desc 'fix', "Configure the operating system to display the approved Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent
     Banner before granting access to the system.
     Note: If the system does not have a Graphical User Interface installed, this requirement is Not Applicable.
     Create a database to contain the system-wide graphical user logon settings (if it does not already exist) with the
     following command:
     # touch /etc/dconf/db/local.d/01-banner-message
-    Add the following line to the [org/gnome/login-screen] section of the "/etc/dconf/db/local.d/01-banner-message":
+    Add the following line to the [org/gnome/login-screen] section of the \"/etc/dconf/db/local.d/01-banner-message\":
     [org/gnome/login-screen]
     banner-message-enable=true
     banner-message-text='#{input('banner_message_text_gui')}'
-    Note: The "\n " characters are for formatting only. They will not be displayed on the Graphical User Interface.
+    Note: The \"\n \" characters are for formatting only. They will not be displayed on the Graphical User Interface.
     Run the following command to update the database:
-    # dconf update)}
+    # dconf update)"
   impact 0.5
   tag legacy: ['V-71861', 'SV-86485']
   tag severity: 'medium'
