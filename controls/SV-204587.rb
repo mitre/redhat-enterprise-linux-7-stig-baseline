@@ -1,7 +1,7 @@
 control 'SV-204587' do
-  title 'The Red Hat Enterprise Linux operating system must be configured so that all network connections associated
-    with SSH traffic are terminated at the end of the session or after 10 minutes of inactivity, except to fulfill
-    documented and validated mission requirements.'
+  title "The Red Hat Enterprise Linux operating system must be configured so that all network connections associated
+    with SSH traffic are terminated at the end of the session or after #{input('client_alive_interval')/60} minutes of inactivity, except to fulfill
+    documented and validated mission requirements."
   desc 'Terminating an idle SSH session within a short time period reduces the window of opportunity for
     unauthorized personnel to take control of a management session enabled on the console or console port that has been
     left unattended. In addition, quickly terminating an idle SSH session will also free up resources committed by the
@@ -17,7 +17,7 @@ control 'SV-204587' do
     # grep -iw clientaliveinterval /etc/ssh/sshd_config
     ClientAliveInterval #{input('client_alive_interval')}
     If \"ClientAliveInterval\" is not configured, commented out, or has a value of \"0\", this is a finding.
-    If \"ClientAliveInterval\" has a value that is greater than '#{input('client_alive_interval')} and is not documented with the Information System
+    If \"ClientAliveInterval\" has a value that is greater than \"#{input('client_alive_interval')}\" and is not documented with the Information System
     Security Officer (ISSO) as an operational requirement, this is a finding."
   desc 'fix', "Configure the operating system to automatically terminate a user session after inactivity time-outs
     have expired or at shutdown.
