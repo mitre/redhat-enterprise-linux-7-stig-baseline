@@ -23,7 +23,7 @@ Note: The example below is using the database "local" for the system, so the pat
      /org/gnome/desktop/screensaver/lock-enabled
 
 If the command does not return a result, this is a finding.'
-  desc 'fix', "Configure the operating system to prevent a user from overriding a screensaver lock after a #{input('lockout_time')}-minute
+  desc 'fix', "Configure the operating system to prevent a user from overriding a screensaver lock after a #{input('system_activity_timeout')/60}-minute
     period of inactivity for graphical user interfaces.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
     command:

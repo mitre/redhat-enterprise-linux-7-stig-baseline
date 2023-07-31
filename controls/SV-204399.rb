@@ -7,7 +7,7 @@ control 'SV-204399' do
     operating systems need to be able to identify when a user's session has idled and take action to initiate the
     session lock.
     The session lock is implemented at the point where session activity can be determined and/or controlled."
-  desc 'check', "Verify the operating system prevents a user from overriding a screensaver lock after a #{input('lockout_time')}-minute period of inactivity for graphical user interfaces.
+  desc 'check', "Verify the operating system prevents a user from overriding a screensaver lock after a #{input('system_activity_timeout')/60}-minute period of inactivity for graphical user interfaces.
 
 Note: If the system does not have GNOME installed, this requirement is Not Applicable.
 
@@ -23,7 +23,7 @@ Note: The example below is using the database \"local\" for the system, so the p
      /org/gnome/desktop/screensaver/lock-delay
 
 If the command does not return a result, this is a finding."
-  desc 'fix', "Configure the operating system to prevent a user from overriding a screensaver lock after a #{input('lockout_time')}-minute
+  desc 'fix', "Configure the operating system to prevent a user from overriding a screensaver lock after a #{input('system_activity_timeout')/60}-minute
     period of inactivity for graphical user interfaces.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
     command:
