@@ -6,7 +6,7 @@ control 'SV-204428' do
   desc 'check', "Verify the operating system automatically locks the root account, for a minimum of #{input('fail_interval')/60} minutes, when
     #{input('unsuccessful_attempts')} unsuccessful logon attempts in #{input('fail_interval')/60} minutes are made.
     # grep pam_faillock.so /etc/pam.d/password-auth
-    auth required pam_faillock.so preauth silent audit deny=#{input('unsuccessful_attempts')}even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
+    auth required pam_faillock.so preauth silent audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
     auth [default=die] pam_faillock.so authfail audit deny=#{input('unsuccessful_attempts')}even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
     account required pam_faillock.so
     If the \"even_deny_root\" setting is not defined on both lines with the \"pam_faillock.so\" module, is commented out, or
