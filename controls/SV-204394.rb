@@ -16,7 +16,7 @@ control 'SV-204394' do
     with the command:
     # grep banner-message-text /etc/dconf/db/local.d/*
     banner-message-text='#{input('banner_message_text_gui')}'
-    Note: The \"\n \" characters are for formatting only. They will not be displayed on the Graphical User Interface.
+    Note: The \"\\n \" characters are for formatting only. They will not be displayed on the Graphical User Interface.
     If the banner does not match the approved Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner, this is a finding."
   desc 'fix', "Configure the operating system to display the approved Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent
     Banner before granting access to the system.
@@ -28,7 +28,7 @@ control 'SV-204394' do
     [org/gnome/login-screen]
     banner-message-enable=true
     banner-message-text='#{input('banner_message_text_gui')}'
-    Note: The \"\n \" characters are for formatting only. They will not be displayed on the Graphical User Interface.
+    Note: The \"\\n \" characters are for formatting only. They will not be displayed on the Graphical User Interface.
     Run the following command to update the database:
     # dconf update)"
   impact 0.5
