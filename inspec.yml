@@ -44,12 +44,6 @@ inputs:
     type: Numeric
     value: 25
 
-  # SV-204427
-  - name: lockout_time
-    desc: Minimum amount of time account must be locked out after failed logins (in minutes)
-    type: Numeric
-    value: 15
-
   # SV-204504
   - name: monitor_kernel_log
     desc: Set this to false if your system availability concern is not documented or there is no monitoring of the kernel log
@@ -260,6 +254,12 @@ inputs:
     desc: Maximum number of unsuccessful attempts by policy
     type: Numeric
     value: 3
+
+  # SV-204427
+  - name: lockout_time
+    desc: Minimum amount of time account must be locked out after failed logins (in seconds)
+    type: Numeric
+    value: 900
 
   - name: fail_interval
     desc: Maximum interval of time, according to policy, in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)

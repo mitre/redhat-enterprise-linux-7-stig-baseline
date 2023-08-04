@@ -1,13 +1,13 @@
 control 'SV-204427' do
-  title "The Red Hat Enterprise Linux operating system must be configured to lock accounts for a minimum of #{input('fail_interval')/60}
+  title "The Red Hat Enterprise Linux operating system must be configured to lock accounts for a minimum of #{input('lockout_time')/60}
     minutes after #{input('unsuccessful_attempts')} unsuccessful logon attempts within a #{input('fail_interval')/60}-minute timeframe."
   desc "By limiting the number of failed logon attempts, the risk of unauthorized system access via user password
     guessing, otherwise known as brute-forcing, is reduced. Limits are imposed by locking the account."
-  desc 'check', "Check that the system locks an account for a minimum of #{input('fail_interval')/60} minutes after #{input('unsuccessful_attempts')} unsuccessful logon
+  desc 'check', "Check that the system locks an account for a minimum of #{input('lockout_time')/60} minutes after #{input('unsuccessful_attempts')} unsuccessful logon
     attempts within a period of #{input('fail_interval')/60} minutes with the following command:
     # grep pam_faillock.so /etc/pam.d/password-auth
-    auth required pam_faillock.so preauth silent audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
-    auth [default=die] pam_faillock.so authfail audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
+    auth required pam_faillock.so preauth silent audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('lockout_time')}
+    auth [default=die] pam_faillock.so authfail audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('lockout_time')}
     account required pam_faillock.so
     If the \"deny\" parameter is set to \"0\" or a value greater than '#{input('unsuccessful_attempts')}' on both \"auth\" lines with the \"pam_faillock.so\"
     module, or is missing from these lines, this is a finding.
@@ -15,13 +15,13 @@ control 'SV-204427' do
     from these lines, this is a finding.
     If the \"fail_interval\" parameter is set to \"0\" or is set to a value less than '#{input('fail_interval')}' on both \"auth\" lines with the
     \"pam_faillock.so\" module, or is missing from these lines, this is a finding.
-    If the \"unlock_time\" parameter is not set to \"0\", \"never\", or is set to a value less than '#{input('fail_interval')}' on both \"auth\" lines
+    If the \"unlock_time\" parameter is not set to \"0\", \"never\", or is set to a value less than '#{input('lockout_time')}' on both \"auth\" lines
     with the \"pam_faillock.so\" module, or is missing from these lines, this is a finding.
     Note: The maximum configurable value for \"unlock_time\" is \"604800\".
     If any line referencing the \"pam_faillock.so\" module is commented out, this is a finding.
     # grep pam_faillock.so /etc/pam.d/system-auth
-    auth required pam_faillock.so preauth silent audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
-    auth [default=die] pam_faillock.so authfail audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
+    auth required pam_faillock.so preauth silent audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('lockout_time')}
+    auth [default=die] pam_faillock.so authfail audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('lockout_time')}
     account required pam_faillock.so
     If the \"deny\" parameter is set to \"0\" or a value greater than '#{input('unsuccessful_attempts')}' on both \"auth\" lines with the \"pam_faillock.so\"
     module, or is missing from these lines, this is a finding.
@@ -29,7 +29,7 @@ control 'SV-204427' do
     from these lines, this is a finding.
     If the \"fail_interval\" parameter is set to \"0\" or is set to a value less than '#{input('fail_interval')}' on both \"auth\" lines with the
     \"pam_faillock.so\" module, or is missing from these lines, this is a finding.
-    If the \"unlock_time\" parameter is not set to \"0\", \"never\", or is set to a value less than '#{input('fail_interval')}' on both \"auth\" lines
+    If the \"unlock_time\" parameter is not set to \"0\", \"never\", or is set to a value less than '#{input('lockout_time')}' on both \"auth\" lines
     with the \"pam_faillock.so\" module or is missing from these lines, this is a finding.
     Note: The maximum configurable value for \"unlock_time\" is \"604800\".
     If any line referencing the \"pam_faillock.so\" module is commented out, this is a finding."
@@ -37,9 +37,9 @@ control 'SV-204427' do
 
 Add/Modify the appropriate sections of the \"/etc/pam.d/system-auth\" and \"/etc/pam.d/password-auth\" files to match the following lines:
 
-auth        required      pam_faillock.so preauth silent audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
+auth        required      pam_faillock.so preauth silent audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('lockout_time')}
 auth        sufficient    pam_unix.so try_first_pass
-auth        [default=die] pam_faillock.so authfail audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('fail_interval')}
+auth        [default=die] pam_faillock.so authfail audit deny=#{input('unsuccessful_attempts')} even_deny_root fail_interval=#{input('fail_interval')} unlock_time=#{input('lockout_time')}
 account     required      pam_faillock.so
 
 Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite custom authentication configuration settings while using the authconfig utility, otherwise manual changes to the listed files will be overwritten whenever the authconfig utility is used."
