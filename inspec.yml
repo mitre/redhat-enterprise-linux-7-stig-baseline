@@ -34,17 +34,17 @@ inputs:
 
   # SV-204513, SV-204514
   - name: storage_volume
-    desc: Amount of audit storage volume
+    desc: Maximum amount of space (in percentage) used by the audit storage volume
     type: Numeric
     value: 75
 
   # SV-204513
   - name: min_space_left
-    desc: "Minimum percentage for the space remaining in the audit log file before an alert is generated"
+    desc: Minimum amount of space (in percentage) left in the audit storage volume
     type: Numeric
     value: 25
 
-  # SV-204399, SV-204400, SV-204402, SV-204403, SV-204427, SV-214397
+  # SV-204427
   - name: lockout_time
     desc: Minimum amount of time account must be locked out after failed logins (in minutes)
     type: Numeric
@@ -284,7 +284,7 @@ inputs:
     type: String
     value: "weekly"
 
-  # SV-204579, SV-255926
+  # SV-204398 SV-204399 SV-204400 SV-204402 SV-204403 SV-204579 SV-214937 SV-255926
   - name: system_activity_timeout
     desc: Period of system inactivity leading to session lock (time in seconds).
     type: Numeric
@@ -734,24 +734,24 @@ inputs:
 
   #SV-204407
   - name: min_uppercase_characters
-    desc: "The new password must contain the minimum number of upper-case characters"
+    desc: Minimum number of upper-case characters required in a password
     type: Numeric
     value: 1
 
     #SV-204408
   - name: min_lowercase_characters
-    desc: "The new password must contain the minimum number of lower-case characters"
+    desc: Minimum number of lower-case characters required in a password
     type: Numeric
     value: 1
 
   # SV-204409
   - name: min_numeric_characters
-    desc: The number of minimum numeric characters needed in a password
+    desc: Minimum number of numeric characters required in a password
     type: Numeric
     value: 1
 
   # SV-204410
   - name: min_special_characters
-    desc: The number of minimum special characters needed in a password
+    desc: Minimum number of special characters required in a password
     type: Numeric
     value: 1
