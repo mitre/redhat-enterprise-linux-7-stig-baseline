@@ -419,12 +419,6 @@ inputs:
     type: Numeric
     value: 3
 
-  # SV-204406
-  - name: max_retry
-    desc: maximum number of password retries by policy
-    type: Numeric
-    value: 3
-
   # SV-204628, SV-204577
   - name: firewalld_services
     desc: "Services that firewalld should be configured to allow."

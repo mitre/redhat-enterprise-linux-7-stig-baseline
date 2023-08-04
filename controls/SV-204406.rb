@@ -35,7 +35,7 @@ control 'SV-204406' do
 
   describe 'input value' do
     it 'for retry should be in line with maximum/minimum allowed values by policy' do
-      expect(input('retry')).to be_between(1, input('max_retry'))
+      expect(input('retry')).to be_between(1, input('retry'))
     end
   end
 end
