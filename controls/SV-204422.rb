@@ -9,14 +9,14 @@ control 'SV-204422' do
     Check for the value of the \"remember\" argument in \"/etc/pam.d/system-auth\" and \"/etc/pam.d/password-auth\" with the
     following command:
     # grep -i remember /etc/pam.d/system-auth /etc/pam.d/password-auth
-    password    requisite     pam_pwhistory.so use_authtok remember=#{input('min_reuse_generations')} retry=3
+    password    requisite     pam_pwhistory.so use_authtok remember=#{input('min_reuse_generations')} retry=#{input('retry')}
     If the line containing the \"pam_pwhistory.so\" line does not have the \"remember\" module argument set, is commented
     out, or the value of the \"remember\" module argument is set to less than \"#{input('min_reuse_generations')}\", this is a finding.'
   desc 'fix', 'Configure the operating system to prohibit password reuse for a minimum of #{input('min_reuse_generations')} generations.
 
 Add the following line in \"/etc/pam.d/system-auth\" and \"/etc/pam.d/password-auth\" (or modify the line to have the required value):
 
-     password     requisite     pam_pwhistory.so use_authtok remember=#{input('min_reuse_generations')} retry=3
+     password     requisite     pam_pwhistory.so use_authtok remember=#{input('min_reuse_generations')} retry=#{input('retry')}
 
 Note: Per requirement RHEL-07-010199, RHEL 7 must be configured to not overwrite custom authentication configuration settings while using the authconfig utility, otherwise manual changes to the listed files will be overwritten whenever the authconfig utility is used."
   impact 0.5
