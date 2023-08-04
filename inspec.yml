@@ -5,7 +5,7 @@ copyright: MITRE, 2022
 copyright_email: saf@groups.mitre.org
 license: Apache-2.0
 summary: "Inspec Validation Profile for Red Hat Enterprise Linux 7 STIG"
-version: 3.10.0
+version: 3.10.1
 inspec_version: ">= 4.26"
 
 supports:
@@ -87,7 +87,7 @@ inputs:
     type: Boolean
     value: false
 
-# SV-204460
+  # SV-204460
   - name: user_accounts
     desc: Accounts of known managed users
     type: Array
@@ -132,7 +132,7 @@ inputs:
   #    - This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.
   #    - Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.
 
-  # SV-204393, SV-204394
+  # SV-204393 SV-204394
   - name: banner_message_text_gui
     desc: Banner message text for graphical user interface logins.
     type: String
@@ -255,7 +255,7 @@ inputs:
     type: Numeric
     value: 35
 
-# SV-SV-204427, SV-204428, SV-255928
+  # SV-SV-204427, SV-204428, SV-255928
   - name: unsuccessful_attempts
     desc: Maximum number of unsuccessful attempts by policy
     type: Numeric
@@ -310,8 +310,8 @@ inputs:
       - "/etc/rsyslog.conf"
       - "/etc/rsyslog.d/*"
 
-  # SV-204467, SV-204468, SV-204469, SV-204470, SV-204471, SV-204472
-  # SV-204473, SV-204474, SV-204475, SV-204476, SV-204477, SV-204478, SV-204493
+  # SV-204467 SV-204468 SV-204469 SV-204470 SV-204471 SV-204472
+  # SV-204473 SV-204474 SV-204475 SV-204476 SV-204477 SV-204478 SV-204493
   - name: exempt_home_users
     desc: Users exempt from home directory-based controls in array format
     type: Array
@@ -604,19 +604,19 @@ inputs:
     type: Numeric
     value: 4
 
-  #SV-204603
+  # SV-204603
   - name: maxpoll
     desc: "This option specifies the maximum interval between requests sent to the NTP server as a power of 2 in seconds."
     type: Numeric
     value: 16
 
-  #SV-204420
+  # SV-204420
   - name: pass_max_days
     desc: "Password lifetime restriction for new user accounts"
     type: Numeric
     value: 60
 
-  #SV-204431
+  # SV-204431
   - name: fail_delay
     desc: "Value for the delay between logon prompts following a failed console logon attempt in seconds"
     type: Numeric
@@ -664,7 +664,7 @@ inputs:
     type: String
     value: "single"
 
-  #SV-204513
+  # SV-204513
   - name: min_space_left
     desc: "Minimum percentage for the space remaining in the audit log file before an alert is generated"
     type: Numeric
@@ -702,43 +702,43 @@ inputs:
     type: String
     value: "0600"
 
-  #SV-204412
+  # SV-204412
   - name: minclass
     desc: "Value for the minimum number of character classes that must change between password resets"
     type: Numeric
     value: 4
 
-  #SV-204419
+  # SV-204419
   - name: min_password_lifetime
     desc: "Minimum lifetime of a password before it can be a reset"
     type: Numeric
     value: 1
 
-  #SV-204421
+  # SV-204421
   - name: max_password_lifetime
     desc: "Maximum lifetime of a password before it needs a reset"
     type: Numeric
     value: 60
   
-  #SV-254523
+  # SV-254523
   - name: emergency_accounts
     desc: Emergency user accounts
     type: Array
     value: []
 
-  #SV-254523
+  # SV-254523
   - name: emergency_account_disable
     desc: Expiration time for an emergency account (in hours)
     type: Numeric
     value: 72
 
-  #SV-204407
+  # SV-204407
   - name: min_uppercase_characters
     desc: Minimum number of upper-case characters required in a password
     type: Numeric
     value: 1
 
-    #SV-204408
+  # SV-204408
   - name: min_lowercase_characters
     desc: Minimum number of lower-case characters required in a password
     type: Numeric
