@@ -286,7 +286,7 @@ inputs:
 
   # SV-204579, SV-255926
   - name: system_activity_timeout
-    desc: System activity timeout (time in seconds).
+    desc: Period of system inactivity leading to session lock (time in seconds).
     type: Numeric
     value: 900
 
