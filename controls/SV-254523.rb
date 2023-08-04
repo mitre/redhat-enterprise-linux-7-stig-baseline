@@ -15,7 +15,7 @@ Verify each of these accounts has an expiration date set within #{input('emergen
 If any emergency accounts have no expiration date set or do not expire within #{input('emergency_account_disable')} hours, this is a finding."
   desc 'fix', "If an emergency account must be created, configure the system to terminate the account after #{input('emergency_account_disable')} hours with the following command to set an expiration date for the account. Substitute \"system_account_name\" with the account to be created.
 
-$ sudo chage -E `date -d '+#{input('emergency_account_disable')/3} days' +%Y-%m-%d` system_account_name
+$ sudo chage -E `date -d '+#{input('emergency_account_disable')/24} days' +%Y-%m-%d` system_account_name
 
 The automatic expiration or disabling time period may be extended as needed until the crisis is resolved."
   impact 0.5
@@ -40,7 +40,7 @@ The automatic expiration or disabling time period may be extended as needed unti
   else
     emergency_accounts.each do |acct|
       describe user(acct.to_s) do
-        its('maxdays') { should cmp <= (input('emergency_account_disable')/3) }
+        its('maxdays') { should cmp <= (input('emergency_account_disable')/24) }
         its('maxdays') { should cmp > 0 }
       end
     end

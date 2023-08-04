@@ -1,6 +1,6 @@
 control 'SV-204579' do
   title "The Red Hat Enterprise Linux operating system must be configured so that all network connections associated
-    with a communication session are terminated at the end of the session or after #{input('system_activity_timeout')} minutes of inactivity from the
+    with a communication session are terminated at the end of the session or after #{input('system_activity_timeout')/60} minutes of inactivity from the
     user at a command prompt, except to fulfill documented and validated mission requirements."
   desc 'Terminating an idle session within a short time period reduces the window of opportunity for unauthorized
     personnel to take control of a management session enabled on the console or console port that has been left

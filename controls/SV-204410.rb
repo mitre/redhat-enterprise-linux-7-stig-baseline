@@ -34,6 +34,6 @@ control 'SV-204410' do
   tag 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('ocredit') { should cmp < -input('min_special_characters') }
+    its('ocredit') { should cmp <= -input('min_special_characters') }
   end
 end

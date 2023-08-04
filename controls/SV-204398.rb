@@ -14,18 +14,18 @@ Note: If the system does not have GNOME installed, this requirement is Not Appli
 Check to see if GNOME is configured to display a screensaver after a #{input('system_activity_timeout')/60} minute delay with the following command:
 
      # grep -i idle-delay /etc/dconf/db/local.d/*
-     idle-delay=uint32 900
+     idle-delay=uint32 #{input('system_activity_timeout')}
 
-If the \"idle-delay\" setting is missing or is not set to \"900\" or less, this is a finding.'
-  desc 'fix', 'Configure the operating system to initiate a screensaver after a #{input('system_activity_timeout')/60}-minute period of inactivity for
+If the \"idle-delay\" setting is missing or is not set to \"#{input('system_activity_timeout')}\" or less, this is a finding."
+  desc 'fix', "Configure the operating system to initiate a screensaver after a #{input('system_activity_timeout')/60}-minute period of inactivity for
     graphical user interfaces.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
     command:
     # touch /etc/dconf/db/local.d/00-screensaver
     Edit /etc/dconf/db/local.d/00-screensaver and add or update the following lines:
     [org/gnome/desktop/session]
-    # Set the lock time out to 900 seconds before the session is considered idle
-    idle-delay=uint32 900
+    # Set the lock time out to #{input('system_activity_timeout')} seconds before the session is considered idle
+    idle-delay=uint32 #{input('system_activity_timeout')}
     You must include the \"uint32\" along with the integer key values as shown.
     Update the system databases:
     # dconf update
@@ -51,7 +51,7 @@ If the \"idle-delay\" setting is missing or is not set to \"900\" or less, this 
   elsif package('gnome-desktop3').installed?
 
     describe command("gsettings get org.gnome.desktop.session idle-delay | cut -d ' ' -f2") do
-      its('stdout.strip') { should cmp <= 900 }
+      its('stdout.strip') { should cmp <= input('system_activity_timeout') }
     end
   else
     impact 0.0

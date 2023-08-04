@@ -16,7 +16,7 @@ If the screen package is not installed, check to see if the tmux package is inst
      tmux-1.8-4.el7.x86_64.rpm
 
 If either the screen package or the tmux package is not installed, this is a finding.'
-  desc 'fix', "Install the screen package to allow the initiation of a session lock after a #{input('system_activity_timeout')}-minute period of inactivity.
+  desc 'fix', "Install the screen package to allow the initiation of a session lock after a #{input('system_activity_timeout'/60)}-minute period of inactivity.
 
 Install the screen program (if it is not on the system) with the following command:
 

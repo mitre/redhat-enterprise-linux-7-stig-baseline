@@ -32,6 +32,6 @@ control 'SV-204409' do
   tag 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('dcredit') { should cmp < -input('min_numeric_characters') }
+    its('dcredit') { should cmp <= -input('min_numeric_characters') }
   end
 end

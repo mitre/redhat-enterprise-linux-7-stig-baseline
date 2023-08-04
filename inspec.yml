@@ -730,7 +730,7 @@ inputs:
   - name: emergency_account_disable
     desc: Expiration time for an emergency account (in hours)
     type: Numeric
-    value: 24
+    value: 72
 
   #SV-204407
   - name: min_uppercase_characters
