@@ -15,6 +15,7 @@ Check for the session lock settings with the following commands:
 
      # grep -i idle-activation-enabled /etc/dconf/db/local.d/*
      idle-activation-enabled=true
+     
 If \"idle-activation-enabled\" is not set to \"true\", this is a finding."
   desc 'fix', "Configure the operating system to initiate a session lock after a #{input('system_activity_timeout')/60}-minute period of inactivity for
     graphical user interfaces.

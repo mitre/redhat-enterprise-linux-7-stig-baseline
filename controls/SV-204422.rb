@@ -11,8 +11,8 @@ control 'SV-204422' do
     # grep -i remember /etc/pam.d/system-auth /etc/pam.d/password-auth
     password    requisite     pam_pwhistory.so use_authtok remember=#{input('min_reuse_generations')} retry=#{input('retry')}
     If the line containing the \"pam_pwhistory.so\" line does not have the \"remember\" module argument set, is commented
-    out, or the value of the \"remember\" module argument is set to less than \"#{input('min_reuse_generations')}\", this is a finding.'
-  desc 'fix', 'Configure the operating system to prohibit password reuse for a minimum of #{input('min_reuse_generations')} generations.
+    out, or the value of the \"remember\" module argument is set to less than \"#{input('min_reuse_generations')}\", this is a finding."
+  desc 'fix', "Configure the operating system to prohibit password reuse for a minimum of #{input('min_reuse_generations')} generations.
 
 Add the following line in \"/etc/pam.d/system-auth\" and \"/etc/pam.d/password-auth\" (or modify the line to have the required value):
 
