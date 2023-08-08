@@ -1,14 +1,14 @@
 control 'SV-204431' do
   title 'The Red Hat Enterprise Linux operating system must be configured so that the delay between logon prompts
     following a failed console logon attempt is at least four seconds.'
-  desc 'Configuring the operating system to implement organization-wide security implementation guides and security
-    checklists verifies compliance with federal standards and establishes a common security baseline across DoD that
+  desc "Configuring the operating system to implement organization-wide security implementation guides and security
+    checklists verifies compliance with federal standards and establishes a common security baseline across #{input('org_name')[:acronym]} that
     reflects the most restrictive security posture consistent with operational requirements.
     Configuration settings are the set of parameters that can be changed in hardware, software, or firmware components
     of the system that affect the security posture and/or functionality of the system. Security-related parameters are
     those parameters impacting the security state of the system, including the parameters required to satisfy other
     security control requirements. Security-related parameters include, for example, registry settings; account, file,
-    and directory permission settings; and settings for functions, ports, protocols, services, and remote connections.'
+    and directory permission settings; and settings for functions, ports, protocols, services, and remote connections."
   desc 'check', 'Verify the operating system enforces a delay of at least four seconds between console logon prompts
     following a failed logon attempt.
     Check the value of the "fail_delay" parameter in the "/etc/login.defs" file with the following command:

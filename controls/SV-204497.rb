@@ -1,20 +1,20 @@
 control 'SV-204497' do
-  title 'The Red Hat Enterprise Linux operating system must implement NIST FIPS-validated cryptography for the
+  title "The Red Hat Enterprise Linux operating system must implement NIST FIPS-validated cryptography for the
     following: to provision digital signatures, to generate cryptographic hashes, and to protect data requiring
     data-at-rest protections in accordance with applicable federal laws, Executive Orders, directives, policies,
-    regulations, and standards.'
-  desc 'Use of weak or untested encryption algorithms undermines the purposes of using encryption to protect data.
+    regulations, and standards."
+  desc "Use of weak or untested encryption algorithms undermines the purposes of using encryption to protect data.
     The operating system must implement cryptographic modules adhering to the higher standards approved by the federal
-    government since this provides assurance they have been tested and validated.'
-  desc 'check', 'Verify the operating system implements DoD-approved encryption to protect the confidentiality of
+    government since this provides assurance they have been tested and validated."
+  desc 'check', "Verify the operating system implements #{input('org_name')[:acronym]}-approved encryption to protect the confidentiality of
     remote access sessions.
-    Check to see if the "dracut-fips" package is installed with the following command:
+    Check to see if the \"dracut-fips\" package is installed with the following command:
     # yum list installed dracut-fips
     dracut-fips-033-360.el7_2.x86_64.rpm
-    If a "dracut-fips" package is installed, check to see if the kernel command line is configured to use FIPS mode with
+    If a \"dracut-fips\" package is installed, check to see if the kernel command line is configured to use FIPS mode with
     the following command:
-    Note: GRUB 2 reads its configuration from the "/boot/grub2/grub.cfg" file on traditional BIOS-based machines and
-    from the "/boot/efi/EFI/redhat/grub.cfg" file on UEFI machines.
+    Note: GRUB 2 reads its configuration from the \"/boot/grub2/grub.cfg\" file on traditional BIOS-based machines and
+    from the \"/boot/efi/EFI/redhat/grub.cfg\" file on UEFI machines.
     # grep fips /boot/grub2/grub.cfg
     /vmlinuz-3.8.0-0.40.el7.x86_64 root=/dev/mapper/rhel-root ro rd.md=0 rd.dm=0 rd.lvm.lv=rhel/swap crashkernel=auto
     rd.luks=0 vconsole.keymap=us rd.lvm.lv=rhel/root rhgb fips=1 quiet
@@ -22,17 +22,17 @@ control 'SV-204497' do
     following command:
     # cat /proc/sys/crypto/fips_enabled
     1
-    If a "dracut-fips" package is not installed, the kernel command line does not have a fips entry, or the system has a
-    value of "0" for "fips_enabled" in "/proc/sys/crypto", this is a finding.
+    If a \"dracut-fips\" package is not installed, the kernel command line does not have a fips entry, or the system has a
+    value of \"0\" for \"fips_enabled\" in \"/proc/sys/crypto\", this is a finding.
     Verify the file /etc/system-fips exists.
     # ls -l /etc/system-fips
-    If this file does not exist, this is a finding.'
-  desc 'fix', 'Configure the operating system to implement DoD-approved encryption by installing the dracut-fips
+    If this file does not exist, this is a finding."
+  desc 'fix', "Configure the operating system to implement #{input('org_name')[:acronym]}-approved encryption by installing the dracut-fips
     package.
     To enable strict FIPS compliance, the fips=1 kernel option needs to be added to the kernel command line during
     system installation so key generation is done with FIPS-approved algorithms and continuous monitoring tests in
     place.
-    Configure the operating system to implement DoD-approved encryption by following the steps below:
+    Configure the operating system to implement #{input('org_name')[:acronym]}-approved encryption by following the steps below:
     The fips=1 kernel option needs to be added to the kernel command line during system installation so that key
     generation is done with FIPS-approved algorithms and continuous monitoring tests in place. Users should also ensure
     that the system has plenty of entropy during the installation process by moving the mouse around, or if no mouse is
@@ -40,13 +40,13 @@ control 'SV-204497' do
     256 keystrokes may generate a non-unique key.
     Install the dracut-fips package with the following command:
     # yum install dracut-fips
-    Recreate the "initramfs" file with the following command:
-    Note: This command will overwrite the existing "initramfs" file.
+    Recreate the \"initramfs\" file with the following command:
+    Note: This command will overwrite the existing \"initramfs\" file.
     # dracut -f
-    Modify the kernel command line of the current kernel in the "grub.cfg" file by adding the following option to the
-    GRUB_CMDLINE_LINUX key in the "/etc/default/grub" file and then rebuild the "grub.cfg" file:
+    Modify the kernel command line of the current kernel in the \"grub.cfg\" file by adding the following option to the
+    GRUB_CMDLINE_LINUX key in the \"/etc/default/grub\" file and then rebuild the \"grub.cfg\" file:
     fips=1
-    Changes to "/etc/default/grub" require rebuilding the "grub.cfg" file as follows:
+    Changes to \"/etc/default/grub\" require rebuilding the \"grub.cfg\" file as follows:
     On BIOS-based machines, use the following command:
     # grub2-mkconfig -o /boot/grub2/grub.cfg
     On UEFI-based machines, use the following command:
@@ -57,15 +57,15 @@ control 'SV-204497' do
     # df /boot
     Filesystem 1K-blocks Used Available Use% Mounted on
     /dev/sda1 495844 53780 416464 12% /boot
-    To ensure the "boot=" configuration option will work even if device naming changes occur between boots, identify the
+    To ensure the \"boot=\" configuration option will work even if device naming changes occur between boots, identify the
     universally unique identifier (UUID) of the partition with the following command:
     # blkid /dev/sda1
-    /dev/sda1: UUID="05c000f1-a213-759e-c7a2-f11b7424c797" TYPE="ext4"
+    /dev/sda1: UUID=\"05c000f1-a213-759e-c7a2-f11b7424c797\" TYPE=\"ext4\"
     For the example above, append the following string to the kernel command line:
     boot=UUID=05c000f1-a213-759e-c7a2-f11b7424c797
     If the file /etc/system-fips does not exists, recreate it:
     # touch /etc/ system-fips
-    Reboot the system for the changes to take effect.'
+    Reboot the system for the changes to take effect."
   impact 0.7
   tag legacy: ['SV-86691', 'V-72067']
   tag severity: 'high'
