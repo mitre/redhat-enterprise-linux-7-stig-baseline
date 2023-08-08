@@ -8,7 +8,6 @@ control 'SV-204394' do
     when such human interfaces do not exist.
     The banner must be formatted in accordance with applicable #{input('org_name')[:acronym]} policy.
     \"#{input('banner_message_text_gui')}\" "
-  desc 'rationale', ''
   desc 'check', "Verify the operating system displays the approved Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner
     before granting access to the operating system via a graphical user logon.
     Note: If the system does not have a Graphical User Interface installed, this requirement is Not Applicable.
@@ -30,7 +29,7 @@ control 'SV-204394' do
     banner-message-text='#{input('banner_message_text_gui')}'
     Note: The \"\\n \" characters are for formatting only. They will not be displayed on the Graphical User Interface.
     Run the following command to update the database:
-    # dconf update)"
+    # dconf update"
   impact 0.5
   tag legacy: ['V-71861', 'SV-86485']
   tag severity: 'medium'

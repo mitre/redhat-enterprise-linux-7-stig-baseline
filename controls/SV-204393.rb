@@ -9,7 +9,6 @@ control 'SV-204393' do
     The banner must be formatted in accordance with applicable #{input('org_name')[:acronym]} policy. Use the following verbiage for operating
     systems that can accommodate banners of 1300 characters:
     \"#{input('banner_message_text_gui')}\" "
-  desc 'rationale', ''
   desc 'check',"Verify the operating system displays the Standard Mandatory #{input('org_name')[:acronym]} Notice and Consent Banner before
     granting access to the operating system via a graphical user logon.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
