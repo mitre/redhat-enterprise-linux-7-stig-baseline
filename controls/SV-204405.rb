@@ -25,7 +25,10 @@ control 'SV-204405' do
   tag 'host'
   tag 'container'
 
-  describe pam('/etc/pam.d/password-auth') do
-    its('lines') { should match_pam_rule('password substack system-auth') }
+  # describe pam('/etc/pam.d/passwd') do
+  #   its('lines') { should match_pam_rule('password substack system-auth') }
+  # end
+  describe file('/etc/pam.d/passwd') do
+  its('content') { should match /password\s+substack\s+system-auth/i }
   end
 end

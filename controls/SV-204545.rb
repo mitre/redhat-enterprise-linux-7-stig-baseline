@@ -14,14 +14,14 @@ Check the file system rule in "/etc/audit/audit.rules" with the following comman
 
 $ sudo grep -w "/usr/bin/chage" /etc/audit/audit.rules
 
--a always,exit -F path=/usr/bin/chage -F perm=x -F auid>=1000 -F auid!=unset -k privileged-passwd
+-a always,exit -F path=/usr/bin/chage -F perm=x -F auid>=1000 -F auid!=unset -k privileged
 
 If the command does not return any output, this is a finding.'
   desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use the "chage" command occur.
 
 Add or update the following rule in "/etc/audit/rules.d/audit.rules":
 
--a always,exit -F path=/usr/bin/chage -F perm=x -F auid>=1000 -F auid!=unset -k privileged-passwd
+-a always,exit -F path=/usr/bin/chage -F perm=x -F auid>=1000 -F auid!=unset -k privileged
 
 The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
@@ -53,7 +53,7 @@ The audit daemon must be restarted for the changes to take effect.'
         expect(audit_rule.action.uniq).to cmp 'always'
         expect(audit_rule.list.uniq).to cmp 'exit'
         expect(audit_rule.fields.flatten).to include('perm=x', 'auid>=1000', 'auid!=-1')
-        expect(audit_rule.key.uniq).to include('privileged-passwd')
+        expect(audit_rule.key.uniq).to include('privileged')
       end
     end
   end

@@ -13,14 +13,14 @@ Check that the following system call is being audited by performing the followin
 
 $ sudo grep -w "/usr/libexec/openssh/ssh-keysign" /etc/audit/audit.rules
 
--a always,exit -F path=/usr/libexec/openssh/ssh-keysign -F perm=x -F auid>=1000 -F auid!=unset -k privileged-ssh
+-a always,exit -F path=/usr/libexec/openssh/ssh-keysign -F perm=x -F auid>=1000 -F auid!=unset -k privileged
 
 If the command does not return any output, this is a finding.'
   desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use the "ssh-keysign" command occur.
 
 Add or update the following rule in "/etc/audit/rules.d/audit.rules":
 
--a always,exit -F path=/usr/libexec/openssh/ssh-keysign -F perm=x -F auid>=1000 -F auid!=unset -k privileged-ssh
+-a always,exit -F path=/usr/libexec/openssh/ssh-keysign -F perm=x -F auid>=1000 -F auid!=unset -k privileged
 
 The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
@@ -52,7 +52,7 @@ The audit daemon must be restarted for the changes to take effect.'
         expect(audit_rule.action.uniq).to cmp 'always'
         expect(audit_rule.list.uniq).to cmp 'exit'
         expect(audit_rule.fields.flatten).to include('perm=x', 'auid>=1000', 'auid!=-1')
-        expect(audit_rule.key.uniq).to include('privileged-ssh')
+        expect(audit_rule.key.uniq).to include('privileged')
       end
     end
   end

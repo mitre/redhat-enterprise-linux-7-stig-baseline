@@ -1,11 +1,11 @@
-name: redhat-enterprise-linux-7-stig-baseline
+name: RHEL_7_STIG
 title: Red Hat Enterprise Linux 7 Security Technical Implementation Guide
 maintainer: MITRE SAF Team
 copyright: MITRE, 2022
 copyright_email: saf@groups.mitre.org
 license: Apache-2.0
 summary: "Inspec Validation Profile for Red Hat Enterprise Linux 7 STIG"
-version: 3.10.1
+version: 3.10.0
 inspec_version: ">= 4.26"
 
 supports:
@@ -18,31 +18,10 @@ supports:
 
 # The following defines the default inputs for the configurable controls used in the RHEL 7 DISA STIG.
 inputs:
-  # SV-204393, SV-204394, SV-204395, SV-204397, SV-204426, SV-204431, SV-204447, SV-204448
-  # SV-204578, SV-204580, SV-204595, SV-204603, SV-204631, SV-204632, SV-204633
-  - name: org_name
-    desc: "Name of the organization running this profile"
-    type: Hash
-    value:
-      acronym: "DoD"
-      full_form: "Department of Defense"
-
   - name: disable_slow_controls
     desc: Controls that are known to consistently have long run times can be disabled with this attribute
     type: Boolean
     value: false
-
-  # SV-204513, SV-204514
-  - name: storage_volume
-    desc: Maximum amount of space (in percentage) used by the audit storage volume
-    type: Numeric
-    value: 75
-
-  # SV-204513
-  - name: min_space_left
-    desc: Minimum amount of space (in percentage) left in the audit storage volume
-    type: Numeric
-    value: 25
 
   # SV-204504
   - name: monitor_kernel_log
@@ -56,12 +35,28 @@ inputs:
     type: Array
     value:
       - "/etc/issue"
+      - "/run/lsm"
+      - "/run/lsm/ipc"
+      - "/etc/cron.daily"
+      - "/etc/cron.hourly"
+      - "/etc/cron.monthly"
+      - "/etc/cron.weekly"
+      - "/etc/crontab"
+      - "/etc/cron.d"
+      - "/var/ossec/logs/ossec.json"
+      - "/boot/initramfs-4.14.322-244.539.amzn2.x86_64.img"
+      - "/boot/initramfs-4.14.322-244.536.amzn2.x86_64.img"
+      - "/etc/at.deny"
+      - "/var/lib/logrotate/logrotate.status"
+      - "/var/ossec/logs/api.log"
+      - "/etc/selinux/targeted/active/users_extra"
+      - "/etc/selinux/targeted/active/seusers"
 
   # SV-214799
   - name: rpm_verify_integrity_except
     desc: List of system files that should be allowed to change from an rpm verify point of view
     type: Array
-    value: []
+    value: ['/var/ossec/etc/localtime']
 
   # SV-204393
   - name: banner_message_enabled
@@ -81,7 +76,6 @@ inputs:
     type: Boolean
     value: false
 
-  # SV-204460
   - name: user_accounts
     desc: Accounts of known managed users
     type: Array
@@ -111,6 +105,20 @@ inputs:
       - "systemd-network"
       - "sshd"
       - "ntp"
+      - "games"
+      - "ftp"
+      - "rpc"
+      - "libstoragemgmt" 
+      - "rngd" 
+      - "rpcuser" 
+      - "nfsnobody"
+      - "ec2-instance-connect" 
+      - "tcpdump"
+      - "ec2-user" 
+      - "wazuh"
+      - "tss"
+      - "apache"
+
 
   # SV-204393/SV-204397
   - name: dconf_user
@@ -126,7 +134,7 @@ inputs:
   #    - This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.
   #    - Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.
 
-  # SV-204393 SV-204394
+  # SV-204394
   - name: banner_message_text_gui
     desc: Banner message text for graphical user interface logins.
     type: String
@@ -249,28 +257,25 @@ inputs:
     type: Numeric
     value: 35
 
-  # SV-SV-204427, SV-204428, SV-255928
   - name: unsuccessful_attempts
     desc: Maximum number of unsuccessful attempts by policy
     type: Numeric
     value: 3
-
-  # SV-204427
-  - name: lockout_time
-    desc: Minimum amount of time account must be locked out after failed logins (in seconds)
-    type: Numeric
-    value: 900
 
   - name: fail_interval
     desc: Maximum interval of time, according to policy, in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
     type: Numeric
     value: 900
 
+  - name: lockout_time
+    desc: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
+    value: 604800
+
   # SV-204445 SV-251705
   - name: file_integrity_tool
     desc: Name of tool
     type: String
-    value: "aide"
+    value: "wazuh"
 
   # SV-204498 SV-204499 SV-204500
   - name: aide_conf_path
@@ -284,9 +289,9 @@ inputs:
     type: String
     value: "weekly"
 
-  # SV-204398 SV-204399 SV-204400 SV-204402 SV-204403 SV-204579 SV-214937 SV-255926
+  # SV-204579
   - name: system_activity_timeout
-    desc: Period of system inactivity leading to session lock (time in seconds).
+    desc: System activity timeout (time in seconds).
     type: Numeric
     value: 900
 
@@ -300,7 +305,7 @@ inputs:
   - name: smart_card_status
     desc: Smart card status (enabled or disabled)
     type: String
-    value: "enabled"
+    value: "disabled"
 
   # SV-204489/V-204574
   - name: log_pkg_paths
@@ -310,8 +315,8 @@ inputs:
       - "/etc/rsyslog.conf"
       - "/etc/rsyslog.d/*"
 
-  # SV-204467 SV-204468 SV-204469 SV-204470 SV-204471 SV-204472
-  # SV-204473 SV-204474 SV-204475 SV-204476 SV-204477 SV-204478 SV-204493
+  # SV-204467, SV-204468, SV-204469, SV-204470, SV-204471, SV-204472
+  # SV-204473, SV-204474, SV-204475, SV-204476, SV-204477, SV-204478, SV-204493
   - name: exempt_home_users
     desc: Users exempt from home directory-based controls in array format
     type: Array
@@ -415,7 +420,13 @@ inputs:
 
   # SV-204406
   - name: retry
-    desc: Number of chances the user gets to create a strong password
+    desc: number of allowed password retries
+    type: Numeric
+    value: 3
+
+  # SV-204406
+  - name: max_retry
+    desc: maximum number of password retries by policy
     type: Numeric
     value: 3
 
@@ -545,7 +556,6 @@ inputs:
     type: Array
     value: []
 
-  # SV-204427
   - name: required_rules
     desc: "Required PAM rules"
     type: Array
@@ -568,13 +578,11 @@ inputs:
     type: Boolean
     value: false
 
-  # SV-204598
   - name: gssapi_approved
     desc: "is GSSAPI authentication approved"
     type: Boolean
     value: true
 
-  # SV-204599
   - name: disconnected_system
     desc: "Set flag to true if the target system is disconnected"
     type: Boolean
@@ -598,19 +606,19 @@ inputs:
     type: Numeric
     value: 4
 
-  # SV-204603
+  #SV-204603
   - name: maxpoll
     desc: "This option specifies the maximum interval between requests sent to the NTP server as a power of 2 in seconds."
     type: Numeric
     value: 16
 
-  # SV-204420
+  #SV-204420
   - name: pass_max_days
     desc: "Password lifetime restriction for new user accounts"
     type: Numeric
     value: 60
 
-  # SV-204431
+  #SV-204431
   - name: fail_delay
     desc: "Value for the delay between logon prompts following a failed console logon attempt in seconds"
     type: Numeric
@@ -634,7 +642,7 @@ inputs:
     type: String
     value: "0740"
 
-  # SV-204488
+  # SV-204476
   - name: user_umask
     desc: Expected value for all user UMASK values (in octal format)
     type: String
@@ -644,7 +652,7 @@ inputs:
   - name: audit_remote_server
     desc: "Address of the remote server to which audit logs can be sent -- if left blank, control will check that any non-local server is in use"
     type: String
-    value: ""
+    value: "logcollector"
 
   # SV-204511
   - name: expected_disk_full_action
@@ -658,7 +666,7 @@ inputs:
     type: String
     value: "single"
 
-  # SV-204513
+  #SV-204513
   - name: min_space_left
     desc: "Minimum percentage for the space remaining in the audit log file before an alert is generated"
     type: Numeric
@@ -696,56 +704,26 @@ inputs:
     type: String
     value: "0600"
 
-  # SV-204412
+  #SV-204412
   - name: minclass
-    desc: "Value for the minimum number of character classes that must change between password resets"
+    desc: "Value for the minimum number of characters that must change between password resets"
     type: Numeric
     value: 4
 
-  # SV-204419
+  #SV-204419
   - name: min_password_lifetime
     desc: "Minimum lifetime of a password before it can be a reset"
     type: Numeric
     value: 1
 
-  # SV-204421
+  #SV-204421
   - name: max_password_lifetime
     desc: "Maximum lifetime of a password before it needs a reset"
     type: Numeric
     value: 60
   
-  # SV-254523
+  #SV-254523
   - name: emergency_accounts
     desc: Emergency user accounts
     type: Array
     value: []
-
-  # SV-254523
-  - name: emergency_account_disable
-    desc: Expiration time for an emergency account (in hours)
-    type: Numeric
-    value: 72
-
-  # SV-204407
-  - name: min_uppercase_characters
-    desc: Minimum number of upper-case characters required in a password
-    type: Numeric
-    value: 1
-
-  # SV-204408
-  - name: min_lowercase_characters
-    desc: Minimum number of lower-case characters required in a password
-    type: Numeric
-    value: 1
-
-  # SV-204409
-  - name: min_numeric_characters
-    desc: Minimum number of numeric characters required in a password
-    type: Numeric
-    value: 1
-
-  # SV-204410
-  - name: min_special_characters
-    desc: Minimum number of special characters required in a password
-    type: Numeric
-    value: 1
