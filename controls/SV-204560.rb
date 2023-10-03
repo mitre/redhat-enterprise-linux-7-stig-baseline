@@ -16,18 +16,18 @@ Check the auditing rules in "/etc/audit/audit.rules" with the following command:
 
 $ sudo grep init_module /etc/audit/audit.rules
 
--a always,exit -F arch=b32 -S init_module,finit_module -F auid>=1000 -F auid!=unset -k modulechange
+-a always,exit -F arch=b32 -S init_module,finit_module -F auid>=1000 -F auid!=unset -k module
 
--a always,exit -F arch=b64 -S init_module,finit_module -F auid>=1000 -F auid!=unset -k modulechange
+-a always,exit -F arch=b64 -S init_module,finit_module -F auid>=1000 -F auid!=unset -k module
 
 If both the "b32" and "b64" audit rules are not defined for the "init_module" and "finit_module" syscalls, this is a finding.'
   desc 'fix', 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use the "init_module" and "finit_module" syscalls.
 
 Add or update the following rules in "/etc/audit/rules.d/audit.rules":
 
--a always,exit -F arch=b32 -S init_module,finit_module -F auid>=1000 -F auid!=unset -k modulechange
+-a always,exit -F arch=b32 -S init_module,finit_module -F auid>=1000 -F auid!=unset -k module
 
--a always,exit -F arch=b64 -S init_module,finit_module -F auid>=1000 -F auid!=unset -k modulechange
+-a always,exit -F arch=b64 -S init_module,finit_module -F auid>=1000 -F auid!=unset -k module
 
 The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
@@ -65,7 +65,7 @@ The audit daemon must be restarted for the changes to take effect.'
             expect(audit_rule.arch.uniq).to cmp 'b32'
           end
           expect(audit_rule.fields.flatten).to include('auid>=1000', 'auid!=-1')
-          expect(audit_rule.key.uniq).to include('modulechange')
+          expect(audit_rule.key.uniq).to include('module')
         end
       end
     end

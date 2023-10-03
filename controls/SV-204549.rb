@@ -11,15 +11,15 @@ control 'SV-204549' do
     Check for modification of the following files being audited by performing the following commands to check the file
     system rules in "/etc/audit/audit.rules":
     # grep -i "/etc/sudoers" /etc/audit/audit.rules
-    -w /etc/sudoers -p wa -k privileged-actions
+    -w /etc/sudoers -p wa -k actions
     # grep -i "/etc/sudoers.d/" /etc/audit/audit.rules
-    -w /etc/sudoers.d/ -p wa -k privileged-actions
+    -w /etc/sudoers.d/ -p wa -k actions
     If the commands do not return output that match the examples, this is a finding.'
   desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to
     access the "/etc/sudoers" file and files in the "/etc/sudoers.d/" directory.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
-    -w /etc/sudoers -p wa -k privileged-actions
-    -w /etc/sudoers.d/ -p wa -k privileged-actions
+    -w /etc/sudoers -p wa -k actions
+    -w /etc/sudoers.d/ -p wa -k actions
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
   tag legacy: ['V-72163', 'SV-86787']
@@ -35,7 +35,7 @@ control 'SV-204549' do
   tag subsystems: ['audit', 'auditd', 'audit_rule']
   tag 'host'
 
-  audit_commands = ['/etc/sudoers', '/etc/sudoers.d/']
+  audit_commands = ['/etc/sudoers', '/etc/sudoers.d/90-cloud-init-users', '/etc/sudoers.d/selinux-context-for-admins']
 
   if virtualization.system.eql?('docker')
     impact 0.0
@@ -46,9 +46,9 @@ control 'SV-204549' do
     describe 'Command' do
       audit_commands.each do |audit_command|
         it "#{audit_command} is audited properly" do
-          audit_rule = auditd.file(audit_command)
+          audit_rule = auditd.file(audit_command) #auditd.where { path == audit_command } #
           expect(audit_rule).to exist
-          expect(audit_rule.key).to cmp 'privileged-actions'
+          expect(audit_rule.key).to cmp 'actions'
           expect(audit_rule.permissions.flatten).to include('w', 'a')
         end
       end

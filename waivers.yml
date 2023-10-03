@@ -1,0 +1,74 @@
+# before testing for compliance, run `sudo yum -y update;sudo yum update -y --security;sudo yum upgrade -y`
+# ensure you don't have unnecessary files inside the root folder like ~/.cache, ~/.vnc or other extra dir's
+# ensure that the audit rules set by ansible rhel7 repo are being observed. (inspec)
+# set the inactivity timeout  system_activity_timeout to 900 (inspec)
+# ensure all the keys that are you trying to validate the <<audit rules>> match with your inspec content - close to 30+ control changes.
+# smart_card_status (inspec.yml) is set to disabled as within VMware, we do not use Smartcards. (inspec)
+# Fixes -
+# SV-250312(Done) - sudo yum install policycoreutils-python; sudo semanage user -m staff_u -R staff_r -R sysadm_r (check - semanage user -l)
+# SV-250314(Done) - create a file `selinux-context-for-admins` in /etc/sudoers.d directory and add a line `wheel ALL=(ALL) TYPE=sysadm_t ROLE=sysadm_r ALL` with comment - `# The OS must elevate the SELinux context when an administrator calls the sudo command`, chmod 440 <file>
+# SV-204549(Done) - insert the audit.rules (-w /etc/sudoers.d/90-cloud-init-users -p wa -k actions, -w /etc/sudoers.d/selinux-context-for-admins -p wa -k actions)
+# augenrules --load;auditctl -l
+# SV-204559(Done) - must include these flags (-F auid>=1000 -F auid!=unset)
+# SV-228564(Done) - need to include an entry into /etc/audit/auditd.conf file (log_file_mode = 0600)
+# SV-204587(Done) - /etc/sysconfig/sshd file must have `ClientAliveInterval 600` (the ansible7 repo has this but need to check it.)
+# SV-204496 - seperate file system for /tmp, this is also a test failure as part of LYNIS
+# SV-255928 - need to implement this.
+
+# # Resize one of the 4.43 GiB logical volumes (adjust the LV path as needed)
+# sudo lvresize -L -1G /dev/mapper/vg0-docker
+
+# # Create the /tmp logical volume using the freed-up space
+# sudo lvcreate -L 1G -n tmp vg0
+
+# # Format the /tmp logical volume as ext4
+# sudo mkfs.ext4 /dev/mapper/vg0-tmp
+
+# # Create a mount point for /tmp
+# sudo mkdir /mnt/tmp
+
+# # Mount the /tmp logical volume to /mnt/tmp
+# sudo mount /dev/mapper/vg0-tmp /mnt/tmp
+
+# # Copy the contents of the existing /tmp to the new /tmp
+# sudo rsync -av /tmp/ /mnt/tmp
+
+# # Backup the original /tmp and unmount it
+# sudo mv /tmp /tmp_old
+# sudo umount /tmp_old
+
+# # Mount the new /tmp logical volume to /tmp
+# sudo mkdir /tmp
+# sudo mount /dev/mapper/vg0-tmp /tmp
+
+# # Update /etc/fstab to make the mount permanent
+# echo "/dev/mapper/vg0-tmp /tmp ext4 defaults 0 0" | sudo tee -a /etc/fstab
+
+# # Mount all file systems
+# sudo mount -a
+
+
+# SV-204513 (Done) - Need to modify `line: space_left = {{ var_auditd_space_left_percentage }}%` in ansible, remove the %, it should be a number.
+# SV-204503 (Done) will get fixed if SV-204513 gets fixed.
+# SV-204460 - Unnecessary accounts needs to be removed (games, ftp, rpc, libstoragemgmt, rngd, rpcuser, nfsnobody, ec2-instance-connect, tcpdump, ec2-user, wazuh, tss, apache)
+# SV-204419 (Done) - sudo chage -m 1 ec2-user; sudo chage -m 1 nfsnobody;
+# SV-204421 (Done) - sudo chage -M 60 ec2-user;sudo chage -M 60 nfsnobody;
+# SV-204488 - this needs to be reviewed.
+# Expected failures - 
+# SV-204429 control is expected to fail as we are opening up the AMI for downstreams to build on top of base AMI (rules containing NOPASSWD is expected to be empty)
+# SV-214800 control is expected to fail as described/explained to the auditors that we have processess established to deal with endpoint security.
+# SV-214801 control is expected to fail as described/explained to the auditors that we have processess established to deal with virus scan programs.
+# SV-204458 control is expected to fail as this is a check meant especially for Red Hat Operating systems (RHEL 7.6/RHEL 7.7/RHEL 7.8/RHEL 7.9) and not related to amazon linux 2.
+# SV-204604 control is expected to fail as the service teams use external firewalls and rules. Can clarify with brian once.
+# SV-204577 control is expected to fail similar to SV-204604, check with brian once.
+# SV-204608 control is expected to fail as name servers need to be configured by the service teams. Leaving it as the AMI can be used in different environments, can't hardcode specific server IPs. Or can be given as inputs in the (inspec.yml file)
+# SV-255928 control is expected to fail as its not covered in the rhel7 ansible tasks provided by red hat
+# SV-204446 control is expected to fail as the file integrity tools (wazuh are configured) and their config is left to service teams, the base AMI just has the installation of the agents.
+# Exceptions/Manual Reviews
+# SV-204500 control has to be reviewed manually as it expects aide to be file integrity tool, but we use wazuh-manager/wazuh-agent.
+# SV-204445 control has to be reviewed manually as it expects aide to be file integrity tool, but we use wazuh-manager/wazuh-agent.
+version: "1.0"
+waivers:
+  - control_id: 'SV-204405'
+    run: false
+    justification: "This is a AL2 STIG hardened AMI Buildout, pam rules are configured from within the DISA RHEL7 Ansible fix repo."

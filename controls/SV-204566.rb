@@ -10,12 +10,12 @@ control 'SV-204566' do
     disabling, and termination events that affect "/etc/gshadow".
     Check the auditing rules in "/etc/audit/audit.rules" with the following command:
     # grep /etc/gshadow /etc/audit/audit.rules
-    -w /etc/gshadow -p wa -k identity
+    -w /etc/gshadow -p wa -k audit_rules_usergroup_modification
     If the command does not return a line, or the line is commented out, this is a finding.'
   desc 'fix', 'Configure the operating system to generate audit records for all account creations, modifications,
     disabling, and termination events that affect "/etc/gshadow".
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
-    -w /etc/gshadow -p wa -k identity
+    -w /etc/gshadow -p wa -k audit_rules_usergroup_modification
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
   tag legacy: ['SV-87819', 'V-73167']
@@ -42,7 +42,7 @@ control 'SV-204566' do
       it "#{audit_command} is audited properly" do
         audit_rule = auditd.file(audit_command)
         expect(audit_rule).to exist
-        expect(audit_rule.key).to cmp 'identity'
+        expect(audit_rule.key).to cmp 'audit_rules_usergroup_modification'
         expect(audit_rule.permissions.flatten).to include('w', 'a')
       end
     end

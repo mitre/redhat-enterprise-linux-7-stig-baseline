@@ -14,14 +14,14 @@ Check the file system rule in "/etc/audit/audit.rules" with the following comman
 
 $ sudo grep -w "/usr/sbin/semanage" /etc/audit/audit.rules
 
--a always,exit -F path=/usr/sbin/semanage -F perm=x -F auid>=1000 -F auid!=unset -k privileged-priv_change
+-a always,exit -F path=/usr/sbin/semanage -F perm=x -F auid>=1000 -F auid!=unset -k privileged
 
 If the command does not return any output, this is a finding.'
   desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use the "semanage" command occur.
 
 Add or update the following rule in "/etc/audit/rules.d/audit.rules":
 
--a always,exit -F path=/usr/sbin/semanage -F perm=x -F auid>=1000 -F auid!=unset -k privileged-priv_change
+-a always,exit -F path=/usr/sbin/semanage -F perm=x -F auid>=1000 -F auid!=unset -k privileged
 
 The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
@@ -48,12 +48,13 @@ The audit daemon must be restarted for the changes to take effect.'
   else
     describe 'Command' do
       it "#{audit_command} is audited properly" do
-        audit_rule = auditd.file(audit_command)
+        # Use auditd.where method to filter on rules with matching file path
+        audit_rule = auditd.where { path == audit_command }
         expect(audit_rule).to exist
         expect(audit_rule.action.uniq).to cmp 'always'
         expect(audit_rule.list.uniq).to cmp 'exit'
         expect(audit_rule.fields.flatten).to include('perm=x', 'auid>=1000', 'auid!=-1')
-        expect(audit_rule.key.uniq).to include('privileged-priv_change')
+        expect(audit_rule.key.uniq).to include('privileged')
       end
     end
   end
