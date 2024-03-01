@@ -42,17 +42,9 @@ control 'SV-204393' do
   tag subsystems: ['gui', 'banner']
 
   if package('gnome-desktop3').installed?
-    if !input('dconf_user').nil? and command('whoami').stdout.strip == 'root'
-      describe command("sudo -u input('dconf_user') dconf read /org/gnome/login-screen/banner-message-enable") do
-        its('stdout.strip') do
-          should cmp input('banner_message_enabled').to_s
-        end
-      end
-    else
-      describe command('dconf read /org/gnome/login-screen/banner-message-enable') do
-        its('stdout.strip') do
-          should cmp input('banner_message_enabled').to_s
-        end
+    describe command('dconf read /org/gnome/login-screen/banner-message-enable') do
+      its('stdout.strip') do
+        should cmp input('banner_message_enabled').to_s
       end
     end
   else

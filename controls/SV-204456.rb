@@ -33,8 +33,8 @@ control 'SV-204456' do
   tag 'host'
 
   if package('gnome-settings-daemon').installed?
-    describe command('gsettings get org.gnome.settings-daemon.media-keys logout') do
-      its('stdout.strip') { should cmp "''" }
+    describe command('grep logout /etc/dconf/db/local.d/*') do
+      its('stdout.strip') { should match /logout\s*=\s*''/ }
     end
   else
     impact 0.0

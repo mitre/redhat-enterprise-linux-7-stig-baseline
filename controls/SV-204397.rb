@@ -55,14 +55,8 @@ control 'SV-204397' do
 
     if package('gnome-desktop3').installed? && (package('pcsc-lite').installed? || package('esc').installed?)
       impact 0.5
-      if !dconf_user.nil? && command('whoami').stdout.strip == 'root'
-        describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
-          its('stdout.strip') { should eq multifactor_enabled.to_s }
-        end
-      else
-        describe command('dconf read /org/gnome/login-screen/enable-smartcard-authentication') do
-          its('stdout.strip') { should eq multifactor_enabled.to_s }
-        end
+      describe command('dconf read /org/gnome/login-screen/enable-smartcard-authentication') do
+        its('stdout.strip') { should eq multifactor_enabled.to_s }
       end
     else
       impact 0.0

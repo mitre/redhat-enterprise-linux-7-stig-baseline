@@ -39,8 +39,14 @@ control 'SV-204480' do
     end
   else
 
-    describe mount('/home') do
-      its('options') { should include 'nosuid' }
+    describe.one do
+      describe mount('/home') do
+        its('options') { should include 'nosuid' }
+      end
+      describe "Separate file system for the user home directories" do
+        subject { etc_fstab.home_mount_options }
+        it { should be_nil }
+      end
     end
   end
 end
