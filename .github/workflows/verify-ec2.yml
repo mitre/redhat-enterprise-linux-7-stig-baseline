@@ -30,7 +30,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.SAF_AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Clone full repository so we can push
         run: git fetch --prune --unshallow
       - name: Setup Ruby
@@ -48,7 +48,7 @@ jobs:
       - name: Run kitchen test
         run: bundle exec kitchen test --destroy=always ${{ matrix.suite }}-rhel-7 || true
       - name: Save Test Result JSON
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: spec/results/
       - name: Display our ${{ matrix.suite }} results summary
