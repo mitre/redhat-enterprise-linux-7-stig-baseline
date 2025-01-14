@@ -13,14 +13,14 @@ jobs:
       - name: add needed packages
         run: sudo apt-get install -y jq
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ github.head_ref }}
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.7'
+          ruby-version: '3.1'
       - run: bundle install
       - name: Regenerate current `profile.json`
         run: |
