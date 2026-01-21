@@ -38,10 +38,11 @@ If the "Compression" keyword is set to "yes", is missing, or the returned line i
       skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
 
-  elsif os.release.to_f >= 7.4
+  elsif os.release.to_f >= 2.0
     impact 0.0
     describe "The release is #{os.release}" do
-      skip 'For RHEL 7.4 and above, this requirement is not applicable.'
+      # skip 'For RHEL 7.4 and above, this requirement is not applicable.'
+      skip 'For Amazon Linux 2, openssh.x86_64:7.4p1-22.amzn2.0.3 is installed. OpenSSH 7.4p1 or later has disabled compression by default and only allows compression after successful authentication. Hence this check is not applicable.'
     end
 
   else

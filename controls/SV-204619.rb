@@ -31,15 +31,21 @@ control 'SV-204619' do
   tag 'container'
 
   if package('postfix').installed?
-    options = { assignment_regex: /^\s*([^=]*?)\s*=\s*(.*?)\s*$/ }
+    # options = { assignment_regex: /^\s*([^=]*?)\s*=\s*(.*?)\s*$/ }
+    options = { assignment_regex: /^\s*([^\s=]+)\s*=\s*(.*)\s*$/ }
 
-    if defined? parse_config_file('/etc/postfix/main.cf', options).params['smtpd_client_restrictions']
-      pf_config = parse_config_file('/etc/postfix/main.cf', options).params['smtpd_client_restrictions'].split(',')
-    end
+    # if defined? parse_config_file('/etc/postfix/main.cf', options).params['smtpd_client_restrictions']
+    #   pf_config = parse_config_file('/etc/postfix/main.cf', options).params['smtpd_client_restrictions'].split(',')
+    # end
 
+    # describe 'Postfix config setting smptd_client_restrictions' do
+    #   it "should be set to 'permit_mynetworks', 'reject', or both" do
+    #     expect(pf_config).to all satisfy { |x| ['permit_mynetworks', 'reject'].include?(x) }
+    #   end
+    # end
     describe 'Postfix config setting smptd_client_restrictions' do
       it "should be set to 'permit_mynetworks', 'reject', or both" do
-        expect(pf_config).to all satisfy { |x| ['permit_mynetworks', 'reject'].include?(x) }
+        expect(parse_config_file('/etc/postfix/main.cf', options).params['smtpd_client_restrictions']).to eq 'permit_mynetworks,reject'
       end
     end
   else

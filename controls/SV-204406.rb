@@ -8,12 +8,12 @@ control 'SV-204406' do
   desc 'check', 'Verify the operating system uses "pwquality" to enforce the password complexity rules.
     Check for the use of "pwquality" with the following command:
     # cat /etc/pam.d/system-auth | grep pam_pwquality
-    password required pam_pwquality.so retry=3
+    password    requisite     pam_pwquality.so try_first_pass local_users_only retry=3 authtok_type=
     If the command does not return an uncommented line containing the value "pam_pwquality.so", this is a finding.
     If the value of "retry" is set to "0" or greater than "3", this is a finding.'
   desc 'fix', 'Configure the operating system to use "pwquality" to enforce password complexity rules.
     Add the following line to "/etc/pam.d/system-auth" (or modify the line to have the required value):
-    password required pam_pwquality.so retry=3
+    password    requisite     pam_pwquality.so try_first_pass local_users_only retry=3 authtok_type=
     Note: The value of "retry" should be between "1" and "3".'
   impact 0.5
   tag legacy: ['SV-87811', 'V-73159']
@@ -30,12 +30,12 @@ control 'SV-204406' do
   tag 'container'
 
   describe pam('/etc/pam.d/system-auth') do
-    its('lines') { should match_pam_rule("password required pam_pwquality.so retry=#{input('retry')}") }
+    its('lines') { should match_pam_rule("password    requisite     pam_pwquality.so try_first_pass local_users_only retry=#{input('retry')} authtok_type=") }
   end
 
   describe 'input value' do
     it 'for retry should be in line with maximum/minimum allowed values by policy' do
-      expect(input('retry')).to be_between(1, input('retry'))
+      expect(input('retry')).to be_between(1, input('max_retry'))
     end
   end
 end

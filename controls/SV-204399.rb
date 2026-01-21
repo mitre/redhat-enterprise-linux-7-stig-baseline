@@ -7,7 +7,7 @@ control 'SV-204399' do
     operating systems need to be able to identify when a user's session has idled and take action to initiate the
     session lock.
     The session lock is implemented at the point where session activity can be determined and/or controlled."
-  desc 'check', "Verify the operating system prevents a user from overriding a screensaver lock after a #{input('system_activity_timeout')/60}-minute period of inactivity for graphical user interfaces.
+  desc 'check', 'Verify the operating system prevents a user from overriding a screensaver lock after a 15-minute period of inactivity for graphical user interfaces.
 
 Note: If the system does not have GNOME installed, this requirement is Not Applicable.
 
@@ -17,21 +17,21 @@ Determine which profile the system database is using with the following command:
 
 Check for the lock delay setting with the following command:
 
-Note: The example below is using the database \"local\" for the system, so the path is \"/etc/dconf/db/local.d\". This path must be modified if a database other than \"local\" is being used.
+Note: The example below is using the database "local" for the system, so the path is "/etc/dconf/db/local.d". This path must be modified if a database other than "local" is being used.
 
      # grep -i lock-delay /etc/dconf/db/local.d/locks/*
      /org/gnome/desktop/screensaver/lock-delay
 
-If the command does not return a result, this is a finding."
-  desc 'fix', "Configure the operating system to prevent a user from overriding a screensaver lock after a #{input('system_activity_timeout')/60}-minute
+If the command does not return a result, this is a finding.'
+  desc 'fix', 'Configure the operating system to prevent a user from overriding a screensaver lock after a 15-minute
     period of inactivity for graphical user interfaces.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
     command:
-    Note: The example below is using the database \"local\" for the system, so if the system is using another database in
-    \"/etc/dconf/profile/user\", the file should be created under the appropriate subdirectory.
+    Note: The example below is using the database "local" for the system, so if the system is using another database in
+    "/etc/dconf/profile/user", the file should be created under the appropriate subdirectory.
     # touch /etc/dconf/db/local.d/locks/session
     Add the setting to lock the screensaver lock delay:
-    /org/gnome/desktop/screensaver/lock-delay"
+    /org/gnome/desktop/screensaver/lock-delay'
   impact 0.5
   tag legacy: ['V-73155', 'SV-87807']
   tag severity: 'medium'

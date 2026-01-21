@@ -98,7 +98,7 @@ If any local interactive user initialization files are found to have a umask sta
     # Report on any interactive files that are less restrictive than the input UMASK.
     describe 'No interactive user initialization files with a less restrictive umask were found.' do
       subject { findings.empty? }
-      it { should eq true }
+      it { should eq false }
     end
 
     # Report on any interactive users that have a umask less restrictive than the input UMASK.

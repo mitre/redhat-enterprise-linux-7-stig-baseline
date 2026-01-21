@@ -1,7 +1,7 @@
 control 'SV-204587' do
-  title "The Red Hat Enterprise Linux operating system must be configured so that all network connections associated
-    with SSH traffic are terminated at the end of the session or after #{input('client_alive_interval')/60} minutes of inactivity, except to fulfill
-    documented and validated mission requirements."
+  title 'The Red Hat Enterprise Linux operating system must be configured so that all network connections associated
+    with SSH traffic are terminated at the end of the session or after 10 minutes of inactivity, except to fulfill
+    documented and validated mission requirements.'
   desc 'Terminating an idle SSH session within a short time period reduces the window of opportunity for
     unauthorized personnel to take control of a management session enabled on the console or console port that has been
     left unattended. In addition, quickly terminating an idle SSH session will also free up resources committed by the
@@ -11,21 +11,21 @@ control 'SV-204587' do
     application level if multiple application sessions are using a single operating system-level network connection.
     This does not mean that the operating system terminates all sessions or network access; it only ends the inactive
     session and releases the resources associated with that session.'
-  desc 'check', "Verify the operating system automatically terminates a user session after inactivity time-outs have
+  desc 'check', 'Verify the operating system automatically terminates a user session after inactivity time-outs have
     expired.
-    Check for the value of the \"ClientAliveInterval\" keyword with the following command:
+    Check for the value of the "ClientAliveInterval" keyword with the following command:
     # grep -iw clientaliveinterval /etc/ssh/sshd_config
-    ClientAliveInterval #{input('client_alive_interval')}
-    If \"ClientAliveInterval\" is not configured, commented out, or has a value of \"0\", this is a finding.
-    If \"ClientAliveInterval\" has a value that is greater than \"#{input('client_alive_interval')}\" and is not documented with the Information System
-    Security Officer (ISSO) as an operational requirement, this is a finding."
-  desc 'fix', "Configure the operating system to automatically terminate a user session after inactivity time-outs
+    ClientAliveInterval 600
+    If "ClientAliveInterval" is not configured, commented out, or has a value of "0", this is a finding.
+    If "ClientAliveInterval" has a value that is greater than "600" and is not documented with the Information System
+    Security Officer (ISSO) as an operational requirement, this is a finding.'
+  desc 'fix', 'Configure the operating system to automatically terminate a user session after inactivity time-outs
     have expired or at shutdown.
-    Add the following line (or modify the line to have the required value) to the \"/etc/ssh/sshd_config\" file (this file
+    Add the following line (or modify the line to have the required value) to the "/etc/ssh/sshd_config" file (this file
     may be named differently or be in a different location if using a version of SSH that is provided by a third-party
     vendor):
-    ClientAliveInterval #{input('client_alive_interval')}
-    The SSH service must be restarted for changes to take effect."
+    ClientAliveInterval 600
+    The SSH service must be restarted for changes to take effect.'
   impact 0.5
   tag legacy: ['V-72237', 'SV-86861']
   tag severity: 'medium'
@@ -51,7 +51,8 @@ control 'SV-204587' do
     # convert it to an integer using to_i it will convert it to 0 and pass the
     # <= client_alive_interval check. However, the control as a whole will still fail.
     describe sshd_config do
-      its('ClientAliveInterval') { should be_between(1, input('client_alive_interval')) }
+      # its('ClientAliveInterval') { should be_between(1, input('client_alive_interval')) }
+      its('ClientAliveInterval') { should cmp <= input('client_alive_interval') }
       its('ClientAliveInterval') { should_not eq nil }
     end
   end

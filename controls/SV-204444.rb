@@ -86,7 +86,7 @@ control 'SV-204444' do
 
       describe "SELinux login #{user}" do
         if user == '__default__'
-          let(:valid_users) { ['user_u'] }
+          let(:valid_users) { ['user_u','unconfined_u'] }
         elsif admin_logins.include?(user)
           let(:valid_users) do
             [

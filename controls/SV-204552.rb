@@ -14,9 +14,9 @@ Check that the following system call is being audited by performing the followin
 
 $ sudo grep -w "mount" /etc/audit/audit.rules
 
--a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=unset -k privileged-mount
--a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=unset -k privileged-mount
--a always,exit -F path=/usr/bin/mount -F perm=x -F auid>=1000 -F auid!=unset -k privileged-mount
+-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=unset -k perm_mod
+-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=unset -k perm_mod
+-a always,exit -F path=/usr/bin/mount -F perm=x -F auid>=1000 -F auid!=unset -k privileged
 
 If both the "b32" and "b64" audit rules are not defined for the "mount" syscall, this is a finding.
 
@@ -25,9 +25,9 @@ If all uses of the "mount" command are not being audited, this is a finding.'
 
 Add or update the following rules in "/etc/audit/rules.d/audit.rules":
 
--a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=unset -k privileged-mount
--a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=unset -k privileged-mount
--a always,exit -F path=/usr/bin/mount -F perm=x -F auid>=1000 -F auid!=unset -k privileged-mount
+-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=unset -k perm_mod
+-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=unset -k perm_mod
+-a always,exit -F path=/usr/bin/mount -F perm=x -F auid>=1000 -F auid!=unset -k privileged
 
 The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
@@ -65,7 +65,7 @@ The audit daemon must be restarted for the changes to take effect.'
           expect(audit_rule.arch.uniq).to cmp 'b32'
         end
         expect(audit_rule.fields.flatten).to include('auid>=1000', 'auid!=-1')
-        expect(audit_rule.key.uniq).to include('privileged-mount')
+        expect(audit_rule.key.uniq).to include('perm_mod')
       end
     end
     describe 'Command' do
@@ -75,7 +75,7 @@ The audit daemon must be restarted for the changes to take effect.'
         expect(audit_rule.action.uniq).to cmp 'always'
         expect(audit_rule.list.uniq).to cmp 'exit'
         expect(audit_rule.fields.flatten).to include('perm=x', 'auid>=1000', 'auid!=-1')
-        expect(audit_rule.key.uniq).to include('privileged-mount')
+        expect(audit_rule.key.uniq).to include('privileged')
       end
     end
   end

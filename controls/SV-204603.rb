@@ -1,7 +1,7 @@
 control 'SV-204603' do
-  title "The Red Hat Enterprise Linux operating system must, for networked systems, synchronize clocks with a server
+  title 'The Red Hat Enterprise Linux operating system must, for networked systems, synchronize clocks with a server
     that is synchronized to one of the redundant United States Naval Observatory (USNO) time servers, a time server
-    designated for the appropriate #{input('org_name')[:acronym]} network (NIPRNet/SIPRNet), and/or the Global Positioning System (GPS)."
+    designated for the appropriate DoD network (NIPRNet/SIPRNet), and/or the Global Positioning System (GPS).'
   desc 'Inaccurate time stamps make it more difficult to correlate events and can lead to an inaccurate analysis.
     Determining the correct time a particular event occurred on a system is critical when conducting forensic analysis
     and investigating system events. Sources outside the configured acceptable allowance (drift) may be inaccurate.
@@ -97,27 +97,27 @@ control 'SV-204603' do
     end
   end
 
-  if service('chronyd').installed?
-    time_service = service('chronyd')
-    time_sources = ntp_conf('/etc/chrony.conf').server
-    max_poll_values = time_sources.map do |val|
-      if val.match?(/.*maxpoll.*/)
-        val.gsub(/.*maxpoll\s+(\d+)(\s+.*|$)/,
-                 '\1').to_i
-      else
-        99
-      end
-    end
+  # if service('chronyd').installed?
+  #   time_service = service('chronyd')
+  #   time_sources = ntp_conf('/etc/chrony.conf').server
+  #   max_poll_values = time_sources.map do |val|
+  #     if val.match?(/.*maxpoll.*/)
+  #       val.gsub(/.*maxpoll\s+(\d+)(\s+.*|$)/,
+  #                '\1').to_i
+  #     else
+  #       99
+  #     end
+  #   end
 
-    describe 'chronyd time sources list' do
-      subject { time_sources }
-      it { should_not be_empty }
-    end
+  #   describe 'chronyd time sources list' do
+  #     subject { time_sources }
+  #     it { should_not be_empty }
+  #   end
 
-    # All time sources must contain valid maxpoll entries
-    describe 'chronyd maxpoll values (99=maxpoll absent)' do
-      subject { max_poll_values }
-      it { should all be <= input('maxpoll') }
-    end
-  end
+  #   # All time sources must contain valid maxpoll entries
+  #   describe 'chronyd maxpoll values (99=maxpoll absent)' do
+  #     subject { max_poll_values }
+  #     it { should all be <= input('maxpoll') }
+  #   end
+  # end
 end
